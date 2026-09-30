@@ -152,6 +152,12 @@ def render_unit_idx(i):
     for j in (i - 1, i + 1):
         if 0 <= j < len(units):
             nbs += [k for k, _ in units[j]["anchors"]]
+    # keep memory bounded: drop cached assets/chains this unit does not use
+    import pipe
+    keep = set(own) | set(nbs)
+    for cache in (_chain_cache, pipe._asset_cache):
+        for k in [k for k in cache if k not in keep]:
+            del cache[k]
     log = {}
     for u in unit_us(un):
         cands = [(k, anchor_weight(u, own_u, n)) for n, k in enumerate(own)] + [(k, -1) for k in nbs]
