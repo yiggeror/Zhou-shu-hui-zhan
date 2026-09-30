@@ -1,2 +1,0 @@
-file 'shinjuku_recreation_1080p60_part1.mp4'
-file 'shinjuku_recreation_1080p60_part2.mp4'

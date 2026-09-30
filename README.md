@@ -8,16 +8,14 @@
 
 ## 成片
 
-| 文件 | 规格 |
-|---|---|
-| `output/720p/shinjuku_recreation_720p60.mp4` | 1280×720，60 fps，H.264，96.000 秒（5760 帧） |
-| `output/1080p/shinjuku_recreation_1080p60_part*.mp4` | 1920×1080，60 fps，H.264，96.000 秒（5760 帧），分段 |
+| 文件 | 规格 | 大小 |
+|---|---|---|
+| `output/1080p/shinjuku_recreation_1080p60.mp4` | 1920×1080，60 fps，H.264，96.000 秒（5760 帧） | 96.6 MB |
+| `output/720p/shinjuku_recreation_720p60.mp4` | 1280×720，60 fps，H.264，96.000 秒（5760 帧） | 46.8 MB |
 
+- 两个版本都是单文件，低于 GitHub 单文件 100 MiB 上限，不需要分段。（`pipeline/split.py` 保留备用：超限时按关键帧无损切段，并逐帧校验拼接无缝。）
 - 无音轨：上传的参考视频本身是静音版。
 - 画幅为原片主体的 16:9 画面（原录屏左右各约 268 px 的黑边未保留），镜头内部自带的上下黑边照原片保留。
-- 1080p 超过 GitHub 单文件 100 MB 上限，在关键帧处流复制切段（未重新编码）。已逐帧校验：各段按顺序拼接后，与完整编码的每一帧 MD5 一致，没有缺帧、重复帧或缝隙；每段也可单独播放。
-- 合并为单个文件（可选）：进入 `output/1080p/` 执行
-  `ffmpeg -f concat -safe 0 -i shinjuku_recreation_1080p60_parts.txt -c copy shinjuku_recreation_1080p60.mp4`
 
 ## 制作方法
 
