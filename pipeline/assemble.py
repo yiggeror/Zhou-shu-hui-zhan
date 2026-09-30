@@ -11,6 +11,7 @@ out, OW, OH, crf = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]
 preset = sys.argv[5] if len(sys.argv) > 5 else "slow"
 FPS, DUR = 60, 96.0
 NF = int(round(FPS * DUR))
+RD = os.environ.get("RENDER_DIR", S + "/render")
 ts = np.load(S + "/ts.npy"); fmap = np.load(S + "/work/fmap.npy")
 seq = []
 for n in range(NF):
@@ -29,7 +30,7 @@ p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
 last_u, last = None, None
 for n, u in enumerate(seq):
     if u != last_u:
-        im = cv2.imread(f"{S}/render/u{u:05d}.jpg")
+        im = cv2.imread(f"{RD}/u{u:05d}.jpg")
         if (im.shape[1], im.shape[0]) != (OW, OH):
             im = cv2.resize(im, (OW, OH), interpolation=cv2.INTER_AREA)
         last, last_u = im, u

@@ -10,7 +10,7 @@ import numpy as np, cv2
 from pipe import *
 
 units = json.load(open(S + "/work/units.json"))
-OUT = S + "/render"
+OUT = os.environ.get("RENDER_OUT", S + "/render")
 os.makedirs(OUT, exist_ok=True)
 PARAM = json.load(open(S + "/work/params.json")) if os.path.exists(S + "/work/params.json") else {}
 
@@ -62,22 +62,29 @@ def velocity(k, u, fld):
         v = np.zeros_like(fld)
     return cv2.GaussianBlur(v, (0, 0), 6)
 
-def streak(o, v, p):
+def streak(o, v, p, gain=None, cap=None, soft=None):
     """directional motion blur of an output-res layer along v (flow-res units)"""
-    V = cv2.resize(v, (OW, OH), interpolation=cv2.INTER_LINEAR) * (OW / W) * p["streak_gain"]
+    gain = p["streak_gain"] if gain is None else gain
+    cap = p["streak_max"] if cap is None else cap
+    soft = p["soft_sigma"] if soft is None else soft
+    V = cv2.resize(v, (OW, OH), interpolation=cv2.INTER_LINEAR) * (OW / W) * gain
     mag = np.sqrt((V ** 2).sum(-1, keepdims=True)) + 1e-6
-    V = V * np.minimum(1.0, p["streak_max"] / mag)
+    V = V * np.minimum(1.0, cap / mag)
     acc = np.zeros_like(o)
     ss = np.linspace(-0.5, 0.5, p["streak_n"])
     for s in ss:
         s = np.float32(s)
         acc += cv2.remap(o, OXX + s * V[..., 0], OYY + s * V[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     acc /= len(ss)
-    return cv2.GaussianBlur(acc, (0, 0), p["soft_sigma"])
+    return cv2.GaussianBlur(acc, (0, 0), soft) if soft > 0 else acc
 
 def render_frame(u, cands, p):
     """cands: list of (key, temporal_weight)"""
     src = frame(u).astype(np.float32)
+    # structure weight: judge fit where the frame has lines/edges, not in flat or dark areas
+    gs = gray(frame(u)).astype(np.float32)
+    sw = cv2.GaussianBlur(np.abs(cv2.Sobel(gs, cv2.CV_32F, 1, 0)) + np.abs(cv2.Sobel(gs, cv2.CV_32F, 0, 1)), (0, 0), 6) * WMW
+    flat = sw.sum() < 2.0 * WMW.sum()      # nearly textureless frame (flash, black, white field)
     items = []
     for k, tw in cands:
         if not os.path.exists(f"{S}/chains/{k}.npz"):
@@ -96,14 +103,21 @@ def render_frame(u, cands, p):
         pr = warp(frame(ch["ua"]), fld)
         g = np.abs(gray(frame(u)).astype(np.float32) - gray(pr).astype(np.float32)) * WMW
         conf = fill_box(np.exp(-cv2.blur(g, (9, 9)) / 25.0).astype(np.float32))
-        q = float((conf * WMW).sum() / WMW.sum())
+        q = float((conf * WMW).sum() / WMW.sum()) if flat else float((conf * sw).sum() / sw.sum())
         items.append((k, tw, fld, conf, q, ch["ua"]))
     # frame-level weights
     # temporal prior + measured fit: an anchor that explains the frame much
     # better (other A/B state, or the neighbouring shot near a cut) can take over
+    # at most one neighbouring-shot anchor may compete (never blend several
+    # unrelated neighbour assets); in textureless frames keep the shot's own anchors
+    nb = [j for j, it in enumerate(items) if it[1] < 0]
+    best_nb = max(nb, key=lambda j: items[j][4]) if nb else None
     ws = []
-    for k, tw, fld, conf, q, ua in items:
-        prior = (p["lam_nb"] if tw < 0 else max(tw, 0.0) + p["lam_own"])
+    for j, (k, tw, fld, conf, q, ua) in enumerate(items):
+        if tw < 0:
+            prior = p["lam_nb"] if (j == best_nb and not flat) else 0.0
+        else:
+            prior = max(tw, 0.0) + p["lam_own"]
         ws.append(prior * max(q - 0.15, 0.02) ** 4)
     ws = np.array(ws); ws = ws / (ws.sum() + 1e-9)
     preds = {}
@@ -158,7 +172,10 @@ def render_frame(u, cands, p):
         o = o * A + B
         # fallback built from the same clean asset layer: motion streak along
         # the measured local velocity + slight softening (no source pixels)
-        fbo = streak(o, velocity(k, u, fld), p)
+        vel = velocity(k, u, fld)
+        fbo = streak(o, vel, p)
+        if p["detail_blur"] > 0:   # restore the source's motion blur on fast-moving parts
+            o = streak(o, vel, p, gain=p["detail_blur"], cap=p["detail_max"], soft=0)
         cs = cv2.GaussianBlur(conf, (0, 0), 4)
         c = smoothstep(p["c_lo"], p["c_hi"], cs)
         Cacc += w * c * cv2.resize(al, (W, H))
@@ -172,7 +189,8 @@ def render_frame(u, cands, p):
                                                        mix=None if mix is None else round(mix[2], 2))
 
 DEF = dict(lam_own=0.15, lam_nb=0.08, ll_r=20, ll_eps=60.0, c_lo=0.3, c_hi=0.7, dissolve=True, dis_ratio=0.7,
-           streak_gain=1.0, streak_max=90.0, streak_n=9, soft_sigma=2.0)
+           streak_gain=1.0, streak_max=90.0, streak_n=9, soft_sigma=2.0,
+           detail_blur=0.5, detail_max=40.0)
 
 def render_unit_idx(i):
     un = units[i]
