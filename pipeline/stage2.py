@@ -19,7 +19,7 @@ def load_chain(k):
     if k not in _chain_cache:
         z = np.load(f"{S}/chains/{k}.npz")
         us = z["us"].tolist()
-        _chain_cache[k] = dict(idx={u: i for i, u in enumerate(us)}, fl=z["fl"], cf=z["cf"], sc=z["sc"], ua=int(z["ua"]))
+        _chain_cache[k] = dict(idx={u: i for i, u in enumerate(us)}, us=us, fl=z["fl"], cf=z["cf"], sc=z["sc"], ua=int(z["ua"]))
     return _chain_cache[k]
 
 def smoothstep(a, b, x):
@@ -48,6 +48,33 @@ def fallback(src, sigma):
     t = np.clip(den / 0.5, 0, 1)
     return (num / (den + 1e-4)) * t + (num2 / den2) * (1 - t)
 
+def velocity(k, u, fld):
+    """per-pixel image motion (flow-res px per unique frame) from consecutive chain fields"""
+    ch = load_chain(k); i = ch["idx"][u]; us = ch["us"]
+    def f_at(ii):
+        f = ch["fl"][ii].astype(np.float32)
+        return cv2.resize(f, (W, H), interpolation=cv2.INTER_LINEAR) * (W / f.shape[1]) if f.shape[0] != H else f
+    if i > 0 and us[i - 1] == u - 1:
+        v = f_at(i - 1) - fld
+    elif i + 1 < len(us) and us[i + 1] == u + 1:
+        v = fld - f_at(i + 1)
+    else:
+        v = np.zeros_like(fld)
+    return cv2.GaussianBlur(v, (0, 0), 6)
+
+def streak(o, v, p):
+    """directional motion blur of an output-res layer along v (flow-res units)"""
+    V = cv2.resize(v, (OW, OH), interpolation=cv2.INTER_LINEAR) * (OW / W) * p["streak_gain"]
+    mag = np.sqrt((V ** 2).sum(-1, keepdims=True)) + 1e-6
+    V = V * np.minimum(1.0, p["streak_max"] / mag)
+    acc = np.zeros_like(o)
+    ss = np.linspace(-0.5, 0.5, p["streak_n"])
+    for s in ss:
+        s = np.float32(s)
+        acc += cv2.remap(o, OXX + s * V[..., 0], OYY + s * V[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    acc /= len(ss)
+    return cv2.GaussianBlur(acc, (0, 0), p["soft_sigma"])
+
 def render_frame(u, cands, p):
     """cands: list of (key, temporal_weight)"""
     src = frame(u).astype(np.float32)
@@ -72,12 +99,12 @@ def render_frame(u, cands, p):
         q = float((conf * WMW).sum() / WMW.sum())
         items.append((k, tw, fld, conf, q, ch["ua"]))
     # frame-level weights
-    own_best = max([it[4] for it in items if it[1] > 0] + [0.0])
+    # temporal prior + measured fit: an anchor that explains the frame much
+    # better (other A/B state, or the neighbouring shot near a cut) can take over
     ws = []
     for k, tw, fld, conf, q, ua in items:
-        if tw < 0:   # neighbour-unit anchor: only if clearly better
-            tw = 1.0 if q > own_best + p["nb_margin"] else 0.0
-        ws.append(tw * max(q - 0.15, 0.02) ** 3)
+        prior = (p["lam_nb"] if tw < 0 else max(tw, 0.0) + p["lam_own"])
+        ws.append(prior * max(q - 0.15, 0.02) ** 4)
     ws = np.array(ws); ws = ws / (ws.sum() + 1e-9)
     preds = {}
     def pred_of(j):
@@ -111,6 +138,7 @@ def render_frame(u, cands, p):
             cmix = fill_box(np.exp(-cv2.blur(g, (9, 9)) / 25.0))
 
     det = np.zeros((OH, OW, 3), np.float32); dw = np.zeros((OH, OW), np.float32)
+    fba = np.zeros((OH, OW, 3), np.float32)
     Cacc = np.zeros((H, W), np.float32)
     for j, ((k, tw, fld, conf, q, ua), w) in enumerate(zip(items, ws)):
         if w < 1e-3:
@@ -128,20 +156,23 @@ def render_frame(u, cands, p):
         A, B = local_linear(pred, target, r=p["ll_r"], eps=p["ll_eps"])
         A = cv2.resize(A, (OW, OH)); B = cv2.resize(B, (OW, OH))
         o = o * A + B
+        # fallback built from the same clean asset layer: motion streak along
+        # the measured local velocity + slight softening (no source pixels)
+        fbo = streak(o, velocity(k, u, fld), p)
         cs = cv2.GaussianBlur(conf, (0, 0), 4)
         c = smoothstep(p["c_lo"], p["c_hi"], cs)
         Cacc += w * c * cv2.resize(al, (W, H))
-        det += o * (w * al)[..., None]; dw += w * al
-    det = det / (dw[..., None] + 1e-6)
+        wa = w * (al + 1e-3)
+        det += o * wa[..., None]; fba += fbo * wa[..., None]; dw += wa
+    det = det / (dw[..., None] + 1e-9)
+    fba = fba / (dw[..., None] + 1e-9)
     C = cv2.resize(np.clip(Cacc, 0, 1), (OW, OH))
-    fb = cv2.resize(fallback(src, p["fb_sigma"]), (OW, OH), interpolation=cv2.INTER_CUBIC)
-    has = (dw > 1e-3).astype(np.float32)
-    C = C * has
-    out = det * C[..., None] + fb * (1 - C[..., None])
+    out = det * C[..., None] + fba * (1 - C[..., None])
     return np.clip(out, 0, 255).astype(np.uint8), dict(q=[round(it[4], 2) for it in items], w=[round(float(x), 2) for x in ws], C=round(float(C.mean()), 3),
                                                        mix=None if mix is None else round(mix[2], 2))
 
-DEF = dict(nb_margin=0.12, ll_r=20, ll_eps=60.0, c_lo=0.3, c_hi=0.7, fb_sigma=3.0, dissolve=True, dis_ratio=0.7)
+DEF = dict(lam_own=0.15, lam_nb=0.08, ll_r=20, ll_eps=60.0, c_lo=0.3, c_hi=0.7, dissolve=True, dis_ratio=0.7,
+           streak_gain=1.0, streak_max=90.0, streak_n=9, soft_sigma=2.0)
 
 def render_unit_idx(i):
     un = units[i]

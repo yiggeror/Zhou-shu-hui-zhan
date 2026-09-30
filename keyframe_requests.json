@@ -1,0 +1,474 @@
+[
+ {
+  "id": "K001",
+  "shot": "S003",
+  "title": "俯拍双人交叉",
+  "source_frame": 109,
+  "source_pts": 1.776,
+  "output_time": 1.255
+ },
+ {
+  "id": "K002",
+  "shot": "S004",
+  "title": "片名与黑白裂片",
+  "source_frame": 150,
+  "source_pts": 2.445,
+  "output_time": 1.727
+ },
+ {
+  "id": "K003",
+  "shot": "S004",
+  "title": "片名与黑白裂片",
+  "source_frame": 178,
+  "source_pts": 2.9,
+  "output_time": 2.049
+ },
+ {
+  "id": "K004",
+  "shot": "S010",
+  "title": "暗底仰卧侧脸红纹亮起",
+  "source_frame": 934,
+  "source_pts": 15.215,
+  "output_time": 10.749
+ },
+ {
+  "id": "K005",
+  "shot": "S037",
+  "title": "整座屋顶与红蓝天光",
+  "source_frame": 2748,
+  "source_pts": 44.898,
+  "output_time": 31.718
+ },
+ {
+  "id": "K006",
+  "shot": "S038",
+  "title": "五条指前凝紫光",
+  "source_frame": 2834,
+  "source_pts": 46.31,
+  "output_time": 32.715
+ },
+ {
+  "id": "K007",
+  "shot": "S039",
+  "title": "白闪后紫光穿城",
+  "source_frame": 2861,
+  "source_pts": 46.748,
+  "output_time": 33.025
+ },
+ {
+  "id": "K008",
+  "shot": "S040",
+  "title": "紫天城市推向宿傩",
+  "source_frame": 2883,
+  "source_pts": 47.107,
+  "output_time": 33.279
+ },
+ {
+  "id": "K009",
+  "shot": "S041",
+  "title": "宿傩双掌抵紫光",
+  "source_frame": 2921,
+  "source_pts": 47.734,
+  "output_time": 33.721
+ },
+ {
+  "id": "K010",
+  "shot": "S053",
+  "title": "宿傩浮起与旋涡",
+  "source_frame": 3345,
+  "source_pts": 54.696,
+  "output_time": 38.64
+ },
+ {
+  "id": "K011",
+  "shot": "S055",
+  "title": "五条向前挥臂",
+  "source_frame": 3404,
+  "source_pts": 55.666,
+  "output_time": 39.325
+ },
+ {
+  "id": "K012",
+  "shot": "S057",
+  "title": "宿傩空中结势",
+  "source_frame": 3467,
+  "source_pts": 56.694,
+  "output_time": 40.051
+ },
+ {
+  "id": "K013",
+  "shot": "S058",
+  "title": "背影、白斩线、楼体碎裂",
+  "source_frame": 3532,
+  "source_pts": 57.759,
+  "output_time": 40.804
+ },
+ {
+  "id": "K014",
+  "shot": "S058",
+  "title": "背影、白斩线、楼体碎裂",
+  "source_frame": 3543,
+  "source_pts": 57.947,
+  "output_time": 40.936
+ },
+ {
+  "id": "K015",
+  "shot": "S059",
+  "title": "五条楼间滞空",
+  "source_frame": 3613,
+  "source_pts": 59.117,
+  "output_time": 41.763
+ },
+ {
+  "id": "K016",
+  "shot": "S059",
+  "title": "五条楼间滞空",
+  "source_frame": 3641,
+  "source_pts": 59.574,
+  "output_time": 42.086
+ },
+ {
+  "id": "K017",
+  "shot": "S060",
+  "title": "五条双指与青眼",
+  "source_frame": 3647,
+  "source_pts": 59.673,
+  "output_time": 42.156
+ },
+ {
+  "id": "K018",
+  "shot": "S062",
+  "title": "仰视宿傩、背景墨黑",
+  "source_frame": 3779,
+  "source_pts": 61.826,
+  "output_time": 43.677
+ },
+ {
+  "id": "K019",
+  "shot": "S064",
+  "title": "城市上空黑球",
+  "source_frame": 3970,
+  "source_pts": 64.983,
+  "output_time": 45.907
+ },
+ {
+  "id": "K020",
+  "shot": "S064",
+  "title": "城市上空黑球",
+  "source_frame": 4016,
+  "source_pts": 65.748,
+  "output_time": 46.447
+ },
+ {
+  "id": "K021",
+  "shot": "S067",
+  "title": "五条颈部斩线",
+  "source_frame": 4169,
+  "source_pts": 68.261,
+  "output_time": 48.223
+ },
+ {
+  "id": "K022",
+  "shot": "S068",
+  "title": "五条触颈青光",
+  "source_frame": 4352,
+  "source_pts": 71.256,
+  "output_time": 50.338
+ },
+ {
+  "id": "K023",
+  "shot": "S072",
+  "title": "红黑遮挡中的蓝白单眼",
+  "source_frame": 4707,
+  "source_pts": 77.075,
+  "output_time": 54.449
+ },
+ {
+  "id": "K024",
+  "shot": "S078",
+  "title": "白斩线扫脸",
+  "source_frame": 4927,
+  "source_pts": 80.664,
+  "output_time": 56.985
+ },
+ {
+  "id": "K025",
+  "shot": "S079",
+  "title": "腰背斩线与撤离",
+  "source_frame": 4985,
+  "source_pts": 81.632,
+  "output_time": 57.669
+ },
+ {
+  "id": "K026",
+  "shot": "S080",
+  "title": "受伤五条收势",
+  "source_frame": 5021,
+  "source_pts": 82.222,
+  "output_time": 58.085
+ },
+ {
+  "id": "K027",
+  "shot": "S082",
+  "title": "蓝色拼贴与巨眼手印",
+  "source_frame": 5268,
+  "source_pts": 86.288,
+  "output_time": 60.958
+ },
+ {
+  "id": "K028",
+  "shot": "S086",
+  "title": "反打宿傩与头顶法轮",
+  "source_frame": 5694,
+  "source_pts": 93.255,
+  "output_time": 65.88
+ },
+ {
+  "id": "K029",
+  "shot": "S090",
+  "title": "青红拳近身交错",
+  "source_frame": 5868,
+  "source_pts": 96.115,
+  "output_time": 67.9
+ },
+ {
+  "id": "K030",
+  "shot": "S094",
+  "title": "贴身撞击与火星",
+  "source_frame": 6054,
+  "source_pts": 99.164,
+  "output_time": 70.054
+ },
+ {
+  "id": "K031",
+  "shot": "S098",
+  "title": "双指旁凝红球",
+  "source_frame": 6246,
+  "source_pts": 102.312,
+  "output_time": 72.278
+ },
+ {
+  "id": "K032",
+  "shot": "S099",
+  "title": "五条甩出红球",
+  "source_frame": 6316,
+  "source_pts": 103.461,
+  "output_time": 73.09
+ },
+ {
+  "id": "K033",
+  "shot": "S099",
+  "title": "五条甩出红球",
+  "source_frame": 6339,
+  "source_pts": 103.838,
+  "output_time": 73.356
+ },
+ {
+  "id": "K034",
+  "shot": "S100",
+  "title": "红球绕楼",
+  "source_frame": 6353,
+  "source_pts": 104.068,
+  "output_time": 73.518
+ },
+ {
+  "id": "K035",
+  "shot": "S100",
+  "title": "红球绕楼",
+  "source_frame": 6381,
+  "source_pts": 104.537,
+  "output_time": 73.85
+ },
+ {
+  "id": "K036",
+  "shot": "S101",
+  "title": "红球回到目标背后",
+  "source_frame": 6403,
+  "source_pts": 104.898,
+  "output_time": 74.105
+ },
+ {
+  "id": "K037",
+  "shot": "S102",
+  "title": "背后红爆推宿傩前扑",
+  "source_frame": 6441,
+  "source_pts": 105.52,
+  "output_time": 74.544
+ },
+ {
+  "id": "K038",
+  "shot": "S103",
+  "title": "五条蓄力眼神",
+  "source_frame": 6453,
+  "source_pts": 105.714,
+  "output_time": 74.681
+ },
+ {
+  "id": "K039",
+  "shot": "S104",
+  "title": "重拳与黑红电弧",
+  "source_frame": 6492,
+  "source_pts": 106.346,
+  "output_time": 75.128
+ },
+ {
+  "id": "K040",
+  "shot": "S105",
+  "title": "重击后双方低头",
+  "source_frame": 6527,
+  "source_pts": 106.92,
+  "output_time": 75.533
+ },
+ {
+  "id": "K041",
+  "shot": "S106",
+  "title": "黑白法轮符号",
+  "source_frame": 6591,
+  "source_pts": 107.977,
+  "output_time": 76.28
+ },
+ {
+  "id": "K042",
+  "shot": "S108",
+  "title": "式神挥击、五条翻身",
+  "source_frame": 6790,
+  "source_pts": 111.22,
+  "output_time": 78.571
+ },
+ {
+  "id": "K043",
+  "shot": "S110",
+  "title": "倾斜楼群中五条飞行",
+  "source_frame": 6837,
+  "source_pts": 111.985,
+  "output_time": 79.111
+ },
+ {
+  "id": "K044",
+  "shot": "S112",
+  "title": "五条回头聚蓝球",
+  "source_frame": 7004,
+  "source_pts": 114.706,
+  "output_time": 81.033
+ },
+ {
+  "id": "K045",
+  "shot": "S112",
+  "title": "五条回头聚蓝球",
+  "source_frame": 7040,
+  "source_pts": 115.295,
+  "output_time": 81.45
+ },
+ {
+  "id": "K046",
+  "shot": "S113",
+  "title": "式神正面受蓝色光流",
+  "source_frame": 7055,
+  "source_pts": 115.538,
+  "output_time": 81.621
+ },
+ {
+  "id": "K047",
+  "shot": "S115",
+  "title": "背后看蓝球离手",
+  "source_frame": 7182,
+  "source_pts": 117.626,
+  "output_time": 83.096
+ },
+ {
+  "id": "K048",
+  "shot": "S116",
+  "title": "蓝球与漩流穿城",
+  "source_frame": 7214,
+  "source_pts": 118.156,
+  "output_time": 83.471
+ },
+ {
+  "id": "K049",
+  "shot": "S120",
+  "title": "举指向天发出红光",
+  "source_frame": 7521,
+  "source_pts": 123.191,
+  "output_time": 87.028
+ },
+ {
+  "id": "K050",
+  "shot": "S120",
+  "title": "举指向天发出红光",
+  "source_frame": 7550,
+  "source_pts": 123.662,
+  "output_time": 87.36
+ },
+ {
+  "id": "K051",
+  "shot": "S121",
+  "title": "法轮式神越过城市",
+  "source_frame": 7582,
+  "source_pts": 124.183,
+  "output_time": 87.728
+ },
+ {
+  "id": "K052",
+  "shot": "S121",
+  "title": "法轮式神越过城市",
+  "source_frame": 7637,
+  "source_pts": 125.089,
+  "output_time": 88.368
+ },
+ {
+  "id": "K053",
+  "shot": "S123",
+  "title": "宿傩抬臂挡紫光",
+  "source_frame": 7797,
+  "source_pts": 127.702,
+  "output_time": 90.214
+ },
+ {
+  "id": "K054",
+  "shot": "S123",
+  "title": "宿傩抬臂挡紫光",
+  "source_frame": 7825,
+  "source_pts": 128.157,
+  "output_time": 90.536
+ },
+ {
+  "id": "K055",
+  "shot": "S124",
+  "title": "五条伤脸紫色背光",
+  "source_frame": 7888,
+  "source_pts": 129.188,
+  "output_time": 91.264
+ },
+ {
+  "id": "K056",
+  "shot": "S125",
+  "title": "紫爆扩张、楼群横移",
+  "source_frame": 7969,
+  "source_pts": 130.51,
+  "output_time": 92.198
+ },
+ {
+  "id": "K057",
+  "shot": "S125",
+  "title": "紫爆扩张、楼群横移",
+  "source_frame": 7998,
+  "source_pts": 130.981,
+  "output_time": 92.531
+ },
+ {
+  "id": "K058",
+  "shot": "S125",
+  "title": "紫爆扩张、楼群横移",
+  "source_frame": 8028,
+  "source_pts": 131.471,
+  "output_time": 92.877
+ },
+ {
+  "id": "K059",
+  "shot": "S125",
+  "title": "紫爆扩张、楼群横移",
+  "source_frame": 8050,
+  "source_pts": 131.839,
+  "output_time": 93.137
+ }
+]

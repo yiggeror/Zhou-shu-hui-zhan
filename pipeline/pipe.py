@@ -27,7 +27,7 @@ if os.environ.get("WM_BOX") or not os.path.exists(S + "/work/wm_glyph.npy"):
 else:
     # exact glyph strokes (+ outline) of the overlay text, from temporal statistics
     WM = cv2.dilate(np.load(S + "/work/wm_glyph.npy").astype(np.uint8),
-                    cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))).astype(np.float32)
+                    cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))).astype(np.float32)
     WMW = np.clip(1.0 - cv2.GaussianBlur(WM, (0, 0), 1.0) * 1.5, 0, 1)
 
 YY, XX = np.mgrid[0:H, 0:W].astype(np.float32)
