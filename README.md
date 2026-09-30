@@ -10,7 +10,7 @@
 
 | 文件 | 规格 | 大小 |
 |---|---|---|
-| `output/1080p/shinjuku_recreation_1080p60.mp4` | 1920×1080，60 fps，H.264，96.000 秒（5760 帧） | 96.6 MB |
+| `output/1080p/shinjuku_recreation_1080p60.mp4` | 1920×1080，60 fps，H.264，96.000 秒（5760 帧） | 96.8 MB |
 | `output/720p/shinjuku_recreation_720p60.mp4` | 1280×720，60 fps，H.264，96.000 秒（5760 帧） | 46.8 MB |
 
 - 两个版本都是单文件，低于 GitHub 单文件 100 MiB 上限，不需要分段。（`pipeline/split.py` 保留备用：超限时按关键帧无损切段，并逐帧校验拼接无缝。）
