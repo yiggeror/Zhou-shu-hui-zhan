@@ -67,11 +67,9 @@ embers, sparks = Particles(), Particles()
 trailE = None; last_unit = None; hit_state = {}; cut_n = -99
 _cache = {}
 DISP = {int(k): v for k, v in json.load(open(HERE + "/display.json")).items()}
-def base(u):
-    """the drawing shown for unique frame u: itself, a held neighbour of the same shot when this
-    frame's pose is not covered by any drawing, or a camera-only move of the best drawing"""
-    kind, src = DISP.get(u, ["self", u])
-    fn = f"{HERE}/frames_rigid/u{src:05d}.jpg" if kind == "rigid" else f"{HERE}/frames/u{src:05d}.jpg"
+def base(u, t):
+    """crisp base for 96 s-timeline time t (60 fps grid, sub-frame interpolated; see crisp60.py)"""
+    fn = f"{HERE}/frames60/n{int(round(t * FPS)):05d}.jpg"
     if fn not in _cache:
         if len(_cache) > 8: _cache.pop(next(iter(_cache)))
         _cache[fn] = cv2.imread(fn).astype(np.float32) / 255
@@ -88,7 +86,7 @@ for n, (u, t, ui, hk, hkey) in enumerate(timeline):
         cv2.imwrite(f"{OUT}/f{n:04d}.jpg", to8(out), [cv2.IMWRITE_JPEG_QUALITY, 95])
         cv2.imwrite(f"{CMP}/f{n:04d}.jpg", np.zeros((1080, 1920, 3), np.uint8), [cv2.IMWRITE_JPEG_QUALITY, 90])
         continue
-    img = base(u).copy()
+    img = base(u, t).copy()
     if ui != last_unit:
         if last_unit is not None: cut_n = n
         trailE = None; embers = Particles(); last_unit = ui

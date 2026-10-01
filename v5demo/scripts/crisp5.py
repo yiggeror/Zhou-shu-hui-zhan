@@ -24,14 +24,35 @@ OUT = HERE + "/frames"; os.makedirs(OUT, exist_ok=True)
 COV = np.load(S + "/v3/coverage.npy")            # q, C, sharp, mot, unit, t96, frame per unique drawing
 SHARP = COV[:, 2]
 P = dict(stage2.DEF)
+REG_SIGMA = float(os.environ.get("REG_SIGMA", "0"))   # unreliable areas move rigidly (no waves)
 
-def layer(it, src):
-    conf = cv2.GaussianBlur(it["conf"], (0, 0), 6)
-    # where the original itself is motion-blurred the measured flow is unreliable: keep the drawing rigid there
+def distortion(fld):
+    """how much the local (non-rigid) part of the field stretches / shears the drawing"""
+    r = fld - regularize(fld, 0)
+    d = sum(np.abs(cv2.Sobel(r[..., c], cv2.CV_32F, dx, dy, ksize=3)) / 8.0 for c in (0, 1) for dx, dy in ((1, 0), (0, 1)))
+    return cv2.GaussianBlur(d, (0, 0), 8)
+
+def guarded(fld, conf, src):
+    """field actually used: the measured one where it is reliable and does not tear the drawing,
+    otherwise a rigid move with only a very smooth residual"""
+    conf = cv2.GaussianBlur(conf, (0, 0), 6)
     g = cv2.cvtColor(src.astype(np.uint8), cv2.COLOR_BGR2GRAY).astype(np.float32)
     sharp = cv2.GaussianBlur(np.abs(cv2.Laplacian(cv2.GaussianBlur(g, (0, 0), 0.8), cv2.CV_32F)), (0, 0), 10)
-    c = (smoothstep(0.35, 0.75, conf) * smoothstep(1.5, 4.0, sharp))[..., None]
-    fld = it["fld"] * c + regularize(it["fld"], 30) * (1 - c)
+    c = smoothstep(0.35, 0.75, conf) * smoothstep(1.5, 4.0, sharp) * (1 - smoothstep(0.12, 0.35, distortion(fld)))
+    c = cv2.GaussianBlur(c.astype(np.float32), (0, 0), 6)[..., None]
+    return fld * c + regularize(fld, REG_SIGMA) * (1 - c)
+
+def warp_asset(k, fld):
+    img, alpha, (mx, my) = asset(k)
+    F = up_field(fld)
+    return cv2.remap(img, OXX + F[..., 0] + mx, OYY + F[..., 1] + my, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+
+def light(pred, src):
+    A, B = local_linear(pred, src, r=70, eps=400.0)              # coarse: flashes and exposure only
+    return np.clip(cv2.GaussianBlur(A, (0, 0), 20), 0.6, 1.5), cv2.GaussianBlur(B, (0, 0), 20)
+
+def layer(it, src):
+    fld = guarded(it["fld"], it["conf"], src)
     img, alpha, (mx, my) = asset(it["k"])
     F = up_field(fld)
     o = cv2.remap(img, OXX + F[..., 0] + mx, OYY + F[..., 1] + my, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
@@ -39,6 +60,19 @@ def layer(it, src):
     A = np.clip(cv2.GaussianBlur(A, (0, 0), 20), 0.6, 1.5); B = cv2.GaussianBlur(B, (0, 0), 20)
     o = o * cv2.resize(A, (OW, OH)) + cv2.resize(B, (OW, OH))
     return o, fld
+
+def combine(layers):
+    """mix two drawings only where they agree; where they disagree (fast motion, different
+    poses) mixing would show a double image, so the stronger drawing is used alone"""
+    if len(layers) == 1:
+        return layers[0][0]
+    (o0, w0), (o1, w1) = layers
+    g0 = cv2.resize(cv2.cvtColor(np.clip(o0, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY), (480, 270)).astype(np.float32)
+    g1 = cv2.resize(cv2.cvtColor(np.clip(o1, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY), (480, 270)).astype(np.float32)
+    d = cv2.GaussianBlur(np.abs(g0 - g1), (0, 0), 6)
+    agree = 1 - smoothstep(10.0, 25.0, d)                       # per-pixel: blend only where similar
+    m = cv2.resize(agree * w1 / (w0 + w1), (OW, OH))[..., None]
+    return o0 * (1 - m) + o1 * m
 
 def render(ui, u, rigid=False):
     items = bf._items(u, bf.cands_for(ui, u))
@@ -56,10 +90,7 @@ def render(ui, u, rigid=False):
         p1 = items[1]
         if p1["w"] > 0.35 * p0["w"] and p0["q"] > 0.7 and p1["q"] > 0.7:
             a = p1["w"] / (p0["w"] + p1["w"]); use = [(p0, 1 - a), (p1, a)]
-    out = 0.0
-    for it, a in use:
-        o, fld = layer(it, src)
-        out = out + o * a
+    out = combine([(layer(it, src)[0], a) for it, a in use])
     # the original is itself a whip-blur frame here: smear the crisp drawing along the motion
     if SHARP[u] < 8 and p0["q"] < 0.65:
         vel = velocity(p0["k"], u, p0["fld"])
