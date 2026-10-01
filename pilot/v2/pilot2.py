@@ -5,7 +5,8 @@ Motion = source motion (sub-frame interpolated, speed-ramped); effects are
 emitted from / anchored to what moves in each frame.
 """
 import sys, os
-sys.path.insert(0, "/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/6c60e79b-2db7-5a10-9eaf-a9e7833aa924/scratchpad/work")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../pipeline"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # fx.py
 import numpy as np, cv2
 from fx import *
 from tsched import *

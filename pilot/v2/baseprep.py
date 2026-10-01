@@ -1,7 +1,7 @@
 """Stage A: render and cache the continuous-motion base layer for every output
 frame of the pilot (sub-frame interpolated). usage: baseprep.py WORKER NWORKERS"""
 import sys, os
-sys.path.insert(0, "/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/6c60e79b-2db7-5a10-9eaf-a9e7833aa924/scratchpad/work")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../pipeline"))
 import numpy as np, cv2
 import basefrac as bf
 from tsched import *
