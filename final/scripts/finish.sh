@@ -6,7 +6,7 @@ set -e
 M=$1
 D=/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/6c60e79b-2db7-5a10-9eaf-a9e7833aa924/scratchpad/full2
 R=/home/user/Zhou-shu-hui-zhan
-cd $D/seg4$M
+cd $D/seg5$M
 N=$(python3 -c "import json;print(len(json.load(open('plan.json'))['chunks']))")
 : > list.txt
 for i in $(seq 0 $((N-1))); do f=$(printf "c%03d.mp4" $i); [ -f $f ] || { echo "missing $f"; exit 1; }; echo "file '$f'" >> list.txt; done
