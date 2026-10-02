@@ -6,10 +6,8 @@ set -e
 M=$1
 D=/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/6c60e79b-2db7-5a10-9eaf-a9e7833aa924/scratchpad/full2
 R=/home/user/Zhou-shu-hui-zhan
-cd $D/seg$M
+cd $D/seg2$M
 N=$(python3 -c "import json;print(len(json.load(open('plan.json'))['chunks']))")
-# the last chunk was rendered with an end credit that is not wanted: render it again without
-(cd $D && ONLY_CHUNK=$((N-1)) CVT=2 python3 fxall.py $M 0 1 > rerender_$M.log 2>&1)
 : > list.txt
 for i in $(seq 0 $((N-1))); do f=$(printf "c%03d.mp4" $i); [ -f $f ] || { echo "missing $f"; exit 1; }; echo "file '$f'" >> list.txt; done
 ffmpeg -y -loglevel error -f concat -safe 0 -i list.txt -c copy joined.mp4
@@ -20,7 +18,7 @@ ffmpeg -y -loglevel error -i joined.mp4 $X -crf 18 $D/${NAME}_1080p60.mp4
 ffmpeg -y -loglevel error -i joined.mp4 -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 2300k -pass 1 -passlogfile pp$M -an -f mp4 /dev/null
 ffmpeg -y -loglevel error -i joined.mp4 -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 2300k -pass 2 -passlogfile pp$M -pix_fmt yuv420p -movflags +faststart $D/${NAME}_preview.mp4
 rm -f pp$M* joined.mp4
-mkdir -p $R/final
+mkdir -p $R/final; rm -rf $R/final/$NAME
 python3 $R/pipeline/split.py $D/${NAME}_1080p60.mp4 $R/final/$NAME ${NAME}_1080p60 92 || true
 ls -la $D/${NAME}_*.mp4 $R/final/$NAME 2>/dev/null
 echo "finish $M ok"
