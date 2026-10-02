@@ -22,7 +22,7 @@ MODE, WK, NW = sys.argv[1], int(sys.argv[2]), int(sys.argv[3])
 sys.path.insert(0, S + "/pilot"); sys.path.insert(0, HERE)
 import numpy as np, cv2
 from fx import (W, H, XX, YY, Noise, Particles, camera, shake, chroma, shockwave, bloom, speed_lines,
-                lightning, draw_bolts, finish, to8, impact, grade)
+                lightning, draw_bolts, finish, to8, impact, grade, energy_mask)
 from eyedet import eyes as find_eyes
 
 FPS = 60; DT = 1.0 / FPS; NSRC = 5760
@@ -61,13 +61,15 @@ FIST = {0: "c", 1: "r", 2: "cr", 32: "c", 33: "c", 34: "c", 42: "c", 43: "c", 44
         89: "c", 90: "c", 101: "r", 103: "r", 107: "r", 108: "r", 110: "r", 117: "c"}
 LOOSE = {0, 1, 2, 42, 43, 44, 45, 46, 47, 48, 49, 67, 74, 75, 76, 77, 88, 89, 90, 107, 108, 110, 117}   # big fists
 # eyes: colour, how many glowing eyes are in frame, strength (1 glow, 2-3 cursed energy in the eyes)
-EYES = {5: "c23", 8: "c11", 9: "r11", 18: "r21", 19: "r23",
+EYES = {8: "c11", 18: "r21",
         37: "c22", 40: "r21", 44: "c11", 45: "c22", 46: "r11", 50: "c22", 51: "r42", 54: "c23",
         59: "c23", 60: "r22", 61: "r32", 67: "c22", 69: "r22", 72: "c11", 75: "c11", 77: "r21",
         79: "c22", 80: "c12r22", 83: "c22", 86: "r11", 94: "c12", 96: "c23", 97: "c11", 102: "c13",
-        106: "c22", 111: "c12", 113: "c12", 116: "r22", 119: "c21", 122: "r22",}
+        111: "c12", 113: "c12", 116: "r22", 119: "c21",}
 EYE_FROM = {14: 14.45}
 # hand-placed eyes: shot -> [(colour, strength, radius px, [(t, x, y) keyframes at 1080p])]
+# shots in EYE_LIFT only brighten the eye's own pixels (no light spilling out), fading in as the eyes open
+EYE_LIFT = {14: (14.30, 14.62, 0.45), 17: (17.0, 17.0, 0.2), 66: (48.2, 48.2, 0.3), 106: (76.6, 76.6, 0.3), 122: (89.66, 89.66, 0.3)}   # (fade-in from, to, tight glow); 17 = silhouette
 TRACK = {
     6: [("c", 1.0, 14, [(5.55, 840, 440), (5.72, 835, 435), (5.85, 840, 445), (5.98, 845, 425), (6.11, 845, 420), (6.25, 845, 445),
                         (6.38, 845, 425), (6.51, 850, 415), (6.64, 850, 420)]),
@@ -90,6 +92,11 @@ TRACK = {
     66: [("c", 1.0, 18, [(48.22, 1210, 300), (48.50, 1225, 300), (48.74, 1230, 300), (48.98, 1235, 305), (49.23, 1240, 310),
                          (49.71, 1250, 310), (49.95, 1250, 310)]),
          ("c", 0.7, 10, [(48.22, 1410, 410), (48.50, 1405, 410), (49.95, 1410, 410)])],
+    106: [("c", 1.0, 9, [(76.62, 1110, 400), (76.83, 1112, 400), (76.98, 1116, 400), (77.87, 1120, 400), (78.08, 1116, 406)]),
+          ("c", 1.0, 9, [(76.62, 1244, 446), (76.83, 1244, 450), (77.87, 1240, 450), (78.08, 1244, 454)])],
+    122: [("r", 1.0, 12, [(89.66, 1396, 304), (89.85, 1396, 304), (90.04, 1400, 300), (90.23, 1404, 300), (90.41, 1410, 290), (90.60, 1418, 284)]),
+          ("r", 0.9, 8, [(89.66, 1480, 340), (89.85, 1480, 340), (90.04, 1486, 336), (90.23, 1490, 334), (90.41, 1494, 330), (90.60, 1502, 330)]),
+          ("r", 0.5, 6, [(89.66, 1210, 216), (89.85, 1204, 212), (90.04, 1196, 210), (90.13, 1196, 206)])],
     123: [("c", 1.0, 26, [(90.72, 1115, 415), (90.88, 1120, 410), (91.05, 1120, 390), (91.21, 1120, 380), (91.37, 1115, 360),
                           (91.53, 1110, 350), (91.70, 1110, 335), (91.86, 1060, 325)])],
 }
@@ -98,7 +105,10 @@ BALLS = {"r": [(88.52, 750, 186), (88.79, 812, 192), (89.06, 864, 194), (89.29, 
          "b": [(88.52, 1160, 175), (88.67, 1132, 190), (88.79, 1106, 198), (89.06, 1056, 194), (89.29, 1010, 185), (89.42, 995, 172),
                (89.52, 965, 172)]}
 FUSE_T = 89.52
-WAKE = 11                                               # Sukuna waking
+WAKE = -1                                               # (rim-light treatment of Sukuna waking: dropped)
+FIRSTPASS = {5, 9, 11, 19}                              # Gojo's eyes opening, Sukuna's markings / waking / red eyes: first-pass look
+FP_ROI = {19: [[(18.50, 1050, 500), (18.69, 1057, 472), (19.08, 1042, 442), (19.47, 1017, 440)],     # only around the eyes
+               [(18.50, 1550, 535), (18.69, 1525, 522), (19.08, 1522, 480), (19.47, 1533, 465)]]}  # (not the red sky)
 CLASH, TITLE = 2, 3
 TITLE_BEATS = [1.670, 1.727, 1.808, 1.854]              # each glyph lands; the last completes the title
 
@@ -282,6 +292,22 @@ _n = np.tile(_r.standard_normal((256, 256)).astype(np.float32), (3, 3))     # bl
 NT = cv2.GaussianBlur(_n, (0, 0), 6)[256:512, 256:512].copy()
 NT = (NT - NT.mean()) / (NT.std() + 1e-6)
 
+def eye_lift(img, kind, p, rad, s, glow=0.45):
+    """brighten the glowing eye's own pixels plus a tight glow -> (add to picture, add to light) at 1080p"""
+    R = int(rad * 2.4) + 6
+    x0, y0 = max(0, int(p[0] - R)), max(0, int(p[1] - R)); x1, y1 = min(W, int(p[0] + R)), min(H, int(p[1] + R))
+    a = np.zeros((H, W, 3), np.float32); g = np.zeros((H, W, 3), np.float32)
+    if x1 - x0 < 8 or y1 - y0 < 8 or s <= 0.01:
+        return a, g
+    q = np.clip(img[y0:y1, x0:x1], 0, 1); Bc, Gc, Rc = q[..., 0], q[..., 1], q[..., 2]; V = q.max(-1)
+    tint = (np.minimum(Bc, Gc) - Rc) / (V + 0.05) if kind == "c" else (Rc - np.maximum(Gc, Bc)) / (V + 0.05)
+    m = np.clip((tint - 0.15) / 0.3, 0, 1) * np.clip((V - 0.25) / 0.3, 0, 1)
+    yy, xx = np.mgrid[y0:y1, x0:x1].astype(np.float32)
+    m = m * np.exp(-((xx - p[0]) ** 2 + (yy - p[1]) ** 2) / (2 * (rad * 1.3) ** 2))
+    a[y0:y1, x0:x1] = q * m[..., None] * 0.8 * s
+    g[y0:y1, x0:x1] = cv2.GaussianBlur(m, (0, 0), 2.5)[..., None] * C[kind] * glow * s
+    return a, g
+
 def eye_fire(eyes, t):
     """glow + hot core + a small flame licking upward from each eye, drawn in the eye's own frame"""
     lay = np.zeros((H // 2, W // 2, 3), np.float32)
@@ -376,12 +402,22 @@ def render_chunk(ci, a0=None, a1=None, fn=None):
         E = np.zeros((H, W), np.float32)
         for k_ in FIST.get(ui, ""):
             E = np.maximum(E, en[k_])
+        fp = ui in FIRSTPASS
+        if fp:                                                     # first-pass detector and strengths
+            E = np.maximum(energy_mask(img, "c"), energy_mask(img, "r"))
+            if ui in FP_ROI:
+                roi = np.zeros((H, W), np.float32)
+                for keys in FP_ROI[ui]:
+                    cx_, cy_ = kf(keys, t)
+                    roi = np.maximum(roi, np.exp(-((XX - cx_) ** 2 + (YY - cy_) ** 2) / (2 * 110.0 ** 2)))
+                E = E * roi
         ef = float(E.mean())
         extra = np.zeros((H, W, 3), np.float32)
         zoom, sh, chrom, bl = 1.0, (0.0, 0.0), 0.0, 1.0
         if 0.001 < ef < 0.25:                                     # cursed energy keeps burning
             m = cv2.GaussianBlur(cv2.dilate(E, np.ones((21, 21), np.uint8)), (0, 0), 10)
-            dx = NX.field(tout * 1.4, (0, -1), 110) * 7 * m; dy = (NY.field(tout * 1.4 + 3.1, (0, -1), 110) - 0.8) * 7 * m
+            fa = 6 if fp else 7
+            dx = NX.field(tout * 1.4, (0, -1), 110) * fa * m; dy = (NY.field(tout * 1.4 + 3.1, (0, -1), 110) - 0.8) * fa * m
             img = cv2.remap(img, (XX + dx).astype(np.float32), (YY + dy).astype(np.float32), cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
         orb = inside(t, ORB_T); blob = None
         if orb:                                                   # Red / Blue: spin, aura, arcs, haze
@@ -400,13 +436,13 @@ def render_chunk(ci, a0=None, a1=None, fn=None):
         out = grade(img, sat=1.1)
         out = np.clip((out - 0.5) * 1.05 + 0.5, 0, None)
         ener = img * E[..., None] * float(ef < 0.25)
-        trailE = ener * 0.6 if trailE is None else trailE * 0.8 + ener * 0.42
-        out = out + np.maximum(trailE - ener * 1.5, 0) * 0.7               # afterimage of the moving energy
-        out = out + cv2.GaussianBlur(ener, (0, 0), 24) * 0.35 * max(0.0, 1 - ef * 4)
+        trailE = ener * 0.6 if trailE is None else (trailE * 0.78 + ener * 0.4 if fp else trailE * 0.8 + ener * 0.42)
+        out = out + np.maximum(trailE - ener * 1.5, 0) * (0.55 if fp else 0.7)   # afterimage of the moving energy
+        out = out + cv2.GaussianBlur(ener, (0, 0), 24) * (0.25 if fp else 0.35) * max(0.0, 1 - ef * 4)
         if 0.001 < ef < 0.25 and hk < 0:                                   # embers from the energy
             pw = cv2.resize(E ** 2, (240, 135), interpolation=cv2.INTER_AREA).ravel().astype(np.float64)
             if pw.sum() > 0:
-                k = int(min(80, 5000 * ef)); sel = rng.choice(len(pw), k, p=pw / pw.sum()); py, px = np.divmod(sel, 240)
+                k = int(min(60, 4000 * ef) if fp else min(80, 5000 * ef)); sel = rng.choice(len(pw), k, p=pw / pw.sum()); py, px = np.divmod(sel, 240)
                 p = (np.stack([px, py], 1) * 8 + rng.uniform(0, 8, (k, 2))).astype(np.float32)
                 cols = np.clip(img[np.clip(p[:, 1].astype(int), 0, H - 1), np.clip(p[:, 0].astype(int), 0, W - 1)] * 1.3, 0, 1.6)
                 a = rng.normal(-np.pi / 2, 0.8, k); sp = rng.uniform(80, 320, k)
@@ -455,6 +491,11 @@ def render_chunk(ci, a0=None, a1=None, fn=None):
                 if prev is not None:
                     p = (prev[0][0] * 0.4 + p[0] * 0.6, prev[0][1] * 0.4 + p[1] * 0.6); vis = prev[1] * 0.5 + vis * 0.5
                 eyeS[j] = (p, vis)
+                if ui in EYE_LIFT:                                 # only the eye itself lights up, fading in as it opens
+                    f0, f1, gl_ = EYE_LIFT[ui]
+                    a_, g_ = eye_lift(img0, kc_, p, rad, st_ * vis * float(np.clip((t - f0) / max(f1 - f0, 1e-3), 0, 1)), gl_)
+                    out = out + a_; extra += g_
+                    continue
                 fe.append((p[0], p[1], rad, st_ * vis * (0.5 if blast else 1.0), C[kc_]))
             if fe:
                 extra += eye_fire(fe, tout)
