@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /tmp/claude-0/-home-user-Zhou-shu-hui-zhan/6c60e79b-2db7-5a10-9eaf-a9e7833aa924/scratchpad/v5
 rm -rf frames frames_rigid frames60 log_*.json logr_*.json
-U="42 43 44 45 46 47 48 49 50 72 73 74 75 76 77 78 79 92 93 94 95 96 97 98 99 100 101 102 103 104"
+U="$(seq -s " " 42 58) $(seq -s " " 72 79) $(seq -s " " 92 110)"
 for k in 0 1 2 3; do CVT=1 python3 crisp5.py $k 4 $U > c5_$k.log 2>&1 & done; wait
 grep -l Traceback c5_*.log && { echo "crisp failed"; exit 1; }
 python3 display.py

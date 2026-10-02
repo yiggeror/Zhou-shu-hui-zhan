@@ -18,7 +18,7 @@ from stage2 import unit_us
 
 FPS = 60
 OUT = HERE + "/frames60"; os.makedirs(OUT, exist_ok=True)
-SEGS = [(42, 50), (72, 79), (92, 104)]
+SEGS = [(42, 58), (72, 79), (92, 110)]
 DISP = {int(k): v for k, v in json.load(open(HERE + "/display.json")).items()}
 _items = {}
 def items(ui, u):
@@ -141,7 +141,8 @@ if __name__ == "__main__":
         if os.path.exists(fn):
             continue
         ui = bf.locate(n / FPS)[0]
-        keep = {k for j in (ui - 1, ui, ui + 1) if 0 <= j < len(units) for k, _ in units[j]["anchors"]}
+        _, u0_, u1_, _ = bf.locate(n / FPS)
+        keep = {k for uu in (u0_, u1_) if uu is not None for k, _ in bf.cands_for(ui, uu)}
         for cache in (stage2._chain_cache, pipe._asset_cache):
             for k in [k for k in cache if k not in keep]:
                 del cache[k]

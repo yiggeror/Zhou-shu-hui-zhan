@@ -16,13 +16,14 @@ FPS = 60; DT = 1.0 / FPS
 ts = np.load(S + "/ts.npy"); fmap = np.load(S + "/work/fmap.npy")
 units = json.load(open(S + "/work/units.json"))
 u960 = np.load(S + "/work/u960.npy", mmap_mode="r")
-SEGS = [(42, 50), (72, 79), (92, 104)]                    # unit index ranges (inclusive)
+SEGS = [(42, 58), (72, 79), (92, 110)]                    # unit index ranges (inclusive)
 CYAN = np.float32([1.0, 0.92, 0.35]); RED = np.float32([0.28, 0.22, 1.0]); WHITE = np.float32([1, 1, 1])
 ORANGE = np.float32([0.3, 0.65, 1.0])
 HITS = {  # source time on the 96 s timeline -> colour of the blow
     35.40: "r", 35.95: "c", 36.40: "c", 36.83: "c", 36.93: "c", 37.03: "c", 37.22: "r",
     55.79: "r", 56.07: "r", 56.35: "r", 56.92: "w", 57.61: "r",
     69.96: "o", 71.08: "c", 73.14: "r", 74.29: "r", 75.01: "r",
+    40.80: "w", 41.36: "r", 78.69: "r", 80.85: "r",
 }
 HCOL = dict(r=RED, c=CYAN, w=WHITE, o=ORANGE)
 HS = 3                                                    # hit-stop frames

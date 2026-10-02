@@ -57,11 +57,24 @@ def _items(u, cands):
         it["w"] = float(w)
     return items
 
+K_NEAR = int(os.environ.get("K_NEAR", "4"))
+
 def cands_for(ui, u):
+    """candidate drawings for unique frame u. With many keys per shot (round 3) only the K_NEAR
+    own keys closest in time and the nearest key of each neighbouring shot are tried: the others
+    cannot fit better, and loading all of them costs gigabytes of memory per frame."""
     un = units[ui]
     own = [k for k, _ in un["anchors"]]; own_u = [int(FMAP[f]) for _, f in un["anchors"]]
-    nbs = [k for j in (ui - 1, ui + 1) if 0 <= j < len(units) for k, _ in units[j]["anchors"]]
-    return [(k, anchor_weight(u, own_u, n)) for n, k in enumerate(own)] + [(k, -1) for k in nbs]
+    c = [(k, anchor_weight(u, own_u, n)) for n, k in enumerate(own)]
+    if K_NEAR > 0 and len(c) > K_NEAR:
+        order = sorted(range(len(c)), key=lambda n: abs(own_u[n] - u))[:K_NEAR]
+        c = [c[n] for n in sorted(order)]
+        nbs = []
+        if ui - 1 >= 0 and units[ui - 1]["anchors"]: nbs.append(units[ui - 1]["anchors"][-1][0])
+        if ui + 1 < len(units) and units[ui + 1]["anchors"]: nbs.append(units[ui + 1]["anchors"][0][0])
+    else:
+        nbs = [k for j in (ui - 1, ui + 1) if 0 <= j < len(units) for k, _ in units[j]["anchors"]]
+    return c + [(k, -1) for k in nbs]
 
 def render_at(tau, p=None):
     p = dict(stage2.DEF, **(p or {}))

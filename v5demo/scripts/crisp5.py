@@ -111,7 +111,7 @@ if __name__ == "__main__":
         fn = f"{OUT}/u{u:05d}.jpg"
         if os.path.exists(fn):
             continue
-        keep = {k for j in (ui - 1, ui, ui + 1) if 0 <= j < len(units) for k, _ in units[j]["anchors"]}
+        keep = {k for k, _ in bf.cands_for(ui, u)}
         for cache in (stage2._chain_cache, pipe._asset_cache):
             for k in [k for k in cache if k not in keep]:
                 del cache[k]
