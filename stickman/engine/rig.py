@@ -82,7 +82,7 @@ class Figure:
             foot_l=V(-0.12 * k, 0.0, 0.0), foot_r=V(0.12 * k, 0.0, 0.0),
             foot_lyaw=None, foot_ryaw=None,
             knee_l=V(-0.25, 0, 1), knee_r=V(0.25, 0, 1),
-            fist_l=0.0, fist_r=0.0, hshape_l=None, hshape_r=None, hroll_l=0.0, hroll_r=0.0,
+            fist_l=0.0, fist_r=0.0, hshape_l=None, hshape_r=None, hroll_l=0.0, hroll_r=0.0, hbend_l=0.0, hbend_r=0.0, hup_l=None, hup_r=None, hback_l=None, hback_r=None,
             eye_open=1.0, eye_glow=0.55, eye_fire=0.0, eye_squint=0.0, eye_l=1.0, eye_r=1.0,
             visible=1.0, idle=1.0,
         )
@@ -158,6 +158,10 @@ class Figure:
             hs = g('hshape_' + side)
             out['hs_' + side] = None if hs is None else np.asarray(hs, dtype=np.float64)
             out['hroll_' + side] = float(g('hroll_' + side))
+            out['hbend_' + side] = float(g('hbend_' + side))
+            hu, hb = g('hup_' + side), g('hback_' + side)
+            out['hup_' + side] = None if hu is None else Rc @ np.asarray(hu, dtype=np.float64)
+            out['hback_' + side] = None if hb is None else Rc @ np.asarray(hb, dtype=np.float64)
         for side, sx in (('l', -1), ('r', 1)):
             Hp = P + Rp @ V(sx * S['hip_w'], -0.02 * self.k, 0)
             F = np.asarray(g('foot_' + side), dtype=np.float64)

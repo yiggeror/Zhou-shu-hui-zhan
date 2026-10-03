@@ -94,7 +94,10 @@ def hand_frame(elbow, wrist, roll=0.0, up_hint=None):
     return np.stack([x, y, z], axis=1)
 
 
-def draw_hand(c, cs, W, R, sh, side, color, a=1.0, k=1.0, width_m=0.017):
+def draw_hand(c, cs, W, R, sh, side, color, a=1.0, k=1.0, width_m=0.017, edge=None):
+    """edge: (colour, px) to draw a separation outline under the hand first"""
+    if edge is not None:
+        draw_hand(c, cs, W, R, sh, side, edge[0], a, k, width_m + edge[1] / max(1e-6, cs.scale(float(cs.to_cam(W)[2]))) * 2.0)
     palm, chains = hand_points(W, R, sh, side, k)
     Pp = cs.proj_many(np.array(palm))
     if np.any(Pp[:, 2] < 0.05):

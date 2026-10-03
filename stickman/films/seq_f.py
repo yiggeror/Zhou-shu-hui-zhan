@@ -146,8 +146,9 @@ class S52(Shot):
                 a0 = hash01(52, i) * 6.28 + s * (7 + 3 * hash01(53, i))
                 rr = R * (0.6 + 0.6 * hash01(54, i))
                 pts = [(c[0] + math.cos(a0 + j * 0.12) * rr, c[1] + math.sin(a0 + j * 0.12) * rr * 0.8) for j in range(10)]
-                fr.g.drawPath(poly_path(pts), paint(CY['mid'], 0.7 * fade * u, stroke=4 + 6 * hash01(55, i), add=True))
-            fr.g.drawCircle(c[0], c[1], R * 0.9, paint(CY['glow'], 0.25 * fade * u, add=True, blur=R * 0.3))
+                fr.g.drawPath(poly_path(pts), paint(CY['mid'], 0.95 * fade * u, stroke=6 + 10 * hash01(55, i), add=True))
+                fr.g.drawPath(poly_path(pts), paint(CY['glow'], 0.4 * fade * u, stroke=24, add=True, blur=10))
+            fr.g.drawCircle(c[0], c[1], R * 0.9, paint(CY['glow'], 0.35 * fade * u, add=True, blur=R * 0.3))
 
 
 # ============================================================================ 53: Gojo lifts a building
@@ -162,7 +163,7 @@ class S53(Shot):
             hand_l=V(-0.2, -0.3, 0.1), hpitch=-0.35, eye_glow=1.3)
         g.k(D, hand_r=V(0.04, 0.55, 0.08), hpitch=-0.45, root=V(0, 40.15, 0))
         self.bpos = Ch(V(-6, 32, 18)).key(D, V(-6, 36, 18))
-        self.cam = Cam(Ch(V(2.5, 41.8, -2.8)).key(D, V(2.2, 41.9, -2.5)), Ch(V(-1.5, 38, 6)), fov=55, roll=-10)
+        self.cam = Cam(Ch(V(1.3, 41.3, -1.5)).key(D, V(1.15, 41.4, -1.35)), Ch(V(-1.8, 38.5, 6)), fov=58, roll=-10)
         self.city = city_ring(53, y_top=0, r0=30, r1=110, base=-60)
 
     def draw(self, fr, s):
@@ -317,7 +318,7 @@ class S57(Shot):
             t_on = 5 / 24 + 11 / 24 * (i / 11) ** 1.2
             ang = hash01(57, i) * math.pi
             off = (hash01(58, i) - 0.5) * 900
-            self.slashes.append((t_on, ang, off, 6 + 22 * hash01(59, i)))
+            self.slashes.append((t_on, ang, off, 10 + 34 * hash01(59, i)))
 
     def draw(self, fr, s):
         cs = self.cam.at(s)
@@ -347,8 +348,8 @@ class S57(Shot):
             k = max(0.0, 1 - a / (6 / 24))
             w = wd * (0.25 + 0.75 * k)
             p0, p1 = (cx - ca * L, cy - sa * L), (cx + ca * L, cy + sa * L)
-            fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint(INK, 0.9, stroke=w + 4))
-            fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint((1.0, 1.0, 1.0), 1.0, stroke=w * 0.7))
+            fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint(INK, 0.95, stroke=w * 1.6 + 6))
+            fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint((1.0, 1.0, 1.0), 1.0, stroke=w))
             if a < 2 / 24:
                 fr.g.drawLine(p0[0], p0[1], p1[0], p1[1], paint((0.9, 0.95, 1.0), 0.8, stroke=w * 3, add=True, blur=w))
         if s > 17 / 24:
@@ -376,7 +377,7 @@ class S57b(Shot):
         fx.light_wash(fr, W * 0.5, H * 0.2, 900, (0.9, 0.35, 0.4), 0.45)
         for i, (p, sz) in enumerate(self.blocks):
             v = norm(p - V(0, 0.9, 0)) * (3.0 + 2 * hash01(9, i))
-            pos = V(0, 0.9, 0) + p * 0.3 + v * s
+            pos = V(0, 0.9, 0) + p * 0.9 + v * s
             d3.cube(fr, cs, pos, sz, d3.rot3(s * 3 + i, s * 2 + i * 0.3, i), fill=INK)
         draw_actors(fr, self.cam, s, s, [self.k])
         if s > 3 / 24:
@@ -455,10 +456,11 @@ class S60(Shot):
         D = self.t1 - self.t0
         k = self.k = Actor(Figure(SUKUNA, 1.0, 'suk60'))
         stand(k, 0, 0, 0, math.pi + 0.6)
-        k.k(0, hand_l=V(0.14, 0.18, 0.28), hand_r=V(-0.02, 0.17, 0.30), hshape_l=shape('flat'), hshape_r=shape('flat'),
-            hroll_l=1.5, hroll_r=-1.5, hpitch=0.45, eye_glow=1.3, eye_fire=0.5, hyaw=-0.3)
-        k.k(0.4, 'io', hand_l=V(0.12, 0.22, 0.30), hand_r=V(0.0, 0.21, 0.31), hpitch=0.38)
-        k.k(D, hand_l=V(0.12, 0.23, 0.30), hpitch=0.35, hyaw=-0.25, eye_glow=1.5)
+        k.k(0, hand_l=V(0.045, 0.08, 0.30), hand_r=V(-0.045, 0.08, 0.30), hshape_l=shape('flat'), hshape_r=shape('flat'),
+            hup_l=V(0, 1, 0.15), hup_r=V(0, 1, 0.15), hback_l=V(-1, 0, 0), hback_r=V(1, 0, 0),
+            hpitch=0.45, eye_glow=1.3, eye_fire=0.5, hyaw=-0.3)
+        k.k(0.4, 'io', hand_l=V(0.045, 0.12, 0.31), hand_r=V(-0.045, 0.12, 0.31), hpitch=0.38)
+        k.k(D, hand_l=V(0.045, 0.13, 0.31), hand_r=V(-0.045, 0.13, 0.31), hpitch=0.35, hyaw=-0.25, eye_glow=1.5)
         H = k.fig.pose(0)['H']
         self.cam = Cam(Ch(H + V(0.55, -0.15, -0.6)).key(D, H + V(0.5, -0.15, -0.52)), Ch(H + V(0.15, -0.2, 0)), fov=44)
 
@@ -480,9 +482,9 @@ class S61(Shot):
         D = self.t1 - self.t0
         k = self.k = Actor(Figure(SUKUNA, 1.0, 'suk61'))
         stand(k, 0, 0, 0, math.pi + 0.3)
-        k.k(0, hand_l=V(0.13, 0.20, 0.30), hand_r=V(-0.03, 0.20, 0.31), hshape_l=shape('flat'), hshape_r=shape('flat'),
-            hroll_l=1.5, hroll_r=-1.5, hpitch=-0.15, eye_glow=1.5, eye_fire=0.8)
-        k.k(D, hpitch=-0.2, hand_l=V(0.13, 0.24, 0.31), hand_r=V(-0.03, 0.24, 0.32))
+        k.k(0, hand_l=V(0.045, 0.06, 0.30), hand_r=V(-0.045, 0.06, 0.30), hshape_l=shape('flat'), hshape_r=shape('flat'),
+            hup_l=V(0, 1, 0.15), hup_r=V(0, 1, 0.15), hback_l=V(-1, 0, 0), hback_r=V(1, 0, 0), hpitch=-0.15, eye_glow=1.5, eye_fire=0.8)
+        k.k(D, hpitch=-0.2, hand_l=V(0.045, 0.10, 0.31), hand_r=V(-0.045, 0.10, 0.31))
         H = k.fig.pose(0)['H']
         self.H = H
         self.cam = Cam(Ch(H + V(0.0, 0.0, -0.4)).key(2 / 24, H + V(0.15, -0.55, -0.9), 'out').key(D, H + V(0.14, -0.6, -0.85)),
@@ -495,14 +497,22 @@ class S61(Shot):
         fx.light_wash(fr, W * 0.8, H * 0.2, 900, (0.9, 0.35, 0.35), 0.3)
         # ink spreading in from the left behind him
         u = smoothstep(10 / 24, 18 / 24, s)
+        ink = None
         if u > 0:
             R = 200 + 2200 * u
+            ink = skia.Path()
             for i in range(9):
                 cx = -200 + 300 * hash01(61, i)
                 cy = H * hash01(62, i)
-                fr.b.drawCircle(cx, cy, R * (0.6 + 0.4 * hash01(63, i)), paint(INK, 1.0))
+                ink.addCircle(cx, cy, R * (0.6 + 0.4 * hash01(63, i)))
+            fr.b.drawPath(ink, paint(INK, 1.0))
         J = self.k.fig.pose(s)
         draw_actors(fr, self.cam, s, s, [self.k])
+        if ink is not None:
+            fr.b.save()
+            fr.b.clipPath(ink, skia.ClipOp.kIntersect, True)
+            draw_actors(fr, self.cam, s, s, [self.k], silhouette=PAPER, eyes=False, smear=0)
+            fr.b.restore()
         face_marks(fr, cs, J, self.k.fig, 0.9)
         mouth(fr, cs, J, self.k.fig, 1.0, smile=0.9, width=0.5)
         if s < 2 / 24:

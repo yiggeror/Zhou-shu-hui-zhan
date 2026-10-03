@@ -154,6 +154,10 @@ class FigDraw:
                 items.append(dict(name='fist' + s, depth=float(wc[2]) - 0.01, c=wc, r=rr, side=s))
         if fig.style.hair == 'long' and hc[2] > 0.05:
             items.append(dict(name='hairback', depth=float(hc[2]) + fig.L['head'] * 1.2))
+        self._headc = None
+        for it in items:
+            if it['name'] == 'head':
+                self._headc = (it['c'][0], it['c'][1], it['r'] * 1.15, it['depth'])
         items.sort(key=lambda d: -d['depth'])
         c = fr.b
         if a < 0.999:
@@ -209,8 +213,32 @@ class FigDraw:
             f = clamp(J['fist_' + s], 0, 1)
             sh = np.array(SHAPES['relax']) * (1 - f) + np.array(SHAPES['fist']) * f
         side = 1 if s == 'r' else -1
-        R = hand_frame(J['E' + s], J['W' + s], J['hroll_' + s], J['Rc'] @ V(side, 0, 0))
-        draw_hand(c, cs, J['W' + s], R, sh, side, line, a, hk, width_m=0.0125)
+        if J['hup_' + s] is not None:
+            y = norm(J['hup_' + s])
+            zb = J['hback_' + s] if J['hback_' + s] is not None else J['Rc'] @ V(side, 0, 0)
+            z = norm(zb - y * float(np.dot(zb, y)))
+            R = np.stack([np.cross(y, z), y, z], axis=1)
+        else:
+            R = hand_frame(J['E' + s], J['W' + s], J['hroll_' + s], J['Rc'] @ V(side, 0, 0))
+        edge = None
+        hcirc = getattr(self, '_headc', None)
+        if hcirc is not None and it['depth'] < hcirc[3]:
+            dpx = math.hypot(it['c'][0] - hcirc[0], it['c'][1] - hcirc[1])
+            if dpx < hcirc[2] + size_px:
+                edge = (THEME['bg'], max(2.0, size_px * 0.035))
+        b = J['hbend_' + s]
+        if abs(b) > 1e-4:
+            # wrist bend: fingers tilt toward the back of the hand (+) or the palm (-)
+            cb, sb = math.cos(b), math.sin(b)
+            y, z = R[:, 1].copy(), R[:, 2].copy()
+            R = np.stack([R[:, 0], y * cb + z * sb, z * cb - y * sb], axis=1)
+        draw_hand(c, cs, J['W' + s], R, sh, side, line, a, hk, width_m=0.0125, edge=edge)
+        if edge is not None:
+            # re-cover the wrist so the outline never cuts a gap between hand and forearm
+            E, Wp = J['E' + s], J['W' + s]
+            q0, q1 = cs.proj(E + (Wp - E) * 0.55), cs.proj(Wp)
+            wpx = max(1.2, fig.style.width * cs.scale(float(q1[2])))
+            c.drawLine(q0[0], q0[1], q1[0], q1[1], paint(line, a, stroke=wpx))
 
     def _head(self, fr, cs, J, it, line, a, outline, smear):
         fig = self.fig

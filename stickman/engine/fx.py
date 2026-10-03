@@ -14,6 +14,7 @@ PAL = {
     'cyan':   dict(outer=(0.00, 0.50, 0.85), mid=(0.15, 0.85, 1.00), core=(0.80, 1.00, 1.00), glow=(0.10, 0.70, 1.00)),
     'red':    dict(outer=(0.72, 0.00, 0.08), mid=(1.00, 0.18, 0.26), core=(1.00, 0.80, 0.76), glow=(1.00, 0.08, 0.15)),
     'purple': dict(outer=(0.40, 0.08, 0.80), mid=(0.72, 0.38, 1.00), core=(0.95, 0.86, 1.00), glow=(0.60, 0.20, 1.00)),
+    'blue':   dict(outer=(0.04, 0.12, 0.55), mid=(0.18, 0.40, 1.00), core=(0.75, 0.90, 1.00), glow=(0.15, 0.35, 1.00)),
     'magenta': dict(outer=(0.48, 0.04, 0.72), mid=(0.86, 0.30, 1.00), core=(0.98, 0.88, 1.00), glow=(0.80, 0.25, 1.00)),
     'white':  dict(outer=(0.70, 0.75, 0.85), mid=(0.90, 0.93, 1.00), core=(1.00, 1.00, 1.00), glow=(0.80, 0.85, 1.00)),
 }
@@ -490,8 +491,8 @@ def orb(fr, cs, P, r, pal, t, spin=1.0, k=1.0, seed=0, arcs=4, trail=None):
             fr.g.drawLine(pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1],
                           paint(C['glow'], 0.35 * k * u, stroke=w, add=True, blur=w * 0.4))
     # halo
-    fr.g.drawCircle(q[0], q[1], rp * 2.4, paint(C['glow'], 0.45 * k, add=True, blur=rp * 1.1))
-    fr.g.drawCircle(q[0], q[1], rp * 1.35, paint(C['mid'], 0.55 * k, add=True, blur=rp * 0.35))
+    fr.g.drawCircle(q[0], q[1], rp * 1.7, paint(C['glow'], 0.28 * k, add=True, blur=rp * 0.6))
+    fr.g.drawCircle(q[0], q[1], rp * 1.15, paint(C['mid'], 0.5 * k, add=True, blur=rp * 0.15))
     # body: radial gradient core -> mid -> outer
     pb = skia.Paint(AntiAlias=True)
     pb.setShader(skia.GradientShader.MakeRadial(skia.Point(q[0] - rp * 0.15, q[1] - rp * 0.15), rp * 1.05,
