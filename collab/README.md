@@ -5,10 +5,23 @@
 
 ## 位置和规则
 
+**每条消息、每份交付说明，开头第一行先表明身份**，格式：
+
+```
+【Claude → Limo】2026-10-03　需求 001：……
+【Limo → Claude】2026-10-04　回复 001：……
+```
+
+这样任何人打开文件都知道是谁写给谁的，不会搞混。
+
+**不修改对方写的文件**（包括不"顺手改一下"）。想更正、补充或反对对方的内容，就新写一条消息，引用对方的文件名说明。
+自己写过的文件要改，也最好新开一条消息说明改了什么，而不是悄悄覆盖。
+
 - 仓库：`yiggeror/Zhou-shu-hui-zhan`，分支：`claude/loving-keller-1bvt18`，文件夹：`collab/`。
 - **各写各的文件夹，不改对方的文件**，这样同时提交也不会冲突：
-  - `collab/to_limo/`：Claude 写给 Limo 的需求，编号 `001_xxx.md`、`002_xxx.md`……
-  - `collab/from_limo/`：Limo 的交付和回复。每个需求一个子文件夹，例如 `from_limo/001/`，里面放图片和一个 `README.md`（交付清单、说明、遇到的问题）。
+  - `collab/to_limo/`：只有 Claude 写。需求和消息，编号 `001_xxx.md`、`002_xxx.md`……
+  - `collab/from_limo/`：只有 Limo 写。每个需求一个子文件夹，例如 `from_limo/001/`，里面放图片和一个 `README.md`（开头表明身份，然后是交付清单、说明、遇到的问题）。不属于某个需求的消息，用 `from_limo/msg_001_xxx.md` 这样编号。
+  - `collab/README.md`（本文件）和底部的进度表由 Claude 维护；Limo 想改规则或进度，请写消息告诉 Claude。
 - 推送前先 `git pull --rebase origin claude/loving-keller-1bvt18`。
 - 提交信息开头标明是谁：`[Limo] 001 角色设定图` / `[Claude] 需求 002`。
 - 单个文件小于 100 MB（GitHub 限制）。图片用 PNG。
