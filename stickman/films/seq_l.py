@@ -432,7 +432,9 @@ class PurpleCity:
         blds.append((-2.35, 9.0, 1.3, 10.0, 70.0, 'fg'))
         blds.append((-12.0, -7.34, 1.6, 9.0, 70.0, 'fg'))
         blds.append((-33.0, -27.5, 4.0, 10.0, 46.0, 'fg'))
-        rows = [14, 26, 40, 56, 75, 98, 125, 160, 200, 250, 310, 380, 450]
+        # rows close together and staggered in depth, so the eaten edge comes down steadily rather
+        # than a whole row at a time
+        rows = [14, 20, 27, 34, 42, 50, 60, 72, 86, 102, 125, 160, 200, 250, 310, 380, 450]
         for ri, z in enumerate(rows):
             sp = 10 + 0.12 * z
             xa, xb = -96 - 0.95 * z - 20, 0.95 * z + 20
@@ -449,7 +451,8 @@ class PurpleCity:
                     top = 18 + 13 * hv if hash01(1304, ri, j) > 0.05 else 34 + 6 * hv
                 else:
                     top = 24 + 24 * hv if hash01(1304, ri, j) > 0.08 else 55 + 15 * hv
-                zz = z + 3 * (hash01(1305, ri, j) - 0.5)
+                gap = 6 if z < 40 else (10 if z < 110 else 30)
+                zz = z + 0.8 * gap * (hash01(1305, ri, j) - 0.5)
                 blds.append((x, x + wdt, zz, zz + dep, top, 'city'))
                 x += sp
         self.blds = blds
@@ -497,7 +500,10 @@ class PurpleCity:
         for (x0, x1, z0, z1, top, kind) in self.blds:
             cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
             rho = math.hypot(cx - C[0], cz - C[2])
-            ycut = C[1] - math.sqrt(R * R - rho * rho) if R > rho else 1e9
+            # from the moment the sphere touches its roof, a block is eaten down at about the pace
+            # the edge of the light advances (the sphere's steep underside would drop it in a frame)
+            r_touch = math.hypot(rho, C[1] - top)
+            ycut = top - (R - r_touch) * 1.3 if R > r_touch else 1e9
             if ycut <= 0.4:
                 continue
             d = math.hypot(cx - cs.pos[0], cz - cs.pos[2])
@@ -514,12 +520,12 @@ class PurpleCity:
                 grid = None
             ink_box(fr, cs, x0, x1, z0, z1, 0.0, y1, colr, grid)
             if ycut < top:
-                self.fringe(fr, cs, t, x0, x1, z0, z1, y1, colr, d)
+                self.fringe(fr, cs, t, x0, x1, z0, z1, y1, colr, d, top - ycut)
         k = smoothstep(3226 / 24, 3250 / 24, t)
         if k > 0:
             fr.post.append(god_rays(q[0], q[1], 0.32 * k, tint=(0.85, 0.6, 1.0), thr=1.05))
 
-    def fringe(self, fr, cs, t, x0, x1, z0, z1, y, colr, d):
+    def fringe(self, fr, cs, t, x0, x1, z0, z1, y, colr, d, depth=10.0):
         """the edge where the light is eating a block: material lifting off and drifting into
         the light (dark specks that pale as they rise), a glowing seam along the cut"""
         seed = int(abs(x0 * 7 + z0 * 13)) % 9973
@@ -539,7 +545,10 @@ class PurpleCity:
         to_c = self.C[None, :] - base
         to_c /= np.linalg.norm(to_c, axis=1, keepdims=True)
         dirn = np.array([0.0, 1.0, 0.0])[None, :] * 0.55 + to_c * 0.45
-        P = base + dirn * (0.2 + 10.0 * v ** 1.4)[:, None]
+        # the dust column grows with how far the cut has eaten in (no full cloud on the first frame)
+        reach = min(10.0, 0.6 + 2.2 * depth)
+        P = base + dirn * (0.2 + reach * v ** 1.4)[:, None]
+        fade = clamp(depth / 1.2, 0.15, 1.0)
         Q = cs.proj_many(P)
         sc = cs.scale(max(d, 1.0))
         dark = mixc3(colr, (0.05, 0.02, 0.08), 0.5)
@@ -549,7 +558,7 @@ class PurpleCity:
                 continue
             r = max(1.0, (0.16 + 0.32 * h4[k]) * sc * (1 - 0.5 * v[k]))
             c = mixc3(dark, pale, float(v[k]) ** 1.6)
-            fr.b.drawRect(skia.Rect(Q[k, 0] - r, Q[k, 1] - r, Q[k, 0] + r, Q[k, 1] + r), paint(c, float(1 - v[k] ** 3)))
+            fr.b.drawRect(skia.Rect(Q[k, 0] - r, Q[k, 1] - r, Q[k, 0] + r, Q[k, 1] + r), paint(c, float(1 - v[k] ** 3) * fade))
         corners = [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
         pts = [cs.proj(V(cx, y, cz)) for cx, cz in corners + corners[:1]]
         if all(np.isfinite(p[0]) for p in pts):

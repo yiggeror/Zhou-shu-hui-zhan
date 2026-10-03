@@ -312,7 +312,9 @@ class S57(Shot):
         k.k(0, yaw=0.2, root=V(0, 0.55, 0), lean=0.35, foot_l=V(-0.3, 0, 0.3), foot_r=V(0.3, 0, -0.2),
             hand_l=V(0.1, 0.05, 0.25), hand_r=V(-0.1, 0.05, 0.25), eye_glow=1.2)
         k.k(D, root=V(0, 0.52, 0), lean=0.4)
-        self.cam = Cam(Ch(V(0.3, 3.0, -2.0)).key(D, V(0.25, 2.8, -1.8)), Ch(V(0, 0.7, 0.3)), fov=48, roll=Ch(-20).key(D, -24))
+        # the camera is torn sideways on the last frames as the cut building comes apart (into 57b)
+        self.cam = Cam(Ch(V(0.3, 3.0, -2.0)).key(D, V(0.25, 2.8, -1.8)),
+                       Ch(V(0, 0.7, 0.3)).key(D - 3 / 24, V(0.02, 0.69, 0.3)).key(D, V(-2.2, 0.5, 0.6), 'in'), fov=48, roll=Ch(-20).key(D, -24))
         self.slashes = []
         for i in range(12):
             t_on = 5 / 24 + 11 / 24 * (i / 11) ** 1.2
@@ -355,6 +357,7 @@ class S57(Shot):
         if s > 17 / 24:
             u = min(1.0, (s - 17 / 24) / (6 / 24))
             fr.post.append(lambda img, u=u: img * (1 - 0.85 * u) + np.array(INK, np.float32) * 0.85 * u)
+        cam_blur(fr, self.cam, s, k=0.6, thresh=25.0)
 
 
 class S57b(Shot):

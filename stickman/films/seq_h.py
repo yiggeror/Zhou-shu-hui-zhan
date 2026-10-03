@@ -230,7 +230,9 @@ class S78(Shot):
         g.k(0, yaw=0.3, root=V(0, 0.75, 0), lean=0.6, foot_l=V(-0.2, 0, 0.3), foot_r=V(0.25, 0, -0.35), hand_l=V(-0.1, -0.3, 0.2),
             hand_r=V(0.1, -0.3, 0.2), hpitch=-0.2, eye_glow=1.2)
         g.k(D, root=V(0.3, 0.72, 0.6), lean=0.7, foot_l=V(0.15, 0, 0.9), foot_r=V(0.4, 0.15, 0.1))
-        self.cam = Cam(Ch(V(-0.6, 1.6, -1.3)).key(D, V(-0.4, 1.55, -1.0)), Ch(V(0.1, 0.9, 0.3)), fov=52, roll=8)
+        # he breaks away; the camera whips off him on the last two frames (into the next shot)
+        self.cam = Cam(Ch(V(-0.6, 1.6, -1.3)).key(D, V(-0.4, 1.55, -1.0)),
+                       Ch(V(0.1, 0.9, 0.3)).key(D - 2 / 24, V(0.15, 0.9, 0.35)).key(D, V(2.4, 0.9, 0.6), 'in'), fov=52, roll=8)
         self.cuts = [(0.02 + 0.06 * i, hash01(780, i) * math.pi, (hash01(781, i) - 0.5) * 700) for i in range(7)]
 
     def draw(self, fr, s):
@@ -247,9 +249,7 @@ class S78(Shot):
             p0, p1 = (cx - ca * 1300, cy - sa * 1300), (cx + ca * 1300, cy + sa * 1300)
             fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint(INK, 0.9 * (0.3 + 0.7 * k), stroke=6 + 12 * k))
             fr.b.drawLine(p0[0], p0[1], p1[0], p1[1], paint((1, 1, 1), 1.0 * (0.3 + 0.7 * k), stroke=3 + 7 * k))
-        D = self.t1 - self.t0
-        if s > D - 2 / 24:
-            fr.post.append(fx.whip_blur(-220, 0))
+        cam_blur(fr, self.cam, s, k=0.6, thresh=25.0)
 
 
 # ============================================================================ 79: wounded, on guard
@@ -264,14 +264,15 @@ class S79(Shot):
         g.k(0.4, root=V(0, 0.6, 0.85), foot_r=V(0.3, 0, 0.55))
         g.k(D, root=V(0.05, 0.58, 0.7), lean=0.6, hpitch=-0.5, foot_l=V(-0.3, 0, 1.0))
         g.follow(['root', 'hpitch'], 0, D, f=2.0, z=0.7, r=1.0)
-        self.cam = Cam(Ch(V(0.4, 0.9, -1.2)).key(D, V(0.3, 0.85, -0.9)), Ch(V(0, 0.9, 1.0)), fov=56, roll=Ch(-10).key(D, -14))
+        # whips in from the left and settles on him
+        self.cam = Cam(Ch(V(0.4, 0.9, -1.2)).key(D, V(0.3, 0.85, -0.9)),
+                       Ch(V(-1.4, 0.9, 1.0)).key(3 / 24, V(0, 0.9, 1.0), 'outexp'), fov=56, roll=Ch(-10).key(D, -14))
 
     def draw(self, fr, s):
         cs = self.cam.at(s)
         draw_street(fr, cs)
         draw_actors(fr, self.cam, s, s, [self.g])
-        if s < 2 / 24:
-            fr.post.append(fx.whip_blur(-200 * (1 - s / (2 / 24)), 0))
+        cam_blur(fr, self.cam, s, k=0.6, thresh=25.0)
 
 
 # ============================================================================ 80: split screen

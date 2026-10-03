@@ -3,11 +3,7 @@
 全部用代码绘制。纸色底，黑色火柴人，颜色只来自咒力特效和眼睛。
 
 ## 全片
-`output/full/` 里是全片：1080p60，无音轨，原版第 73–3272 帧（3.04–136.33 秒），共 126 个镜头，镜头和时间按 `分镜表.md`。
-文件超过 100 MB，已无损切成几段（`stickman_full_partN.mp4`），按顺序拼起来就是整片：
-```
-ffmpeg -f concat -safe 0 -i stickman_full_parts.txt -c copy stickman_full.mp4
-```
+`output/full/stickman_full_1080p60.mp4` 是全片：1080p60，无音轨，约 70 MB（小于 100 MB，不用切段），原版第 73–3272 帧（3.04–136.33 秒），共 126 个镜头，镜头和时间按 `分镜表.md`。
 视频里没有文字、署名和片尾卡（片名镜头只保留黑白裂片）。
 
 ## 试点
@@ -42,7 +38,7 @@ ffmpeg -f concat -safe 0 -i stickman_full_parts.txt -c copy stickman_full.mp4
 pip install numpy opencv-python-headless pillow scipy skia-python   # skia 还需要系统库 libegl1
 python3 render.py full OUT_DIR --workers 4           # 全片，成片在 OUT_DIR/full.mp4（断点续跑：重跑同一命令即可）
 python3 render.py seq_l OUT_DIR --stills 133.1,134.5  # 某一段在指定时刻（原版秒数）的静帧
-python3 ../pipeline/split.py OUT_DIR/full.mp4 output/full stickman_full 90   # 无损切成 90 MB 以内的几段
+python3 ../pipeline/split.py OUT_DIR/full.mp4 output/full stickman_full 90   # 超过 100 MB 时无损切段
 python3 render.py pilot OUT_DIR --workers 4          # 试点，成片在 OUT_DIR/pilot.mp4
 python3 render.py pilot OUT_DIR --stills 52.25,55.6  # 只出指定时刻（原版时间）的静帧
 STICK_THEME=black python3 render.py pilot OUT_DIR    # 黑底白人版本
