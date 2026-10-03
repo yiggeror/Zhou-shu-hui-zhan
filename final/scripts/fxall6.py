@@ -39,7 +39,13 @@ MINOR = set(h for a, h in zip(sorted(HITS), sorted(HITS)[1:]) if h - a < 0.15)
 EV = [e for e in json.load(open(S + "/full/events.json"))
       if e["kind"] in ("rise", "arcs", "orb", "pulse") and not (e["kind"] == "rise" and e["t0"] in (30.75, 91.87))]   # no screen-wide embers over the red sky or the final blast
 SPIN = [(71.78, 74.05, "r", 1.0), (80.94, 83.38, "c", -1.0), (85.20, 86.35, "r", 1.0)]
-ORB_T = [(71.78, 74.29, "r"), (80.94, 84.17, "c"), (85.20, 86.35, "r")]        # aura / arcs / haze
+ORB_T = [(71.78, 74.29, "r"), (80.94, 84.17, "c"), (85.20, 86.35, "r")]        # (kept for the cue sheet)
+# Red / Blue: spin, aura, crackle and swirl only where the orb itself is clearly in frame, placed by hand
+# (t0, t1, colour, spin direction, [(t, x, y, r) at 1080p]); detection used to grab the glow around the orb
+# as well, and rotating that disc spun Gojo's hand into extra copies
+ORB_HAND = [(72.40, 72.87, "r", 1.0, [(72.40, 1312, 448, 70), (72.58, 1300, 440, 68), (72.74, 1300, 448, 68), (72.87, 1300, 446, 70)]),
+            (83.50, 84.17, "c", -1.0, [(83.50, 520, 480, 232), (83.55, 572, 480, 236), (83.70, 888, 480, 260), (83.85, 1100, 552, 272),
+                                       (84.00, 1172, 568, 274), (84.17, 1236, 582, 266)])]
 MERGE = [(32.29, 32.91, (0.47, 0.66)), (88.52, 89.65, None)]                   # Red + Blue -> purple
 BLAST = [(32.91, 34.43), (89.65, 93.85)]
 WHITEOUT = (93.85, 96.01)
@@ -422,14 +428,15 @@ def render_chunk(ci, a0=None, a1=None, fn=None):
             fa = 6 if fp else 7
             dx = NX.field(tout * 1.4, (0, -1), 110) * fa * m; dy = (NY.field(tout * 1.4 + 3.1, (0, -1), 110) - 0.8) * fa * m
             img = cv2.remap(img, (XX + dx).astype(np.float32), (YY + dy).astype(np.float32), cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        orb = inside(t, ORB_T); blob = None
-        if orb:                                                   # Red / Blue: spin, aura, arcs, haze
-            blob = orb_blob(mr if orb[2] == "r" else mc)
-            if blob is not None:
-                img = haze(img, blob[0], blob[1], blob[2] * 1.3, tout, 3.5)
-                for t0, t1, ck, sg in SPIN:
-                    if t0 <= t < t1:
-                        img = spin(img, blob, sg * 5.0 * (t - t0))
+        orb = inside(t, ORB_HAND); blob = None
+        if orb:                                                   # Red / Blue: the orb itself spins
+            keys = orb[4]; ks = [x[0] for x in keys]
+            ox, oy, orr = (float(np.interp(t, ks, [x[j] for x in keys])) for j in (1, 2, 3))
+            if orr < 120:                                         # small orb: snap to its pixels
+                (ox, oy), vis_ = snap(img0, "rb" if orb[2] == "r" else "bb", (ox, oy), R=int(orr * 0.6))
+            blob = (ox, oy, orr)
+            img = haze(img, ox, oy, orr * 1.3, tout, 3.5)
+            img = spin(img, (ox, oy, orr * 0.9), orb[3] * 5.0 * (t - orb[0]))
         wm = wake_masks(img0) if ui == WAKE else None
         if wm is not None:
             aura = cv2.resize(cv2.GaussianBlur(cv2.dilate(wm[1], np.ones((9, 9), np.uint8)), (0, 0), 4), (W, H))
@@ -452,10 +459,10 @@ def render_chunk(ci, a0=None, a1=None, fn=None):
                 embers.emit(p, np.stack([np.cos(a) * sp, np.sin(a) * sp], 1), cols, rng.uniform(0.3, 0.9, k), rng.uniform(0.8, 1.7, k))
         if blob is not None:                                      # orb aura + crackle
             col = C[orb[2]]; d = np.sqrt((XX - blob[0]) ** 2 + (YY - blob[1]) ** 2)
-            extra += (np.exp(-((d - blob[2]) / (blob[2] * 0.35 + 10)) ** 2) * 0.45 + np.exp(-(d / (blob[2] * 2.2)) ** 2) * 0.25)[..., None] * col
+            extra += (np.exp(-((d - blob[2]) / (blob[2] * 0.35 + 10)) ** 2) * 0.45 * min(1.0, 140.0 / blob[2]) ** 0.5 + np.exp(-(d / (blob[2] * 2.2)) ** 2) * 0.25 * min(1.0, 100.0 / blob[2]))[..., None] * col
             if idx % 3 == 0:
                 for j in range(2):
-                    a = rng.uniform(0, 2 * np.pi); r0 = blob[2] * 0.9; L = blob[2] * rng.uniform(1.2, 2.6)
+                    a = rng.uniform(0, 2 * np.pi); r0 = blob[2] * 0.9; L = min(blob[2] * rng.uniform(1.2, 2.6), 320.0)
                     p0 = (blob[0] + np.cos(a) * r0, blob[1] + np.sin(a) * r0)
                     extra += draw_bolts(lightning(p0, (blob[0] + np.cos(a) * (r0 + L), blob[1] + np.sin(a) * (r0 + L)), idx * 13 + j, depth=5, branches=2),
                                         tuple(float(v) for v in col), 1, 6) * 0.7
