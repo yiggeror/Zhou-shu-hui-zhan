@@ -30,18 +30,35 @@ class Film:
         self.mod = mod
         self.shots = [S() for S in mod.SHOTS]
 
-    def shot_at(self, t):
-        for s in self.shots:
-            if s.t0 - 1e-6 <= t < s.t1 - 1e-6:
-                return s
-        return None
+    def shots_at(self, t):
+        return [s for s in self.shots if s.t0 - 1e-6 <= t < s.t1 - 1e-6]
 
-    def render(self, t):
-        s = self.shot_at(t)
-        if s is None:
-            return np.zeros((1080, 1920, 3), np.uint8)
+    def one(self, s, t):
         fr = s.frame(t)
         return composite(fr, vignette=getattr(s, 'vignette', 0.22))
+
+    def render(self, t):
+        act = self.shots_at(t)
+        if not act:
+            from engine.theme import T as THEME
+            img = np.zeros((1080, 1920, 3), np.uint8)
+            img[:] = (np.array(THEME['bg']) * 255).astype(np.uint8)
+            return img
+        if len(act) == 1:
+            return self.one(act[0], t)
+        # overlapping shots = a dissolve: blend across the overlap
+        act.sort(key=lambda s: s.t0)
+        a, b = act[0], act[-1]
+        u = (t - b.t0) / max(1e-6, a.t1 - b.t0)
+        u = min(1.0, max(0.0, u))
+        ia = self.one(a, t).astype(np.float32)
+        ib = self.one(b, t).astype(np.float32)
+        mode = getattr(b, 'xmode', 'mix')
+        if mode == 'add':      # luminous dissolve (light passes through)
+            out = ia * (1 - u) + ib * u + np.minimum(ia, ib) * 0.0
+        else:
+            out = ia * (1 - u) + ib * u
+        return np.clip(out + 0.5, 0, 255).astype(np.uint8)
 
 
 def render_chunk(args):

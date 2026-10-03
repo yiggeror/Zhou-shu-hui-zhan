@@ -32,8 +32,20 @@ class Actor:
     def at(self, t, name):
         return self.fig.g(name, t)
 
+    def follow(self, names, t0, t1, f=3.2, z=0.55, r=1.6):
+        """second-order follow-through on keyed channels: limbs and head lag a little behind
+        fast moves, overshoot and settle (keys stay where they are on average)"""
+        from .anim import Dyn
+        for n in names:
+            ch = self.c.get(n)
+            if ch is None:
+                continue
+            self.fig.set(**{n: Dyn(ch, t0 - 0.3, t1 + 0.1, f=f, z=z, r=r)})
+        return self
+
     def J(self, t):
         return self.fig.pose(t)
+
 
 
 class Shot:

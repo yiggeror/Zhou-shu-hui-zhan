@@ -35,15 +35,31 @@ def ik2(a, target, l1, l2, pole, soft=0.035):
 
 class Style:
     def __init__(self, line=(0.93, 0.95, 0.97), eye=(0.35, 0.9, 1.0), eye_core=(0.85, 1.0, 1.0),
-                 hair='gojo', four_eyes=False, width=0.052, head_w=0.034):
+                 hair='gojo', four_eyes=False, width=0.052, head_w=0.034, extras=(), head_k=1.0,
+                 no_eyes=False, hand_k=1.3):
         self.line, self.eye, self.eye_core = line, eye, eye_core
         self.hair, self.four_eyes = hair, four_eyes
         self.width, self.head_w = width, head_w
+        self.extras, self.head_k, self.no_eyes, self.hand_k = tuple(extras), head_k, no_eyes, hand_k
+
+    def but(self, **kw):
+        import copy
+        s = copy.copy(self)
+        for k, v in kw.items():
+            setattr(s, k, v)
+        return s
 
 
 GOJO = Style(line=(0.92, 0.95, 0.98), eye=(0.25, 0.85, 1.0), eye_core=(0.88, 1.0, 1.0), hair='gojo')
-MAHORAGA = Style(line=(0.90, 0.90, 0.92), eye=(1, 1, 1), eye_core=(1, 1, 1), hair=None, width=0.075, head_w=0.045)
-MAHORAGA.no_eyes = True
+MAHORAGA = Style(line=(0.90, 0.90, 0.92), eye=(1, 1, 1), eye_core=(1, 1, 1), hair='mahoraga', width=0.075,
+                 head_w=0.045, extras=('wheel',), no_eyes=True)
+NEUTRAL_EYE = dict(eye=(0.92, 0.90, 0.85), eye_core=(1.0, 1.0, 1.0))
+FUSHIGURO = Style(hair='fushiguro', **NEUTRAL_EYE)
+PANDA = Style(hair=None, extras=('ears',), head_k=1.35, width=0.07, **NEUTRAL_EYE)
+DANCER = Style(hair='long', **NEUTRAL_EYE)
+OLDMAN = Style(hair='old', extras=('beard',), **NEUTRAL_EYE)
+GLASSES = Style(hair='short', extras=('glasses',), **NEUTRAL_EYE)
+PLAIN = Style(hair='short', **NEUTRAL_EYE)
 SUKUNA = Style(line=(0.97, 0.93, 0.92), eye=(1.0, 0.16, 0.22), eye_core=(1.0, 0.86, 0.84),
                hair='sukuna', four_eyes=True)
 
@@ -66,7 +82,7 @@ class Figure:
             foot_l=V(-0.12 * k, 0.0, 0.0), foot_r=V(0.12 * k, 0.0, 0.0),
             foot_lyaw=None, foot_ryaw=None,
             knee_l=V(-0.25, 0, 1), knee_r=V(0.25, 0, 1),
-            fist_l=0.0, fist_r=0.0,
+            fist_l=0.0, fist_r=0.0, hshape_l=None, hshape_r=None, hroll_l=0.0, hroll_r=0.0,
             eye_open=1.0, eye_glow=0.55, eye_fire=0.0, eye_squint=0.0, eye_l=1.0, eye_r=1.0,
             visible=1.0, idle=1.0,
         )
@@ -139,6 +155,9 @@ class Figure:
             E, W = ik2(Sx, T, S['ua'], S['fa'], pole)
             out['E' + side], out['W' + side] = E, W
             out['fist_' + side] = float(g('fist_' + side))
+            hs = g('hshape_' + side)
+            out['hs_' + side] = None if hs is None else np.asarray(hs, dtype=np.float64)
+            out['hroll_' + side] = float(g('hroll_' + side))
         for side, sx in (('l', -1), ('r', 1)):
             Hp = P + Rp @ V(sx * S['hip_w'], -0.02 * self.k, 0)
             F = np.asarray(g('foot_' + side), dtype=np.float64)

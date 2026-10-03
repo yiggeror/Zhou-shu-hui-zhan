@@ -30,8 +30,16 @@ HAIR = {
 }
 
 
+HAIR['fushiguro'] = [(_sp(a, p), l, 0.30) for (a, p, l) in [
+    (-110, 20, 0.95), (-80, 45, 1.15), (-50, 62, 1.2), (-20, 75, 1.25), (15, 72, 1.3), (45, 60, 1.2), (80, 45, 1.15),
+    (110, 20, 0.95), (150, 40, 1.15), (180, 55, 1.2), (-150, 40, 1.15), (130, 70, 1.0), (-130, 70, 1.0), (0, 40, 0.8)]]
+HAIR['short'] = []
+HAIR['old'] = [(_sp(a, p), l, 0.45) for (a, p, l) in [(180, 70, 0.75), (165, 60, 0.6), (-165, 60, 0.6)]]
+HAIR['mahoraga'] = [(_sp(a, p), l, 0.22) for (a, p, l) in [(-100, 10, 1.3), (100, 10, 1.3), (-95, 35, 1.0), (95, 35, 1.0)]]
+
+
 def _eyes(style):
-    if getattr(style, 'no_eyes', False):
+    if getattr(style, 'no_eyes', False) or 'blindfold' in getattr(style, 'extras', ()):
         return []
     if style.four_eyes:
         # main eyes, then the two small eyes underneath
@@ -79,6 +87,7 @@ class FigDraw:
         """cam_at(t) -> CamState for sub-frame times (for smears); defaults to cs.
         ghosts: callable(t) -> list of (dt, alpha, colour): faint after-images of earlier poses"""
         fig = self.fig
+        self._t = t
         J = fig.pose(t)
         if J['visible'] * alpha <= 0.001:
             return J
@@ -135,14 +144,16 @@ class FigDraw:
         # head
         hc = cs.proj(J['H'])
         if hc[2] > 0.05:
-            hr = fig.L['head'] * cs.scale(hc[2])
+            hr = fig.L['head'] * fig.style.head_k * cs.scale(hc[2])
             items.append(dict(name='head', depth=float(hc[2]) - fig.L['head'] * 0.5, c=hc, r=hr))
-        # fists
+        # hands
         for s in 'lr':
             wc = cs.proj(J['W' + s])
             if wc[2] > 0.05:
                 rr = (0.030 + 0.022 * J['fist_' + s]) * fig.k * cs.scale(wc[2])
-                items.append(dict(name='fist' + s, depth=float(wc[2]) - 0.01, c=wc, r=rr))
+                items.append(dict(name='fist' + s, depth=float(wc[2]) - 0.01, c=wc, r=rr, side=s))
+        if fig.style.hair == 'long' and hc[2] > 0.05:
+            items.append(dict(name='hairback', depth=float(hc[2]) + fig.L['head'] * 1.2))
         items.sort(key=lambda d: -d['depth'])
         c = fr.b
         if a < 0.999:
@@ -156,8 +167,11 @@ class FigDraw:
             if nm == 'head':
                 self._head(fr, cs, J, it, line, a_draw, outline, smear)
                 continue
+            if nm == 'hairback':
+                self._long_hair(fr, cs, J, line, a_draw)
+                continue
             if nm.startswith('fist'):
-                c.drawCircle(it['c'][0], it['c'][1], it['r'], paint(line, a_draw))
+                self._hand(c, cs, J, it, line, a_draw)
                 continue
             P = it['P'][:, :2]
             w = max(it['w'], 1.2)
@@ -181,6 +195,23 @@ class FigDraw:
         if a < 0.999:
             c.restore()
 
+    def _hand(self, c, cs, J, it, line, a):
+        fig = self.fig
+        s = it['side']
+        hk = fig.k * fig.style.hand_k
+        size_px = 0.17 * hk * cs.scale(it['c'][2])
+        if size_px < 12:
+            c.drawCircle(it['c'][0], it['c'][1], it['r'], paint(line, a))
+            return
+        from .hand import hand_frame, draw_hand, SHAPES
+        sh = J['hs_' + s]
+        if sh is None:
+            f = clamp(J['fist_' + s], 0, 1)
+            sh = np.array(SHAPES['relax']) * (1 - f) + np.array(SHAPES['fist']) * f
+        side = 1 if s == 'r' else -1
+        R = hand_frame(J['E' + s], J['W' + s], J['hroll_' + s], J['Rc'] @ V(side, 0, 0))
+        draw_hand(c, cs, J['W' + s], R, sh, side, line, a, hk, width_m=0.0125)
+
     def _head(self, fr, cs, J, it, line, a, outline, smear):
         fig = self.fig
         c = fr.b
@@ -188,8 +219,18 @@ class FigDraw:
         rw = max(fig.style.head_w * cs.scale(it['c'][2]), 1.2)
         # hair: union of spike triangles, outlined once, behind the head disk
         Rh, Hc = J['Rh'], J['H']
-        R = fig.L['head']
+        R = fig.L['head'] * fig.style.head_k
         hair = None
+        ex = fig.style.extras
+        if 'ears' in ex:
+            for sx in (-1, 1):
+                ep = cs.proj(Hc + Rh @ V(sx * 0.72, 0.78, -0.1) * R)
+                if ep[2] > 0.05:
+                    c.drawCircle(ep[0], ep[1], R * 0.42 * cs.scale(ep[2]), paint(line, a))
+        if 'wheel' in ex:
+            self._wheel(fr, cs, J, line, a)
+        if 'scarf' in ex:
+            self._scarf(fr, cs, J, line, a)
         for i, (d, ln, hw) in enumerate(HAIR.get(fig.style.hair) or []):
             dw = Rh @ d
             side = norm(np.cross(dw, cs.f))
@@ -209,12 +250,143 @@ class FigDraw:
         c.drawCircle(x, y, r + rw * 0.5, paint(line, a))
         if HEAD_FILL != line and not smear:
             c.drawCircle(x, y, r - rw * 0.5, paint(HEAD_FILL, a))
+        if smear:
+            return
+        if 'beard' in ex:
+            pts = [Hc + Rh @ V(-0.45, -0.55, 0.75) * R, Hc + Rh @ V(0, -1.75, 0.55) * R, Hc + Rh @ V(0.45, -0.55, 0.75) * R]
+            P = cs.proj_many(np.array(pts))
+            if np.all(P[:, 2] > 0.05):
+                c.drawPath(poly_path(P[:, :2], closed=True), paint(line, a))
+        paper = THEME['bg']
+        if 'glasses' in ex:
+            for sx in (-1, 1):
+                ctr = Hc + Rh @ V(sx * 0.38, 0.05, 0.93) * R
+                ring = [ctr + (Rh @ V(math.cos(th) * 0.27, math.sin(th) * 0.2, 0)) * R for th in np.linspace(0, 2 * math.pi, 20)]
+                P = cs.proj_many(np.array(ring))
+                n = Rh @ V(0, 0, 1)
+                if float(n @ norm(cs.pos - ctr)) > 0.05 and np.all(P[:, 2] > 0.05):
+                    c.drawPath(poly_path(P[:, :2], closed=True), paint(paper, a * 0.9, stroke=max(1.2, rw * 0.6)))
+        if 'blindfold' in ex:
+            band = []
+            for th in np.linspace(-1.9, 1.9, 24):
+                band.append(Hc + Rh @ V(math.sin(th), 0.08, math.cos(th)) * R * 1.01)
+            for th in np.linspace(1.9, -1.9, 24):
+                band.append(Hc + Rh @ V(math.sin(th), -0.30, math.cos(th)) * R * 1.01)
+            P = cs.proj_many(np.array(band))
+            vis = [float((Rh @ V(math.sin(th), 0, math.cos(th))) @ norm(cs.pos - Hc)) for th in np.linspace(-1.9, 1.9, 24)]
+            if np.all(P[:, 2] > 0.05):
+                c.save()
+                hp = skia.Path(); hp.addCircle(x, y, r + rw * 0.5)
+                c.clipPath(hp, skia.ClipOp.kIntersect, True)
+                c.drawPath(poly_path(P[:, :2], closed=True), paint(paper, a * 0.92))
+                c.restore()
+
+    def _wheel(self, fr, cs, J, line, a):
+        """Mahoraga's dharma wheel floating above the head, turning slowly"""
+        R = self.fig.L['head'] * self.fig.style.head_k
+        Rh, Hc = J['Rh'], J['H']
+        C = Hc + Rh @ V(0, 2.4, -0.5) * R
+        up = Rh @ norm(V(0, 1, -0.9))
+        aa = norm(np.cross(up, V(0, 0, 1)) if abs(up[2]) < 0.95 else np.cross(up, V(1, 0, 0)))
+        bb = np.cross(up, aa)
+        rad = 1.6 * R
+        rot = getattr(self, '_t', 0.0) * 0.6 + getattr(self, 'wheel_turn', 0.0)
+        ring = [C + (aa * math.cos(th) + bb * math.sin(th)) * rad for th in np.linspace(0, 2 * math.pi, 48)]
+        Q = cs.proj_many(np.array(ring))
+        if np.any(Q[:, 2] < 0.05):
+            return
+        wpx = max(1.5, 0.028 * self.fig.k * cs.scale(float(np.mean(Q[:, 2]))))
+        c = fr.b
+        c.drawPath(poly_path(Q[:, :2], closed=True), paint(line, a, stroke=wpx))
+        cp = cs.proj(C)
+        for i in range(8):
+            th = rot + i * math.pi / 4
+            d = aa * math.cos(th) + bb * math.sin(th)
+            p1 = cs.proj(C + d * rad)
+            p2 = cs.proj(C + d * rad * 1.28)
+            c.drawLine(cp[0], cp[1], p1[0], p1[1], paint(line, a, stroke=wpx * 0.8))
+            c.drawCircle(p2[0], p2[1], rad * 0.17 * cs.scale(p2[2]), paint(line, a))
+        c.drawCircle(cp[0], cp[1], rad * 0.2 * cs.scale(cp[2]), paint(line, a))
+
+    def _scarf(self, fr, cs, J, line, a):
+        """scarf: a thick wrap around the neck and two short cloth tails behind it that wave in
+        the wind (a travelling ripple), filled as tapered shapes"""
+        from .draw3d import ribbon
+        fig = self.fig
+        t = getattr(self, '_t', 0.0)
+        k = fig.k
+        wind = np.asarray(getattr(self, 'wind', V(0.0, 0.0, 0.0)), float)
+        wm = float(np.linalg.norm(wind))
+        N, Rc = J['N'], J['Rc']
+        collar = [N + Rc @ V(math.sin(th) * 0.08, -0.04 + 0.012 * math.cos(th), math.cos(th) * 0.065) * k
+                  for th in np.linspace(-math.pi, math.pi, 16)]
+        ribbon(fr, cs, collar, 0.06 * k, line, a, taper=0.0)
+        back = Rc @ V(0, 0, -1)
+        flow = norm(wind * 1.0 + V(0, -0.9, 0) * (1.2 - min(1.0, wm)) + back * 0.3)
+        side_v = norm(np.cross(flow, cs.f)) if np.linalg.norm(np.cross(flow, cs.f)) > 1e-6 else cs.r
+        for sd, ph, ln in ((-1, 0.0, 7), (1, 2.1, 6)):
+            base = N + Rc @ V(0.03 * sd, -0.06, -0.06) * k
+            cen = []
+            for j in range(ln):
+                u = j / (ln - 1)
+                wave = math.sin(t * 11.0 + ph - j * 0.9) * 0.025 * j * min(1.0, 0.3 + wm)
+                cen.append(base + flow * (0.055 * j * k) + side_v * wave * k + V(0, 0.02 * sd * j, 0) * k * wm * 0.3)
+            P = cs.proj_many(np.array(cen))
+            if np.any(P[:, 2] < 0.05):
+                continue
+            d = float(np.mean(P[:, 2]))
+            wpx0 = 0.065 * k * cs.scale(d)
+            left, right = [], []
+            for j in range(ln):
+                a0 = P[max(0, j - 1), :2]
+                a1 = P[min(ln - 1, j + 1), :2]
+                tg = a1 - a0
+                nn = np.array([-tg[1], tg[0]]) / (np.hypot(*tg) + 1e-6)
+                w = wpx0 * (1 - 0.65 * j / (ln - 1)) * 0.5
+                left.append(P[j, :2] + nn * w)
+                right.append(P[j, :2] - nn * w)
+            pts = left + right[::-1]
+            fr.b.drawPath(smooth_path(pts, closed=True), paint(line, a))
+
+    def _long_hair(self, fr, cs, J, line, a):
+        """long hair: locks from the crown falling behind the head to the shoulders and out to the
+        sides; each point follows where the head was a little earlier, so the hair trails and swings"""
+        fig = self.fig
+        t = getattr(self, '_t', 0.0)
+        R = fig.L['head'] * fig.style.head_k
+        n_str, n_pt = 8, 7
+        wind = np.asarray(getattr(self, 'wind', V(0.0, 0.0, 0.0)), float)
+        locks = []
+        for si in range(n_str):
+            u = -1 + 2 * si / (n_str - 1)
+            ang = u * 1.9
+            pts = []
+            for j in range(n_pt):
+                lag = j * 0.04
+                Jp = fig.pose(t - lag) if lag > 0 else J
+                Rh, Hc = Jp['Rh'], Jp['H']
+                root = Hc + Rh @ V(math.sin(ang) * 0.9, 0.45, -math.cos(ang) * 0.75) * R
+                out = Rh @ V(math.sin(ang) * 0.045 * j, -0.085 * j, -0.035 * j) * fig.k
+                sway = V(fbm1(t * 1.3 + si * 0.4, 70) * 0.018 * j, 0, fbm1(t * 1.1 + si * 0.4, 90) * 0.018 * j) * fig.k
+                pts.append(root + out + sway + wind * (j * 0.06) * fig.k)
+            P = cs.proj_many(np.array(pts))
+            if np.any(P[:, 2] < 0.05):
+                continue
+            locks.append(P)
+        if not locks:
+            return
+        d = float(np.mean([L[:, 2].mean() for L in locks]))
+        wpx = max(1.2, 0.035 * fig.k * cs.scale(d))
+        c = fr.b
+        for L in locks:
+            c.drawPath(smooth_path(L[:4, :2]), paint(line, a, stroke=wpx * 1.3))
+            c.drawPath(smooth_path(L[2:, :2]), paint(line, a, stroke=wpx * 0.5))
 
     # ------------------------------------------------------------------
     def eye_shapes(self, cs, J):
         """projected almond outlines for each visible eye -> list of (pts Nx2, facing, size_px, scale)"""
         fig = self.fig
-        R = fig.L['head']
+        R = fig.L['head'] * fig.style.head_k
         Rh, Hc = J['Rh'], J['H']
         op = clamp(J['eye_open'], 0, 1)
         sq = J['eye_squint']
@@ -259,6 +431,8 @@ class FigDraw:
         glow = J['eye_glow'] * a
         if op <= 0.01 or a <= 0:
             return
+        if J['eye_glow'] <= 0.01:
+            b = 1.0
         eyes = self.eye_shapes(cs, J)
         # brightness follows the opening of the eye
         b = op ** 1.5
@@ -276,6 +450,9 @@ class FigDraw:
                 fr.g.drawCircle(cx, cy, rr * 0.8, paint(st.eye_core, k * b * glow * 0.6, add=True))
                 continue
             path = poly_path(P, closed=True)
+            if J['eye_glow'] <= 0.01:
+                fr.b.drawPath(path, paint(st.eye, k * 0.9))
+                continue
             if size >= 34.0:
                 self._eye_detail(fr, e, P, size, cx, cy, k, b, glow, op, t)
                 if J['eye_fire'] > 0.01:

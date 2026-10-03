@@ -14,6 +14,7 @@ PAL = {
     'cyan':   dict(outer=(0.00, 0.50, 0.85), mid=(0.15, 0.85, 1.00), core=(0.80, 1.00, 1.00), glow=(0.10, 0.70, 1.00)),
     'red':    dict(outer=(0.72, 0.00, 0.08), mid=(1.00, 0.18, 0.26), core=(1.00, 0.80, 0.76), glow=(1.00, 0.08, 0.15)),
     'purple': dict(outer=(0.40, 0.08, 0.80), mid=(0.72, 0.38, 1.00), core=(0.95, 0.86, 1.00), glow=(0.60, 0.20, 1.00)),
+    'magenta': dict(outer=(0.48, 0.04, 0.72), mid=(0.86, 0.30, 1.00), core=(0.98, 0.88, 1.00), glow=(0.80, 0.25, 1.00)),
     'white':  dict(outer=(0.70, 0.75, 0.85), mid=(0.90, 0.93, 1.00), core=(1.00, 1.00, 1.00), glow=(0.80, 0.85, 1.00)),
 }
 if PAPER_MODE:
@@ -533,3 +534,55 @@ def light_wash(fr, x, y, radius, colr, k, layer='b'):
         fr.b.drawCircle(x, y, radius, paint(colr, min(1.0, k), blur=radius * 0.5))
     else:
         fr.g.drawCircle(x, y, radius, paint(colr, k, add=True, blur=radius * 0.5))
+
+
+
+class Burst:
+    """an explosion as a field of billowing puffs (rendered by render_flames): puffs fly out
+    from the centre, slow down, grow, and fade; young puffs near the centre form the hot core"""
+
+    def __init__(self, center, t0, pal='magenta', n=90, speed=3.0, size=0.6, life=1.6, seed=0, up=0.25, amp=0.45,
+                 spread=V(1, 0.8, 1)):
+        self.c, self.t0, self.pal, self.n = np.asarray(center, float), t0, pal, n
+        self.speed, self.size, self.life, self.seed, self.up, self.amp = speed, size, life, seed, up, amp
+        self.spread = np.asarray(spread, float)
+
+    def particles(self, t):
+        a = t - self.t0
+        out = []
+        if a < 0:
+            return out
+        for i in range(self.n):
+            h = lambda j: hash01(self.seed, i, j)
+            delay = 0.12 * h(1) ** 2
+            ai = a - delay
+            lf = self.life * (0.5 + 0.7 * h(2))
+            if ai < 0 or ai > lf:
+                continue
+            d = norm(V(h(3) - 0.5, h(4) - 0.5, h(5) - 0.5)) * self.spread
+            sp = self.speed * (0.3 + 0.9 * h(6))
+            dist = sp * (1 - math.exp(-ai * 3.0)) / 3.0
+            p = self.c + d * dist + V(0, self.up * ai * ai, 0)
+            v = d * sp * math.exp(-ai * 3.0) + V(0, 2 * self.up * ai, 0)
+            u = ai / lf
+            r = self.size * (0.35 + 0.9 * h(7)) * (0.4 + 1.4 * (1 - math.exp(-ai * 2.5))) * (1 - u ** 2)
+            young = max(0.0, 1 - ai / (0.5 * lf)) * (1 - min(1.0, dist / (self.speed * 0.25 + 1e-6)) * 0.6)
+            out.append((p, v * 0.2, r, self.amp * (1 - u ** 1.5), young))
+        return out
+
+
+def beam(fr, cs, pts, width_m, pal='magenta', k=1.0, t=0.0):
+    """a thick tube of energy through 3D points: wide glow, coloured body, hot core"""
+    P = cs.proj_many(np.array(pts))
+    good = P[:, 2] > 0.05
+    if good.sum() < 2:
+        return
+    P = P[good]
+    C = PAL[pal]
+    d = float(np.median(P[:, 2]))
+    w = width_m * cs.scale(d)
+    path = smooth_path(P[:, :2])
+    fr.g.drawPath(path, paint(C['glow'], 0.45 * k, stroke=w * 3.2, add=True, blur=w * 1.2))
+    fr.g.drawPath(path, paint(C['outer'], 0.9 * k, stroke=w * 1.6, add=True, blur=w * 0.25))
+    fr.g.drawPath(path, paint(C['mid'], 1.0 * k, stroke=w * 1.0, add=True))
+    fr.g.drawPath(path, paint(C['core'], 1.1 * k, stroke=w * 0.42, add=True))
