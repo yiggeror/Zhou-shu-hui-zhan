@@ -28,10 +28,17 @@ def frame_times(film):
 class Film:
     def __init__(self, mod):
         self.mod = mod
-        self.shots = [S() for S in mod.SHOTS]
+        self.classes = list(mod.SHOTS)
+        self.live = {}   # shots are set up on first use (a chunk only needs a few of them)
 
     def shots_at(self, t):
-        return [s for s in self.shots if s.t0 - 1e-6 <= t < s.t1 - 1e-6]
+        out = []
+        for S in self.classes:
+            if S.t0 - 1e-6 <= t < S.t1 - 1e-6:
+                if S not in self.live:
+                    self.live[S] = S()
+                out.append(self.live[S])
+        return out
 
     def one(self, s, t):
         fr = s.frame(t)

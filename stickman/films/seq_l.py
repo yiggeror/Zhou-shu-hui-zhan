@@ -1,8 +1,10 @@
 """Sequence L: shots 118-125 (frames 2967-3272): Red gathers, Mahoraga, Hollow Purple."""
 from films.common import *
-from engine.env import Building, draw_buildings
+from engine.env import Building, draw_buildings, clip_poly_near
 from films.seq_b import city_ring
 from films.seq_d import violet_wash, lavender_flash
+from scipy.interpolate import PchipInterpolator
+import cv2
 
 CY = fx.PAL['cyan']
 RD = fx.PAL['red']
@@ -15,6 +17,38 @@ def night_city(seed, y_top=-4, r0=30, r1=120, n=40):
     return city_ring(seed, r0=r0, r1=r1, n=n, y_top=y_top)
 
 
+def red_vortex(fr, cs, center, s, k, seed, n=70, r0=0.25, r1=2.6, plane_u=None, plane_v=None, width=1.0):
+    """red energy drawn in: each streak spirals in toward `center` (world), fades out as it
+    arrives and starts again at the rim (a steady inflow, not random sparks)"""
+    if k <= 0:
+        return
+    pu = V(1, 0, 0) if plane_u is None else plane_u
+    pv = V(0, 1, 0) if plane_v is None else plane_v
+    for i in range(n):
+        ph = hash01(seed, i, 1)
+        sp = 0.55 + 0.6 * hash01(seed, i, 2)
+        u = (s * sp + ph) % 1.0               # 0 = at the rim, 1 = arrived
+        if hash01(seed, i, 5) > k:
+            continue
+        rr = r0 + (r1 - r0) * (1 - u) ** 1.6
+        a0 = hash01(seed, i, 3) * 6.283 + u * (2.2 + 1.5 * hash01(seed, i, 4))
+        al = math.sin(math.pi * u) ** 0.7
+        pts = []
+        for j in range(6):
+            a = a0 - j * 0.07 * (1.6 - u)
+            r = rr * (1 + j * 0.03)
+            p = center + pu * (math.cos(a) * r) + pv * (math.sin(a) * r * 0.8)
+            q = cs.proj(p)
+            if not np.isfinite(q[0]):
+                break
+            pts.append(q)
+        if len(pts) < 2:
+            continue
+        w = (2.0 + 4.0 * hash01(seed, i, 6)) * width * (0.6 + 0.6 * (1 - u))
+        fr.g.drawPath(poly_path([(p[0], p[1]) for p in pts]), paint(RD['mid'], 0.85 * al * k, stroke=w, add=True))
+        fr.g.drawCircle(pts[0][0], pts[0][1], w * 0.7, paint(RD['core'], 0.7 * al * k, add=True))
+
+
 # ============================================================================ 118: red sparks gather around him
 class S118(Shot):
     t0, t1 = 2967 / 24, 3006 / 24
@@ -22,38 +56,43 @@ class S118(Shot):
     def setup(self):
         D = self.t1 - self.t0
         g = self.g = Actor(Figure(GOJO, 1.06, 'gojo118'))
-        stand(g, 0, 0, 0, math.pi - 0.15, width=0.18)
-        g.k(0, hand_r=V(-0.08, -0.05, 0.25), hshape_r=shape('two'), hand_l=V(0.05, -0.15, 0.22), eye_glow=1.4, hpitch=0.1)
-        g.k(D, hand_r=V(-0.07, 0.0, 0.27), hpitch=0.0, eye_glow=1.6)
+        # hovering above the city: legs hang, the right hand holds the sign at the chest, Red forms there
+        n = 10
+        for i in range(n + 1):
+            t = D * i / n
+            hv = 0.035 * math.sin(t * 2.4) + 0.012 * t
+            g.k(t, yaw=math.pi - 0.18, root=V(0, 0.95 + hv, 0), lean=0.04 + 0.02 * math.sin(t * 1.7), twist=-0.08,
+                foot_l=V(0.13, 0.07 + hv + 0.01 * math.sin(t * 2.4 + 0.6), 0.04), foot_r=V(-0.10, 0.13 + hv, -0.10 + 0.01 * math.sin(t * 2.0)))
+        g.k(0, knee_r=V(-0.25, 0, 1), knee_l=V(0.25, 0, 1), hand_r=V(-0.12, -0.30, 0.24), hshape_r=shape('two'), hup_r=V(0, 1, 0.2), hback_r=V(0, 0, 1),
+            hand_l=V(0.06, -0.46, 0.18), hshape_l=shape('relax'), eye_glow=1.4, hpitch=0.12, hyaw=0.05)
+        g.k(0.5, hand_r=V(-0.10, -0.26, 0.26), hand_l=V(0.08, -0.42, 0.20), hshape_l=shape('two'), hpitch=0.06)
+        g.k(D, hand_r=V(-0.09, -0.22, 0.28), hand_l=V(0.07, -0.40, 0.21), hpitch=0.0, eye_glow=1.7, eye_fire=0.3)
+        g.follow(['hand_r', 'hand_l'], 0, D)
         g.d.wind = V(0.3, 0.1, 0.0)
-        self.cam = Cam(Ch(V(0.4, 1.0, -5.5)).key(D, V(0.3, 1.05, -4.6)), Ch(V(0, 1.15, 0)), fov=40)
-        self.city = night_city(118, y_top=-6)
-        self.sp = [(hash01(118, i), hash01(119, i), hash01(120, i)) for i in range(70)]
+        C0 = g.fig.pose(0.0)['C']
+        self.cam = Cam(Ch(C0 + V(0.45, -0.55, -3.6)).key(D, C0 + V(0.35, -0.45, -3.0)), Ch(C0 + V(0, 0.02, 0)), fov=40)
+        self.city = night_city(118, y_top=-26, r0=40, r1=160, n=50)
+
+    def tip(self, t):
+        J = self.g.fig.pose(t)
+        return J['Wr'] + J['hup_r'] * 0.13
 
     def draw(self, fr, s):
         cs = self.cam.at(s)
         D = self.t1 - self.t0
         paper(fr)
-        draw_buildings(fr, cs, self.city, fog_dist=150)
-        d3.box(fr, cs, V(-6, -40, -2), V(6, 0, 4), w_m=0.03)
+        u = smoothstep(0.4, D, s)
+        if u > 0:
+            fr.b.drawRect(skia.Rect(0, 0, W, H), paint((0.85, 0.4, 0.42), 0.28 * u))
+        draw_buildings(fr, cs, self.city, fog_dist=200)
         draw_actors(fr, self.cam, s, s, [self.g])
         if s < 2 / 24:
             wipe_diag(fr, s / (2 / 24), ang=0.0, reverse=True)
-        u = smoothstep(0.5, D, s)
         if u > 0:
-            fr.b.drawRect(skia.Rect(0, 0, W, H), paint((0.85, 0.4, 0.42), 0.25 * u))
             J = self.g.fig.pose(s)
-            c = cs.proj(J['C'])
-            for i, (a, b, cc) in enumerate(self.sp):
-                if b > u:
-                    continue
-                ang = a * 6.28 + s * (1.5 + cc)
-                r = 120 + 520 * cc * (1 - 0.3 * u)
-                p0 = (c[0] + math.cos(ang) * r, c[1] + math.sin(ang) * r * 0.75)
-                p1 = (c[0] + math.cos(ang - 0.18) * r, c[1] + math.sin(ang - 0.18) * r * 0.75)
-                fr.g.drawLine(p0[0], p0[1], p1[0], p1[1], paint(RD['mid'], 0.9, stroke=3 + 3 * cc, add=True))
-            q = cs.proj(J['Wr'])
-            fx.orb(fr, cs, J['Wr'] + V(0, 0.08, -0.05), 0.03 * u, 'red', s, seed=118)
+            Rc = J['Rc']
+            red_vortex(fr, cs, self.tip(s), s, u, 118, n=80, r0=0.12, r1=2.4, plane_u=Rc @ V(1, 0, 0), plane_v=Rc @ V(0, 1, 0.25))
+            fx.orb(fr, cs, self.tip(s), 0.008 + 0.022 * u, 'red', s, seed=118)
 
 
 # ============================================================================ 119: finger to the sky
@@ -63,14 +102,22 @@ class S119(Shot):
     def setup(self):
         D = self.t1 - self.t0
         g = self.g = Actor(Figure(GOJO, 1.06, 'gojo119'))
-        stand(g, 0, 0, 0, math.pi - 0.25)
-        g.k(0, hand_r=V(-0.05, 0.25, 0.2), hshape_r=shape('point'), hup_r=V(0, 1, 0), hback_r=V(0, 0, -1), hand_l=V(0.08, 0.05, 0.25),
-            hshape_l=shape('two'), eye_glow=1.5, hpitch=-0.15)
-        g.k(0.3, 'out', hand_r=V(0.0, 0.62, 0.05))
-        g.k(D, hand_r=V(0.0, 0.64, 0.04), hpitch=-0.2)
-        H = g.fig.pose(0.5)['H']
-        self.cam = Cam(Ch(H + V(0.25, -0.95, -0.85)).key(D, H + V(0.22, -0.9, -0.78)), Ch(H + V(-0.05, 0.25, 0)), fov=54)
         self.flash_t = (3030 - 3006) / 24
+        ft = self.flash_t
+        g.k(0, yaw=math.pi + 0.10, root=V(0, 0.95, 0), lean=0.02, twist=0.12, foot_l=V(-0.13, 0.05, 0.02), foot_r=V(0.12, 0.1, -0.08),
+            hand_r=V(0.12, 0.55, 0.08), elbow_r=V(0.9, 0.0, 0.3), hshape_r=shape('point'), hup_r=V(0, 1, 0.05), hback_r=V(0, 0, -1),
+            hand_l=V(0.24, -0.10, 0.26), hshape_l=shape('two'), hup_l=V(0.1, 1, 0.1), hback_l=V(0, 0, 1),
+            eye_glow=1.5, eye_fire=0.3, hpitch=0.10, hyaw=-0.12, hroll=-0.16)
+        # a slight press upward, then the arm locks straight for the release
+        g.k(0.35, 'io', hand_r=V(0.11, 0.59, 0.06), hpitch=0.06)
+        g.k(ft - 0.12, 'io', hand_r=V(0.12, 0.56, 0.08), hand_l=V(0.25, -0.08, 0.27))
+        g.k(ft, 'out', hand_r=V(0.10, 0.62, 0.04), hand_l=V(0.24, -0.06, 0.28), hpitch=0.0, eye_glow=2.0, eye_fire=0.7)
+        g.k(D, hand_r=V(0.11, 0.61, 0.05), hpitch=0.04, eye_glow=1.6, eye_fire=0.4)
+        g.follow(['hand_r', 'hand_l'], 0, D, f=3.6)
+        C = g.fig.pose(0.5)['C']
+        self.cam = Cam(Ch(C + V(0.16, 0.0, -1.08)).key(D, C + V(0.14, 0.02, -1.0)), Ch(C + V(-0.02, 0.36, 0)), fov=44)
+        self.cam.shake(ft, 10, 0.3, 24)
+        self.cam.punch(ft, 0.05, 0.03, 0.3)
 
     def tip(self, t):
         J = self.g.fig.pose(t)
@@ -80,26 +127,26 @@ class S119(Shot):
         cs = self.cam.at(s)
         D = self.t1 - self.t0
         paper(fr)
-        red = 1.0 if s < self.flash_t + 3 / 24 else max(0.0, 1 - (s - self.flash_t - 3 / 24) / (2 / 24))
-        fr.b.drawRect(skia.Rect(0, 0, W, H), paint((0.85, 0.12, 0.16), 0.55 * red))
-        for i in range(30):
-            ang = hash01(119, i) * 6.28 + s * 2
-            r = 200 + 700 * hash01(120, i)
-            q0 = (W * 0.5 + math.cos(ang) * r, H * 0.4 + math.sin(ang) * r)
-            fr.g.drawLine(q0[0], q0[1], q0[0] + math.cos(ang + 1.5) * 60, q0[1] + math.sin(ang + 1.5) * 60,
-                          paint(RD['mid'], 0.7 * red, stroke=4, add=True))
-        draw_actors(fr, self.cam, s, s, [self.g])
-        p = self.tip(s)
-        if red > 0:
-            fx.orb(fr, cs, p, 0.035, 'red', s, seed=119, k=red)
         a = s - self.flash_t
-        if 0 <= a < 3 / 24:
+        red = 1.0 if a < 3 / 24 else max(0.0, 1 - (a - 3 / 24) / (6 / 24))
+        fr.b.drawRect(skia.Rect(0, 0, W, H), paint((0.85, 0.12, 0.16), 0.55 * red))
+        J = self.g.fig.pose(s)
+        p = self.tip(s)
+        # the red is pulled into the fingertip
+        red_vortex(fr, cs, p, s, red, 119, n=60, r0=0.06, r1=1.2, plane_u=cs.r, plane_v=cs.u * 0.9 + cs.f * 0.3, width=1.2)
+        draw_actors(fr, self.cam, s, s, [self.g])
+        if red > 0:
+            fx.orb(fr, cs, p, 0.03 + 0.01 * smoothstep(0, self.flash_t, s), 'red', s, seed=119, k=red)
+        if 0 <= a < 4 / 24:
             q = cs.proj(p)
-            for j in range(16):
-                ang = math.pi / 2 + (hash01(1190, j) - 0.5) * 1.6
-                L = 900 + 700 * hash01(1191, j)
-                fr.g.drawLine(q[0], q[1], q[0] + math.cos(ang) * L, q[1] + math.sin(ang) * L, paint((1, 0.85, 0.85), 0.8, stroke=30, add=True, blur=12))
-            fx.flash(fr, (1.0, 0.75, 0.75), 0.4 * (1 - a / (3 / 24)))
+            e = 1 - a / (4 / 24)
+            for j in range(18):
+                ang = math.pi / 2 + (hash01(1190, j) - 0.5) * 1.5
+                L = 1000 + 800 * hash01(1191, j)
+                fr.g.drawLine(q[0], q[1], q[0] + math.cos(ang) * L, q[1] + math.sin(ang) * L,
+                              paint((1, 0.85, 0.85), 0.75 * e, stroke=26 + 20 * hash01(1192, j), add=True, blur=14))
+            fr.g.drawCircle(q[0], q[1], 160 + 300 * a * 24 / 4, paint((1.0, 0.8, 0.8), 0.8 * e, add=True, blur=60))
+            fx.flash(fr, (1.0, 0.7, 0.7), 0.35 * e)
 
 
 # ============================================================================ 120: Mahoraga bounds over the city
@@ -109,41 +156,57 @@ class S120(Shot):
     def setup(self):
         D = self.t1 - self.t0
         m = self.m = Actor(Figure(MAHORAGA, 1.45, 'maho120'))
-        jt = 7 / 24
-        z = lambda t: 10 + 14 * (t - jt)
+        jt = self.jt = 7 / 24
+        vz = 17.0
+
+        def P(t):
+            u = max(t, jt) - jt
+            return V(0.5 * math.sin(u * 1.4), 40.0 + 3.2 * u - 2.6 * u * u, vz * u)
+        self.P = P
         m.k(0, visible=0.0).k(jt - 0.01, visible=0.0).k(jt, visible=1.0)
-        n = 12
+        n = 16
         for i in range(n + 1):
             t = jt + (D - jt) * i / n
-            m.k(t, yaw=0.0, root=V(0.0, 18 + 2.0 * math.sin((t - jt) * 2.5), z(t)), lean=0.6, twist=0.2 * math.sin(t * 3),
-                foot_l=V(-0.4, 17.4, z(t) - 0.8), foot_r=V(0.5, 17.0, z(t) - 1.2), hand_l=V(-0.6, 0.3, 0.2), hand_r=V(0.65, 0.2, 0.25),
-                fist_l=1, fist_r=1, knee_l=V(0, 0.5, 1))
+            u = t - jt
+            p = P(t)
+            sw = math.sin(u * 4.2)
+            m.k(t, yaw=0.0, root=p, lean=1.25 + 0.06 * math.sin(u * 3.0), twist=-0.30 + 0.12 * sw, bend=0.12 + 0.06 * math.sin(u * 2.1),
+                hpitch=-1.0, hyaw=0.15 - 0.1 * sw,
+                foot_l=p + V(-0.30, -0.70 + 0.1 * sw, 0.25 + 0.1 * sw), foot_r=p + V(0.32, -0.75 - 0.08 * sw, -1.55 + 0.15 * sw),
+                hand_l=V(-0.70, 0.25 + 0.08 * sw, 0.55 - 0.08 * sw), hand_r=V(0.82, 0.10 - 0.10 * sw, -0.05 + 0.12 * sw),
+                fist_l=1, fist_r=1, knee_l=V(0, 0.2, 1), knee_r=V(0, -0.5, 1),
+                elbow_l=V(-0.6, -0.5, -0.2), elbow_r=V(0.5, -0.6, -0.4))
+        m.follow(['hand_l', 'hand_r', 'foot_l', 'foot_r'], jt, D, f=2.6, z=0.5)
         self.city = []
-        for i in range(-3, 4):
-            for j in range(0, 10):
-                h = 6 + 22 * hash01(120, i, j)
-                self.city.append(Building(i * 9 - 3.5, i * 9 + 3.5, j * 9, j * 9 + 7, h, base=-10, seed=1200 + i * 13 + j, style='vstrips'))
-        self.cam = Cam(lambda t: V(0.5, 21.0, z(max(t, jt)) - 6.0), lambda t: V(0.0, 15.0, z(max(t, jt)) + 4.0), fov=56, roll=8)
-        self.whip = Cam(Ch(V(-20, 30, 0)).key(5 / 24, V(20, 26, 10)), Ch(V(0, 10, 20)), fov=70)
+        for i in range(-4, 5):
+            for j in range(-2, 12):
+                h = 8 + 26 * hash01(120, i, j) ** 1.5
+                x = i * 10 + 2 * (hash01(121, i, j) - 0.5)
+                z = j * 10 + 2 * (hash01(122, i, j) - 0.5)
+                self.city.append(Building(x - 3.6, x + 3.6, z - 3.6, z + 3.6, h, base=-10, seed=1200 + i * 17 + j, style='vstrips'))
+        self.cam = Cam(lambda t: P(t) + V(0.6, 4.2, -2.4), lambda t: P(t) + V(-0.1, -1.6, 1.8), fov=56, roll=-16)
+        self.cam.drift = 0.3
+        self.whip = Cam(Ch(V(-24, 34, -6)).key(5 / 24, V(18, 30, 8)), Ch(V(0, 4, 26)), fov=70)
 
     def draw(self, fr, s):
         D = self.t1 - self.t0
         if s < 5 / 24:
             cs = self.whip.at(s)
             paper(fr)
-            draw_buildings(fr, cs, self.city, fog_dist=150)
+            draw_buildings(fr, cs, self.city, fog_dist=160)
             fr.post.append(fx.whip_blur(260, 60))
             return
-        if s < 7 / 24:
+        if s < self.jt:
             paper(fr, INK)
             return
         cs = self.cam.at(s)
         paper(fr)
-        draw_buildings(fr, cs, self.city, fog_dist=150)
-        u = smoothstep(D * 0.55, D, s)
+        draw_buildings(fr, cs, self.city, fog_dist=160)
+        set_blur(fr, self.cam, s, k=0.6, thresh=8.0, dist=30.0)
+        u = smoothstep(D * 0.72, D, s)
         if u > 0:
-            fx.light_wash(fr, 0, H * 0.4, 900, (0.3, 0.8, 1.0), 0.3 * u)
-            fx.light_wash(fr, W, H * 0.4, 900, (1.0, 0.3, 0.35), 0.3 * u)
+            fx.light_wash(fr, 0, H * 0.4, 1000, (0.3, 0.8, 1.0), 0.35 * u)
+            fx.light_wash(fr, W, H * 0.4, 1000, (1.0, 0.3, 0.35), 0.35 * u)
         draw_actors(fr, self.cam, s, s, [self.m])
 
 
@@ -276,136 +339,389 @@ class S123(Shot):
         fx.light_wash(fr, q[0], q[1], 600 + 700 * u, (0.7, 0.4, 1.0), 0.04 + 0.12 * u, layer='g')
 
 
-# ============================================================================ 124: he stands on the roof, the camera rushes back, the light rises
+# ============================================================================ 124-125: Hollow Purple swallows the city
+PURP_INK = (0.17, 0.06, 0.26)      # buildings backlit by the purple
+PURP_DEEP = (0.08, 0.03, 0.12)     # buildings right in front of the lens
+PURP_LIT = (0.50, 0.17, 0.80)      # buildings bathed in the light at the end
+PURP_FOG = (0.58, 0.40, 0.80)      # haze in the purple air
+
+
+def wisp(c, x0, y0, x1, y1, w, colr, a):
+    """a long thin lens-shaped streak of lit cloud"""
+    dx, dy = x1 - x0, y1 - y0
+    L = math.hypot(dx, dy) + 1e-6
+    nx, ny = -dy / L * w / 2, dx / L * w / 2
+    mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+    p = skia.Path()
+    p.moveTo(x0, y0)
+    p.quadTo(mx + nx * 2, my + ny * 2, x1, y1)
+    p.quadTo(mx - nx * 2, my - ny * 2, x0, y0)
+    p.close()
+    c.drawPath(p, paint(colr, a * 0.35, k=2.6, add=True, blur=max(1.0, w * 0.35)))
+
+
+def sky_streaks(fr, q, scale, k, seed, n=36):
+    """the sky lit by the purple: long wisps streaming out from the light, nearly level and
+    leaning in toward it (they sit with the light, so they move with the camera)"""
+    if k <= 0:
+        return
+    for i in range(n):
+        side = -1 if hash01(seed, i, 1) < 0.5 else 1
+        dx = side * (0.15 + 1.5 * hash01(seed, i, 2)) * scale
+        dy = (hash01(seed, i, 3) - 0.62) * 0.75 * scale
+        L = (0.35 + 1.1 * hash01(seed, i, 4)) * scale
+        ang = math.atan2(dy * 0.35, dx) - 0.10
+        cx, cy = q[0] + dx, q[1] + dy
+        x0, y0 = cx - math.cos(ang) * L / 2, cy - math.sin(ang) * L / 2
+        x1, y1 = cx + math.cos(ang) * L / 2, cy + math.sin(ang) * L / 2
+        w = (4 + 12 * hash01(seed, i, 5)) * scale / 900
+        wisp(fr.g, x0, y0, x1, y1, w, (0.95, 0.72, 1.0), k * (0.25 + 0.45 * hash01(seed, i, 6)))
+
+
+def light_body(fr, x, y, rp, heat=1.0, ref=None):
+    """the purple light itself: layered from a lavender-white heart through pink-lavender to a
+    violet rim (never a flat white disc), a tight halo, and light on top that blooms.
+    ref: once the sphere is bigger than the screen, its colour bands keep this size in pixels
+    (white-lavender centre, violet toward the corners) instead of stretching off screen"""
+    if rp < 0.5:
+        return
+    f = 1.0 if ref is None or rp <= ref else ref / rp
+    fr.g.drawCircle(x, y, rp * 1.25, paint((0.62, 0.22, 1.0), 0.10 * heat, k=3.0, stroke=rp * 0.55, add=True, blur=rp * 0.3))
+    pb = skia.Paint(AntiAlias=True)
+    pb.setShader(skia.GradientShader.MakeRadial(
+        skia.Point(x, y), rp,
+        [col((1.0, 0.97, 1.0)), col((0.99, 0.92, 1.0)), col((0.95, 0.78, 1.0)), col((0.86, 0.55, 1.0)),
+         col((0.74, 0.32, 0.98)), col((0.66, 0.22, 0.95), 0.0)],
+        [0.0, 0.45 * f, 0.7 * f, 0.85 * f, 0.95 * f + 0.0001, 1.0]))
+    fr.b.drawCircle(x, y, rp, pb)
+    fr.g.drawCircle(x, y, rp * 0.72, paint((0.45, 0.36, 0.52), 0.06 * heat, k=8.0, add=True, blur=rp * 0.3))
+    fr.g.drawCircle(x, y, rp * 0.9, paint((0.85, 0.55, 1.0), 0.08 * heat, k=4.0, stroke=max(2.0, rp * 0.05), add=True, blur=max(1.0, rp * 0.04)))
+
+
+def god_rays(cx, cy, k, tint=(0.80, 0.50, 1.0), n=12, spread=0.28, thr=0.95):
+    """light streaming out from the hottest part of the picture (radial smear away from the
+    source), so it falls over the buildings in shafts"""
+    def fn(img):
+        if k <= 0:
+            return img
+        h, w = img.shape[:2]
+        s = 4
+        sw, sh = w // s, h // s
+        sm = cv2.resize(img, (sw, sh), interpolation=cv2.INTER_AREA)
+        lum = sm.max(-1)
+        src = np.ascontiguousarray(np.clip(lum - thr, 0, None) * 3.0, np.float32)
+        acc = np.zeros_like(src)
+        c0, c1 = cx / s, cy / s
+        for i in range(n):
+            sc = 1.0 + spread * (i + 1) / n
+            M = np.float32([[sc, 0, c0 * (1 - sc)], [0, sc, c1 * (1 - sc)]])
+            acc += cv2.warpAffine(src, M, (sw, sh), borderMode=cv2.BORDER_CONSTANT)
+        acc = cv2.GaussianBlur(acc / n, (0, 0), 1.2)
+        acc = cv2.resize(acc, (w, h), interpolation=cv2.INTER_LINEAR)
+        acc = acc[..., None]
+        return img + acc * np.array(tint, np.float32) * k
+    return fn
+
+
+def ink_box(fr, cs, x0, x1, z0, z1, y0, y1, colr, grid=None):
+    """flat silhouette of a block; grid=(colour, floor_h, bay_w) draws faint window lines on the
+    face toward the camera (only for blocks right in front of the lens)"""
+    cs_pos = cs.pos
+    corners = np.array([[x, y, z] for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)], np.float64)
+    P = cs.proj_many(corners)
+    if (P[:, 2] > 0.5).all():
+        if P[:, 0].max() < -20 or P[:, 0].min() > W + 20 or P[:, 1].max() < -20 or P[:, 1].min() > H + 20:
+            return
+        hull = cv2.convexHull(P[:, :2].astype(np.float32)).reshape(-1, 2)
+        path = poly_path(hull, closed=True)
+        fr.b.drawPath(path, paint(colr, 1.0))
+        fr.g.drawPath(path, paint((0, 0, 0), 1.0, erase=True))
+    else:
+        b = Building(x0, x1, z0, z1, y1 - y0, base=y0, ink=True, color=colr)
+        for name, quad, nrm in b.faces():
+            if np.dot(nrm, cs_pos - quad[0]) <= 0:
+                continue
+            Q = clip_poly_near(cs, quad, near=0.05)
+            if Q is None:
+                continue
+            path = poly_path(Q, closed=True)
+            fr.b.drawPath(path, paint(colr, 1.0))
+            fr.g.drawPath(path, paint((0, 0, 0), 1.0, erase=True))
+    if grid is not None and cs_pos[2] < z0:
+        gc, fh, bw = grid
+        d = max(0.3, z0 - cs_pos[2])
+        wpx = max(1.0, 0.10 * cs.scale(d))
+        y = y0 + fh
+        while y < y1:
+            seg = cs.clip_seg(V(x0, y, z0), V(x1, y, z0))
+            if seg is not None:
+                fr.b.drawLine(seg[0][0], seg[0][1], seg[1][0], seg[1][1], paint(gc, 0.9, stroke=wpx))
+            y += fh
+        x = x0 + bw
+        while x < x1:
+            seg = cs.clip_seg(V(x, y0, z0), V(x, y1, z0))
+            if seg is not None:
+                fr.b.drawLine(seg[0][0], seg[0][1], seg[1][0], seg[1][1], paint(gc, 0.9, stroke=wpx * 0.8))
+            x += bw
+
+
+def mixc3(a, b, u):
+    return tuple(a[i] + (b[i] - a[i]) * u for i in range(3))
+
+
 class S124(Shot):
+    """silhouette on the roof, arms spread; the camera rushes away and he becomes the light"""
     t0, t1 = 3194 / 24, 3200 / 24
 
     def setup(self):
         D = self.t1 - self.t0
         g = self.g = Actor(Figure(GOJO, 1.06, 'gojo124'))
-        g.k(0, yaw=math.pi, root=V(0, 0.95, 0), foot_l=V(-0.22, 0, 0.0), foot_r=V(0.22, 0, 0.05), hand_l=V(-0.45, 0.28, 0.05),
-            hand_r=V(0.45, 0.28, 0.05), hshape_l=shape('open'), hshape_r=shape('open'), hpitch=-0.15, eye_glow=1.5)
-        g.k(D, root=V(0, 1.2, 0), foot_l=V(-0.2, 0.3, 0.05), foot_r=V(0.2, 0.25, 0.1), hand_l=V(-0.5, 0.35, 0.0), hand_r=V(0.5, 0.35, 0.0))
-        g.d.wind = V(0.6, 0.2, 0)
-        # fast pull-back: starts close, rushes away and up
-        self.cam = Cam(Ch(V(0.3, 0.6, -6.0)).key(3 / 24, V(1.5, 4.0, -55.0), 'outexp').key(D, V(1.6, 4.5, -62.0)),
-                       Ch(V(0.0, 1.4, 0.0)).key(3 / 24, V(0.0, 3.0, 0.0), 'outexp'), fov=46)
-        self.roof = Building(-3.0, 3.0, -2.0, 3.0, 60, base=-60, seed=124, ink=True, color=(0.20, 0.08, 0.30))
-        self.blds = skyline(124, n=50, z0=-20, z1=60, spread=200, hmin=-30, hmax=-6, base=-80, ink=True)
-        self.bloom_t = 3 / 24
+        g.k(0, yaw=0.0, root=V(0, 0.95, 0), lean=-0.06, hpitch=-0.22, foot_l=V(-0.17, 0, 0.03), foot_r=V(0.18, 0, -0.04),
+            hand_l=V(-0.55, 0.08, 0.10), hand_r=V(0.55, 0.10, 0.10), elbow_l=V(-0.2, -1, -0.2), elbow_r=V(0.2, -1, -0.2),
+            hshape_l=shape('open'), hshape_r=shape('open'), eye_glow=0.0)
+        g.k(D, 'out', hand_l=V(-0.56, 0.20, 0.12), hand_r=V(0.57, 0.22, 0.12), lean=-0.12, hpitch=-0.32)
+        g.d.wind = V(0.5, 0.25, 0)
+        self.Cg = g.fig.pose(0.0)['C']
+        self.P = self.Cg + V(0.0, 0.25, 1.8)        # where the purple gathers, in front of him
+        l0, l1 = math.log(3.8), math.log(56.0)
+        self.dist = lambda s: math.exp(l0 + (l1 - l0) * (1 - (1 - clamp(s / D, 0, 1)) ** 2.2))
+
+        def cpos(s):
+            d = self.dist(s)
+            return V(self.Cg[0] + 0.04 * d, 0.3 + 0.06 * (d - 3.8), self.Cg[2] - d)
+
+        def ctgt(s):
+            d = self.dist(s)
+            return self.Cg + V(0.0, -0.3 - 0.085 * (d - 3.8), 0.0)
+        self.cam = Cam(cpos, ctgt, fov=46)
+        self.cam.drift = 0.1
+        self.roof = Building(-2.4, 2.4, -1.8, 3.0, 600, base=-600, seed=124, ink=True, color=PURP_INK)
+        self.blds = []
+        for i in range(80):
+            x = (hash01(1241, i) - 0.5) * 420
+            z = -150 + 560 * hash01(1242, i)
+            if abs(x) < 10 and -75 < z < 14:
+                continue      # the street the camera flies back along stays open
+            w, d = 8 + 14 * hash01(1243, i), 8 + 14 * hash01(1244, i)
+            top = -34 + 28 * hash01(1245, i)
+            self.blds.append(Building(x - w / 2, x + w / 2, z - d / 2, z + d / 2, top + 600, base=-600, seed=1250 + i, ink=True, color=PURP_INK))
+        # the block the camera passes on the way out: it wipes in from the left on the last frame
+        self.wiper = Building(-14.0, 0.25, -95.0, -46.5, 115, base=-90, seed=1249, ink=True, color=PURP_DEEP)
+
+    def light_r(self, s):
+        return float(np.interp(s * 24, [0, 1, 2, 3, 4, 5, 6], [0, 6, 34, 120, 175, 195, 205]))
 
     def draw(self, fr, s):
         cs = self.cam.at(s)
+        f = s * 24
         paper(fr)
         violet_wash(fr, 1.2)
-        fx.streak_lines(fr, -0.06, 124, n=40, color=(0.95, 0.75, 1.0), alpha=0.7, width=7, length=(500, 1500), layer='g', band=(0, H * 0.6))
-        draw_buildings(fr, cs, self.blds, fog_dist=400)
-        self.roof.draw(fr, cs, fog_dist=400)
-        draw_actors(fr, self.cam, s, s, [self.g], silhouette=(0.15, 0.05, 0.22))
-        a = s - self.bloom_t
-        if a >= 0:
-            c = self.g.fig.pose(s)['C']
-            fx.orb(fr, cs, c, 0.6 + 14 * a, 'magenta', s, seed=124, arcs=4)
-            q = cs.proj(c)
-            fx.light_wash(fr, q[0], q[1], 300 + 3000 * a, (0.95, 0.85, 1.0), 0.6, layer='g')
+        q = cs.proj(self.P)
+        rc = self.light_r(s)
+        fx.light_wash(fr, q[0], q[1], 300 + 5 * rc, (0.82, 0.58, 1.0), 0.6)
+        sky_streaks(fr, q, 800 + 3 * rc, 0.45 + 0.55 * smoothstep(1, 4, f), 124)
+        draw_buildings(fr, cs, self.blds, fog_color=PURP_FOG, fog_dist=420)
+        self.roof.draw(fr, cs, fog_color=PURP_FOG, fog_dist=420)
+        light_body(fr, q[0], q[1], rc, heat=1.0)
+        draw_actors(fr, self.cam, s, s, [self.g], silhouette=(0.12, 0.04, 0.19))
+        # the light grows over him: a glow that swallows the tiny figure, with a level flare
+        e = smoothstep(1.5, 3.2, f)
+        if e > 0:
+            fr.g.drawCircle(q[0], q[1], rc * 1.15, paint((0.92, 0.72, 1.0), 0.3 * e, k=3.0, add=True, blur=rc * 0.35))
+            wisp(fr.g, q[0] - rc * 6, q[1] + rc * 0.05, q[0] + rc * 6, q[1] - rc * 0.05, rc * 0.22, (0.95, 0.75, 1.0), 0.8 * e)
+        self.wiper.draw(fr, cs, fog_color=PURP_FOG, fog_dist=420)
+
+
+class PurpleCity:
+    """frames 3200-3272 as one continuous move: the camera tracks sideways low across the
+    rooftops while the sphere of light rises behind the city, grows, and eats it from the top
+    (blocks dissolve where the sphere reaches them) until only light is left"""
+    T0 = 3200 / 24
+    VX = 32.0
+    CAM_Y = 22.0
+    C = V(-55.0, 175.0, 520.0)
+    PITCH = math.radians(5.0)
+
+    def __init__(self):
+        # radius keyed so the eaten edge reaches the blocks at the depths the original shows:
+        # far rows by 3236, the middle rows 3240-50, the nearest rows at the very end
+        fr_ = [3200, 3210, 3218, 3224, 3230, 3236, 3240, 3245, 3250, 3255, 3260, 3266, 3272, 3280]
+        R_ = [45, 60, 80, 118, 230, 408, 455, 484, 503, 518, 528, 534.5, 539.3, 545]
+        self.Rf = PchipInterpolator(np.array(fr_, float) / 24.0, np.array(R_, float))
+        self.cam = Cam(self.cam_pos, self.cam_tgt, fov=50)
+        self.cam.drift = 0.0
+        blds = []   # (x0, x1, z0, z1, top, kind)
+        # blocks right in front of the lens (black frames at 3200-01 and 3206-08)
+        blds.append((-2.35, 9.0, 1.3, 10.0, 70.0, 'fg'))
+        blds.append((-12.0, -7.34, 1.6, 9.0, 70.0, 'fg'))
+        blds.append((-33.0, -27.5, 4.0, 10.0, 46.0, 'fg'))
+        rows = [14, 26, 40, 56, 75, 98, 125, 160, 200, 250, 310, 380, 450]
+        for ri, z in enumerate(rows):
+            sp = 10 + 0.12 * z
+            xa, xb = -96 - 0.95 * z - 20, 0.95 * z + 20
+            x = xa + sp * hash01(1300, ri)
+            j = 0
+            while x < xb:
+                j += 1
+                wdt = sp * (0.55 + 0.3 * hash01(1301, ri, j))
+                dep = 6 + 0.06 * z + 4 * hash01(1302, ri, j)
+                hv = hash01(1303, ri, j)
+                if z < 30:
+                    top = 6 + 12 * hv
+                elif z < 90:
+                    top = 18 + 13 * hv if hash01(1304, ri, j) > 0.05 else 34 + 6 * hv
+                else:
+                    top = 24 + 24 * hv if hash01(1304, ri, j) > 0.08 else 55 + 15 * hv
+                zz = z + 3 * (hash01(1305, ri, j) - 0.5)
+                blds.append((x, x + wdt, zz, zz + dep, top, 'city'))
+                x += sp
+        self.blds = blds
+
+    def cam_pos(self, t):
+        u = t - self.T0
+        return V(-self.VX * u, self.CAM_Y - 1.2 * u, 0.0)
+
+    def cam_tgt(self, t):
+        p = self.cam_pos(t)
+        d = self.C - p
+        hz = math.hypot(d[0], d[2])
+        return p + V(d[0] / hz, math.tan(self.PITCH), d[2] / hz) * 100.0
+
+    def R(self, t):
+        return float(self.Rf(t))
+
+    def draw(self, fr, t):
+        cs = self.cam.at(t)
+        R = self.R(t)
+        C = self.C
+        L = float(np.linalg.norm(C - cs.pos))
+        lit = smoothstep(3236 / 24, 3264 / 24, t)
+        paper(fr)
+        violet_wash(fr, 1.2)
+        q = cs.proj(C)
+        al = math.asin(min(R / L, 0.9995))
+        rp = min(cs.focal * math.tan(al), 30000.0)
+        # the sky lit around the light, then the light itself
+        fx.light_wash(fr, q[0], q[1], rp * 2.4 + 350, (0.80, 0.50, 1.0), 0.55 + 0.35 * lit)
+        sky_streaks(fr, q, 900 + 1.3 * rp, 0.8, 1240)
+        ref = float(np.interp(t * 24, [3228, 3238, 3248, 3256, 3264], [800, 950, 1250, 2000, 4000]))
+        light_body(fr, q[0], q[1], rp, heat=1.0, ref=ref)
+        # ground in front of where the sphere meets it
+        zf = C[2] - math.sqrt(max(R * R - C[1] * C[1], 0.0)) if R > C[1] else 4000.0
+        if zf > 1.0:
+            gq = [V(-3000, 0, 0.6), V(3000, 0, 0.6), V(3000, 0, zf), V(-3000, 0, zf)]
+            Q = clip_poly_near(cs, gq, near=0.3)
+            if Q is not None:
+                path = poly_path(Q, closed=True)
+                fr.b.drawPath(path, paint(mixc3(PURP_INK, PURP_LIT, 0.5 * lit), 1.0))
+                fr.g.drawPath(path, paint((0, 0, 0), 1.0, erase=True))
+        # blocks, far to near; each is cut down to where the sphere has reached
+        items = []
+        for (x0, x1, z0, z1, top, kind) in self.blds:
+            cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
+            rho = math.hypot(cx - C[0], cz - C[2])
+            ycut = C[1] - math.sqrt(R * R - rho * rho) if R > rho else 1e9
+            if ycut <= 0.4:
+                continue
+            d = math.hypot(cx - cs.pos[0], cz - cs.pos[2])
+            items.append((d, x0, x1, z0, z1, top, kind, ycut))
+        items.sort(key=lambda it: -it[0])
+        for (d, x0, x1, z0, z1, top, kind, ycut) in items:
+            y1 = min(top, ycut)
+            fog = clamp(d / 520.0, 0, 0.9) ** 1.2
+            if kind == 'fg':
+                colr = mixc3(PURP_DEEP, PURP_LIT, 0.4 * lit)
+                grid = (mixc3((0.22, 0.12, 0.32), (0.65, 0.35, 0.9), lit), 3.6, 2.6)
+            else:
+                colr = mixc3(mixc3(PURP_INK, PURP_LIT, 0.75 * lit), PURP_FOG, fog * 0.6)
+                grid = None
+            ink_box(fr, cs, x0, x1, z0, z1, 0.0, y1, colr, grid)
+            if ycut < top:
+                self.fringe(fr, cs, t, x0, x1, z0, z1, y1, colr, d)
+        k = smoothstep(3226 / 24, 3250 / 24, t)
+        if k > 0:
+            fr.post.append(god_rays(q[0], q[1], 0.32 * k, tint=(0.85, 0.6, 1.0), thr=1.05))
+
+    def fringe(self, fr, cs, t, x0, x1, z0, z1, y, colr, d):
+        """the edge where the light is eating a block: material lifting off and drifting into
+        the light (dark specks that pale as they rise), a glowing seam along the cut"""
+        seed = int(abs(x0 * 7 + z0 * 13)) % 9973
+        per = 2 * ((x1 - x0) + (z1 - z0))
+        n = int(clamp(per * 9, 80, 420))
+        i = np.arange(n)
+        h1 = np.array([hash01(seed, k, 1) for k in i])
+        h2 = np.array([hash01(seed, k, 2) for k in i])
+        h3 = np.array([hash01(seed, k, 3) for k in i])
+        h4 = np.array([hash01(seed, k, 4) for k in i])
+        u = h1 * per
+        wx, wz = x1 - x0, z1 - z0
+        px = np.where(u < wx, x0 + u, np.where(u < wx + wz, x1, np.where(u < 2 * wx + wz, x1 - (u - wx - wz), x0)))
+        pz = np.where(u < wx, z0, np.where(u < wx + wz, z0 + (u - wx), np.where(u < 2 * wx + wz, z1, z1 - (u - 2 * wx - wz))))
+        v = (t * (0.7 + 0.8 * h2) + h3) % 1.0
+        base = np.stack([px, np.full(n, y), pz], -1)
+        to_c = self.C[None, :] - base
+        to_c /= np.linalg.norm(to_c, axis=1, keepdims=True)
+        dirn = np.array([0.0, 1.0, 0.0])[None, :] * 0.55 + to_c * 0.45
+        P = base + dirn * (0.2 + 10.0 * v ** 1.4)[:, None]
+        Q = cs.proj_many(P)
+        sc = cs.scale(max(d, 1.0))
+        dark = mixc3(colr, (0.05, 0.02, 0.08), 0.5)
+        pale = (0.80, 0.60, 0.98)
+        for k in range(n):
+            if Q[k, 2] < 0.3:
+                continue
+            r = max(1.0, (0.16 + 0.32 * h4[k]) * sc * (1 - 0.5 * v[k]))
+            c = mixc3(dark, pale, float(v[k]) ** 1.6)
+            fr.b.drawRect(skia.Rect(Q[k, 0] - r, Q[k, 1] - r, Q[k, 0] + r, Q[k, 1] + r), paint(c, float(1 - v[k] ** 3)))
+        corners = [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
+        pts = [cs.proj(V(cx, y, cz)) for cx, cz in corners + corners[:1]]
+        if all(np.isfinite(p[0]) for p in pts):
+            fr.g.drawPath(poly_path([(p[0], p[1]) for p in pts]),
+                          paint((0.92, 0.70, 1.0), 0.25, k=3.0, stroke=max(2.0, 1.2 * sc), add=True, blur=max(1.0, 0.8 * sc)))
+
+
+_CITY = {}
+
+
+def purple_city():
+    if 'c' not in _CITY:
+        _CITY['c'] = PurpleCity()
+    return _CITY['c']
 
 
 class S124b(Shot):
-    """tracking sideways behind the skyline; the sphere of light rises behind it"""
+    """sideways past the blocks; the sphere of light rises behind the city"""
     t0, t1 = 3200 / 24, 3222 / 24
 
-    def setup(self):
-        D = self.t1 - self.t0
-        self.C = V(0, 30, 160)
-        self.blds = []
-        for i in range(30):
-            x = -60 + i * 4.2 + 2 * hash01(1241, i)
-            z = 30 + 40 * hash01(1242, i)
-            self.blds.append(Building(x - 1.8, x + 1.8, z, z + 4, 30 + 30 * hash01(1243, i), base=-10, seed=1240 + i, ink=True,
-                                      color=(0.18, 0.07, 0.27)))
-        self.fg = [Building(x - 2, x + 2, 6, 9, 60, base=-10, seed=1250 + j, ink=True, color=(0.10, 0.04, 0.15))
-                   for j, x in enumerate((-3.0, 9.0, 16.0))]
-        self.cam = Cam(Ch(V(-6.0, 6.0, 0)).key(D, V(14.0, 6.5, 0), 'lin'), lambda t: V(-6.0 + 20 * t / D, 14, 100), fov=50)
-        self.r = Ch(14.0).key(D, 40.0, 'in')
-
     def draw(self, fr, s):
-        cs = self.cam.at(s)
-        paper(fr)
-        violet_wash(fr, 1.2)
-        fx.streak_lines(fr, -0.05, 125, n=30, color=(0.95, 0.75, 1.0), alpha=0.6, width=6, length=(600, 1600), layer='g', band=(0, H * 0.55))
-        q = cs.proj(self.C)
-        rp = float(self.r(s)) * cs.scale(q[2])
-        dome(fr, q[0], q[1], rp, 0.4)
-        draw_buildings(fr, cs, self.blds, fog_dist=500, occlude_glow=True)
-        for b in self.fg:
-            b.draw(fr, cs, fog_dist=500)
-
-
-def dome(fr, x, y, rp, glow):
-    """layered sphere of light: violet halo, magenta body, lavender inner, small hot core (never flat white)"""
-    fr.g.drawCircle(x, y, rp * 2.2, paint((0.55, 0.15, 0.95), 0.35 + 0.3 * glow, add=True, blur=rp * 0.9))
-    pb = skia.Paint(AntiAlias=True)
-    pb.setShader(skia.GradientShader.MakeRadial(skia.Point(x, y), rp,
-                                                [col((1.00, 0.92, 1.0), 1, 1.5), col((0.92, 0.65, 1.0), 1, 1.3),
-                                                 col((0.75, 0.30, 1.0), 1, 1.15), col((0.48, 0.10, 0.85), 1, 1.0)],
-                                                [0.0, 0.3, 0.7, 1.0]))
-    fr.b.drawCircle(x, y, rp, pb)
-    fr.g.drawCircle(x, y, rp * 0.5, paint((0.95, 0.8, 1.0), 0.45, add=True, blur=rp * 0.25))
-    fr.g.drawCircle(x, y, rp, paint((0.9, 0.65, 1.0), 0.8, stroke=max(2, rp * 0.02), add=True, blur=rp * 0.01))
+        purple_city().draw(fr, self.t0 + s)
 
 
 class S124c(Shot):
-    """the light swallows the city"""
+    """the light grows and eats the city from the top"""
     t0, t1 = 3222 / 24, 3261 / 24
 
-    def setup(self):
-        D = self.t1 - self.t0
-        self.C = V(0, 10, 150)
-        self.blds = []
-        for i in range(40):
-            x = -70 + i * 3.6 + 2 * hash01(1244, i)
-            z = 25 + 40 * hash01(1245, i)
-            self.blds.append(Building(x - 1.6, x + 1.6, z, z + 4, 22 + 26 * hash01(1246, i), base=-10, seed=1260 + i, ink=True,
-                                      color=(0.18, 0.07, 0.27)))
-        self.cam = Cam(Ch(V(10.0, 6.0, 0)).key(D, V(16.0, 6.0, 4.0)), Ch(V(14, 14, 100)), fov=52)
-        self.r = Ch(40.0).key(D, 170.0, 'in')
-        self.cam.shake(0.3, 6, D, 14)
-
     def draw(self, fr, s):
-        cs = self.cam.at(s)
-        D = self.t1 - self.t0
-        paper(fr)
-        violet_wash(fr, 1.2)
-        q = cs.proj(self.C)
-        rp = float(self.r(s)) * cs.scale(q[2])
-        dome(fr, q[0], q[1], rp, smoothstep(0, D, s))
-        if s < 1.5 / 24:
-            fr.b.drawRect(skia.Rect(0, 0, W * 0.7, H), paint((0.1, 0.04, 0.15)))
-        # the skyline is eaten from the top: buildings fade into the light as it reaches them
-        k = smoothstep(D * 0.4, D, s)
-        draw_buildings(fr, cs, self.blds, fog_color=(0.85, 0.6, 1.0), fog_dist=400 - 330 * k)
-        # particles at the edge of the light
-        for i in range(60):
-            ang = math.pi + hash01(1247, i) * math.pi
-            rr = rp * (0.98 + 0.08 * hash01(1248, i))
-            x, y = q[0] + math.cos(ang) * rr, q[1] + math.sin(ang) * rr * 0.4
-            fr.g.drawCircle(x, y, 2 + 3 * hash01(1249, i), paint((0.95, 0.8, 1.0), 0.8, add=True))
+        purple_city().draw(fr, self.t0 + s)
 
 
-# ============================================================================ 125: white, the purple edge recedes
 class S125(Shot):
+    """all light; the last of the purple city sinks out of the bottom of the frame"""
     t0, t1 = 3261 / 24, 3272 / 24
 
     def draw(self, fr, s):
         D = self.t1 - self.t0
+        purple_city().draw(fr, self.t0 + s)
         u = smoothstep(0.0, D, s)
-        paper(fr, (0.99, 0.97, 1.0))
-        h = H * (0.22 * (1 - u))
-        if h > 1:
-            p = skia.Paint()
-            p.setShader(skia.GradientShader.MakeLinear([skia.Point(0, H - h), skia.Point(0, H)],
-                                                       [col((0.99, 0.97, 1.0)), col((0.55, 0.15, 0.9))]))
-            fr.b.drawRect(skia.Rect(0, H - h, W, H), p)
+
+        def fn(img, u=u):
+            h, w = img.shape[:2]
+            edge = h * (0.80 + 0.17 * u)
+            yy = np.arange(h, dtype=np.float32)[:, None, None]
+            m = np.clip((edge - yy) / (h * 0.12), 0, 1) * (0.55 + 0.45 * u)
+            tgt = np.array((1.08, 1.03, 1.10), np.float32)
+            return img + (tgt - img) * m
+        fr.post.append(fn)
 
 
 SHOTS = [S118, S119, S120, S121, S122, S123, S124, S124b, S124c, S125]

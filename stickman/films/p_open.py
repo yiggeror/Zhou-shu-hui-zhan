@@ -12,7 +12,7 @@ from engine.env import Sky, Ground, contact_shadow
 from engine.canvas import paint, poly_path, col
 from engine import fx
 
-TITLE_TEXT = True
+TITLE_TEXT = False   # no text in the video (the user adds titles)
 
 
 from engine.theme import T as THEME
@@ -155,7 +155,7 @@ class S2(Shot):
 class S3(Shot):
     """Title: white slabs slash across black, the four characters land one by one between
     the shards, then the shards break the frame apart."""
-    t0, t1 = 126 / 24, 147 / 24
+    t0, t1 = 126 / 24, 148 / 24
     vignette = 0.1
 
     def setup(self):
