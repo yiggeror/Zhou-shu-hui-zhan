@@ -59,6 +59,11 @@ def chains(fig, J):
         tor.append((1 - u) ** 2 * P + 2 * (1 - u) * u * (2 * M - (P + C) / 2) + u * u * C)
     tor.append(N)
     out.append(('torso', tor, 1.12))
+    # shoulder and hip lines (only show when the shoulders / hips are traced apart)
+    if 'Sl' in J and float(np.linalg.norm(J['Sl'] - J['Sr'])) > 1e-6:
+        out.append(('collar', [J['Sl'], J['C'], J['Sr']], 1.0))
+    if 'Hpl' in J and float(np.linalg.norm(J['Hpl'] - J['Hpr'])) > 0.06 * fig.k:
+        out.append(('hips', [J['Hpl'], J['P'], J['Hpr']], 1.0))
     for s in 'lr':
         out.append(('arm' + s, [J['S' + s], J['E' + s], J['W' + s]], 1.0))
         out.append(('leg' + s, [J['Hp' + s], J['K' + s], J['A' + s], J['T' + s]], 1.05))
@@ -72,13 +77,19 @@ class FigDraw:
     def project_chains(self, cs, J):
         k = self.fig.k
         res = []
+        hide = J.get('hide', ())
         for name, pts, wm in chains(self.fig, J):
+            if name in hide or (name in ('collar', 'hips') and 'torso' in hide and name + '_' not in hide):
+                continue
             P = cs.proj_many(np.array(pts))
             if np.any(P[:, 2] < 0.05):
                 continue
             depth = float(np.mean(P[:, 2]))
             wpx = self.fig.style.width * wm * cs.scale(depth)
-            res.append(dict(name=name, P=P, depth=depth, w=wpx))
+            taper = None
+            if float(P[:, 2].max()) > 1.25 * float(P[:, 2].min()):
+                taper = np.array([max(1.2, self.fig.style.width * wm * cs.scale(float(d))) for d in P[:, 2]])
+            res.append(dict(name=name, P=P, depth=depth, w=wpx, taper=taper))
         return res
 
     # ------------------------------------------------------------------
@@ -117,6 +128,10 @@ class FigDraw:
         wref = fig.style.width * cs.scale(max(cs.to_cam(poses[-1]['C'])[2], 0.2))
         chains = [('El', 'Wl'), ('Sl', 'El'), ('Er', 'Wr'), ('Sr', 'Er'), ('Kl', 'Al'), ('Hpl', 'Kl'), ('Al', 'Tl'),
                   ('Kr', 'Ar'), ('Hpr', 'Kr'), ('Ar', 'Tr')]
+        hide = poses[-1].get('hide', ())
+        owner = {'l': 'arml', 'r': 'armr'}
+        chains = [(a_, b_) for (a_, b_) in chains
+                  if not ((a_[0] in 'ESW' and ('arm' + a_[-1]) in hide) or (a_[0] in 'KHAT' and ('leg' + a_[-1]) in hide))]
         c = fr.b
         drew = False
         for (ka, kb) in chains:
@@ -142,14 +157,15 @@ class FigDraw:
         fig = self.fig
         items = self.project_chains(cs, J)
         # head
+        hide = J.get('hide', ())
         hc = cs.proj(J['H'])
-        if hc[2] > 0.05:
+        if hc[2] > 0.05 and 'head' not in hide:
             hr = fig.L['head'] * fig.style.head_k * cs.scale(hc[2])
             items.append(dict(name='head', depth=float(hc[2]) - fig.L['head'] * 0.5, c=hc, r=hr))
         # hands
         for s in 'lr':
             wc = cs.proj(J['W' + s])
-            if wc[2] > 0.05:
+            if wc[2] > 0.05 and 'fist' + s not in hide:
                 rr = (0.030 + 0.022 * J['fist_' + s]) * fig.k * cs.scale(wc[2])
                 items.append(dict(name='fist' + s, depth=float(wc[2]) - 0.01, c=wc, r=rr, side=s))
         if fig.style.hair == 'long' and hc[2] > 0.05:
@@ -179,6 +195,10 @@ class FigDraw:
                 continue
             P = it['P'][:, :2]
             w = max(it['w'], 1.2)
+            if it.get('taper') is not None:
+                # strong depth change along the limb: nearer parts drawn thicker
+                self._tapered(c, P, it['taper'], line, a_draw)
+                continue
             path = smooth_path(P) if nm == 'torso' else poly_path(P)
             if outline:
                 gap = max(2.0, w * 0.32)
@@ -198,6 +218,27 @@ class FigDraw:
             c.drawPath(path, paint(line, a_draw, stroke=w))
         if a < 0.999:
             c.restore()
+
+    def _tapered(self, c, P, wd, line, a):
+        """a limb whose width changes along it: round joints plus tangent-joined segments"""
+        path = None
+        for i in range(len(P)):
+            q = skia.Path()
+            q.addCircle(float(P[i][0]), float(P[i][1]), float(wd[i]) / 2)
+            path = q if path is None else (skia.Op(path, q, skia.PathOp.kUnion_PathOp) or path)
+        for i in range(len(P) - 1):
+            p0, p1 = np.asarray(P[i], float), np.asarray(P[i + 1], float)
+            d = p1 - p0
+            L = float(np.hypot(*d))
+            if L < 1e-3:
+                continue
+            n = np.array([-d[1], d[0]]) / L
+            r0, r1 = wd[i] / 2, wd[i + 1] / 2
+            quad = [p0 + n * r0, p1 + n * r1, p1 - n * r1, p0 - n * r0]
+            q = poly_path(quad, closed=True)
+            path = skia.Op(path, q, skia.PathOp.kUnion_PathOp) or path
+        if path is not None:
+            c.drawPath(path, paint(line, a))
 
     def _hand(self, c, cs, J, it, line, a):
         fig = self.fig
@@ -434,8 +475,9 @@ class FigDraw:
             ca, sa = math.cos(slant), math.sin(slant)
             u1 = t1 * ca + t2 * sa
             u2 = t2 * ca - t1 * sa
-            w = 0.074 * fig.k * sc
-            h = (0.021 if fig.style.four_eyes else 0.021) * fig.k * sc * op * (1 - 0.45 * sq) * max(0.05, J['eye_l'] if side < 0 else J['eye_r'])
+            ek = J.get('eye_k', 1.0)        # traced close-ups: the eyes' size relative to the head
+            w = 0.074 * fig.k * sc * ek
+            h = (0.021 if fig.style.four_eyes else 0.021) * fig.k * sc * ek * op * (1 - 0.45 * sq) * max(0.05, J['eye_l'] if side < 0 else J['eye_r'])
             # almond: 2 corners + upper/lower arcs (sampled)
             pts = []
             for i in range(9):
@@ -457,7 +499,7 @@ class FigDraw:
         st = fig.style
         op = clamp(J['eye_open'], 0, 1)
         glow = J['eye_glow'] * a
-        if op <= 0.01 or a <= 0:
+        if op <= 0.01 or a <= 0 or 'head' in J.get('hide', ()):
             return
         if J['eye_glow'] <= 0.01:
             b = 1.0
