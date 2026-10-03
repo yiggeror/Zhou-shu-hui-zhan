@@ -27,6 +27,16 @@ def load(path):
     return im[..., ::-1].astype(np.float32) / 255.0
 
 
+def to_canvas(img, size=(1672, 941)):
+    """drawings of one shot can come back a pixel or two off in size: pad / crop (never scale)
+    onto the shot's canvas, anchored top-left, padding with the edge colour"""
+    w, h = size
+    out = img[:h, :w]
+    if out.shape[0] < h or out.shape[1] < w:
+        out = cv2.copyMakeBorder(out, 0, h - out.shape[0], 0, w - out.shape[1], cv2.BORDER_REPLICATE)
+    return out
+
+
 def key(img, tol=0.20, soft=0.10, despill=True):
     """img: RGB float (straight).  Returns premultiplied RGBA.  The key colour is the median of
     the outer border pixels that are clearly green."""
@@ -42,13 +52,22 @@ def key(img, tol=0.20, soft=0.10, despill=True):
     alpha = np.clip((1.0 - t - tol) / soft + 0.5, 0, 1) if soft > 0 else (t < 1 - tol).astype(np.float32)
     alpha = np.clip((1.0 - t) / (1.0 - tol), 0, 1) ** 1.0
     alpha[t > 1 - tol * 0.5] = 0.0
-    out = rgb.copy()
+    a = alpha[..., None].astype(np.float32)
+    # unmix: the edge pixel is a*fg + (1-a)*screen  ->  recover fg, then kill leftover spill
+    out = np.where(a > 0.02, (rgb - (1 - a) * kc) / np.maximum(a, 0.02), rgb)
+    out = np.clip(out, 0, 1)
     if despill:
         lim = np.maximum(out[..., 0], out[..., 2])
         out[..., 1] = np.minimum(out[..., 1], lim + 0.02)
-    a = alpha[..., None].astype(np.float32)
-    # unmix the screen colour from the semi-transparent edge
-    out = np.clip(out - (1 - a) * kc * (despill * 0.0), 0, 1)
+        # near the matte edge the screen bleeds into the dark outline: there green may not exceed
+        # the mean of red and blue (interior colours such as cyan eyes are left alone)
+        bg = (alpha < 0.99).astype(np.uint8)
+        band = cv2.dilate(bg, np.ones((7, 7), np.uint8)).astype(bool) & (alpha > 0.01)
+        cap = (out[..., 0] + out[..., 2]) / 2 + 0.02
+        g = out[..., 1]
+        out[..., 1] = np.where(band, np.minimum(g, cap), g)
+    # erode the matte by a hair so no screen colour survives on the outermost pixel
+    a = cv2.erode(a[..., 0], np.ones((2, 2), np.uint8))[..., None]
     return np.concatenate([out * a, a], -1).astype(np.float32)
 
 
@@ -127,6 +146,15 @@ def tonemap(x):
     over = np.maximum(m - knee, 0)
     m2 = np.where(m > knee, knee + (1 - knee) * (1 - np.exp(-over / (1 - knee))), m)
     return np.clip(x * (m2 / np.maximum(m, 1e-6)), 0, 1)
+
+
+def grade(img, tint=(0.96, 0.985, 1.03), desat=0.12, gamma=1.0):
+    """one shot-wide grade so drawn characters and painted backgrounds sit in the same light"""
+    g = img.mean(-1, keepdims=True)
+    out = (img * (1 - desat) + g * desat) * np.array(tint, np.float32)
+    if gamma != 1.0:
+        out = np.clip(out, 0, None) ** gamma
+    return out
 
 
 def to8(x):

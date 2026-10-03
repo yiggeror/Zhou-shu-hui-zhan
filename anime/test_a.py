@@ -9,7 +9,9 @@ from anime import comp as C
 SRC = 'collab/from_limo/002/test_A'
 F0, F1 = 219, 269
 # exposure sheet: (first frame, drawing).  A02 / A03 / A05 / A06 not drawn yet -> held neighbours
-SHEET = [(219, 'A01'), (240, 'A04'), (256, 'A07')]
+SHEET = [(219, 'A01_char'), (236, 'A02_char_v1'), (238, 'A03_char_v1'), (240, 'A04_char_v2'), (248, 'A05_char_v1'),
+         (256, 'A06_char_v1'), (264, 'A07_char_v2')]
+BG = 'A_bg_v1'
 EYE = (0.25, 0.85, 1.0)
 
 
@@ -45,13 +47,21 @@ def drawing_at(f):
 def main(out):
     cels = {}
     for _, n in SHEET:
-        cels[n] = C.key(C.load(f'{SRC}/{n}_char.png'))
-    ref = cels['A01']
+        cels[n] = C.key(C.to_canvas(C.load(f'{SRC}/{n}.png')))
+    ref = cels['A01_char']
     for n in cels:
-        if n != 'A01':
+        if n != 'A01_char':
             cels[n] = C.match(cels[n], ref)
     masks = {n: C.glow_mask(c) for n, c in cels.items()}
-    bg = temp_background()
+    if os.path.exists(f'{SRC}/{BG}.png'):
+        b = C.load(f'{SRC}/{BG}.png')[..., :3]
+        # out of focus behind the close-up, and pulled toward the cool overcast grade of the shot
+        b = cv2.GaussianBlur(b, (0, 0), 3.0)
+        grey = b.mean(-1, keepdims=True)
+        bg = np.clip((b * 0.75 + grey * 0.25) * np.array((0.96, 0.99, 1.04)), 0, 1)
+        bg = cv2.resize(bg, (C.W, C.H), interpolation=cv2.INTER_LANCZOS4)
+    else:
+        bg = temp_background()
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{C.W}x{C.H}', '-r', '24',
                           '-i', '-', '-c:v', 'libx264', '-crf', '14', '-preset', 'slow', '-pix_fmt', 'yuv420p', out], stdin=subprocess.PIPE)
     for f in range(F0, F1):
@@ -67,6 +77,7 @@ def main(out):
         if k > 0:
             m = C.place(np.repeat(masks[n][..., None], 4, -1), **cam)[..., 0]
             img = img + C.glow(m, EYE, k * 0.55, radii=(3, 10, 30), weights=(0.8, 0.45, 0.2))
+        img = C.grade(img, tint=(0.95, 0.98, 1.03), desat=0.12)
         p.stdin.write(C.to8(C.tonemap(img)).tobytes())
     p.stdin.close()
     p.wait()
