@@ -221,7 +221,9 @@ class S3(Shot):
             for i in range(9):
                 u = smoothstep(0.62 + 0.025 * i, 0.70 + 0.025 * i, s)
                 ang = math.radians(35 + 30 * hash01(11, i))
-                self.slab(c, ang, (hash01(12, i) - 0.5) * 1500, 160 + 220 * hash01(13, i), u, INKC)
+                # once a shard has cut across it keeps sliding, so the break-up never stands still
+                drift = 260 * max(0.0, s - (0.70 + 0.025 * i)) * (1 if hash01(14, i) > 0.5 else -1)
+                self.slab(c, ang, (hash01(12, i) - 0.5) * 1500 + drift, 160 + 220 * hash01(13, i), u, INKC)
         if s < 0.03:
             fx.flash(fr, (0.6, 0.4, 1.0), 0.35 * (1 - s / 0.03))
 

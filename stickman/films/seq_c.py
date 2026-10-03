@@ -98,7 +98,8 @@ class Observers(Shot):
         D = self.t1 - self.t0
         self.acts = []
         for i, (st, x, z, yaw, extra) in enumerate(self.people):
-            a = Actor(Figure(st, extra.pop('k', 1.0), 'obs%d_%d' % (id(self) % 97, i)))
+            extra = dict(extra)   # the class-level spec is shared by every instance: never consume it
+            a = Actor(Figure(st, extra.pop('k', 1.0), 'obs_%s_%d' % (type(self).__name__, i)))
             stand(a, 0, x, z, yaw, width=0.13)
             spec = dict(eye_glow=0.0, hand_l=V(-0.05, -0.48, 0.06), hand_r=V(0.05, -0.48, 0.06))
             spec.update(extra.pop('pose', {}))

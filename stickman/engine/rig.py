@@ -3,6 +3,7 @@ root (pelvis, world), yaw, lean/bend/twist (spine), head angles or a look-at tar
 hand targets (chest-local or world), foot targets (world), pole vectors and eye state.
 Limbs are solved with soft two-bone IK, so the elbows/knees always bend naturally."""
 import math
+import zlib
 import numpy as np
 from .mathx import V, norm, Rx, Ry, Rz, clamp, fbm1
 from .anim import as_fn
@@ -86,7 +87,9 @@ class Figure:
             eye_open=1.0, eye_glow=0.55, eye_fire=0.0, eye_squint=0.0, eye_l=1.0, eye_r=1.0,
             visible=1.0, idle=1.0,
         )
-        self.seed = abs(hash(name)) % 997 if name else 7
+        # stable across processes (str hash() is salted per process, which made chunks rendered by
+        # different workers breathe differently and twitch at chunk joins)
+        self.seed = zlib.crc32(name.encode()) % 997 if name else 7
 
     def set(self, **kw):
         for k, v in kw.items():
