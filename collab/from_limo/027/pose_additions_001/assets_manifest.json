@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "tool": "built-in image_gen.imagegen",
+  "source_window": "[1248,1284) at24fps",
+  "source_resolution": [
+    2560,
+    1440
+  ],
+  "native_output_resolution": [
+    1672,
+    941
+  ],
+  "opaque_mode": "RGB",
+  "overscan": false,
+  "original_viewport": "entire image",
+  "new_body_keys": 4,
+  "noFX_auxiliaries": 2,
+  "total_generation_calls": 11,
+  "selected_files": [
+    {
+      "filename": "D10b_n1269_v2.png",
+      "bytes": 1676781,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "ba50912dafec465d4a8dc2148840628aad50089497cc49059b34f9616944e00d",
+      "git_blob_sha": "bc1440e2bf5502dba28810e51354b37ebea031ab"
+    },
+    {
+      "filename": "D10b_n1269_noFX_v2.png",
+      "bytes": 1735620,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "ecf5c08faa0cbc302cc1219afcb9865ce35e61d131c43f44ef65469ba6a7162a",
+      "git_blob_sha": "453a2edf064a4f6cf72920f5fcd84c6d82be9291"
+    },
+    {
+      "filename": "D14b_n1276.png",
+      "bytes": 1599861,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "15f8fb25d143da8f9ceb789527fc091aa627231bab3e4cf9c1b034ebe5fb2974",
+      "git_blob_sha": "c5e209999d706accf5af49eaa58621c3abd4f304"
+    },
+    {
+      "filename": "D14c_n1278.png",
+      "bytes": 1649068,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "a586fc6e337b5f83f970f3ff8733fdeed15cb0d5e94d7d72bfe7f4e70264c492",
+      "git_blob_sha": "21baeceb8d239f22fd53b21a5d236a20d518a32f"
+    },
+    {
+      "filename": "D14c_n1278_noFX.png",
+      "bytes": 1698601,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "f9297b71a8b6f2d666c35069fdfd3757068266f92faa7b0a438b2cecf1094031",
+      "git_blob_sha": "06cbb3b4dfb83082c7727aea93a1252ec4a6dedf"
+    },
+    {
+      "filename": "D14d_n1281.png",
+      "bytes": 1556230,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "8c20c43485f04ad763bf2c3352833417b4571235cc9251aa32d8bc1b71ba56c4",
+      "git_blob_sha": "fa6a4ada33e66f2d45f5dfba842a011070ae918b"
+    }
+  ],
+  "processing": "Selected native imagegen outputs copied byte-identically; no upscaling, source-body compositing, body warp or interpolation.",
+  "review_status": "Parent and independent visual QA: usable for bounded composite; Opus final sequence review pending.",
+  "known_limits": [
+    "D14c raised palm remains approximately 1.0–2.7% image height low versus source at sampled landmarks (about9–25px).",
+    "NoFX edits are not pixel-identical; concealed arm/fist/background and small cheek/neck fills are inferred and need FX occlusion.",
+    "No claim of complete frame-wide 1px registration or final temporal acceptance."
+  ]
+}
