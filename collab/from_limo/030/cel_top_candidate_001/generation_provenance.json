@@ -1,0 +1,25 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "attempts": 2,
+  "selected_attempt": 2,
+  "prompt": "Precise localized animation-cel repair. Edit Image 1, preserving it at the SAME PIXEL SCALE and position in an extended canvas. Image 2 is hair-shape reference only. Image 3 is a magnified diagnostic only; its left panel shows the incorrect pale triangular web between the splayed fingers that must be removed. Never insert the diagnostic.\n\nOutput requested: 1672 pixels wide by 1041 pixels high, opaque PNG on Image 1's near-green key. This is Image 1's exact 1672x941 image plus 100 rows added ABOVE. Thus original coordinates map to new coordinates (x, y+100) without scaling, stretching, rotation, recentering or zoom. Preserve the large blank right side and blank bottom. Character landmarks in the requested output must remain: face around (340,206), clenched fist around (295,377), open hand around (570,531), visible shoe around (425,877), bottom of shoe around y927. Do not enlarge the figure or alter its body length or width.\n\nONLY TWO small repairs:\n1. Complete the existing white hair spikes where they are cut off along the old image's top (now y100). Draw their real missing continuation upward into the new strip, around x230–420, with highest tip roughly y35–55 and green clearance above. Follow Image 2's swept-up spiky white crest in the SAME head perspective as Image 1. Use the target's dark outlines and blue hatch shading. The new margin must contain visibly drawn missing hair, not merely a rectangular green extension and not a flat clipped crest. Keep existing hair below y100.\n2. The little pale ivory/white web/triangular sliver BETWEEN the open hand's existing fingers is NOT skin or a finger. In Image 1 it lies roughly x540–600,y440–460; after extension it is x540–600,y540–560. Image 3 enlarges it. Paint ONLY that foreign pale gap shape key green, opening the gaps right up to the existing real finger outlines. Retain all five real fingers, their shape, ink, fingernails and spacing. No light-colored web or wedge may remain in the finger gaps.\n\nAbsolute invariants: all of Image 1's existing face, expression, eyes, skin marks, body pose, black shirt, grey-blue trousers, clenched hand, actual open-hand fingers, leg contours, one visible shoe, colors and inking unchanged. Do not copy Image 2's body or scene. Do not add a second shoe or invent anatomy. Added strip outside hair and repaired finger gap must match existing key green approximately RGB(5,249,10). No scene, energy FX, ground, shadow, text, watermark, panels or transparency. Single production cel.",
+  "reference_images": [
+    "D02_char_key.png",
+    "n1252.png",
+    "D02_cel_pale_wedge_between_fingers.jpg"
+  ],
+  "requested_canvas": [
+    1672,
+    1041
+  ],
+  "actual_native_canvas": [
+    1602,
+    982
+  ],
+  "no_postprocessing": true,
+  "retained_limitations": [
+    "Pale finger web remains",
+    "No exact requestedviewport",
+    "Minor local line/proportion drift"
+  ]
+}

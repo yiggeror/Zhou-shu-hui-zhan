@@ -1,0 +1,35 @@
+{
+  "filename": "D02_char_key_top.png",
+  "bytes": 1197733,
+  "width": 1602,
+  "height": 982,
+  "mode": "RGB",
+  "sha256": "7f290745ac3ba99fc30c4058a02f74aff2512d6b7139340164dff4724afed175",
+  "git_blob_sha": "d850053541cf0249fad3da2cbc40db76e09acc77",
+  "status": "review candidate; finger-gap wedge unresolved",
+  "native_pixel_processing": "None",
+  "key_dominant_observed": [
+    4,
+    248,
+    14
+  ],
+  "key_right_half_range": {
+    "R": [
+      1,
+      18
+    ],
+    "G": [
+      240,
+      250
+    ],
+    "B": [
+      6,
+      23
+    ]
+  },
+  "requested_canvas_not_achieved": [
+    1672,
+    1041
+  ],
+  "exact_viewport": null
+}

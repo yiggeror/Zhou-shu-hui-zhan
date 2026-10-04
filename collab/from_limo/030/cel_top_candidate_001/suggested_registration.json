@@ -1,0 +1,35 @@
+{
+  "status": "read-only measured candidate registration, requires compositor review",
+  "from": "native D02_char_key_top.png (1602x982) pixel coordinates",
+  "to": "previous D02_char_key.png (1672x941) pixel coordinates",
+  "coordinate_axes": "x right, y down; column-vector [x,y,1]",
+  "candidate_to_original_similarity_2x3": [
+    [
+      0.9845618200752274,
+      -0.0012065425060239802,
+      -1.247009414545687
+    ],
+    [
+      0.0012065425060240771,
+      0.9845618200752274,
+      -67.27435048771264
+    ]
+  ],
+  "uniform_scale": 0.9845625593605837,
+  "rotation_degrees": 0.07021373100544777,
+  "matched_points": 7,
+  "rms_residual_pixels_original": 0.4775471721744928,
+  "max_residual_pixels_original": 0.8052638655966526,
+  "exclusions": [
+    "Blue shirt fold lacked reliable correspondence; no full-silhouette registration claim"
+  ],
+  "viewport_warning": "No exact [0,100,1672,941] viewport. Mapping the original full view back to candidate exceeds native canvas in blank key regions; use complete keyed sprite with a coordinate transform, not anisotropic resizing or cropping away new hair.",
+  "opaque_extent_native": [
+    218,
+    44,
+    641,
+    909
+  ],
+  "minimum_native_hair_top_clearance": 44,
+  "source_supported_hair_limit": "Swept spiky crest follows source references broadly; exact unseen spike topology not certified."
+}
