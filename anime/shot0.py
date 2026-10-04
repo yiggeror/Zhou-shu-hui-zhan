@@ -64,6 +64,9 @@ def _homography(oa, ob):
     return Hm
 
 
+FADE_LOG = []      # one entry per fade step (n77->78, n76->77, ...): whether it was accepted or fell back
+
+
 def _fade_step(oa, ob):
     """Similarity from frame a to frame b in the fade from black (n74-78).  The panel is nearly black there, but
     the old drawing's lines inside the bright flame are clear, and they belong to the panel: measure the optical
@@ -89,8 +92,11 @@ def _fade_step(oa, ob):
         return np.eye(3)
     s, rot = np.hypot(M[0, 0], M[1, 0]), np.degrees(np.arctan2(M[1, 0], M[0, 0]))
     ok = inl is not None and inl.sum() >= 100 and 0.8 < s < 1.25 and abs(rot) < 8 and np.abs(M[:, 2]).max() < 300
+    FADE_LOG.append(dict(inliers=int(inl.sum()) if inl is not None else 0, scale=round(float(s), 4),
+                         rotation_deg=round(float(rot), 3), shift=[round(float(v), 1) for v in M[:, 2]],
+                         accepted=bool(ok), fallback='identity' if not ok else None))
     print(f'fade step: {int(inl.sum()) if inl is not None else 0} inliers, scale {s:.3f}, rotation {rot:+.2f} deg'
-          + ('' if ok else '  -> rejected, identity'))
+          + ('' if ok else '  -> REJECTED, identity used instead (recorded in run.json)'))
     return np.vstack([M, [0, 0, 1]]) if ok else np.eye(3)
 
 
@@ -146,6 +152,7 @@ def camera_fields(O):
         F[n] = flowcam.refine(F[n], rel, flowcam.prep(O[n]), reg) if REFINE else reg
         print(f'camera n{n}: reliable {rel.mean():.2f} of frame, homography inliers {inl:.2f}')
     Hn = np.eye(3)
+    FADE_LOG.clear()
     for n in range(77, F0 - 1, -1):
         if n >= 74:
             Hn = Hn @ _fade_step(O[n], O[n + 1])            # n -> n+1 -> ... -> 78

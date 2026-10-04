@@ -111,7 +111,8 @@ def main():
                            WATERMARK=[[S0.WATERMARK[0].start, S0.WATERMARK[0].stop],
                                       [S0.WATERMARK[1].start, S0.WATERMARK[1].stop]]),
                exposure={n: round(float(gains[n]), 4) for n in ns},
-               line_strength={n: round(float(layers[n]['line_strength']), 3) for n in layers})
+               line_strength={n: round(float(layers[n]['line_strength']), 3) for n in layers},
+               fade_steps={f'n{77 - i}->n{78 - i}': e for i, e in enumerate(S0.FADE_LOG)})
     json.dump(run, open(os.path.join(out, 'run.json'), 'w'), indent=1)
     print(json.dumps(run, indent=1)[:1500])
 
