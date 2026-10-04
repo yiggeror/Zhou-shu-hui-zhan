@@ -197,7 +197,7 @@ def flame_core(o):
     keep = cv2.morphologyEx((a > 0.5).astype(np.uint8), cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
     n, lab, st, _ = cv2.connectedComponentsWithStats(keep)
     good = np.zeros(n, bool)
-    good[1:] = st[1:, 4] >= 40                   # the detached droplets are part of the original flame
+    good[1:] = st[1:, 4] >= 12                   # the detached droplets (some only ~4 px across) are part of the flame
     m = cv2.dilate(good[lab].astype(np.uint8), np.ones((5, 5), np.uint8)).astype(np.float32)
     a = a * m
     # the body can be much dimmer than its bright crest (n74-77): grow the flame from the confident part into
@@ -245,7 +245,7 @@ def flame_core(o):
         keep3 = np.zeros(n3, bool)
         keep3[main_i] = True
         for i in range(1, n3):
-            if i == main_i or st3[i, 4] < 40:
+            if i == main_i or st3[i, 4] < 12:
                 continue
             comp = lab3 == i
             pts = np.column_stack(np.where(comp)[::-1]).astype(np.float32)
@@ -253,9 +253,22 @@ def flame_core(o):
             # a real droplet floats in the dark; a bit of flame-lit sleeve sits among lit panel
             ring = (cv2.dilate(comp.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0) & ~comp
             dark_around = float(np.mean(lum(o)[ring] / k)) < 0.25 if ring.any() else True
-            keep3[i] = st3[i, 4] < 4000 and max(w_, h_) < 3 * max(min(w_, h_), 1) and dark_around
+            # ... unless it is as saturated as the flame itself (n89-90: a cyan dot on the white cuff, Limo 021)
+            vivid = float(np.median(r[comp] / np.maximum(g[comp], 1e-3))) < 0.22
+            keep3[i] = st3[i, 4] < 4000 and max(w_, h_) < 3 * max(min(w_, h_), 1) and (dark_around or vivid)
         drop = (lab3 > 0) & ~keep3[lab3]
         a = a * (1 - cv2.dilate(drop.astype(np.uint8), np.ones((5, 5), np.uint8)))
+    # small pale-cyan light dots sitting inside a dark ink ring (n88-90, right white region): flame light too,
+    # though too pale for the saturation gate
+    dots = ((cy / k > 0.12) & (lum(o) / k > 0.40) & (a < 0.5)).astype(np.uint8)
+    n4, lab4, st4, _ = cv2.connectedComponentsWithStats(dots)
+    for i in range(1, n4):
+        if not 12 <= st4[i, 4] <= 400:
+            continue
+        comp = lab4 == i
+        ring = (cv2.dilate(comp.astype(np.uint8), np.ones((7, 7), np.uint8)) > 0) & ~comp
+        if ring.any() and float(np.mean(lum(o)[ring] / k)) < 0.25:
+            a = np.maximum(a, cv2.GaussianBlur(comp.astype(np.float32), (0, 0), 0.8))
     return a
 
 
