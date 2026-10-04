@@ -1,0 +1,145 @@
+{
+  "scope": "Four independent AI-generated hand-inked-style full-frame action redraws; candidate for temporal review",
+  "frames": [
+    1264,
+    1265,
+    1266,
+    1267
+  ],
+  "native_size": [
+    1672,
+    941
+  ],
+  "generation_calls": 5,
+  "selected_count": 4,
+  "source_pixel_verification": "All four source PNGs were checked pixel-identical to zero-based decoded original frames",
+  "assets": [
+    {
+      "drawing_id": "D07",
+      "source_frame": 1264,
+      "source_fps": 24,
+      "source_size": [
+        2560,
+        1440
+      ],
+      "filename": "D07_n1264.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1740630,
+      "sha256": "2b11fd9a26fa266a53d5d9521c0353680818587ef12e9b395a46861f8c2a51a2",
+      "git_blob_sha": "bdf46af726e2a79d59f6cea1c937b9461d8da768",
+      "selected_attempt": 1,
+      "attempt_count": 1,
+      "postprocessed": false,
+      "inputs": [
+        {
+          "index": 1,
+          "filename": "n1264.png",
+          "role": "Exact source image: absolute composition, pose, crop, occlusion, background and FX authority"
+        },
+        {
+          "index": 2,
+          "filename": "D09_n1266.png",
+          "role": "Approved D09: identity, palette and ink style only, not pose/composition"
+        }
+      ]
+    },
+    {
+      "drawing_id": "D08",
+      "source_frame": 1265,
+      "source_fps": 24,
+      "source_size": [
+        2560,
+        1440
+      ],
+      "filename": "D08_n1265.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1749654,
+      "sha256": "1c78bbc7d41a942fe65ad25c0dd4f244f78762481a2a0d968082f272c2057b5f",
+      "git_blob_sha": "abf0ff44fc9bf1c68d3e8ee0330d7b923e1157de",
+      "selected_attempt": 2,
+      "attempt_count": 2,
+      "postprocessed": false,
+      "inputs": [
+        {
+          "index": 1,
+          "filename": "n1265.png",
+          "role": "Exact source image: absolute composition, pose, crop, occlusion, background and FX authority"
+        },
+        {
+          "index": 2,
+          "filename": "D09_n1266.png",
+          "role": "Approved D09: identity, palette and ink style only, not pose/composition"
+        }
+      ]
+    },
+    {
+      "drawing_id": "D09",
+      "source_frame": 1266,
+      "source_fps": 24,
+      "source_size": [
+        2560,
+        1440
+      ],
+      "filename": "D09_n1266.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1736755,
+      "sha256": "126edc8968b626b046a582c32e541258b6adfad48861d174d0ae70d18648b96e",
+      "git_blob_sha": "237899d7a4c9b1a1b02c2c733b87aa066bf4220c",
+      "selected_attempt": 1,
+      "attempt_count": 1,
+      "postprocessed": false,
+      "inputs": [
+        {
+          "index": 1,
+          "filename": "n1266.png",
+          "role": "Exact source image: absolute composition, pose, crop, occlusion, background and FX authority"
+        }
+      ]
+    },
+    {
+      "drawing_id": "D10",
+      "source_frame": 1267,
+      "source_fps": 24,
+      "source_size": [
+        2560,
+        1440
+      ],
+      "filename": "D10_n1267.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1746080,
+      "sha256": "51cd34de47a697b6d86ca51bc8902e0fd87ceec50ffddf59f2511f7e932d6370",
+      "git_blob_sha": "2d200bffa985a1636f9196b8bcf66c8cfc0d351e",
+      "selected_attempt": 1,
+      "attempt_count": 1,
+      "postprocessed": false,
+      "inputs": [
+        {
+          "index": 1,
+          "filename": "n1267.png",
+          "role": "Exact source image: absolute composition, pose, crop, occlusion, background and FX authority"
+        },
+        {
+          "index": 2,
+          "filename": "D09_n1266.png",
+          "role": "Approved D09: identity, palette and ink style only, not pose/composition"
+        }
+      ]
+    }
+  ]
+}
