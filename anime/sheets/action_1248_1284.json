@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test, 20-drawing sheet",
+ "name": "shots 42-44 action test, 20-drawing sheet; short holds (2-4 frames) show the full drawing, D04 uses the temporary source flame",
  "frames": [
   1248,
   1284
@@ -15,7 +15,8 @@
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
+   "mode": "full"
   },
   "1250": {
    "hold": "D02",
@@ -23,7 +24,8 @@
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
+   "mode": "full"
   },
   "1251": {
    "hold": "D02",
@@ -31,7 +33,8 @@
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
+   "mode": "full"
   },
   "1252": {
    "hold": "D02",
@@ -39,7 +42,8 @@
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
+   "mode": "full"
   },
   "1253": {
    "drawing": "collab/from_limo/025/completion_001/D03_n1253.png",
@@ -126,35 +130,40 @@
    "id": "D10",
    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
    "ref": 1267,
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+   "mode": "full"
   },
   "1268": {
    "hold": "D10",
    "id": "D10",
    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
    "ref": 1267,
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+   "mode": "full"
   },
   "1269": {
    "hold": "D10b",
    "id": "D10b",
    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
    "ref": 1269,
-   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+   "mode": "full"
   },
   "1270": {
    "hold": "D10b",
    "id": "D10b",
    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
    "ref": 1269,
-   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+   "mode": "full"
   },
   "1271": {
    "hold": "D10b",
    "id": "D10b",
    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
    "ref": 1269,
-   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+   "mode": "full"
   },
   "1272": {
    "drawing": "collab/from_limo/025/completion_001/D11_n1272.png",
@@ -191,21 +200,24 @@
    "id": "D14c",
    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
    "ref": 1278,
-   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+   "mode": "full"
   },
   "1279": {
    "hold": "D14c",
    "id": "D14c",
    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
    "ref": 1278,
-   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+   "mode": "full"
   },
   "1280": {
    "hold": "D14c",
    "id": "D14c",
    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
    "ref": 1278,
-   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+   "mode": "full"
   },
   "1281": {
    "drawing": "collab/from_limo/027/pose_additions_001/D14d_n1281.png",

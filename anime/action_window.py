@@ -425,31 +425,44 @@ def _lit(o, a):
     return m
 
 
-def frame_light(light0, o, o_ref, a, a_ref):
+def brightness_change(o, o_ref, Hn, a, a_ref):
+    """the original's change of brightness from the reference frame to this one, on the same content: the median
+    ratio of lit, flame-free pixels with the reference frame moved by this frame's camera (a push-in onto bright
+    parts, or a hand that moved, is not taken for a change of light)"""
+    moved_ = cv2.warpPerspective(o_ref, Hn, (W, H), flags=cv2.INTER_LINEAR)
+    valid = cv2.warpPerspective(np.ones((H, W), np.float32), Hn, (W, H), flags=cv2.INTER_NEAREST) > 0.5
+    a_m = cv2.warpPerspective(a_ref, Hn, (W, H), flags=cv2.INTER_LINEAR)
+    m = valid & _lit(o, a) & (cv2.dilate((a_m > 0.05).astype(np.uint8), np.ones((61, 61), np.uint8)) == 0) & \
+        (L.lum(moved_) > 0.12)
+    if m.sum() < 2000:
+        return 1.0
+    return float(np.clip(np.median(L.lum(o)[m] / L.lum(moved_)[m]), 0.5, 2.0))
+
+
+def frame_light(light0, o, o_ref, a, a_ref, Hn):
     """this frame's light.  Where the full drawing adds a strong coloured light of its own (D04's purple wash),
     that light is raised to w = how much of the wash colour the original still has, relative to the reference
     frame (the lit pixels' mean colour along the wash's own hue: for D04 1.0 at n1254 down to 0.22 at n1261),
-    times g = the change of the lit pixels' mean brightness.  Otherwise the drawing's light is kept (w = 1) and
-    g is the original's change of mean brightness away from the flames.  Brightness and wash are measured
-    separately: the purple glow going out is not taken for the picture getting darker."""
+    times g = the change of the lit pixels' mean brightness.  Otherwise the drawing's light is kept (w = 1) and g
+    is the original's change of brightness on the same content (brightness_change).  Wash and brightness are
+    measured separately: the purple glow going out is not taken for the picture getting darker."""
     L0 = np.log(light0)
     if L0[::4, ::4].std() < WASH:
-        m = (a < 0.05) & (a_ref < 0.05)
-        m[L.WATERMARK] = False
-        g = max(L.lum(o)[m].mean(), 1e-4) / max(L.lum(o_ref)[m].mean(), 1e-4)
-        return light0 * np.float32(g), 1.0, float(g)
+        g = brightness_change(o, o_ref, Hn, a, a_ref)
+        return light0 * np.float32(g), 1.0, g
     d = L0.reshape(-1, 3).mean(0)
     d = d - d.mean()
     d = d / max(np.linalg.norm(d), 1e-6)                     # the wash's hue as a direction in colour space
 
     def wash(x, m):
-        c = x[m] - L.lum(x)[m][:, None]
-        return float((c @ d).mean()), float(L.lum(x)[m].mean())
-    pn, ln = wash(o, _lit(o, a))
-    pr, lr = wash(o_ref, _lit(o_ref, a_ref))
+        return float(((x[m] - L.lum(x)[m][:, None]) @ d).mean())
+    mn, mr = _lit(o, a), _lit(o_ref, a_ref)
+    pn, pr = wash(o, mn), wash(o_ref, mr)
     w = float(np.clip(pn / max(pr, 1e-4), 0, 1.2)) if pr > 0.02 else 1.0
-    g = ln / max(lr, 1e-4)
-    return np.exp(w * L0).astype(np.float32) * np.float32(g), w, float(g)
+    # brightness here from the lit pixels of each frame (not the same pixels: under the wash the same pixels are
+    # brighter because of the wash itself, which w already takes out)
+    g = float(L.lum(o)[mn].mean() / max(L.lum(o_ref)[mr].mean(), 1e-4))
+    return np.exp(w * L0).astype(np.float32) * np.float32(g), w, g
 
 
 # ---------------------------------------------------------------- assembly
@@ -533,7 +546,7 @@ def render_holds(name, hn, fs, O, A, raw):
         fmask = (feature_mask(O[n], A[n]) > 0).astype(np.uint8)
         shutter, target, ratios = fit_shutter(O[ref], O[n], Hprev, Hn, fmask) if prev is not None else (0.0, 1.0, {})
         light0_moved = cv2.warpPerspective(light0, Hn, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref])
+        light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref], Hn)
         base = path_blur(plate_c, Hprev @ P, Hn @ P, shutter) * light
         zone = cv2.warpPerspective(drawn_fx, Hn, (W, H), flags=cv2.INTER_NEAREST) > 0.5
         if mode == 'full':
@@ -563,10 +576,10 @@ def render_holds(name, hn, fs, O, A, raw):
         nu = non_uniform(Hn)
         what = (f'full drawing `{spec["full"]}` held (short hold, its own effects)' if mode == 'full' else
                 f'plate `{spec["plate"]}`' + (f' (viewport {spec["viewport"]})' if spec.get('viewport') else ''))
-        light_s = (f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n})' if mode == 'full' else
+        light_s = (f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n} on the same content)' if mode == 'full' else
                    f'light of the full drawing `{spec["full"]}` over the plate (smooth: exp of a quadratic in x, y per '
                    f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
-                   f'brightness gain {bgain:.3f}')
+                   f'brightness gain {bgain:.3f} (on the same content)')
         out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover),
                       exposed=(int(exposed.sum()), int(zone.sum())), src=(
             f'{name} repeat exposure (hold, ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
