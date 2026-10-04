@@ -630,6 +630,13 @@ def render_holds(name, hn, fs, O, A, raw):
             a3 = a[..., None]
             lit = fxl[..., :3] * np.float32(bgain)
             glow = L.BLOOM[0] * cv2.GaussianBlur(lit, (0, 0), 20) + L.BLOOM[1] * cv2.GaussianBlur(lit, (0, 0), 60)
+            halo_s = drawn_spec[n].get('halo')
+            if halo_s:
+                # a faint same-colour halo hugging the outline (within ~40 px), behind the flame, fading with the
+                # hold's drawn light (w): explicit, so the flame sits in its haze without a lasting pink wash
+                near = cv2.GaussianBlur(cv2.dilate((a > 0.5).astype(np.uint8), cv2.getStructuringElement(
+                    cv2.MORPH_ELLIPSE, (81, 81))).astype(np.float32), (0, 0), 10)
+                glow = glow + float(halo_s) * w * cv2.GaussianBlur(lit, (0, 0), 12) * near[..., None]
             res = (base + glow * (1 - a3)) * (1 - a3) + lit
             fx_only = glow * (1 - a3) + lit
             exposed = zone & (a < 0.5)
@@ -637,6 +644,7 @@ def render_holds(name, hn, fs, O, A, raw):
             fxs = (f'DRAWN effect layer `{drawn_spec[n]["image"]}` ({drawn[n][2].get("alpha")})'
                    + (f', placed by {drawn_spec[n]["to_framing"]}' if drawn_spec[n].get('to_framing') else '')
                    + (f', core alpha >= {clamp}/255 made solid after placement ({int(solid.sum())} px)' if clamp else '')
+                   + (f', faint halo {halo_s} x drawn-light strength {w:.2f} within ~40 px of its outline' if halo_s else '')
                    + ', moved with the plate; '
                    f'of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
                    f'({100 * exposed.sum() / max(zone.sum(), 1):.1f}%) are not under the drawn flame (alpha < 0.5)')
