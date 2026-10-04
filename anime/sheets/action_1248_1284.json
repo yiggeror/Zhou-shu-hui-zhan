@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test, 20 drawings + 2 drawn flame states for D04; D02 two layers; short holds show the full drawing",
+ "name": "shots 42-44 action test v5: 20 drawings + 2 drawn flame states; per-drawing grade to the original; D02 two layers",
  "frames": [
   1248,
   1284
@@ -204,7 +204,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -259,7 +263,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -314,7 +322,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -369,7 +381,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -424,7 +440,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -479,7 +499,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -534,7 +558,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -589,7 +617,11 @@
       ]
      ],
      "core_clamp": 250,
-     "halo": 0.35
+     "halo": 0.35,
+     "tone": {
+      "shadow_lift": 0.14,
+      "highlight": 0.5
+     }
     }
    ]
   },
@@ -719,5 +751,9 @@
    "drawing": "collab/from_limo/025/completion_001/D16_n1283.png",
    "id": "D16"
   }
+ },
+ "grade": {
+  "strength": 1.0,
+  "sigma": 4.0
  }
 }

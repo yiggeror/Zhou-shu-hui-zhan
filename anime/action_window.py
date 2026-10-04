@@ -585,6 +585,27 @@ def render_holds(name, hn, fs, O, A, raw):
     drawn, drawn_spec = {}, {}
     for sp in spec.get('fx_drawn', []):                    # drawn effect layers replacing the source flame
         loaded = load_sprite(sp)
+        if sp.get('tone'):
+            # explicit whole-layer tone change of a drawn effect: contrast about its own mean colour, then a gain;
+            # alpha, shape and placement untouched
+            rgba_t = loaded[0].copy()
+            a_t = rgba_t[..., 3:]
+            tn = sp['tone']
+            mean = (rgba_t[..., :3] * a_t).reshape(-1, 3).sum(0) / max(float(a_t.sum()), 1e-6)
+            rgb = (mean + tn.get('contrast', 1.0) * (rgba_t[..., :3] - mean)) * tn.get('gain', 1.0)
+            if tn.get('shadow_lift') or tn.get('highlight'):
+                # luminance-only curve (hue and saturation kept): dark outline lifted towards 0.3, highlights above
+                # 0.75 compressed by the given factor
+                lu = np.maximum(L.lum(rgb), 1e-4)
+                lift = tn.get('shadow_lift', 0.0)
+                l2 = np.where(lu < 0.3, lu + lift * (1 - lu / 0.3), lu)
+                hc = tn.get('highlight', 1.0)
+                l2 = np.where(l2 > 0.75, 0.75 + (l2 - 0.75) * hc, l2)
+                dark = lu < 0.05                         # near black: add the lift as its own (darkened) colour
+                rgb = np.where(dark[..., None], rgb + (l2 - lu)[..., None] * (mean / max(L.lum(mean[None])[0], 1e-3)) * 0.5,
+                               rgb * (l2 / lu)[..., None])
+            rgba_t[..., :3] = np.clip(rgb, 0, 1)
+            loaded = (rgba_t, loaded[1], dict(loaded[2], tone=sp['tone']))
         for fn in sp['frames']:
             drawn[fn], drawn_spec[fn] = loaded, sp
     ns = sorted(set(hn) | {ref})
@@ -645,6 +666,8 @@ def render_holds(name, hn, fs, O, A, raw):
                    + (f', placed by {drawn_spec[n]["to_framing"]}' if drawn_spec[n].get('to_framing') else '')
                    + (f', core alpha >= {clamp}/255 made solid after placement ({int(solid.sum())} px)' if clamp else '')
                    + (f', faint halo {halo_s} x drawn-light strength {w:.2f} within ~40 px of its outline' if halo_s else '')
+                   + (f', layer tone {drawn_spec[n]["tone"]}' if drawn_spec[n].get('tone') else '')
+                   + f', its own general glow {L.BLOOM} (not tied to the purple fade)'
                    + ', moved with the plate; '
                    f'of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
                    f'({100 * exposed.sum() / max(zone.sum(), 1):.1f}%) are not under the drawn flame (alpha < 0.5)')
@@ -821,6 +844,43 @@ def render_layers(name, hn, fs, O, A, raw):
     return out
 
 
+def fit_grade(r, o, ar=None, ao=None, sigma=4.0):
+    """one tone curve per colour channel taking a drawing's look to the original's, fitted on the same content: the
+    drawing and the original at the drawing's reference frame (they are registered within a few px), both
+    smoothed (sigma px) so lines and small misfits do not count; the watermark and a 20 px border left out (and,
+    if their masks are given, the flames of either with a 15 px band; by default the flames count: they are part
+    of the picture's look, and leaving them out darkened the flame-filled close-ups).  The curve matches the quantiles (2 % ... 98 %) of the two on those
+    pixels, monotone; outside them it continues with the end slopes (0.3-1.5).  Not a frame mean: the share of
+    background or a push-in does not move it.  Returns (curves [(x_q, y_q, lo_slope, hi_slope)] per channel, n px)"""
+    m = np.ones(r.shape[:2], bool) if ar is None else \
+        (cv2.dilate(((ar > 0.05) | (ao > 0.05)).astype(np.uint8), np.ones((31, 31), np.uint8)) == 0)
+    m[L.WATERMARK] = False
+    m[:20], m[-20:], m[:, :20], m[:, -20:] = False, False, False, False
+    rl, ol = cv2.GaussianBlur(r, (0, 0), sigma), cv2.GaussianBlur(o, (0, 0), sigma)
+    qs = np.array([2, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98], np.float32)
+    curves = []
+    for c in range(3):
+        x = np.percentile(rl[..., c][m], qs)
+        y = np.percentile(ol[..., c][m], qs)
+        x = np.maximum.accumulate(x + np.arange(len(x)) * 1e-5)
+        y = np.maximum.accumulate(y)
+        lo_s = float(np.clip(y[0] / max(x[0], 1e-3), 0.3, 1.5))
+        hi_s = float(np.clip((y[-1] - y[-3]) / max(x[-1] - x[-3], 1e-3), 0.3, 1.5))
+        curves.append((x, y, lo_s, hi_s))
+    return curves, int(m.sum())
+
+
+def apply_grade(img, curves, strength=1.0):
+    out = img.copy()
+    for c, (x, y, lo_s, hi_s) in enumerate(curves):
+        v = img[..., c]
+        g = np.interp(v, x, y)
+        g = np.where(v < x[0], v * lo_s, g)
+        g = np.where(v > x[-1], y[-1] + (v - x[-1]) * hi_s, g)
+        out[..., c] = v + strength * (g - v)
+    return np.clip(out, 0, 1)
+
+
 def write_mp4(path, imgs, fps=24, loops=1):
     h, w = imgs[0].shape[:2]
     h2, w2 = h + h % 2, w + w % 2
@@ -880,8 +940,39 @@ def main():
     for n in ns:
         if 'drawing' in fs[n]:
             R[n] = load(fs[n]['drawing'])
-            src[n] = f'{fs[n].get("id", "drawing")} new drawing `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), shown unchanged'
+            src[n] = f'{fs[n].get("id", "drawing")} new drawing `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), its lines and shapes unchanged'
             tag[n] = f'{fs[n].get("id", "drawing")} drawing'
+    grade = sheet.get('grade')
+    if grade:
+        # one tone curve per drawing (all its exposures), fitted at its reference frame on the same content
+        ids = {}
+        for n in ns:
+            ids.setdefault(fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))), []).append(n)
+        st = grade.get('strength', 1.0)
+        probe = np.repeat(np.float32([0.1, 0.3, 0.5, 0.7, 0.9])[:, None, None], 3, 2).reshape(5, 1, 3)
+
+        def describe_curve(cv):
+            pr = apply_grade(probe, cv, st).reshape(5, 3)
+            return (f'inputs 0.1/0.3/0.5/0.7/0.9 -> B {np.round(pr[:, 0], 3).tolist()}, G {np.round(pr[:, 1], 3).tolist()}, '
+                    f'R {np.round(pr[:, 2], 3).tolist()}')
+        for did, dns in ids.items():
+            # one curve per drawing, fitted on the same content at its first exposure; a hold also gets one at its
+            # last exposure and moves linearly between them (the light changes inside a hold, e.g. D04's fade)
+            first, last = dns[0], dns[-1]
+            c0, n0 = fit_grade(R[first], O[first], sigma=grade.get('sigma', 4.0))
+            c1, n1 = fit_grade(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last != first else (c0, n0)
+            for n in dns:
+                t = 0.0 if last == first else (n - first) / (last - first)
+
+                def g(x):
+                    return (1 - t) * apply_grade(x, c0, st) + t * apply_grade(x, c1, st) if t else apply_grade(x, c0, st)
+                R[n] = g(R[n])
+                if n in BASE:
+                    BASE[n], FX[n] = g(BASE[n]), g(FX[n])
+                src[n] += (f'; GRADE {did}: one tone curve per colour channel fitted on the same content (quantile '
+                           f'match of the smoothed drawing and original, strength {st}) at n{first} ({n0} px): '
+                           f'{describe_curve(c0)}' + (f'; and at n{last} ({n1} px): {describe_curve(c1)}; this frame '
+                           f'blends them at {t:.2f}' if last != first else ''))
     for n in ns:
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
     pair = [np.hstack([small(O[n], f'original n{n}'), small(R[n], f'n{n} {tag[n]}')]) for n in ns]
