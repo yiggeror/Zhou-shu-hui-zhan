@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "filename": "D02_bg_n1252.png",
+      "bytes": 1754410,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "e4d91ff9dc1bd7d0b548b2c26c90768d3097007489dc9100561f4e079f6c5942",
+      "git_blob_sha": "b9a0aae8a097e8e2dedc906448e7e241204de706"
+    },
+    {
+      "filename": "D02_char_key.png",
+      "bytes": 1180310,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "sha256": "84e7249c9dfc7565e24ae0b617f9373630ad8408fcfd54d0fa7a7398e8bb4214",
+      "git_blob_sha": "d7a6cf3e0782a522818cf92b16ab50464162c059"
+    }
+  ],
+  "native_resolution": [
+    1672,
+    941
+  ],
+  "mode": "opaque RGB",
+  "production_pixel_processing": "None; selected built-in imagegen outputs copied byte-for-byte.",
+  "generation_calls": 3,
+  "selected_count": 2,
+  "layer_references": {
+    "D02_char_key.png": {
+      "source_pose_frame": 1249,
+      "edit_target": "D02_n1249_noFX.png",
+      "viewport": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "has_alpha": false,
+      "key_requested": [
+        0,
+        255,
+        0
+      ],
+      "key_dominant_observed": [
+        5,
+        249,
+        10
+      ],
+      "key_empty_right_half_range": {
+        "R": [
+          1,
+          22
+        ],
+        "G": [
+          241,
+          250
+        ],
+        "B": [
+          4,
+          18
+        ]
+      }
+    },
+    "D02_bg_n1252.png": {
+      "source_camera_frame": 1252,
+      "viewport": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "overscan": false,
+      "uncertain_regions": [
+        "Central wall/curb behind removed Gojo",
+        "Lower-right street behind cropped opponent"
+      ]
+    }
+  }
+}
