@@ -1,0 +1,71 @@
+{
+ "git_commit": "8ad37fdee21b8d90f87ca5c84971896320c341d0",
+ "anime_dir_had_uncommitted_changes": false,
+ "code_sha256": {
+  "shot0.py": "a0c661551cd10380046308489c8405ba184c154cb344ad02ab1b27f9e31b791a",
+  "flowcam.py": "00abee395884b3959ccf3430b9af56ce713a998845b7fd9f66bfeb840a3f526d",
+  "package_shot0.py": "e55c76b89042863aa5333beed6d4cdd1dc25294082f192f2e9d2a1a8e299eff0"
+ },
+ "panel": "collab/from_limo/018/P_s0_clean.png",
+ "panel_sha256": "d818a3c6ad0d2c0f3e617bf35dc66ad34c8ae45d24bd01432bfa5a0852e976c0",
+ "reference_frame": 86,
+ "frames": [
+  73,
+  91
+ ],
+ "size": [
+  1672,
+  941
+ ],
+ "params": {
+  "SIGMA_PARALLAX": 70.0,
+  "REFINE": false,
+  "FOCUS": true,
+  "HOLDOUT": [],
+  "BLOOM": [
+   0.3,
+   0.2
+  ],
+  "GLOW": [
+   0.4945000112056732,
+   0.3296999931335449,
+   0.06040000170469284
+  ],
+  "WATERMARK": [
+   [
+    635,
+    712
+   ],
+   [
+    400,
+    765
+   ]
+  ]
+ },
+ "exposure": {
+  "73": 0.0,
+  "74": 0.011,
+  "75": 0.0628,
+  "76": 0.2164,
+  "77": 0.4124,
+  "78": 0.4969,
+  "79": 0.4983,
+  "80": 0.5397,
+  "81": 0.6242,
+  "82": 0.7242,
+  "83": 0.8276,
+  "84": 0.9006,
+  "85": 0.9557,
+  "86": 0.9969,
+  "87": 1.0434,
+  "88": 1.0816,
+  "89": 1.1183,
+  "90": 1.1584
+ },
+ "line_strength": {
+  "74": 0.388,
+  "75": 0.369,
+  "82": 0.14,
+  "88": 0.139
+ }
+}
