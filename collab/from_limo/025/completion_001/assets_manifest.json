@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "status": "static image QA passed; complete sequence and hold boundaries pending mutual review",
+  "source_range": "[1248,1284) at 24 fps, 1.5 seconds",
+  "new_files_count": 16,
+  "new_main_drawings": 12,
+  "new_noFX_auxiliaries": 4,
+  "native_resolution": [
+    1672,
+    941
+  ],
+  "source_resolution": [
+    2560,
+    1440
+  ],
+  "production_pixel_processing": "None; copied selected built-in imagegen outputs byte-for-byte, no upscaling or source body compositing/warping/interpolation",
+  "previously_delivered_unchanged": "D07-D10 at collab/from_limo/023/pilot_001, commit ceb31b62038255c2ef76b161ba265b7222b4ca77",
+  "assets": [
+    {
+      "filename": "D01_n1248.png",
+      "bytes": 1414467,
+      "sha256": "45b1b3046a19983cd2a3683dc00f2f3621c0d1c761fda7dcad97f1b95a4f4686",
+      "git_blob_sha": "f80371a6c840ef54d0e9c3503e60bdf6e3504316",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1248,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D02_n1249.png",
+      "bytes": 1733625,
+      "sha256": "f89238a6dc2c3b61f0eb381a8c55149375d8de94e455ae61618058e1cb31a52c",
+      "git_blob_sha": "95d508a700a0a5a5afea601c9e8ba271a19aee0b",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1249,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D02_n1249_noFX.png",
+      "bytes": 1669220,
+      "sha256": "e43e4aa8610a180b3305ad2dd6290311f85be988f0822048ebd386a4a122a45d",
+      "git_blob_sha": "84779dd36a17d6b50cc36dd25968fe7159ba60a7",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1249,
+      "kind": "same-image no-FX auxiliary"
+    },
+    {
+      "filename": "D03_n1253.png",
+      "bytes": 2056790,
+      "sha256": "1c5800084475ec7da7329aa965c3fec8a2cb477518a43b7ee479369bac570239",
+      "git_blob_sha": "fcf820906b62979f7d024b5f349feb159b955fc0",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1253,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D04_n1254.png",
+      "bytes": 1791360,
+      "sha256": "bd1ba1a0c860a3ed2d9760d567c135eeb852601af12c9e93b73c4eefb0b372c1",
+      "git_blob_sha": "f50a8e34aea7b690182dc70108c319dd8f4a5b8c",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1254,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D04_n1254_noFX.png",
+      "bytes": 1786586,
+      "sha256": "8bc0e512d48661156b2c89eb5d5c74276e5513566fd9f5c78490517cd52cf367",
+      "git_blob_sha": "03d6e8a51a5092201fc976cc1c32b3966c5eeb3c",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1254,
+      "kind": "same-image no-FX auxiliary"
+    },
+    {
+      "filename": "D05_n1262.png",
+      "bytes": 1924913,
+      "sha256": "38391cac2086d09aae4f31b2f7dc6bec6cda1a068da9c5f68f14c94779b7d388",
+      "git_blob_sha": "c7ebcd378ae82be5090afce0a012a9e3a5ea0598",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1262,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D06_n1263.png",
+      "bytes": 1910555,
+      "sha256": "43360ff518ca32ee489ca4b4d44837ee4d3eb101d730e2358534e672f4470470",
+      "git_blob_sha": "87e633041ddda366a3330ac7a001032bc837ab88",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1263,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D10_n1267_noFX.png",
+      "bytes": 1767592,
+      "sha256": "002dae7dd4e2033f1eb6c01896f276bcb8f11959d6e77b5d59c3a2e97e0bab88",
+      "git_blob_sha": "76ad5e0497b79afb4d0230b3c589e36b0056c709",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1267,
+      "kind": "same-image no-FX auxiliary"
+    },
+    {
+      "filename": "D11_n1272.png",
+      "bytes": 1603735,
+      "sha256": "1cb8d92c3628ddc378b648b6f18e114eb40c3e795d6d18eec13dc6e0d54c5886",
+      "git_blob_sha": "fb9404fe9f136277b55f14c93b30bd2556e2e7a5",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1272,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D12_n1273.png",
+      "bytes": 1631764,
+      "sha256": "3e2ca4cf5ea1b2d433b874088c3b86541086cdcf9f86e926d735c0221c624833",
+      "git_blob_sha": "71e41a46e9e3945d8abbaae792ecc9fce731b472",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1273,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D13_n1274.png",
+      "bytes": 1734888,
+      "sha256": "70d50d215e75588293ff33d7af88a476aa9589eb82fea4fb322de28d55e8a858",
+      "git_blob_sha": "ce747cf5ad6f50b83a32aeaa93f9ed85e8b9b529",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1274,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D14_n1275.png",
+      "bytes": 1717430,
+      "sha256": "55fcb3ebce759dc31ad4d5b0cb8990a19c5db77306d7d5145679cb45df6c1864",
+      "git_blob_sha": "d09978ece96814c30d88ac94b0ba9458ca645eae",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1275,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D14_n1275_noFX.png",
+      "bytes": 1812102,
+      "sha256": "2da508b56bba7ed7bb9cad969a493f0b1166a8f0d0ccab8cf5aa4f6a86479800",
+      "git_blob_sha": "d5262a3071dfd5917e25e96c3b63c45eaa717a1d",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1275,
+      "kind": "same-image no-FX auxiliary"
+    },
+    {
+      "filename": "D15_n1282.png",
+      "bytes": 1479822,
+      "sha256": "7f7c33a554fabf4b305deba8ef7d2d39891a6c178eed2dd530a5319a27202c82",
+      "git_blob_sha": "59cb1f6840e143381f4c0e70f4fb1565f0a54118",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1282,
+      "kind": "source-specific new full-frame drawing"
+    },
+    {
+      "filename": "D16_n1283.png",
+      "bytes": 1222609,
+      "sha256": "049f56ac7afcbd84bd2a877a374a1defb8f2e715b1df025d5922272d042e5f2e",
+      "git_blob_sha": "48baeb3f8a4738123583008f17861d5d12afb143",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "source_frame": 1283,
+      "kind": "source-specific new full-frame drawing"
+    }
+  ]
+}

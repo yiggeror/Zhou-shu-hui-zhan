@@ -1,0 +1,495 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "selected_assets": [
+    {
+      "asset": "D01_n1248.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer.\nAsset: exactly ONE individually redrawn full-frame 2D hand-inked cel animation drawing D01, source n1248, landscape 16:9.\nImage 1 is the exact source frame to redraw. It alone controls camera, crop, composition, all pose and silhouette details, occlusions, scale, perspective, background geometry, and what is visible. Image 2 is the approved D09 drawing ONLY for Gojo's white-hair/black-shirt/light-trouser identity, ink language and night palette; do not import Image 2's second character, pose, FX or composition. This is a full artistic redraw of the entire source frame, not cleanup of a screenshot or a cleanplate.\n\nThis frame is an ENTRANCE: almost the entire middle and right are EMPTY DARK STREET AND BUILDING. There is exactly ONE character, Gojo, entering from the FAR LEFT and partly outside the frame. His visible silhouette stays within the leftmost approximately 22% of the canvas. Never center him, enlarge him, move him into the scene, or show Sukuna. His head is partly clipped by the TOP edge near the upper-left corner; source white spiky hair and downward/forward-facing head at x4–8%,y0–13%. He wears a black high-neck shirt merging into deep night shadow, torso and shoulder partly cut by LEFT border. His bent forward arm/hand is tucked across the upper-left torso near x6%,y24%; the other visible arm descends alongside his right-image silhouette with open fingers around x19%,y41%. Keep exactly source-visible body topology; do not expose hidden arms, reconstruct hidden anatomy or change the running/leaning posture. Loose pale gray trousers occupy lower-left, bent leg and dark ankle/boot exactly as source, ending around y80%, with large empty foreground below/right. Preserve source directional movement as purposeful hand-drawn broken contours and short tapered diagonal/horizontal streaks, especially white hair/head and hands. Do not replace with a crisp standing portrait.\nThere is NO large cyan flame or red/purple attack visible yet. Keep only source cool ambient blue/cyan rim lighting, no invented glowing orb, energy plume, sparks, motion trail crossing the empty street, or newly visible character.\n\nRedraw the same urban night backdrop: deep navy-black modern windowed building across upper half, many narrow cool-lit vertical windows receding toward right, diagonal raised gray sidewalk/curb running from left y45–55% toward the right-center vanishing area, black street in lower half with faint source surface strokes. Copy source perspective and large light/dark masses while drawing every contour and flat color surface anew. Style: deliberate tapered dark ink, selective rough hatching, flat gray-blue cel shadows, pale off-white hair/skin, coherent with Image 2. Keep the very dark exposure and substantial empty right space; no glossy 3D, realistic painting, generic blur filter or digital warp. No text, logo, signature or watermark.",
+      "reference_roles": [
+        {
+          "filename": "n1248.png",
+          "role": "Exact source: sole authority for composition, camera, crop, pose, limb topology, occlusion, perspective, background and frame-specific FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "Approved D09 baseline: character identity, ink treatment and palette ONLY; not pose/composition/FX authority"
+        }
+      ],
+      "qa": [
+        "Single Gojo remains at the far-left edge with top-clipped hair, left-cropped upper body, low bent trouser form and visible dark boot. Large empty street/right-background composition is preserved.",
+        "No second character, cyan attack, red flame or purple effect was invented; source early entrance phase is retained.",
+        "Visible downward open hand, tucked upper hand and forward lean generally follow source positions. No obvious extra limbs observed.",
+        "Differences: Gojo is much crisper and more exposed/legible than the dark motion-smeared source, especially face, bent upper hand and boot. The tucked hand reads more loosely open than the source. Background perspective is retained but pavement detail, window subdivision and street markings are interpretive, not pixel-exact.",
+        "No retry: source-relative framing and action silhouette are usable; remaining differences were treated as style/precision limitations, not a major pose or crop failure."
+      ]
+    },
+    {
+      "asset": "D02_n1249.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: illustration-story.\nAsset type: D02_n1249, one opaque full-scene 16:9 animation key drawing.\nPrimary request: Draw an entirely fresh hand-inked/cel-shaded illustration of the EXACT action, camera, crop and scene in image 1. This is a new drawing of this particular frame, not a generic fight illustration and not a cleanup/filter over source pixels.\nInput roles: Image 1 (n1249.png) is the sole authority for composition, body pose, visible limb topology, framing, background perspective and cyan flame placement. Image 2 (D09_n1266.png) and image 3 (D10_n1267.png) are style/identity/palette references ONLY: their later guard pose and two-person layout must NOT be copied.\nScene: The same dark nighttime city road and bending pale sidewalk, long receding row of lit vertical windows, near-black buildings and blue-gray pavement. Redraw their exact positions and perspective from image 1; leave the large right-side negative space empty.\nSubject and pose: ONLY the one white-haired adult male Gojo visible at far left in image 1, black short-sleeved shirt, pale baggy trousers and dark shoes. Preserve his entire silhouette, scale and placement: head near upper-left, spiked hair naturally clipped by the TOP image boundary; forward-leaning approach, one bent arm holding a small cyan flame-covered fist close to the left of his chest, the other arm extending down with the open hand beside the right edge of his hips. Preserve the source overlapping bent legs and feet as visible; do not reinterpret this as a new running stride. No second character. Exactly two arms; do not expose hidden limbs.\nStyle: Fresh confident dark navy hand-inked outlines, deliberate hatching, flat cel shadows with controlled subtle gradation, refined facial drawing and hair like images 2–3. Preserve recognizable identity and clothing; replace source blur with a clean new ink drawing without moving body landmarks. Preserve the high-contrast night values and small vivid cyan flame on the fist; no extra aura or dramatic new effects.\nComposition invariants: full source 16:9 frame, same camera, same crop, head center approximately 20% width/12% height, flame centered about 18% width/26% height, lowered open hand about 34% width/45% height, darkest street over lower half. Keep source character small and left-weighted, not enlarged or centered. Do not import the close-up framing or guard pose from style images.\nNo text, logo, watermark, captions, borders, extra characters, extra arms or extra fingers. All imagery must be newly drawn. Opaque RGB full background, no transparency.",
+      "reference_roles": [
+        {
+          "filename": "n1249.png",
+          "role": "Sole source authority for composition, pose, crop, topology, background and FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "New ink/style and identity baseline only"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "New ink/style and identity baseline only"
+        }
+      ],
+      "qa": {
+        "findings": [
+          "Viewed source, support and both style references before generation.",
+          "Pass: full source camera/crop, far-left Gojo, hair clipped at top, large right-side negative space.",
+          "Pass: two arms, bent flame-bearing fist and opposite lowered open hand; no additional character.",
+          "Pass: original leg overlap maintained; clean fresh hand-inked/cel rendering.",
+          "Small intentional drawing simplifications and increased crispness relative to blurred source."
+        ],
+        "uncertain": [
+          "Original n1249 has motion blur; precise underlying face/finger contours cannot be established pixel-for-pixel.",
+          "Rear leg and foot remain occluded/dark; no additional invisible limb was invented."
+        ]
+      }
+    },
+    {
+      "asset": "D02_n1249_noFX.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: precise-object-edit.\nAsset type: D02_n1249_noFX, opaque full-scene auxiliary clean plate for the SAME animation drawing.\nInput roles: Image 1 is the selected newly drawn D02_n1249.png and is the PRIMARY EDIT TARGET. Image 2 is original neighboring source n1252.png, supporting anatomy context ONLY; do not adopt its changed pose, position, framing, proportions, source ink, flame or watermark.\nMake only one localized change to image 1: remove the small cyan flame/energy from the bent hand's fist and forearm at approximately 18% width, 26% height, together with that flame's cyan spill, bloom and sparks. Recover a minimally drawn, simple closed fist where the small flame covered it, consistent with already-visible knuckles and hand outline; avoid inventing detailed anatomy under the obscuration. Retain the exact hand position, bent elbow, scale and silhouette from the PRIMARY target.\nPreserve the rest of image 1 as closely as possible: head, face, eyes, hair, short-sleeved black shirt, lowered open hand and every visible finger, both overlapping bent trouser legs, shoe, all visible line geometry, hatching, camera, crop, subject placement, road, sidewalk, perspective and window positions. Keep ordinary blue-gray nighttime windows and building illumination. Do NOT erase all blue. Do not enlarge or center the character, change the pose, shift to the supporting frame, add limbs, reconstruct invisible legs or introduce new shadows/details.\nKeep an opaque RGB full scene at the same landscape aspect and resolution. No transparency, cutout, green screen, text, logo or watermark. This is an auxiliary same-pose effect-free edit, not a new motion state.",
+      "reference_roles": [
+        {
+          "filename": "D02_n1249.png",
+          "role": "Primary edit target: selected D02 full fresh drawing"
+        },
+        {
+          "filename": "n1252.png",
+          "role": "Anatomical supporting source only; not pose authority"
+        }
+      ],
+      "qa": {
+        "findings": [
+          "Viewed selected full image before edit.",
+          "Pass: cyan fist flame/glow removed; opaque full-scene RGB maintained.",
+          "Pass: ordinary blue-gray windows/night illumination retained.",
+          "Pass: hair/head, lowered open hand, knee, shoe, body scale and background perspective visually retained.",
+          "Not pixel-identical: AI edit changes some line/texture/raster detail. No deterministic identity claim."
+        ],
+        "uncertain": [
+          "D02 obscured clenched fist at native approximately x275–329,y245–301 is minimally reconstructed; exact finger and thumb lines are uncertain."
+        ]
+      }
+    },
+    {
+      "asset": "D03_n1253.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer.\nAsset: exactly ONE independently redrawn full-frame 2D hand-inked cel-animation drawing D03, source n1253, landscape 16:9.\nImage 1 is the exact n1253 source: it is the sole authority for camera, crop, perspective, poses, limb topology, occlusion, scale, background geometry and this moment's FX. Image 2 = approved D09 artwork ONLY for character identity, ink treatment and cool night palette, never its composition or pose. Completely redraw人物+背景+当帧FX as a new source-specific action drawing.\n\nSOURCE COMPOSITION: Gojo is relatively sharp at LEFT-CENTER, white spiky head around x39%, y16%, leaning forward with black high-neck short-sleeve shirt, pale gray loose trousers, lower bent leg and dark boot visible down to y96%, exactly matching Image 1. His forward fist near x30%,y29% is obscured by the upright cyan flame around x26–34%,y14–36%; keep that source occlusion. His other open hand rests/hovers downward in front of his upper thigh around x44%,y48%, fingers pointing downward, elbow projecting to image right near x51%,y32%. Preserve all contours and negative spaces.\nSukuna is entering from FAR RIGHT as a strong PURPLE/MAGENTA speed smear, head center roughly x87%,y23%, black hair approaching right border, right body partly CROPPED by right edge. Light kimono is washed with vivid violet/magenta source illumination. Keep marked face only as a smeared suggestion, circular shoulder marking and black armbands visible through the purple streaks. His torso leans diagonally and the kicking leg extends DOWN-LEFT toward x65%,y82%, ending in a large RED FLAME stroke that sweeps diagonally DOWN-RIGHT across the bottom center/right and is cut by bottom edge at x80%. Preserve the exact kick's direction and all leg overlaps. His back/rear arm reaches left behind torso to the faint open hand near x77%,y38%; the outer arm descends near the far-right border and the streaked hand is around x97%,y69%. Exactly the source's visible anatomy and two arm chains, no extra limbs, no exposed hidden leg/foot, no new guard pose.\nThis is a PURPOSEFUL ENTRANCE SMEAR drawing: Sukuna's purple form must remain strongly stretched and streaked in the source direction, substantially less crisp than Gojo. Use connected drawn color smears, displaced/broken ink contours and tapered speed strokes, not a static fully clean portrait, general blur filter or pixel warp. Do not transfer the clearer middle-frame kick pose from other drawings.\n\nMaintain the same dark urban-night building with receding narrow window grid, diagonal cool gray sidewalk/curb and dark roadway. Preserve source relative placement and scale of both figures, camera and all large light/dark masses. Style consistent with Image 2: tapered dark ink, selected rough hatching, flat muted gray-blue cel shadow shapes, pale off-white hair and skin; source cyan, purple and red lighting remains vibrant. Keep all three source FX distinct: upright cyan flame left, broad purple entrance streaks right, red kick streak along bottom. No new upper blast or stray character. No 3D, photorealism, rearranged framing, text, logo, watermark or signature.",
+      "reference_roles": [
+        {
+          "filename": "n1253.png",
+          "role": "Exact source: sole authority for composition, camera, crop, pose, limb topology, occlusion, perspective, background and frame-specific FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "Approved D09 baseline: character identity, ink treatment and palette ONLY; not pose/composition/FX authority"
+        }
+      ],
+      "qa": [
+        "Gojo remains relatively crisp at left-center with source-forward lean, upright cyan-covered fist, downward hand, bent trousers and low visible boot.",
+        "Sukuna enters from cropped right edge with marked face, circular shoulder, downward outer arm, source diagonal kick and heavy purple/magenta directional ink smear.",
+        "Red kick flame crosses the lower foreground diagonally and is cropped at bottom. Cyan, purple and red masses remain in distinct source locations.",
+        "No obvious extra arm, extra face or reconstructed hidden foot observed. Smeared anatomy remains intentionally indeterminate.",
+        "Differences: purple streaks are more high-frequency and line-driven, cyan flame slightly more detailed, Gojo skin warmer, and background pavement/window geometry crisper and interpretive. Source pose and composition remain distinct from D05/D06."
+      ]
+    },
+    {
+      "asset": "D04_n1254.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: illustration-story.\nAsset type: D04_n1254, one opaque full-scene 16:9 animation key drawing.\nPrimary request: Make an entirely fresh hand-inked/cel-shaded drawing of the EXACT kick-clash action shown in image 1, retaining its camera, crop, composition and limb topology. Redraw rather than filter or reuse any original body pixels.\nInput roles: Image 1 (n1254.png) is the SOLE authority for framing, pose, occlusion, body positions, background geometry and effect positions. Image 2 (D09_n1266.png) and image 3 (D10_n1267.png) are ONLY the new ink treatment, character identity and cel-palette baseline. Do not copy their later guard pose or their tighter framing.\nScene: Same dark nighttime street, bent sidewalk and long receding window row. Preserve perspective, horizon, crop, camera distance and subject sizes exactly as in image 1. Preserve the strong pink-purple illumination washing the two fighters and sidewalk.\nPose and topology: Gojo, white spiky hair/black short-sleeved shirt/light baggy trousers, is behind-left. His small head remains near 38% width/18% height. His bent attacking arm ends in the large cyan flaming fist at about 29% width/25% height. His OTHER arm slopes down-right from the short sleeve to the open hand resting over the crossing horizontal trouser leg at about 43% width/47% height. Sukuna is foreground-right with dark spiked hair, exact face tattoos and ring/band arm tattoos, sleeveless light martial robe, black belt and baggy trousers. His head near 56% width/23% height; his raised arm and hand project above/behind his head near 50% width/10% height, the other arm slopes down to his open hand near 75% width/62% height. Exactly TWO ARMS PER CHARACTER with the same true overlap as source. Do not attach Gojo's central open hand to Sukuna.\nSukuna's kicking leg crosses horizontally LEFT in front of Gojo's hips, with the raised foreshortened foot at about 28% width/49% height hidden in a long vertical red-pink flame. Preserve this crossing kick, leg shape, belt/hip origin and exact occlusion, rather than a new generic kick. Gojo's baggy bent trouser leg drops behind the kicking leg toward a dangling shoe near 44% width/90% height. Sukuna's other leg angles down-right and is cropped at the bottom as in source. Do not add legs or expose what is occluded.\nEffects: Match image 1's cyan flame around Gojo's fist and forearm, red-pink flame around Sukuna's raised foot/lower leg, and strong purple-pink environmental light. Do not exchange their effects or invent new blasts. The cyan flame sits directly above the red flame. Both effects obscure anatomy just as in source.\nStyle: Confident dark navy-black clean hand-inked contours, expressive hatching, drawn facial features and hair, flat cel shadow planes with controlled subtle gradients. Same fresh ink family as images 2–3, but source action and camera take absolute priority.\nConstraints: Entire full frame newly drawn. No body warping, source raster body copying, changed camera, magnification, extra limbs, extra fingers, invented anatomy, text, logo, watermark or borders. Opaque full-scene RGB, no transparency.",
+      "reference_roles": [
+        {
+          "filename": "n1254.png",
+          "role": "Sole source authority for composition, pose, crop, topology, background and FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "New ink/style and identity baseline only"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "New ink/style and identity baseline only"
+        }
+      ],
+      "qa": {
+        "findings": [
+          "Viewed source, support and both style references before generation.",
+          "Pass: Gojo behind-left, Sukuna foreground-right, high crossing kick over Gojo hip/legs.",
+          "Pass: two arms per character; Gojo central hand belongs to down-sloping black-sleeve arm; Sukuna raised and lowered arms separate.",
+          "Pass: cyan fist above red foot flame, strong purple energy illumination, original camera/background and bottom crop.",
+          "Fresh hand-inked/cel drawing; no source body raster or bodywarp."
+        ],
+        "uncertain": [
+          "Cyan energy hides most fist/forearm anatomy; exact hidden hand contour is unknown.",
+          "Red energy hides part of raised foot/ankle; trailing flame must not be read as anatomy.",
+          "Sukuna trailing/support shoe remains partially cropped at bottom as source."
+        ]
+      }
+    },
+    {
+      "asset": "D04_n1254_noFX.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: precise-object-edit.\nAsset type: D04_n1254_noFX, opaque full-scene auxiliary clean plate of the SAME newly drawn kick-clash frame.\nInput roles: Image 1 is the selected newly drawn D04_n1254.png and the PRIMARY EDIT TARGET. Images 2, 3 and 4 are original neighboring source n1252.png, n1258.png and n1261.png; they may only help interpret simple partly visible fist/foot lines beneath energy. They must NOT change the primary target's exact pose, limb topology, crop, background, face, ink design or body landmark placement.\nEdit ONLY the magical energy and its illumination in image 1: remove cyan flame, bloom and sparks around Gojo's clenched fist/forearm at upper-left; remove red/pink fire, bloom and sparks around Sukuna's raised foot/lower leg at the left endpoint of the crossing kick; remove the purple/magenta energy lighting and reflected glow across clothing, skin, road, windows and sidewalk. Restore subdued neutral nighttime gray-blue colors, pale gray clothing and natural desaturated skin, with black/navy shadows. Preserve ordinary blue-gray window light and building illumination. Keep the same value structure where it is not caused by the energy.\nMinimal recovery under effects: complete a simple clenched fist at the SAME existing fist center near 30% width/34% height. Recover only the necessary short shoe/sole silhouette at the SAME raised kicking-foot endpoint near 29% width/43% height, guided by faint sole hatching already visible inside the red energy and neighboring references. Do not mistake the trailing red flame down to 78% image height for an elongated foot or leg. Do not add a long boot, extra foot, additional leg, detailed toes or elaborate unseen anatomy. Hidden lines are uncertain: keep any necessary completion simple and subordinate to the already-visible contours.\nStrict invariants: Keep every visible body silhouette, head/hair/face and tattoo design, the raised hand above Sukuna's head, Gojo's open hand over the horizontal thigh, Sukuna's lowered right-side hand, belts, all visible folds and hatching, exactly the same positions and sizes as image 1. Preserve the crossing kick, foreground/background overlap, two arms per character, existing bent legs, bottom crop, window layout and sidewalk perspective. Do not redraw into a different pose. Do not copy the source rendering or watermark. Keep the same hand-inked cel style.\nOutput one opaque full-scene RGB image, same landscape framing and resolution. No text, labels, logo, watermark, transparency, green screen or cutout. This is an effect-removal variant of the selected drawing, not another motion state.",
+      "reference_roles": [
+        {
+          "filename": "D04_n1254.png",
+          "role": "Primary edit target: selected D04 full fresh drawing"
+        },
+        {
+          "filename": "n1252.png",
+          "role": "Fist anatomy supporting source only; not pose authority"
+        },
+        {
+          "filename": "n1258.png",
+          "role": "Partly visible raised sole/anatomy supporting source only; not pose authority"
+        },
+        {
+          "filename": "n1261.png",
+          "role": "Partly visible raised sole/anatomy supporting source only; not pose authority"
+        }
+      ],
+      "qa": {
+        "findings": [
+          "Viewed selected full image before edit.",
+          "Pass: cyan fist and red foot/lower-leg energy removed; broad purple light replaced by neutral night gray-blue.",
+          "Pass: ordinary blue windows/building illumination preserved.",
+          "Pass: both faces/hair, raised hand, central open hand, lowered hand, crossing thigh, bent legs and camera visually retained.",
+          "Recovered a short foreshortened shoe, not an elongated shape following the red flame tail.",
+          "Not pixel-identical: AI edit globally changes lighting and some raster/line details; compare landmarks instead."
+        ],
+        "uncertain": [
+          "Gojo clenched fist and adjacent forearm at native approximately x475–594,y272–350 are newly exposed minimal inferred contours, not source-verified exact anatomy.",
+          "Sukuna raised shoe/sole at native approximately x468–546,y355–471 is newly exposed and uncertain; simple hatching is inferred.",
+          "Small contours that were previously covered by flame and glow are approximate; do not count this auxiliary variant as a new animated pose."
+        ]
+      }
+    },
+    {
+      "asset": "D05_n1262.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer.\nAsset: exactly ONE independently redrawn full-frame 2D hand-inked cel-animation drawing D05, corresponding to source n1262; landscape 16:9.\nInput Image 1 is the exact source frame and the absolute authority for composition, camera, crop, perspective, body poses, limb topology, occlusion, background geometry and all FX. Input Image 2 is approved D09 artwork ONLY for character identity, ink treatment and palette, NEVER its pose or composition. Completely redraw the entire characters, background and this frame's FX, not a cleaned screenshot and not a reused plate.\n\nSOURCE-EXACT LAYOUT: Gojo occupies left/center, leaning diagonally into the action, white spiky hair near x36%, y17%, black high-neck short-sleeve shirt, light gray trousers. His white head and black torso are intentionally directionally smeared in this frame. His upper raised arm is substantially hidden by the large upright cyan flame at x18–34%, y8–46%; preserve that occlusion and do not draw a new visible fist through the flame. His other forearm descends at center and its hand is near x47%, y57%; preserve the source's partially streaked hand and overlap. Sukuna occupies the right half, sharp black hair and marked face turned toward image-left at approximately x65%,y28%, light gray kimono, black collar/sash, large black circular shoulder marking, dark wrist and arm bands. His upper/back arm reaches diagonally up-left to a loose open hand near x50%,y17%. His other arm hangs DOWN the outer right side, the hand near x75%,y87%; it MUST NOT cross his waist as in the style reference. Sukuna's kicking leg extends prominently diagonally down-left from the right hip across the whole lower foreground, its bent/trailing trouser contours exactly source derived and its foot engulfed by the red flame at x24%,y83%. Preserve the lower crop; do not invent visible feet/legs beyond what source shows.\nKeep these two physically separate characters and source interlocking overlaps; exactly source-visible limbs, no extra arms, duplicated faces or made-up hidden anatomy.\n\nStyle: coherent deliberately hand-inked manga/cel animation, tapered dark outlines, selected rough hatching and flat cel shadow shapes, cool gray-blue clothing, pale off-white highlights, near-black navy shadows; same drawing finish as Image 2. Important: this is a transition toward a forward sweep, so retain source Gojo's directional action smear as drawn stretched contours and ink streaks rather than turning him into an entirely crisp portrait. Sukuna remains relatively legible. Draw the large upright cyan flame mass on left and small red flame around the lower-left kicking foot with irregular drawn flame edges and restrained luminous rims. Preserve the urban night glass-window building, window positions, diagonal pavement/street ledge and its source perspective, dark high-contrast masses, cyan/red illumination. No new attack, no FX above heads, no sparks that change the moment, no copied guard pose from Image 2. No generic blur filter or pixel warp. No 3D, photorealism, text, logo, watermark or signature.",
+      "reference_roles": [
+        {
+          "filename": "n1262.png",
+          "role": "Exact source: sole authority for composition, camera, crop, pose, limb topology, occlusion, perspective, background and frame-specific FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "Approved D09 baseline: character identity, ink treatment and palette ONLY; not pose/composition/FX authority"
+        }
+      ],
+      "qa": [
+        "Preserves Sukuna source diagonal foreground kick, raised rear hand and lowered outer hand; retains marked face, black hair, circular shoulder pattern and dark bands.",
+        "Gojo remains left-center in forward lean with deliberately streaked head/hand and black shirt; the upright cyan flame occludes the source raised limb and red flame covers the lower-left kicking foot.",
+        "No obvious extra limb, duplicated face, wrong guard pose or exposed hidden foot observed. Main silhouette, limb chains and overlaps follow source.",
+        "Differences: Sukuna face and clothing contours are crisper, Gojo directional streak texture is more discrete/inked than source blur, red/cyan flames have hatching and sharper irregular edges, and pavement is more textured. Warm skin and cool navy contrast follow established baseline but are not source-pixel exact."
+      ]
+    },
+    {
+      "asset": "D06_n1263.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer.\nAsset: ONE independently redrawn full-frame 2D hand-inked animation SMEAR drawing D06, exact source n1263, landscape 16:9.\nImage 1 = exact n1263 source and sole authority for camera, crop, perspective, character silhouettes, head/hand locations, limb topology, occlusion, background and frame-specific FX.\nImage 2 = approved D09 artwork ONLY for identity, ink and palette. Never copy its pose, composition, cyan attack placement or sharpness.\nThis is a complete new drawing of人物+背景+当帧FX, not a cleaned screenshot, background plate or warp of another frame.\n\nSource-specific action and camera: Gojo rushes forward across the LEFT half, head at x32%,y14% with white hair clipped at the top as source, black shirt very broad and strongly horizontally swept, light trousers cropped at bottom. His body is far more horizontally smeared and leftward-shifted than the preceding kick frame. Preserve the deliberately smeared head/facial features and dragged black torso with purposeful connected drawn streak shapes. The left cyan flame extends diagonally UP-LEFT from around x32%,y55% toward x2%,y20%, not upright and not a low horizontal slash. Preserve the exact source flame silhouette and overlap, so his raised hand remains hidden. His downward arm and hand are visible through a heavy diagonal/vertical smear near x50%,y66%; do not turn this into a sharp new hand or reconstruct hidden limbs. His lower body smears downward into a red-lit shape cropped off the bottom. Only a fragment of red flame appears at the BOTTOM-LEFT edge near x13%,y96%; do not add a complete foot or extra large red fireball.\nSukuna is on the RIGHT, black spiky hair, marked face facing left, pale gray kimono, black collar and sash, circular shoulder marking, dark armbands. His face center is about x74%,y32%; hair and shoulder crop/scale match source exactly. His raised rear arm extends nearly HORIZONTALLY left toward an open hand at x53%,y29%, much LOWER than in n1262. His outer right arm descends beside the right edge and continues off the bottom; do NOT invent a visible hand at its end. His lower leg/trouser form crosses diagonally toward lower-center, cut off by frame exactly as source, not a fully displayed kick. Preserve two visible arm chains only and all overlaps. Do not import the bent upward guard arm from Image 2.\n\nHand-inked manga/cel drawing: dark tapered outlines, sparse rough hatching, crisp cel shadow masses, muted blue-gray clothing and pale off-white skin/hair. Source fast smear should become intentionally stretched drawn contour bands, broken ink marks and flat-color smears; preserve strong motion and do not redraw Gojo as a crisp static key pose. Sukuna relatively readable with source-exact silhouette. Redraw same dark urban-night glass window grid and diagonal pavement/curb geometry. Preserve deep dark navy background, cyan/red illumination, all source crops. No generic blur filter, no copied pixels, no digital warp, no 3D or realism. No text, logo, watermark or signature.",
+      "reference_roles": [
+        {
+          "filename": "n1263.png",
+          "role": "Exact source: sole authority for composition, camera, crop, pose, limb topology, occlusion, perspective, background and frame-specific FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "Approved D09 baseline: character identity, ink treatment and palette ONLY; not pose/composition/FX authority"
+        }
+      ],
+      "qa": [
+        "Gojo shifts leftward into the stronger forward-sweep smear; white head is top-clipped and horizontally stretched, torso broad, downward arm/hand and lower trousers remain deliberately streaked.",
+        "Source cyan flame changes to diagonal up-left sweep. Only a cropped fragment of red effect appears at bottom-left; no complete extra foot was added.",
+        "Sukuna remains on right with rear open hand much lower than D05, arm reaching almost horizontally left, and outer arm descending through bottom crop without an invented visible hand.",
+        "No obvious extra arm or duplicate face observed. Heavy Gojo smear is source-derived and not a crisp substitute key pose.",
+        "Differences: drawn motion has dense regular fine streaks rather than optical blur, Sukuna and background are cleaner and slightly warmer, and the exact smear edges/window details are interpretive. The distinct D05-to-D06 pose/FX transition is retained."
+      ]
+    },
+    {
+      "asset": "D10_n1267_noFX.png",
+      "selected_attempt": 2,
+      "prompt": "Use case: precise-object-edit. One targeted anatomy correction to D10_n1267_noFX.\nImage 1 is the noFX EDIT TARGET. Preserve this exact entire drawing, including camera, crop, all background, Gojo's hair/face/body/lower fist, Sukuna's face/hair/tattoos/clothes and BOTH his hands and arms. Make only one correction: Gojo's upper striking forearm currently terminates as a truncated jagged pale stump just right of his black upper sleeve, around x=0.44W,y=0.24H. Correct its continuity so it is one connected forearm extending diagonally up-right from the SAME sleeve to BEHIND Sukuna's already raised forearm/palm. The wrist/closed fist may remain largely occluded by that unchanged raised palm. Add only the simple concealed-arm continuation needed to bridge the black gap; no ornate new fingers or separately prominent large fist, no extra limb. Keep Gojo's sleeve edge fixed.\nInput roles: Image 1 is current clean target. Image 2 is ACCEPTED D10 full, geometry authority for every original visible contour and occlusion; preserve all its visible poses. Images 3 and 4, n1268/n1270, are limited clues for the single upper forearm direction/continuity only, not poses or crop to copy. The original cyan conceals exact anatomy, so simple conservative fill is essential. The inferred forearm must have a coherent continuous silhouette until it disappears behind the existing raised hand; no unconnected skin islands and no cut-off limb tips.\nRetain all other pixels/line work as closely as possible, normal neutral pale skin and restrained navy/cool night palette. Absolutely no cyan/red FX, particles, impact glow, smoke, watermark, annotations, new text, transparency, green screen, new pose or recrop. Output one opaque RGB full frame with the same dimensions/aspect at native quality, no upscaling.",
+      "reference_roles": [
+        {
+          "filename": "D10_n1267_noFX_attempt1.png",
+          "role": "primary edit target, failed truncated upper forearm to be corrected only"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "existing accepted full D10 visible-pose/occlusion authority"
+        },
+        {
+          "filename": "n1268.png",
+          "role": "adjacent visible upper forearm evidence only, not pose/crop authority"
+        },
+        {
+          "filename": "n1270.png",
+          "role": "adjacent visible upper forearm evidence only, not pose/crop authority"
+        }
+      ],
+      "qa": {
+        "findings": {
+          "status": "visual pass as inferred temporary clean plate after one targeted anatomy retry; parent/Opus review pending",
+          "findings": [
+            "Upper cyan plume and sparks removed. Existing D10 composition, upper Sukuna raised palm, lower Gojo fist, faces/tattoos, clothing and window perspective retained.",
+            "The selected retry repairs the first attempt's truncated upper forearm with continuous simple fill disappearing behind Sukuna's unchanged raised palm.",
+            "No switch to D09 lower-attack pose. Original D10 full not replaced."
+          ],
+          "limits": [
+            "Gojo's upper forearm/fist was substantially concealed in the full image; no source-exact recovery is claimed.",
+            "The inferred fist remains occluded behind the existing Sukuna palm, rather than being shown as an unsupported detailed new fist.",
+            "Generative edit can produce minor line/color changes outside the targeted FX region."
+          ]
+        },
+        "uncertain": [
+          {
+            "region": "Gojo upper forearm from original sleeve toward behind Sukuna raised palm",
+            "approx_bbox_native_xyxy": [
+              575,
+              138,
+              887,
+              330
+            ],
+            "certainty": "low-to-medium",
+            "evidence": "accepted D10 visible sleeve boundary; adjacent n1268/n1270 visible forearm clues",
+            "note": "Conservative continuous fill. Exact arm geometry behind cyan unavailable; final closed fist mostly remains occluded."
+          },
+          {
+            "region": "Previously cyan-occluded upper architecture",
+            "approx_bbox_native_xyxy": [
+              450,
+              0,
+              1210,
+              345
+            ],
+            "certainty": "medium",
+            "evidence": "existing window grid/diagonal structure around FX",
+            "note": "Background continuation inferred."
+          }
+        ]
+      }
+    },
+    {
+      "asset": "D11_n1272.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer. Asset type: one full-screen 16:9 animation smear frame D11, an abstract transition wipe. Redraw image 1 from scratch as a hand-drawn cel/manga animation smear. Image 1 alone determines the exact broad shapes, diagonals, framing, extent of blur-like abstraction, negative space and scene. Images 2 and 3 provide ONLY deep navy ink/cel styling and restrained urban-night palette, not characters or poses to insert.\nMatch image 1's abstraction: a huge pale gray-blue cloth/body smear sweeps from lower-left to lower-middle, forming a broad triangular ridge that begins near upper-left x=15%, arcs down toward center-right x=68% y=75%, with a second pointed pale ribbon extending toward lower-right x=83% y=96%. The rest is mostly near-black navy space, especially the upper-right half. Keep the cool cyan leading edge at top-left and subdued pink reflected light along the lower smear. Only three narrow dark blue lit vertical windows remain cropped against the far-right edge; tiny vague dark window fragments may remain behind the upper/center smear. The source shows no readable face, hair, hand, finger, or torso: preserve that deliberate unreadability.\nConvert the optical-looking streak into fresh hand-inked stretched cel shapes: long tapered, slightly jagged silhouettes, very sparse diagonal ink streaks and flat soft-toned color bands following the exact source sweep. Keep the broad pale mass quiet and low contrast, not a bright energy slash. Preserve near-black negative space. This must be a newly drawn in-between with source-specific smears, not a warped prior drawing, not a pixel-blur filter. Do not invent a fighter, face, limbs, a neon beam, sparks, or extra buildings. Redraw the whole frame. No text, watermark, logo or signature.",
+      "reference_roles": [
+        {
+          "filename": "n1272.png",
+          "role": "edit target / source composition, pose, camera, crop, occlusion and FX authority"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        }
+      ],
+      "qa": "Pass first draft as drawn smear: broad pale diagonal sweep from upper-left across lower frame, right-side narrow windows and dark upper-right negative space preserved; no fabricated anatomy. More articulated tapered ink fringes than optical-soft source, an intentional redraw interpretation."
+    },
+    {
+      "asset": "D12_n1273.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer. Asset type: a single 16:9 full-frame hand-drawn animation smear, D12. Redraw image 1 as a new cel/manga drawing. Image 1 is the sole source of camera, exact crop, foreground contours, gesture, light, backdrop and red attack location. Images 2 and 3 are only line-art/cel-color style references; do not copy their two-person composition or their cyan FX.\nMatch the extreme source crop: upper center is almost entirely a near-black fragment of Sukuna's head/hair, his actual face beyond the crop and unreadable. Along the left edge is a huge cropped blue-gray kimono shoulder with dense ink hatching, following a sloping contour from x=27% y=13% down toward the bottom-left. Across center is the large pale rose-lit shoulder/upper-arm shape, slanting from lower-left/center toward upper-right and cut off there. Preserve source skin-versus-cloth boundaries and the sparse black crease lines. On the right/lower-right only, a saturated coral-red energy mass cuts diagonally up toward the far-right edge and offscreen, leaving a ragged dark lower boundary. Background: only narrow windows and horizontal bars along far-left/top-left, almost all the rest occluded. Do not zoom out or reveal any more of either person. No readable eyes, complete face, head, hand or fingers; no invented limbs.\nUse confident uneven dark navy manga outlines and hatch strokes, opaque clean cel color, deep near-black silhouettes, the established cool blue urban-night tones and warm red reflection. This pose's smear is deliberately heavily cropped: retain its abstract close-up stretched contours and diagonal action without adding decoration. Redraw the whole frame, including background and red energy, independently. No warp/interpolation of earlier frames, no applied motion-blur filter. No text, no watermark, no logo, no signature.",
+      "reference_roles": [
+        {
+          "filename": "n1273.png",
+          "role": "edit target / source composition, pose, camera, crop, occlusion and FX authority"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        }
+      ],
+      "qa": "Pass first draft: extreme crop, black upper head fragment, left kimono, diagonally crossing skin shape and lower-right red smear align closely to source. Source unreadability preserved. Red fringe and ink strokes are crisper than source but do not create extra anatomy."
+    },
+    {
+      "asset": "D13_n1274.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer. Asset type: one full-screen 16:9 hand-drawn animation frame, D13, a source-matched cropped attack drawing. Redraw image 1 from scratch as crisp hand-inked cel/manga animation, using images 2 and 3 ONLY for ink-line language, cel coloring, and urban-night palette. Image 1 is the absolute composition/pose/camera/cropping/occlusion/FX authority. Do not reuse the poses, framing, or cyan attack from images 2–3.\nExact image-1 composition: extreme close cropped action view. Sukuna's almost-black spiky hair and back/side of head fill the lower-left quadrant, his face is hidden. His light gray kimono shoulder and the attacking arm are cut by the bottom edge. A massive glowing coral-red attack with its forearm barely visible underneath rises diagonally from bottom-center/left all the way off the upper-right corner. Preserve this broad diagonal red occlusion and its hand-drawn interior streaks. Behind it, only a cropped fragment of Gojo's black-shirt upper torso/neck and tiny portion of lower face occur at the extreme top/right; his head and eyes are outside the image. Preserve the separate pale forearm/cloth contour extending across the lower-right as it appears in the source; do not invent another hand or limb. Background remains visible mainly upper-left: dark blue urban windows, horizontal ledges, pale warm windows near upper center, reflected muted red light.\nStyle: distinct fresh drawing, uneven confident deep-navy ink, controlled manga hatch marks, simple opaque cel planes, red energy drawn as a sharp organic flame-shaped mass with subtle luminous rim. Keep the exact frame's readable fragments and deliberate heavy occlusion. No fully readable faces, no revealed hidden anatomy, no expanded crop, no new character, no new gesture, no new blast. Preserve negative space, silhouette boundaries and diagonal movement. This is one independently drawn action frame, not a pixel warp or blur-filter effect. Redraw background and characters as well as energy. No text, no logo, no signature, no watermark.",
+      "reference_roles": [
+        {
+          "filename": "n1274.png",
+          "role": "edit target / source composition, pose, camera, crop, occlusion and FX authority"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        }
+      ],
+      "qa": "Pass first draft: source reverse camera/crop preserved, Sukuna rear silhouette occupies left, red arm diagonal and top-right Gojo crop preserved. Gojo eyes intentionally offscreen. Energy band lines slightly clearer than source; no major pose/composition failure."
+    },
+    {
+      "asset": "D14_n1275.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: illustration-story. Asset type: D14_n1275, one opaque full-frame 16:9 production animation hold drawing.\nPrimary request: Create a complete NEW hand-inked/cel-shaded redraw of the FIRST reference, the exact n1275 shot, including its urban night background and diagonal red punch effect. Redraw every character, every body contour, garment and background; do not reuse, trace-and-recolor, warp or paste any source body pixels.\nInput roles: Image 1 n1275 is the SOLE authority for camera crop, perspective, exact poses, limb topology, overlap/occlusion, head and hand positions and the red attack placement. Image 2 D09_n1266 and Image 3 D10_n1267 are STYLE/IDENTITY/PALETTE references ONLY. Do not borrow their camera, pose, gesture, lower attack, raised palm placement or layout.\nComposition: Lock to Image 1. Gojo is the large white-haired blue-eyed figure at upper/right wearing black shirt, head partially cropped by top edge, startled gaze; Sukuna is dark spiky-haired foreground figure at lower/left seen mostly from behind, light clothes and tattooed arm driving diagonally upward to Gojo's upper chest, the fist/forearm partly concealed by red flame. Gojo's near arm and open hand extend across the right portion exactly as Image 1. Retain the source's close, crowded crop and correct arm overlaps; don't expose hidden faces, add hands, or invent anatomy hidden by the red effect.\nStyle: confident variable-weight dark navy/black manga ink contours, visible spare directional hatching, flat restrained cool night colors with crisp cel shadows, matching the line weight and clean drawing finish of Images 2/3. New art consistent with those character designs. Retain red emission only around the large diagonal attack; preserve bright blue eyes and ordinary illuminated windows. Draw background fully with the same window and roof perspective and framing as Image 1.\nConstraints: one coherent complete frame, no collage, no border, no captions/logos/text/watermarks. Do not copy the visible source watermark. No extra limbs, no new action pose. Do not beautify into a portrait or zoom out. Opaque full-frame RGB, no green screen or transparency. Native output only; no upscaling.",
+      "reference_roles": [
+        {
+          "filename": "n1275.png",
+          "role": "sole source authority for n1275 crop, perspective, pose, topology, occlusion, landmarks and red FX"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "style, identity and palette only; not pose authority"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "style, identity and palette only; not pose authority"
+        }
+      ],
+      "qa": {
+        "findings": {
+          "status": "visual pass for bounded pilot; parent/Opus review pending",
+          "findings": [
+            "Top-cropped Gojo white hair/blue eyes at upper right, foreground Sukuna at lower left, crossed arms and far-right open hand follow n1275 composition.",
+            "Diagonal red attack and urban night scene retained. No visible extra limb, extra face, text or watermark.",
+            "Character/background/FX output generated as one complete new drawing; source body pixels were not pasted or warped."
+          ],
+          "limits": [
+            "This is a generative redraw, not pixel/landmark-exact reconstruction.",
+            "Under-flame anatomy remains source-occluded."
+          ]
+        },
+        "uncertain": [
+          {
+            "region": "Sukuna fist/forearm and Gojo black shirt behind red FX",
+            "certainty": "low for source-hidden exact contour",
+            "note": "Full version retains the occluding red FX; clean version records the revealed inferred region separately."
+          }
+        ]
+      }
+    },
+    {
+      "asset": "D14_n1275_noFX.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: precise-object-edit. Asset type: D14_n1275_noFX, opaque full-frame clean hold plate.\nEDIT Image 1, the selected full D14 drawing, as the PRIMARY AND SOLE composition/line-art target. Remove ONLY the large red flame/emission wrapping Sukuna's diagonal punching arm and fist in front of Gojo's upper chest, plus its red glow, red sparks and red cast light. Keep the rest of Image 1 as unchanged as the tool allows: exact camera crop, scale, perspective, all already visible body contours and hatching, Gojo's startled blue-eyed face, hair shape, head position, black shirt silhouette, the far-right open hand/fingers and crossed near arm, Sukuna's foreground hair/back/clothes/arm, and all background windows/roof geometry.\nInputs: Image 1 is EDIT TARGET D14_n1275. Image 2 is original n1275, only for visible limb clues under the same red flame. Images 3 and 4 are n1278/n1280, supporting evidence for visible tattoo-band and fist/forearm contours only. They are NOT poses to copy: don't move the target open hand near Gojo's face as in neighbors, don't recenter/repose/reframe anything.\nFill the removed flame's area with only the MINIMUM plausible continuation of the existing diagonal tattooed Sukuna forearm and clenched fist and Gojo's black clothing behind it, using already visible lines. Keep the inferred fill simple: no newly designed detailed extra arm or hand, no new tattoo system, no extra digits, no revealed hidden face. The strike must retain Image 1's diagonal lower-left to upper-right axis and its exact overlap with Gojo, without changing the action.\nPalette: return formerly red-lit surfaces to the target's subdued neutral cool night palette, natural pale skin, black/navy ink, off-white clothes. Keep Gojo's blue eyes and ordinary warm window illumination. No red light/emission, flames, sparks, attack trails, or impact glow anywhere. No text/watermark/labels. This is a full opaque RGB frame with its original background, NOT a cutout, not a green screen, not transparency. Preserve 16:9 native framing; no upscaling.",
+      "reference_roles": [
+        {
+          "filename": "D14_n1275.png",
+          "role": "primary edit target and sole composition/visible-line authority"
+        },
+        {
+          "filename": "n1275.png",
+          "role": "corresponding original visible clues"
+        },
+        {
+          "filename": "n1278.png",
+          "role": "supporting visible under-FX anatomy and tattoo clues only, not pose authority"
+        },
+        {
+          "filename": "n1280.png",
+          "role": "supporting visible under-FX anatomy and tattoo clues only, not pose authority"
+        }
+      ],
+      "qa": {
+        "findings": {
+          "status": "visual pass as inferred temporary clean plate; parent/Opus review pending",
+          "findings": [
+            "Red flame, glow and red cast light removed; ordinary window illumination and blue eyes retained.",
+            "Same D14 head, foreground hair silhouette, arm placement, far-right open hand, crop and night background retained visually.",
+            "No new animation pose, extra visible limb, text or transparent background."
+          ],
+          "limits": [
+            "Imagegen preservation is not pixel-identical. Some hatching and edges in/near the edited region are newly synthesized.",
+            "The unveiled fist/forearm, tattoo portions and shirt continuation are plausible drawing fills, not exact recovered source anatomy."
+          ]
+        },
+        "uncertain": [
+          {
+            "region": "Sukuna diagonal forearm/wrist and closed fist",
+            "approx_bbox_native_xyxy": [
+              680,
+              145,
+              1335,
+              780
+            ],
+            "certainty": "low-to-medium",
+            "evidence": "n1275 visible band/contour traces plus neighboring n1278/n1280 visible clues",
+            "note": "Large portions were covered by red FX. Newly filled hatching, fist silhouette and tattoo-band contours must not be treated as source-exact."
+          },
+          {
+            "region": "Gojo shirt/collar behind removed flame",
+            "approx_bbox_native_xyxy": [
+              840,
+              120,
+              1410,
+              555
+            ],
+            "certainty": "low",
+            "evidence": "visible black clothing boundary and neighboring source clues",
+            "note": "Minimal dark cloth continuation inferred; exact concealed folds unavailable."
+          },
+          {
+            "region": "Former red cast-light areas on face, hair, clothes and near background",
+            "certainty": "medium",
+            "note": "Neutral cool-night color inferred from non-emissive parts of the selected drawing."
+          }
+        ]
+      }
+    },
+    {
+      "asset": "D15_n1282.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer. Asset type: one full-screen 16:9 hand-drawn anime smear frame D15, a cropped red-arm/body sweep. Redraw image 1 from scratch as a clean hand-inked cel/manga frame. Image 1 is the absolute authority for crop, silhouettes, pose fragments, occlusion, lighting, red energy shape and background. Images 2–3 give only the established dark navy line quality/cel colors; do not copy their framing, visible faces, poses or cyan blast.\nComposition matching image 1: huge pale skin/forearm segment lies from lower-left foreground through center at x=40% to near top-center x=48%, with TWO thick dark arm bands curving across its upper section around y=37–57%. Its bottom end is cut off by bottom edge; no hand in frame. At the top-left is a gigantic cropped coral-red luminous attack shape with dark vertical ink speed marks, broad and blunt, cut by both top and left edges. Its bottom forms source-specific scalloped red trailing shapes above the pale arm. Behind this foreground arm, a broad pale cool blue-gray body/cloth shape sweeps diagonally from upper-right edge toward center x=46% y=72%. A huge black shirt/body silhouette fills lower-right and right-middle. Only a very small strip of dark diagonal urban architecture is visible in the left-middle/bottom-left; retain the tiny pale striped fragment at the extreme lower-right. Preserve all exact overlaps, including the foreground arm in front of the pale diagonal background shape. No faces or eyes exist in this crop: do not add them. No hands or fingers, no invented joints or extra limbs, no zooming out.\nRendering: confident irregular dark navy contours, sparse hatching and long drawn smear strokes following the source, opaque cel planes, muted blue-gray/rose skin, vivid but controlled coral-red aura and reflection. Keep source darkness and cropping, redraw the entire scene and FX as a distinct new drawing. No pixel warp or blur-filter simulation. No writing, text, watermark, logo or signature.",
+      "reference_roles": [
+        {
+          "filename": "n1282.png",
+          "role": "edit target / source composition, pose, camera, crop, occlusion and FX authority"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        }
+      ],
+      "qa": "Pass first draft: cropped two-band arm, top-left red smear, pale diagonal shape and black lower-right mass closely follow source. No faces/fingers revealed. Light diagonal receives extra drawn speed strokes; background is slightly crisper."
+    },
+    {
+      "asset": "D16_n1283.png",
+      "selected_attempt": 1,
+      "prompt": "Use case: style-transfer. Asset type: one 16:9 full-frame departing animation wipe, D16. Draw image 1 again from scratch as a very dark hand-inked cel-animation smear. Image 1 is the only authority for shapes, crop, palette, degree of abstraction and negative space. Images 2–3 give only restrained navy ink and cel-color technique, never their visible characters, city detail or cyan energy.\nThe frame must remain almost black: preserve the huge near-black departing body/clothing wipe occupying ALL of upper half, the entire right half, and most center. The source contains no readable face, hand, limb, costume emblem, eye or character outline. Never try to clarify the hidden anatomy. There is only one broad irregular pale blue-gray streak/wedge entering along the lower-left border, with a blunt/tapered projection into middle-left around x=38% y=70%, then turning down toward x=49% bottom edge. A nearly vertical diagonal navy seam along the far left runs from x=0 y=51% to x=15% bottom; the small pale streaks in this lower-left area follow the same exit movement. Keep source negative space and exact irregular black occlusion over that wedge. There is extremely subtle muted dusty-rose reflection along the bottom-left, very dim cool blue at the wedge's edge, no red aura remaining. All other details are submerged in near-black navy.\nTranslate source optical smear into economical stretched cel shapes and a few fine drawn dark contour/speed marks without increasing readability. Preserve its exact silhouette and dark value balance. No bright highlights, no new windows or scene details, no cyan energy, no sparks, no hair, no fabricated head or limbs. This is an independently drawn very dark in-between, not a cropped earlier picture, not warp/interpolation and not an applied blur filter. Redraw the entire frame. No text, no watermark, no logo, no signature.",
+      "reference_roles": [
+        {
+          "filename": "n1283.png",
+          "role": "edit target / source composition, pose, camera, crop, occlusion and FX authority"
+        },
+        {
+          "filename": "D09_n1266.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        },
+        {
+          "filename": "D10_n1267.png",
+          "role": "supporting style reference only / cel ink and palette, not pose"
+        }
+      ],
+      "qa": "Pass first draft: deliberately almost-black wipe preserves upper/right occlusion and irregular pale lower-left silhouette, with no invented readable anatomy. Drawn taper/hatching replaces optical softness; linework is more defined than source."
+    }
+  ],
+  "attempt_disclosure": "17 imagegen calls for 16 selected assets in this batch. D10_noFX had one rejected truncated-arm attempt, repaired in its selected second attempt. Original D10 full remains unchanged."
+}
