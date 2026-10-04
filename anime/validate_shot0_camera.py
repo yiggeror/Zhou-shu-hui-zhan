@@ -18,6 +18,9 @@ import flowcam  # noqa: E402
 import shot0 as S0  # noqa: E402
 
 K = 1672 / 2560
+# the fade frames are not left out (they are tied to n78 by their own flow similarity), but they are checked the
+# same independent way; in them only the drawing seen through the bright flame (E, F, D) is clearly visible
+EXTRA_EARLY = [74, 75, 76, 77]
 POINTS = {'A speed line, upper': (925, 707), 'B speed line, lower': (862, 859), 'C sleeve seam cross': (723, 1218),
           'D sleeve fold (ambiguous)': (526, 995), 'E thumb nail': (1363, 1142), 'F finger corner': (1350, 1300),
           'G right white region bend': (1760, 961), 'H pale block, top': (1350, 241), 'I right vertical lines': (1710, 635)}
@@ -50,12 +53,12 @@ def main():
              'For each feature: its position in frame n found by template matching from n86, then mapped back to n86 '
              'by the camera; the error is the distance to where the feature really is in n86.  Correlation < 0.6: '
              'the match itself is doubtful.', '',
-             '| feature | ' + ' | '.join(f'n{n} error (corr)' for n in sorted(S0.HOLDOUT) + [82, 90]) + ' |',
-             '|---|' + '---|' * (len(S0.HOLDOUT) + 2)]
+             '| feature | ' + ' | '.join(f'n{n} error (corr)' for n in EXTRA_EARLY + sorted(S0.HOLDOUT) + [82, 90]) + ' |',
+             '|---|' + '---|' * (len(EXTRA_EARLY) + len(S0.HOLDOUT) + 2)]
     for name, p in POINTS.items():
         p86 = np.array(p, float) * K
         row = []
-        for n in sorted(S0.HOLDOUT) + [82, 90]:
+        for n in EXTRA_EARLY + sorted(S0.HOLDOUT) + [82, 90]:
             q, c = track(G[86], G[n], p86)
             if q is None:
                 row.append('-')

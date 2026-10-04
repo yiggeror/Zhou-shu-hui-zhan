@@ -64,6 +64,36 @@ def _homography(oa, ob):
     return Hm
 
 
+def _fade_step(oa, ob):
+    """Similarity from frame a to frame b in the fade from black (n74-78).  The panel is nearly black there, but
+    the old drawing's lines inside the bright flame are clear, and they belong to the panel: measure the optical
+    flow on them (plus any lit panel), keep forward-backward consistent vectors, fit a similarity by RANSAC.
+    Feature-matched homographies had only ~8 inliers here and threw the hand ~250 px off (Limo, review 020)."""
+    a, b = flowcam.prep(oa), flowcam.prep(ob)
+    dis = flowcam._dis()
+    f = cv2.GaussianBlur(dis.calc(a, b, None), (0, 0), 3)
+    fb = cv2.GaussianBlur(dis.calc(b, a, None), (0, 0), 3)
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    back = cv2.remap(fb, xx + f[..., 0], yy + f[..., 1], cv2.INTER_LINEAR)
+    g = a.astype(np.float32)
+    tex = cv2.GaussianBlur(np.hypot(cv2.Sobel(g, cv2.CV_32F, 1, 0), cv2.Sobel(g, cv2.CV_32F, 0, 1)), (0, 0), 3) > 20
+    inner = cv2.erode((flame_core(oa) > 0.5).astype(np.uint8), np.ones((31, 31), np.uint8)) > 0
+    rel = tex & (inner | (lum(oa) > 0.04)) & (np.hypot(*(f + back).transpose(2, 0, 1)) < 1.0)
+    rel[WATERMARK] = False
+    ys, xs = np.mgrid[0:H:6, 0:W:6]
+    m = rel[ys, xs]
+    src = np.float32(np.c_[xs[m], ys[m]])
+    dst = src + f[ys[m], xs[m]]
+    M, inl = cv2.estimateAffinePartial2D(src, dst, method=cv2.RANSAC, ransacReprojThreshold=2.0)
+    if M is None:
+        return np.eye(3)
+    s, rot = np.hypot(M[0, 0], M[1, 0]), np.degrees(np.arctan2(M[1, 0], M[0, 0]))
+    ok = inl is not None and inl.sum() >= 100 and 0.8 < s < 1.25 and abs(rot) < 8 and np.abs(M[:, 2]).max() < 300
+    print(f'fade step: {int(inl.sum()) if inl is not None else 0} inliers, scale {s:.3f}, rotation {rot:+.2f} deg'
+          + ('' if ok else '  -> rejected, identity'))
+    return np.vstack([M, [0, 0, 1]]) if ok else np.eye(3)
+
+
 def _polyfit_fields(F, ns, deg, anchor=None, w=None):
     """least-squares polynomial in n per pixel; anchor: frame whose field is pinned to zero (the reference)"""
     X = np.array([F[n] for n in ns])
@@ -118,7 +148,7 @@ def camera_fields(O):
     Hn = np.eye(3)
     for n in range(77, F0 - 1, -1):
         if n >= 74:
-            Hn = Hn @ _homography(O[n], O[n + 1])           # n -> n+1 -> ... -> 78
+            Hn = Hn @ _fade_step(O[n], O[n + 1])            # n -> n+1 -> ... -> 78
         p = cv2.perspectiveTransform(np.dstack([xx, yy]).reshape(1, -1, 2), Hn).reshape(H, W, 2)
         f78 = cv2.remap(F[78], p[..., 0], p[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
         F[n] = (p - np.dstack([xx, yy]) + f78).astype(np.float32)
@@ -172,10 +202,13 @@ def flame_core(o):
     seeded[0] = False
     a = np.maximum(a, (seeded[lab2] & (weak > 0)).astype(np.float32))
     # darker, still cyan patches enclosed by the flame belong to it (its shading), not holes
-    body = cv2.morphologyEx((a > 0.5).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((41, 41), np.uint8))   # seal gaps
+    disk = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31))
+    body = cv2.morphologyEx((a > 0.5).astype(np.uint8), cv2.MORPH_CLOSE, disk)   # seal gaps (round, no square bridges)
     ff = body.copy()
     cv2.floodFill(ff, np.zeros((o.shape[0] + 2, o.shape[1] + 2), np.uint8), (0, 0), 1)
-    inside = (ff == 0) | (a > 0.5)      # the closing only seals gaps; it must not round off the outline
+    # enclosed pockets count only if they are cyan (the flame's own darker shading); a pocket of ink between the
+    # body and a droplet is not flame (n88: a square bridge there showed as a dark block, Limo review 020)
+    inside = ((ff == 0) & (cy / k > 0.06)) | (a > 0.5)
     # the old drawing's dark lines inside the flame can run out to its edge, so they are not enclosed holes:
     # with those thin lines closed away (grey closing, 11 px), the flame body is solid; its outline still comes
     # from the unclosed alpha (the body is eroded back before use)
@@ -193,6 +226,11 @@ def flame_core(o):
     solid = (inside & ~holes).astype(np.float32)
     solid = cv2.GaussianBlur(solid, (0, 0), 1.5)
     a = np.maximum(a, solid)
+    # thin strips hanging off the body are the flame-lit sleeve and cuff edges beside it, not flame (n82)
+    body = (a > 0.5).astype(np.uint8)
+    opened = cv2.morphologyEx(body, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11)))
+    strips = body & (cv2.dilate(opened, np.ones((3, 3), np.uint8)) == 0)
+    a = a * (1 - strips)
     # keep the main body and round detached droplets; drop thin strips (flame-lit sleeve edges, not flame)
     n3, lab3, st3, _ = cv2.connectedComponentsWithStats((a > 0.5).astype(np.uint8))
     if n3 > 2:
@@ -202,9 +240,13 @@ def flame_core(o):
         for i in range(1, n3):
             if i == main_i or st3[i, 4] < 40:
                 continue
-            pts = np.column_stack(np.where(lab3 == i)[::-1]).astype(np.float32)
+            comp = lab3 == i
+            pts = np.column_stack(np.where(comp)[::-1]).astype(np.float32)
             (_, _), (w_, h_), _ = cv2.minAreaRect(pts)
-            keep3[i] = st3[i, 4] < 4000 and max(w_, h_) < 3 * max(min(w_, h_), 1)
+            # a real droplet floats in the dark; a bit of flame-lit sleeve sits among lit panel
+            ring = (cv2.dilate(comp.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0) & ~comp
+            dark_around = float(np.mean(lum(o)[ring] / k)) < 0.25 if ring.any() else True
+            keep3[i] = st3[i, 4] < 4000 and max(w_, h_) < 3 * max(min(w_, h_), 1) and dark_around
         drop = (lab3 > 0) & ~keep3[lab3]
         a = a * (1 - cv2.dilate(drop.astype(np.uint8), np.ones((5, 5), np.uint8)))
     return a
