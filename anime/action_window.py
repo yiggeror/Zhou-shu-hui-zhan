@@ -620,6 +620,13 @@ def render_holds(name, hn, fs, O, A, raw):
             fxl = path_blur(np.dstack([rgba_d[..., :3] * rgba_d[..., 3:], rgba_d[..., 3]]), Tdp, Td, shutter,
                             layer=True)
             a = np.clip(fxl[..., 3], 0, 1)
+            clamp = drawn_spec[n].get('core_clamp')
+            if clamp:                                   # explicit: the drawing's near-opaque core made solid,
+                solid = a >= clamp / 255                # after placement (soft edges untouched)
+                fxl[..., :3][solid] /= np.maximum(a[solid], 1e-6)[:, None]
+                a = a.copy()
+                a[solid] = 1.0
+                fxl[..., 3] = a
             a3 = a[..., None]
             lit = fxl[..., :3] * np.float32(bgain)
             glow = L.BLOOM[0] * cv2.GaussianBlur(lit, (0, 0), 20) + L.BLOOM[1] * cv2.GaussianBlur(lit, (0, 0), 60)
@@ -627,7 +634,10 @@ def render_holds(name, hn, fs, O, A, raw):
             fx_only = glow * (1 - a3) + lit
             exposed = zone & (a < 0.5)
             labels = ('effect-free base (plate+camera+blur+light)', 'drawn effect layer alone (its own alpha)')
-            fxs = (f'DRAWN effect layer `{drawn_spec[n]["image"]}` ({drawn[n][2].get("alpha")}), moved with the plate; '
+            fxs = (f'DRAWN effect layer `{drawn_spec[n]["image"]}` ({drawn[n][2].get("alpha")})'
+                   + (f', placed by {drawn_spec[n]["to_framing"]}' if drawn_spec[n].get('to_framing') else '')
+                   + (f', core alpha >= {clamp}/255 made solid after placement ({int(solid.sum())} px)' if clamp else '')
+                   + ', moved with the plate; '
                    f'of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
                    f'({100 * exposed.sum() / max(zone.sum(), 1):.1f}%) are not under the drawn flame (alpha < 0.5)')
         else:
