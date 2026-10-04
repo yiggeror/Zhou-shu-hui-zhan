@@ -134,6 +134,8 @@ def main():
         cv2.putText(head, f'{name}: x {x}, y {y}, {bw}x{bh} px at 1:1', (6, 17), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                     (255, 255, 255), 1)
         rows.append(np.vstack([head, row]))
+    wmax = max(r.shape[1] for r in rows)
+    rows = [cv2.copyMakeBorder(r, 0, 0, 0, wmax - r.shape[1], cv2.BORDER_CONSTANT, value=(20, 20, 20)) for r in rows]
     cv2.imwrite(os.path.join(out, 'matte_check.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 92])
     small = cv2.resize(np.hstack([img, (over(rgba, bgs['checker']) * 255).astype(np.uint8),
                                   (over(rgba, bgs['street']) * 255).astype(np.uint8)]), None, fx=0.4, fy=0.4,

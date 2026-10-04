@@ -620,6 +620,25 @@ def render_holds(name, hn, fs, O, A, raw):
     return out
 
 
+def cut_edges(mask, T):
+    """where a cel's character touches the edge of its drawing (a cut, e.g. the hair cropped by the source frame),
+    find how far into this frame that cut edge lands once the cel is moved by T: {side: (pixels of cut edge,
+    deepest point inside the frame in px)}; empty when every cut edge stays outside the frame"""
+    h, w = mask.shape
+    sides = {'top': [(x, 0) for x in np.nonzero(mask[0])[0]], 'bottom': [(x, h - 1) for x in np.nonzero(mask[-1])[0]],
+             'left': [(0, y) for y in np.nonzero(mask[:, 0])[0]], 'right': [(w - 1, y) for y in np.nonzero(mask[:, -1])[0]]}
+    out = {}
+    for side, pts in sides.items():
+        if not pts:
+            continue
+        q = cv2.perspectiveTransform(np.float32(pts)[None], T)[0]
+        inside = (q[:, 0] >= 0) & (q[:, 0] < W) & (q[:, 1] >= 0) & (q[:, 1] < H)
+        if inside.any():
+            depth = np.minimum.reduce([q[inside, 0], W - q[inside, 0], q[inside, 1], H - q[inside, 1]])
+            out[side] = (int(inside.sum()), round(float(depth.max()), 1))
+    return out
+
+
 def render_layers(name, hn, fs, O, A, raw):
     """a hold drawn as two layers, as a character cel sliding over a background in cel animation: the character
     (drawn on a key colour, keyed by anime/matte_key.py) and the background plate each moved by their own
@@ -633,16 +652,23 @@ def render_layers(name, hn, fs, O, A, raw):
     ns = sorted(set(hn) | {cref, bref})
     # character layer: keyed cel, registered to its reference frame on the character only
     cimg = cv2.imread(cs['image'])
-    if abs(cimg.shape[1] / cimg.shape[0] - W / H) > 0.01 * W / H:
-        sys.exit(f'{cs["image"]}: not the source framing')
-    crgba, _, krep = MK.key(cimg)
-    crgba = cv2.resize(crgba, (W, H), interpolation=cv2.INTER_AREA)
+    crgba, _, krep = MK.key(cimg)                         # keyed on the whole canvas (margin included)
+    vx, vy, vw, vh = cs.get('viewport') or (0, 0, cimg.shape[1], cimg.shape[0])
+    if abs(vw / vh - W / H) > 0.01 * W / H:
+        sys.exit(f'{cs["image"]}: viewport {vw}x{vh} is not the source framing')
+    f = W / vw                                             # canvas at display resolution
+    crgba = cv2.resize(crgba, (int(round(crgba.shape[1] * f)), int(round(crgba.shape[0] * f))),
+                       interpolation=cv2.INTER_AREA)
+    V = np.array([[1, 0, -vx * f], [0, 1, -vy * f], [0, 0, 1]], np.float64)   # canvas -> source framing
     calpha = crgba[..., 3]
     cmask = (calpha > 0.5).astype(np.uint8) * 255
     grey = crgba[..., :3] * calpha[..., None] + 0.5 * (1 - calpha[..., None])
-    Hm, inl, err = match_h(grey, O[cref], cmask, feature_mask(O[cref]), ratio=0.8, model='similarity')
+    gview = cv2.warpPerspective(grey, V, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    mview = cv2.warpPerspective(cmask, V, (W, H), flags=cv2.INTER_NEAREST)
+    Hm, inl, err = match_h(gview, O[cref], mview, feature_mask(O[cref]), ratio=0.8, model='similarity')
     ok = Hm is not None and inl >= 30 and plausible(Hm)
-    Pc = Hm if ok else np.eye(3)
+    Rc = Hm if ok else np.eye(3)                           # source framing -> reference frame
+    Pc = Rc @ V                                            # cel canvas -> reference frame
     creg = f'{inl} inliers, median error {err:.2f} px' if ok else f'identity (weak match: {inl} inliers)'
     subject = cv2.warpPerspective(cv2.dilate(cmask, np.ones((41, 41), np.uint8)), Pc, (W, H)) > 0
     Hc, cinfo = hold_camera(O, A, cref, ns, raw, subject=subject, model='similarity')
@@ -674,7 +700,8 @@ def render_layers(name, hn, fs, O, A, raw):
         bg = path_blur(bimg, (Hb[prev] if prev else Hb[n]) @ Pb, Tb, shutter)
         Tc_prev = (Hc[prev] if prev else Hc[n]) @ Pc
         cel = path_blur(np.dstack([crgba[..., :3] * calpha[..., None], calpha]), Tc_prev, Tc, shutter, layer=True)
-        fxl = path_blur(np.dstack([full * fx_a[..., None], fx_a]), Tc_prev, Tc, shutter, layer=True)
+        fxl = path_blur(np.dstack([full * fx_a[..., None], fx_a]), Tc_prev @ np.linalg.inv(V), Tc @ np.linalg.inv(V),
+                        shutter, layer=True)                # the full drawing is in the source framing, not the canvas
         res = bg * (1 - cel[..., 3:]) + cel[..., :3]                      # premultiplied after the move
         res = res * (1 - fxl[..., 3:]) + fxl[..., :3]
         lit = fxl[..., :3]
@@ -688,6 +715,7 @@ def render_layers(name, hn, fs, O, A, raw):
                                                              borderMode=cv2.BORDER_REFLECT)
         sb, rb, cb = describe(C @ Hb[n])
         sc_, rc, cc = describe(C @ Hc[n])
+        cut = cut_edges(cmask > 0, C @ Tc)
         char = (cel[..., :3] * (1 - fxl[..., 3:]) + fxl[..., :3]) * np.float32(g)
         out[n] = dict(R=zoomed(res), base=zoomed(bg * np.float32(g)), fx=zoomed(char), exposed=(0, 0),
                       base_label='background layer alone', fx_label='character layer alone (cel + its own flame)', src=(
@@ -699,7 +727,9 @@ def render_layers(name, hn, fs, O, A, raw):
             f'moved: {binfo[n]}; at the centre scale {sb:.4f}, rotation {rb:+.2f} deg, shift ({cb[0]:+.1f}, {cb[1]:+.1f}) px; '
             f'whole hold zoomed {zoom:.3f} (edge colours smeared in: {edge:.1f}% of this frame); camera blur shutter '
             f'{shutter} frame(s), each layer along its own path; brightness gain {g:.3f} (the original\'s change on the '
-            f'same background content); no source effect'))
+            f'same background content); no source effect; the cel\'s own cut edges (where the character touches the edge '
+            f'of its drawing) inside this frame: {cut or "none"}'))
+        out[n]['cut'] = cut
     return out
 
 
