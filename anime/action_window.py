@@ -652,14 +652,27 @@ def render_layers(name, hn, fs, O, A, raw):
     ns = sorted(set(hn) | {cref, bref})
     # character layer: keyed cel, registered to its reference frame on the character only
     cimg = cv2.imread(cs['image'])
-    crgba, _, krep = MK.key(cimg)                         # keyed on the whole canvas (margin included)
-    vx, vy, vw, vh = cs.get('viewport') or (0, 0, cimg.shape[1], cimg.shape[0])
-    if abs(vw / vh - W / H) > 0.01 * W / H:
-        sys.exit(f'{cs["image"]}: viewport {vw}x{vh} is not the source framing')
-    f = W / vw                                             # canvas at display resolution
-    crgba = cv2.resize(crgba, (int(round(crgba.shape[1] * f)), int(round(crgba.shape[0] * f))),
-                       interpolation=cv2.INTER_AREA)
-    V = np.array([[1, 0, -vx * f], [0, 1, -vy * f], [0, 0, 1]], np.float64)   # canvas -> source framing
+    crgba, ka, krep = MK.key(cimg)                        # keyed on the whole canvas (margin included)
+    cleared = []
+    for box in cs.get('clear', []):                       # named non-anatomical fragments made transparent
+        ka, _, crep = MK.clear_fragment(cimg, ka, tuple(box))
+        cleared.append(crep)
+    crgba[..., 3] = ka
+    if cs.get('to_framing'):
+        # the cel's own canvas, mapped into the source framing by a given move + rotation + uniform scale (e.g. a
+        # redrawn cel the drawing tool returned at another size); the character may reach outside the framing
+        V = np.vstack([np.float64(cs['to_framing']), [0, 0, 1]])
+        A2 = V[:2, :2]
+        if abs(np.linalg.det(A2)) <= 0 or abs(A2[0, 0] - A2[1, 1]) > 1e-6 or abs(A2[0, 1] + A2[1, 0]) > 1e-6:
+            sys.exit(f'{cs["image"]}: to_framing must be a move + rotation + uniform scale')
+    else:
+        vx, vy, vw, vh = cs.get('viewport') or (0, 0, cimg.shape[1], cimg.shape[0])
+        if abs(vw / vh - W / H) > 0.01 * W / H:
+            sys.exit(f'{cs["image"]}: viewport {vw}x{vh} is not the source framing')
+        f = W / vw                                         # canvas at display resolution
+        crgba = cv2.resize(crgba, (int(round(crgba.shape[1] * f)), int(round(crgba.shape[0] * f))),
+                           interpolation=cv2.INTER_AREA)
+        V = np.array([[1, 0, -vx * f], [0, 1, -vy * f], [0, 0, 1]], np.float64)   # canvas -> source framing
     calpha = crgba[..., 3]
     cmask = (calpha > 0.5).astype(np.uint8) * 255
     grey = crgba[..., :3] * calpha[..., None] + 0.5 * (1 - calpha[..., None])
@@ -720,7 +733,9 @@ def render_layers(name, hn, fs, O, A, raw):
         out[n] = dict(R=zoomed(res), base=zoomed(bg * np.float32(g)), fx=zoomed(char), exposed=(0, 0),
                       base_label='background layer alone', fx_label='character layer alone (cel + its own flame)', src=(
             f'{name} repeat exposure, two layers (cel animation){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
-            f'character cel `{cs["image"]}` keyed (key BGR {krep["key_bgr"]}, edge pixels {100 * krep["between"]:.2f}%), '
+            f'character cel `{cs["image"]}` keyed (key BGR {krep["key_bgr"]}, edge pixels {100 * krep["between"]:.2f}%)'
+            + (f', made transparent: {cleared}' if cleared else '') +
+            (f', canvas mapped into the source framing by {np.round(V[:2], 6).tolist()}' if cs.get('to_framing') else '') + ', '
             f'registered to n{cref}: {creg}; moved: {cinfo[n]}; at the centre scale {sc_:.4f}, rotation {rc:+.2f} deg, '
             f'shift ({cc[0]:+.1f}, {cc[1]:+.1f}) px; its own flame cores from `{spec["full"]}` ride on it; '
             f'background `{bs["plate"]}` (drawn in the n{bref} framing; registered off the character: {binl} inliers), '

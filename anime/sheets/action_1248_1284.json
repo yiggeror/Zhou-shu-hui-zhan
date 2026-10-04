@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test, 20-drawing sheet; short holds (2-4 frames) show the full drawing, D04 uses the temporary source flame",
+ "name": "shots 42-44 action test, 20-drawing sheet; D02 as two layers; short holds show the full drawing; D04 uses the temporary source flame",
  "frames": [
   1248,
   1284
@@ -12,38 +12,142 @@
   "1249": {
    "hold": "D02",
    "id": "D02",
-   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "mode": "layers",
    "ref": 1249,
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
-   "mode": "full"
+   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "cel": {
+    "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+    "ref": 1249,
+    "to_framing": [
+     [
+      0.9845618200752274,
+      -0.0012065425060239802,
+      -1.247009414545687
+     ],
+     [
+      0.0012065425060240771,
+      0.9845618200752274,
+      -67.27435048771264
+     ]
+    ],
+    "clear": [
+     [
+      540,
+      495,
+      640,
+      560
+     ]
+    ]
+   },
+   "background": {
+    "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+    "ref": 1252
+   }
   },
   "1250": {
    "hold": "D02",
    "id": "D02",
-   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "mode": "layers",
    "ref": 1249,
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
-   "mode": "full"
+   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "cel": {
+    "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+    "ref": 1249,
+    "to_framing": [
+     [
+      0.9845618200752274,
+      -0.0012065425060239802,
+      -1.247009414545687
+     ],
+     [
+      0.0012065425060240771,
+      0.9845618200752274,
+      -67.27435048771264
+     ]
+    ],
+    "clear": [
+     [
+      540,
+      495,
+      640,
+      560
+     ]
+    ]
+   },
+   "background": {
+    "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+    "ref": 1252
+   }
   },
   "1251": {
    "hold": "D02",
    "id": "D02",
-   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "mode": "layers",
    "ref": 1249,
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
-   "mode": "full"
+   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "cel": {
+    "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+    "ref": 1249,
+    "to_framing": [
+     [
+      0.9845618200752274,
+      -0.0012065425060239802,
+      -1.247009414545687
+     ],
+     [
+      0.0012065425060240771,
+      0.9845618200752274,
+      -67.27435048771264
+     ]
+    ],
+    "clear": [
+     [
+      540,
+      495,
+      640,
+      560
+     ]
+    ]
+   },
+   "background": {
+    "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+    "ref": 1252
+   }
   },
   "1252": {
    "hold": "D02",
    "id": "D02",
-   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "mode": "layers",
    "ref": 1249,
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
-   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing); until then the full drawing (its own flame) is held still, since one transform cannot follow both layers",
-   "mode": "full"
+   "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+   "cel": {
+    "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+    "ref": 1249,
+    "to_framing": [
+     [
+      0.9845618200752274,
+      -0.0012065425060239802,
+      -1.247009414545687
+     ],
+     [
+      0.0012065425060240771,
+      0.9845618200752274,
+      -67.27435048771264
+     ]
+    ],
+    "clear": [
+     [
+      540,
+      495,
+      640,
+      560
+     ]
+    ]
+   },
+   "background": {
+    "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+    "ref": 1252
+   }
   },
   "1253": {
    "drawing": "collab/from_limo/025/completion_001/D03_n1253.png",

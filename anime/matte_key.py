@@ -1,12 +1,12 @@
 """Key a character cel drawn on a flat key colour, and make the check sheet the matte is reviewed with.
 
-usage: python3 anime/matte_key.py CEL.png OUT_DIR [--street STREET.png] [--boxes x,y,w,h;...]
+usage: python3 anime/matte_key.py CEL.png OUT_DIR [--street STREET.png] [--boxes x,y,w,h;...] [--clear x0,y0,x1,y1;...]
 
 The key colour is measured, not assumed: the median of the image border (the cel's background).  A pixel's
 distance from it is measured in chroma (YCrCb Cr, Cb) and the matte is a smooth step between two thresholds
 taken from that distance's robust spread on the border (the character may touch it); spill of the key colour on the character's edge is taken
 out (the key channel limited to the larger of the other two, within 2 px of where the matte is not fully
-opaque: an anti-aliased edge pixel can still key as opaque).
+opaque, and wherever it still dominates); key colour in shadow (key hue dominant) also counts as background.
 
 Writes OUT_DIR/cel_rgba.png (straight alpha), matte.png, key_report.md (size, measured key colour, thresholds,
 how much of the matte is in between), and matte_check.jpg: for each check region (by default the topmost hair
@@ -44,21 +44,26 @@ def key(img):
     t1 = t0 + 18.0                                         # fully the character from here
     t = np.clip((d - t0) / (t1 - t0), 0, 1)
     a = t * t * (3 - 2 * t)
-    # loose specks of key-coloured noise: drop tiny islands of either kind
+    # key colour in shadow (an enclosed gap seen darker) is far in chroma but still the key's hue: a pixel whose
+    # key channel dominates (excess over the other two > 60 % of it) is background too
+    f0 = img.astype(np.float32)
+    kch = int(np.argmax(k))
+    oth = [c for c in range(3) if c != kch]
+    excess = f0[..., kch] - np.maximum(f0[..., oth[0]], f0[..., oth[1]])
+    hue_key = np.clip((excess / np.maximum(f0[..., kch], 1) - 0.5) / 0.2, 0, 1) * (f0[..., kch] > 40)
+    a = np.minimum(a, 1 - hue_key)
+    # loose specks in the background: drop tiny opaque islands (small enclosed gaps, e.g. between fingers, stay open)
     solid = (a > 0.5).astype(np.uint8)
     n, lab, st, _ = cv2.connectedComponentsWithStats(solid)
     small = np.zeros(n, bool)
     small[1:] = st[1:, 4] < 40
     a[small[lab]] = 0
-    n, lab, st, _ = cv2.connectedComponentsWithStats(1 - solid)
-    small = np.zeros(n, bool)
-    small[1:] = st[1:, 4] < 40
-    a[small[lab]] = 1
     f = img.astype(np.float32)
     ch = int(np.argmax(k))                                 # the key channel (green for a green key)
     others = [c for c in range(3) if c != ch]
     lim = np.maximum(f[..., others[0]], f[..., others[1]])
     edge = cv2.dilate((a < 0.999).astype(np.uint8), np.ones((5, 5), np.uint8)) > 0   # the edge and 2 px into it
+    edge |= f[..., ch] > lim + 25                                    # and any key-dominant pixel left inside
     f[..., ch] = np.where(edge, np.minimum(f[..., ch], lim), f[..., ch])
     rgba = np.dstack([f / 255, a]).astype(np.float32)
     rep = dict(size=f'{img.shape[1]}x{img.shape[0]}', key_bgr=[round(float(v), 1) for v in k],
@@ -66,6 +71,38 @@ def key(img):
                thresholds=(round(t0, 1), round(t1, 1)), opaque=float((a > 0.999).mean()),
                transparent=float((a < 0.001).mean()), between=float(((a >= 0.001) & (a <= 0.999)).mean()))
     return rgba, a, rep
+
+
+def clear_fragment(img, a, box):
+    """make transparent a non-anatomical pale fragment left inside the character (e.g. a background highlight
+    caught between fingers), following its outline: inside box (x0, y0, x1, y1) the seeds are pale, unsaturated,
+    not skin-coloured pixels (lum > 0.72, saturation < 70/255, G >= R - 5); they grow into connected pixels that
+    are neither skin (R > G + 5) nor line (lum < 0.40), including key-tinted ones, plus a 2 px rim of such pixels.
+    Returns (new matte, fragment mask, report)"""
+    x0, y0, x1, y1 = box
+    c = img[y0:y1, x0:x1]
+    f = c.astype(np.float32) / 255
+    lum = f @ np.float32([0.114, 0.587, 0.299])
+    sat = cv2.cvtColor(c, cv2.COLOR_BGR2HSV)[..., 1]
+    b, g, r = [c[..., i].astype(int) for i in range(3)]
+    inside = a[y0:y1, x0:x1] > 0.5
+    seed = inside & (lum > 0.72) & (sat < 70) & (g >= r - 5)
+    greenish = (a[y0:y1, x0:x1] > 0.02) & (g > r + 15) & (g > b + 5)        # key-tinted rim of the fragment
+    grow = (inside | greenish) & ~(r > g + 5) & ~(lum < 0.40)
+    n, lab = cv2.connectedComponents((grow | seed).astype(np.uint8))
+    keep = np.zeros(n, bool)
+    keep[np.unique(lab[seed])] = True
+    keep[0] = False
+    frag = np.zeros(a.shape, bool)
+    core = keep[lab] & (cv2.connectedComponentsWithStats(seed.astype(np.uint8))[0] > 1)
+    rim = cv2.dilate(core.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0       # its anti-aliased rim, 2 px
+    frag[y0:y1, x0:x1] = core | (rim & grow) | (rim & greenish)
+    a2 = a.copy()
+    a2[frag] = 0
+    ys, xs = np.nonzero(frag)
+    rep = dict(box=box, pixels=int(frag.sum()),
+               extent=None if not len(xs) else [int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())])
+    return a2, frag, rep
 
 
 def regions(a, img, size=200):
@@ -110,6 +147,11 @@ def main():
     os.makedirs(out, exist_ok=True)
     img = cv2.imread(cel_p)
     rgba, a, rep = key(img)
+    if '--clear' in args:                                 # named fragments to make transparent: x0,y0,x1,y1;...
+        for b in args[args.index('--clear') + 1].split(';'):
+            a, frag, crep = clear_fragment(img, a, tuple(int(v) for v in b.split(',')))
+            rep.setdefault('cleared', []).append(crep)
+        rgba[..., 3] = a
     cv2.imwrite(os.path.join(out, 'matte.png'), (a * 255 + 0.5).astype(np.uint8))
     bgra = np.dstack([rgba[..., :3], rgba[..., 3:]])
     cv2.imwrite(os.path.join(out, 'cel_rgba.png'), (np.clip(bgra, 0, 1) * 255 + 0.5).astype(np.uint8))
