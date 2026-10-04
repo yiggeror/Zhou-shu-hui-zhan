@@ -525,6 +525,38 @@ def small(x, label=None, w=836):
     return RW.label(im, label) if label else im
 
 
+def load_sprite(sp):
+    """a drawn layer with its own transparency: an RGBA PNG (straight alpha), or RGB on a flat key colour (keyed by
+    anime/matte_key.py); placed in the source framing by sp['to_framing'] (2x3 move + rotation + uniform scale) or
+    sp['viewport'] [x, y, w, h], else the image is the source framing.  Returns (rgba at display scale, V: sprite
+    pixels -> source framing, report)"""
+    import matte_key as MK
+    im = cv2.imread(sp['image'], cv2.IMREAD_UNCHANGED)
+    if im.ndim == 3 and im.shape[2] == 4:
+        rgba = im.astype(np.float32) / 255
+        rep = dict(alpha='own (RGBA)', opaque=float((rgba[..., 3] > 0.999).mean()),
+                   between=float(((rgba[..., 3] > 0.001) & (rgba[..., 3] < 0.999)).mean()))
+    else:
+        rgba, a, rep = MK.key(im[..., :3])
+        rep['alpha'] = 'keyed'
+    for box in sp.get('clear', []):
+        a2, _, crep = MK.clear_fragment((rgba[..., :3] * 255).astype(np.uint8), rgba[..., 3], tuple(box))
+        rgba[..., 3] = a2
+        rep.setdefault('cleared', []).append(crep)
+    if sp.get('to_framing'):
+        V = np.vstack([np.float64(sp['to_framing']), [0, 0, 1]])
+        A2 = V[:2, :2]
+        if abs(A2[0, 0] - A2[1, 1]) > 1e-6 or abs(A2[0, 1] + A2[1, 0]) > 1e-6:
+            sys.exit(f'{sp["image"]}: to_framing must be a move + rotation + uniform scale')
+        return rgba, V, rep
+    vx, vy, vw, vh = sp.get('viewport') or (0, 0, im.shape[1], im.shape[0])
+    if abs(vw / vh - W / H) > 0.01 * W / H:
+        sys.exit(f'{sp["image"]}: viewport {vw}x{vh} is not the source framing')
+    f = W / vw
+    rgba = cv2.resize(rgba, (int(round(rgba.shape[1] * f)), int(round(rgba.shape[0] * f))), interpolation=cv2.INTER_AREA)
+    return rgba, np.array([[1, 0, -vx * f], [0, 1, -vy * f], [0, 0, 1]], np.float64), rep
+
+
 def render_holds(name, hn, fs, O, A, raw):
     """the frames hn of one hold.  mode "fx" (default): the effect-free plate moved by the camera, the original's
     flames rebuilt on top (temporary).  mode "full": a short hold of the full drawing itself, its own drawn flames
@@ -550,6 +582,11 @@ def render_holds(name, hn, fs, O, A, raw):
         # where the full drawing has its own flames: under them the plate's content is inferred, so the rebuilt
         # flame must cover it (Limo, completion_001); checked per frame below
         drawn_fx = (np.maximum(_core(full_v, 'cyan'), _core(full_v, 'red')) > 0.3).astype(np.float32)   # cores only
+    drawn, drawn_spec = {}, {}
+    for sp in spec.get('fx_drawn', []):                    # drawn effect layers replacing the source flame
+        loaded = load_sprite(sp)
+        for fn in sp['frames']:
+            drawn[fn], drawn_spec[fn] = loaded, sp
     ns = sorted(set(hn) | {ref})
     Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'), spec.get('camera'))
     size = (plate_c.shape[1], plate_c.shape[0])
@@ -575,6 +612,24 @@ def render_holds(name, hn, fs, O, A, raw):
             res, fx_only, fxs = base, np.zeros_like(base), 'no source effect: the drawing\'s own flames move with it'
             exposed = np.zeros((H, W), bool)
             labels = ('full drawing moved (its own flames)', 'no added effect (nothing here)')
+        elif n in drawn:
+            # a drawn effect layer for this frame (its own alpha), in the plate's framing, moved with the plate
+            rgba_d, Vd, _ = drawn[n]
+            Td = Hn @ Hp @ Vd
+            Tdp = Hprev @ Hp @ Vd
+            fxl = path_blur(np.dstack([rgba_d[..., :3] * rgba_d[..., 3:], rgba_d[..., 3]]), Tdp, Td, shutter,
+                            layer=True)
+            a = np.clip(fxl[..., 3], 0, 1)
+            a3 = a[..., None]
+            lit = fxl[..., :3] * np.float32(bgain)
+            glow = L.BLOOM[0] * cv2.GaussianBlur(lit, (0, 0), 20) + L.BLOOM[1] * cv2.GaussianBlur(lit, (0, 0), 60)
+            res = (base + glow * (1 - a3)) * (1 - a3) + lit
+            fx_only = glow * (1 - a3) + lit
+            exposed = zone & (a < 0.5)
+            labels = ('effect-free base (plate+camera+blur+light)', 'drawn effect layer alone (its own alpha)')
+            fxs = (f'DRAWN effect layer `{drawn_spec[n]["image"]}` ({drawn[n][2].get("alpha")}), moved with the plate; '
+                   f'of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
+                   f'({100 * exposed.sum() / max(zone.sum(), 1):.1f}%) are not under the drawn flame (alpha < 0.5)')
         else:
             lp = L.lum(base)
             lines = LINES_THROUGH * np.clip((cv2.GaussianBlur(lp, (0, 0), 4) - lp) / 0.12, 0, 1)
