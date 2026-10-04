@@ -245,14 +245,16 @@ def agreement(o_ref, o, Hm, m):
     return float((a * b).sum() / max(np.sqrt((a * a).sum() * (b * b).sum()), 1e-6))
 
 
-def hold_camera(O, A, ref, ns, raw, region=None, model=None):
-    """H[n]: ref -> n (display pixels) for the frames of a hold, one perspective transform per frame.  Features
-    are matched on the full-resolution original (flames and watermark left out); candidates are the match
-    straight to ref, the match chained through the previous frame (subject features, and whole frame), and the
-    previous transform; the one under which the previous frame, moved on to n, agrees best with frame n (edge
-    correlation) is used.  region (x0, y0, x1, y1 in ref
-    display pixels) limits the features to the subject.  model: 'similarity' (default, CAMERA) moves, turns and
-    scales the drawing as an animation camera does a cel; 'perspective' also tilts it."""
+def hold_camera(O, A, ref, ns, raw, region=None, model=None, exclude=None, subject=None):
+    """H[n]: ref -> n (display pixels) for the frames of a hold, one transform of the whole drawing per frame.
+    Features are matched on the full-resolution original (flames and watermark left out); candidates are the
+    match straight to ref, the match chained through the neighbouring frame towards ref (subject features, and
+    whole frame), and the neighbour's transform; the one under which the neighbour, moved on to n, agrees best
+    with frame n (edge correlation) is used.  Frames are taken outwards from ref, so ref may be any frame of the
+    hold.  region (x0, y0, x1, y1) or subject (a mask), both in ref display pixels, limit the features to the
+    subject, and then the agreement is judged on the subject only; exclude {n: mask} leaves those pixels of
+    frame n out (e.g. a character moving over the background being tracked).  model: 'similarity' (default,
+    CAMERA) moves, turns and scales the drawing as an animation camera does a cel; 'perspective' also tilts it."""
     model = model or CAMERA
     sx, sy = raw[ref].shape[1] / W, raw[ref].shape[0] / H
     S = np.diag([sx, sy, 1.0])
@@ -264,40 +266,58 @@ def hold_camera(O, A, ref, ns, raw, region=None, model=None):
 
     def full(n):
         return raw[n].astype(np.float32) / 255
-    mref = feature_mask(O[ref], A[ref])
+
+    def fmask(n):
+        m = feature_mask(O[n], A[n])
+        if exclude is not None and n in exclude:
+            m[exclude[n]] = 0
+        return m
+    mref = fmask(ref)
+    subj = None
     if region is not None:
-        r = np.zeros_like(mref)
+        subj = np.zeros((H, W), bool)
         x0, y0, x1, y1 = region
-        r[y0:y1, x0:x1] = 255
-        mref &= r
-    Hs, info, prev = {ref: np.eye(3)}, {ref: 'reference frame'}, ref
-    for n in ns:
-        if n == ref:
-            continue
-        mn = feature_mask(O[n], A[n])
-        cands = []
-        Hd, id_, ed = match_h(full(ref), full(n), bigmask(mref), bigmask(mn), thr=THR[model], model=model)
-        if Hd is not None and id_ >= 12:
-            cands.append((Si @ Hd @ S, f'matched to n{ref}: {id_} inliers, median error {ed * 1 / sx:.2f} px'))
-        mprev = cv2.warpPerspective(mref, Hs[prev], (W, H), flags=cv2.INTER_NEAREST) & feature_mask(O[prev], A[prev])
-        Hc, ic, ec = match_h(full(prev), full(n), bigmask(mprev), bigmask(mn), thr=THR[model], model=model)
-        if Hc is not None and ic >= 12:
-            cands.append((Si @ Hc @ S @ Hs[prev], f'chained via n{prev}: {ic} inliers, median error {ec / sx:.2f} px'))
-        if region is not None or mprev.mean() < 0.9 * 255 * (mn > 0).mean():
-            Hw, iw, ew = match_h(full(prev), full(n), bigmask(feature_mask(O[prev], A[prev])), bigmask(mn), thr=THR[model],
-                                model=model)
-            if Hw is not None and iw >= 12:
-                cands.append((Si @ Hw @ S @ Hs[prev], f'chained via n{prev} (whole frame): {iw} inliers, median '
-                                                      f'error {ew / sx:.2f} px'))
-        cands.append((Hs[prev], f'previous transform (n{prev}) kept'))
-        m = mn > 0
-        # judged against the previous frame (less has changed there than since ref)
-        cands = [(Hc_, t) for Hc_, t in cands if plausible(Hc_ @ np.linalg.inv(Hs[prev]))]
-        scored = [(agreement(O[prev], O[n], Hc_ @ np.linalg.inv(Hs[prev]), m), Hc_, t) for Hc_, t in cands]
-        sc, Hs[n], t = max(scored, key=lambda x: x[0])
-        info[n] = f'{t}; edge agreement with n{prev} {sc:.3f} (other candidates: ' + \
-            ', '.join(f'{x[0]:.3f}' for x in scored if x[2] != t) + ')'
-        prev = n
+        subj[y0:y1, x0:x1] = True
+    if subject is not None:
+        subj = subject if subj is None else subj & subject
+    if subj is not None:
+        mref[~subj] = 0
+    Hs, info = {ref: np.eye(3)}, {ref: 'reference frame'}
+    after = sorted(n for n in ns if n > ref)
+    before = sorted((n for n in ns if n < ref), reverse=True)
+    for seq in (after, before):
+        prev = ref
+        for n in seq:
+            mn = fmask(n)
+            cands = []
+            Hd, id_, ed = match_h(full(ref), full(n), bigmask(mref), bigmask(mn), thr=THR[model], model=model)
+            if Hd is not None and id_ >= 12:
+                cands.append((Si @ Hd @ S, f'matched to n{ref}: {id_} inliers, median error {ed / sx:.2f} px'))
+            mprev = cv2.warpPerspective(mref, Hs[prev], (W, H), flags=cv2.INTER_NEAREST) & fmask(prev)
+            Hc, ic, ec = match_h(full(prev), full(n), bigmask(mprev), bigmask(mn), thr=THR[model], model=model)
+            if Hc is not None and ic >= 12:
+                cands.append((Si @ Hc @ S @ Hs[prev], f'chained via n{prev}: {ic} inliers, median error '
+                                                      f'{ec / sx:.2f} px'))
+            if subj is None and mprev.mean() < 0.9 * 255 * (mn > 0).mean():
+                Hw, iw, ew = match_h(full(prev), full(n), bigmask(fmask(prev)), bigmask(mn), thr=THR[model],
+                                     model=model)
+                if Hw is not None and iw >= 12:
+                    cands.append((Si @ Hw @ S @ Hs[prev], f'chained via n{prev} (whole frame): {iw} inliers, '
+                                                          f'median error {ew / sx:.2f} px'))
+            cands.append((Hs[prev], f'previous transform (n{prev}) kept'))
+            cands = [(Hc_, t) for Hc_, t in cands if plausible(Hc_ @ np.linalg.inv(Hs[prev]))]
+
+            def judge(Hc_):
+                step = Hc_ @ np.linalg.inv(Hs[prev])
+                m = mn > 0
+                if subj is not None:                 # the subject where this candidate puts it in frame n
+                    m &= cv2.warpPerspective(subj.astype(np.uint8), Hc_, (W, H), flags=cv2.INTER_NEAREST) > 0
+                return agreement(O[prev], O[n], step, m)
+            scored = [(judge(Hc_), Hc_, t) for Hc_, t in cands]
+            sc, Hs[n], t = max(scored, key=lambda x: x[0])
+            info[n] = f'{t}; edge agreement with n{prev} {sc:.3f} (other candidates: ' + \
+                ', '.join(f'{x[0]:.3f}' for x in scored if x[2] != t) + ')'
+            prev = n
     return Hs, info
 
 
@@ -319,9 +339,11 @@ def interp(H0, H1, t):
     return (1 - t) * a + t * b
 
 
-def moved(img, Hm, flags=cv2.INTER_CUBIC):
+def moved(img, Hm, flags=cv2.INTER_CUBIC, layer=False):
     """img moved by Hm; where the drawing does not reach (its edge came into frame) its edge colours are smeared
     in, softly (the plate has no margin beyond the source framing)"""
+    if layer:                                   # a cel: nothing outside it (transparent), no smearing
+        return cv2.warpPerspective(img, Hm, (W, H), flags=flags, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
     out = cv2.warpPerspective(img, Hm, (W, H), flags=flags, borderMode=cv2.BORDER_REPLICATE)
     valid = cv2.warpPerspective(np.ones(img.shape[:2], np.float32), Hm, (W, H), flags=cv2.INTER_LINEAR)
     if valid.min() > 0.999:
@@ -331,17 +353,17 @@ def moved(img, Hm, flags=cv2.INTER_CUBIC):
     return out * v + soft * (1 - v)
 
 
-def path_blur(img, Hprev, Hcur, shutter, samples=None):
+def path_blur(img, Hprev, Hcur, shutter, samples=None, layer=False):
     """img moved by Hcur, averaged over the camera path back towards Hprev for `shutter` frame intervals"""
     if shutter <= 0:
-        return moved(img, Hcur)
+        return moved(img, Hcur, layer=layer)
     # sample density: about one sample per 1.5 px of the largest displacement along the path
     corners = np.float32([[[0, 0], [W, 0], [0, H], [W, H], [W / 2, H / 2]]])
     d = np.linalg.norm(cv2.perspectiveTransform(corners, Hcur)[0] - cv2.perspectiveTransform(corners, Hprev)[0], axis=1)
     k = samples or int(np.clip(d.max() * shutter / 1.5, 3, 64))
     acc = np.zeros((H, W, img.shape[2]), np.float32)
     for t in np.linspace(1 - shutter, 1, k):
-        acc += moved(img, interp(Hprev, Hcur, t), cv2.INTER_LINEAR)
+        acc += moved(img, interp(Hprev, Hcur, t), cv2.INTER_LINEAR, layer=layer)
     return acc / k
 
 
@@ -552,6 +574,7 @@ def render_holds(name, hn, fs, O, A, raw):
         if mode == 'full':
             res, fx_only, fxs = base, np.zeros_like(base), 'no source effect: the drawing\'s own flames move with it'
             exposed = np.zeros((H, W), bool)
+            labels = ('full drawing moved (its own flames)', 'no added effect (nothing here)')
         else:
             lp = L.lum(base)
             lines = LINES_THROUGH * np.clip((cv2.GaussianBlur(lp, (0, 0), 4) - lp) / 0.12, 0, 1)
@@ -561,6 +584,7 @@ def render_holds(name, hn, fs, O, A, raw):
             res = (base + glow * (1 - a3)) * (1 - a3) + fill * a3
             fx_only = glow * (1 - a3) + colour * a3          # the effect alone, plate lines OFF
             exposed = zone & (a < 0.5)
+            labels = ('effect-free base (plate+camera+blur+light)', 'effects alone, new lines OFF (temporary, from original)')
             fxs = (f'TEMPORARY effect: flames of original n{n} (shape, colour, glow; zoomed with the frame), opaque: '
                    f'plate lines through them ' + (f'at {strength:.2f}' if LINES_THROUGH else 'off') +
                    f'; of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
@@ -581,6 +605,7 @@ def render_holds(name, hn, fs, O, A, raw):
                    f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
                    f'brightness gain {bgain:.3f} (on the same content)')
         out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover),
+                      base_label=labels[0], fx_label=labels[1],
                       exposed=(int(exposed.sum()), int(zone.sum())), src=(
             f'{name} repeat exposure (hold, ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
             f'{what}, registered to n{ref}: {preg}; {light_s}; '
@@ -592,6 +617,89 @@ def render_holds(name, hn, fs, O, A, raw):
             (f'; reached ' + ', '.join(f'{k}: {v:.2f}' for k, v in ratios.items()) if len(ratios) > 1 else '') + '); '
             + fxs))
         prev = n
+    return out
+
+
+def render_layers(name, hn, fs, O, A, raw):
+    """a hold drawn as two layers, as a character cel sliding over a background in cel animation: the character
+    (drawn on a key colour, keyed by anime/matte_key.py) and the background plate each moved by their own
+    transform measured on the original (move + rotation + uniform scale): the character from features on the
+    character, the background from features off it.  The full drawing's own flames (its flame cores, cut from
+    the full drawing with a soft edge) ride on the character layer; no source effect is added."""
+    import matte_key as MK
+    spec = fs[hn[0]]
+    cs, bs = spec['cel'], spec['background']
+    cref, bref = cs['ref'], bs['ref']
+    ns = sorted(set(hn) | {cref, bref})
+    # character layer: keyed cel, registered to its reference frame on the character only
+    cimg = cv2.imread(cs['image'])
+    if abs(cimg.shape[1] / cimg.shape[0] - W / H) > 0.01 * W / H:
+        sys.exit(f'{cs["image"]}: not the source framing')
+    crgba, _, krep = MK.key(cimg)
+    crgba = cv2.resize(crgba, (W, H), interpolation=cv2.INTER_AREA)
+    calpha = crgba[..., 3]
+    cmask = (calpha > 0.5).astype(np.uint8) * 255
+    grey = crgba[..., :3] * calpha[..., None] + 0.5 * (1 - calpha[..., None])
+    Hm, inl, err = match_h(grey, O[cref], cmask, feature_mask(O[cref]), ratio=0.8, model='similarity')
+    ok = Hm is not None and inl >= 30 and plausible(Hm)
+    Pc = Hm if ok else np.eye(3)
+    creg = f'{inl} inliers, median error {err:.2f} px' if ok else f'identity (weak match: {inl} inliers)'
+    subject = cv2.warpPerspective(cv2.dilate(cmask, np.ones((41, 41), np.uint8)), Pc, (W, H)) > 0
+    Hc, cinfo = hold_camera(O, A, cref, ns, raw, subject=subject, model='similarity')
+    # the full drawing's own flames, riding on the character
+    full = load(spec['full'])
+    fx_a = cv2.GaussianBlur((np.maximum(_core(full, 'cyan'), _core(full, 'red')) > 0.3).astype(np.float32), (0, 0), 1.5)
+    # background layer: features off the character (its matte moved to each frame, 40 px wider)
+    excl = {n: cv2.warpPerspective(cv2.dilate(cmask, np.ones((81, 81), np.uint8)), Hc[n] @ Pc, (W, H)) > 0 for n in ns}
+    bimg, Vb = load_canvas(bs['plate'], bs.get('viewport'))
+    bview = cv2.warpPerspective(bimg, Vb, (W, H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+    bm = feature_mask(O[bref])
+    bm[excl[bref]] = 0
+    Hb_, binl, berr = match_h(bview, O[bref], None, bm, ratio=0.8, model='similarity')
+    Pb = (Hb_ if (Hb_ is not None and binl >= 30 and plausible(Hb_)) else np.eye(3)) @ Vb
+    Hb, binfo = hold_camera(O, A, bref, ns, raw, exclude=excl, model='similarity')
+    size = (bimg.shape[1], bimg.shape[0])
+    zoom = overscan({n: Hb[n] @ Pb for n in hn}, size)
+    C = np.array([[zoom, 0, (1 - zoom) * W / 2], [0, zoom, (1 - zoom) * H / 2], [0, 0, 1]])
+    ones = np.ones(bimg.shape[:2], np.float32)
+    out = {}
+    order = sorted(hn)
+    for i, n in enumerate(order):
+        prev = order[i - 1] if i else None
+        Tb, Tc = Hb[n] @ Pb, Hc[n] @ Pc
+        g = brightness_change(O[n], O[bref], Hb[n], A[n], A[bref])
+        shutter = 0.0
+        if prev is not None:
+            shutter, _, _ = fit_shutter(O[bref], O[n], Hb[prev], Hb[n], (feature_mask(O[n], A[n]) > 0).astype(np.uint8))
+        bg = path_blur(bimg, (Hb[prev] if prev else Hb[n]) @ Pb, Tb, shutter)
+        Tc_prev = (Hc[prev] if prev else Hc[n]) @ Pc
+        cel = path_blur(np.dstack([crgba[..., :3] * calpha[..., None], calpha]), Tc_prev, Tc, shutter, layer=True)
+        fxl = path_blur(np.dstack([full * fx_a[..., None], fx_a]), Tc_prev, Tc, shutter, layer=True)
+        res = bg * (1 - cel[..., 3:]) + cel[..., :3]                      # premultiplied after the move
+        res = res * (1 - fxl[..., 3:]) + fxl[..., :3]
+        lit = fxl[..., :3]
+        res = res + (L.BLOOM[0] * cv2.GaussianBlur(lit, (0, 0), 20) + L.BLOOM[1] * cv2.GaussianBlur(lit, (0, 0), 60)) \
+            * (1 - fxl[..., 3:])
+        res = res * np.float32(g)
+        edge = 100 * float((cv2.warpPerspective(ones, C @ Tb, (W, H)) < 0.999).mean())
+
+        def zoomed(x):
+            return x if zoom == 1.0 else cv2.warpPerspective(x, C, (W, H), flags=cv2.INTER_CUBIC,
+                                                             borderMode=cv2.BORDER_REFLECT)
+        sb, rb, cb = describe(C @ Hb[n])
+        sc_, rc, cc = describe(C @ Hc[n])
+        char = (cel[..., :3] * (1 - fxl[..., 3:]) + fxl[..., :3]) * np.float32(g)
+        out[n] = dict(R=zoomed(res), base=zoomed(bg * np.float32(g)), fx=zoomed(char), exposed=(0, 0),
+                      base_label='background layer alone', fx_label='character layer alone (cel + its own flame)', src=(
+            f'{name} repeat exposure, two layers (cel animation){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
+            f'character cel `{cs["image"]}` keyed (key BGR {krep["key_bgr"]}, edge pixels {100 * krep["between"]:.2f}%), '
+            f'registered to n{cref}: {creg}; moved: {cinfo[n]}; at the centre scale {sc_:.4f}, rotation {rc:+.2f} deg, '
+            f'shift ({cc[0]:+.1f}, {cc[1]:+.1f}) px; its own flame cores from `{spec["full"]}` ride on it; '
+            f'background `{bs["plate"]}` (drawn in the n{bref} framing; registered off the character: {binl} inliers), '
+            f'moved: {binfo[n]}; at the centre scale {sb:.4f}, rotation {rb:+.2f} deg, shift ({cb[0]:+.1f}, {cb[1]:+.1f}) px; '
+            f'whole hold zoomed {zoom:.3f} (edge colours smeared in: {edge:.1f}% of this frame); camera blur shutter '
+            f'{shutter} frame(s), each layer along its own path; brightness gain {g:.3f} (the original\'s change on the '
+            f'same background content); no source effect'))
     return out
 
 
@@ -623,7 +731,8 @@ def main():
     missing = [n for n in ns if n not in fs]
     if missing:
         sys.exit(f'exposure sheet misses frames {missing}')
-    refs = {v['ref'] for v in fs.values() if 'hold' in v}
+    refs = {v['ref'] for v in fs.values() if 'hold' in v} | \
+        {v[k]['ref'] for v in fs.values() if v.get('mode') == 'layers' for k in ('cel', 'background')}
     lo, hi = min(ns + list(refs)), max(ns + list(refs)) + 1
     raw = FR.frames(lo, hi)
     O = {n: cv2.resize(raw[n], (W, H), interpolation=cv2.INTER_AREA).astype(np.float32) / 255 for n in raw}
@@ -633,17 +742,21 @@ def main():
             holds.setdefault(fs[n]['hold'], []).append(n)
     A = {}
     for name, hn in holds.items():
-        for n in set(hn) | {fs[hn[0]]['ref']}:
+        sp = fs[hn[0]]
+        extra = {sp[k]['ref'] for k in ('cel', 'background')} if sp.get('mode') == 'layers' else set()
+        for n in set(hn) | {sp['ref']} | extra:
             if n not in A:
                 A[n] = flames(O[n])
-    R, BASE, FX, src, tag, COVER, EXPOSED = {}, {}, {}, {}, {}, {}, {}
+    R, BASE, FX, src, tag, COVER, EXPOSED, LABELS = {}, {}, {}, {}, {}, {}, {}, {}
     for name, hn in holds.items():
         t0 = time.time()
-        rendered = render_holds(name, hn, fs, O, A, raw)
+        rendered = (render_layers if fs[hn[0]].get('mode') == 'layers' else render_holds)(name, hn, fs, O, A, raw)
         print(f'hold {name}: {len(hn)} frames in {time.time() - t0:.0f} s', flush=True)
         for n, d in rendered.items():
             R[n], BASE[n], FX[n], src[n] = d['R'], d['base'], d['fx'], d['src']
-            COVER[n], EXPOSED[n] = d['cover'], d['exposed']
+            COVER[n], EXPOSED[n] = d.get('cover', d['R']), d['exposed']
+            LABELS[n] = (d.get('base_label', 'effect-free base (plate+camera+blur+light)'),
+                         d.get('fx_label', 'effects alone, new lines OFF (temporary, from original)'))
             k = hn.index(n) + 1
             tag[n] = f'{name} hold {k}/{len(hn)}' + (' PROVISIONAL' if fs[n].get('provisional') else '')
     for n in ns:
@@ -661,8 +774,8 @@ def main():
     hold_ns = [n for n in ns if n in BASE]
     diag = []
     for n in hold_ns:
-        top = np.hstack([small(O[n], f'original n{n}'), small(BASE[n], f'n{n} effect-free base (plate+camera+blur+light)')])
-        bot = np.hstack([small(FX[n], f'n{n} effects alone, new lines OFF (temporary, from original)'),
+        top = np.hstack([small(O[n], f'original n{n}'), small(BASE[n], f'n{n} {LABELS[n][0]}')])
+        bot = np.hstack([small(FX[n], f'n{n} {LABELS[n][1]}'),
                          small(R[n], f'n{n} result: {tag[n]}')])
         diag.append(np.vstack([top, bot]))
     if diag:
