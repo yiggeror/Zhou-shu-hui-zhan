@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test",
+ "name": "shots 42-44 action test, 20-drawing sheet",
  "frames": [
   1248,
   1284
@@ -11,35 +11,35 @@
   },
   "1249": {
    "hold": "D02",
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "id": "D02",
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
-   "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
-   "id": "D02"
+   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
   },
   "1250": {
    "hold": "D02",
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "id": "D02",
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
-   "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
-   "id": "D02"
+   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
   },
   "1251": {
    "hold": "D02",
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "id": "D02",
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
-   "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
-   "id": "D02"
+   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
   },
   "1252": {
    "hold": "D02",
-   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "id": "D02",
    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
    "ref": 1249,
-   "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
-   "id": "D02"
+   "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+   "provisional": "awaiting the character/background layers (character cel with a checked matte, background plate in the n1252 framing): one transform cannot follow both, so the whole drawing stays put here"
   },
   "1253": {
    "drawing": "collab/from_limo/025/completion_001/D03_n1253.png",
@@ -47,59 +47,59 @@
   },
   "1254": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1255": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1256": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1257": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1258": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1259": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1260": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1261": {
    "hold": "D04",
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "id": "D04"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
   },
   "1262": {
    "drawing": "collab/from_limo/025/completion_001/D05_n1262.png",
@@ -123,68 +123,38 @@
   },
   "1267": {
    "hold": "D10",
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+   "id": "D10",
    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
    "ref": 1267,
-   "region": [
-    700,
-    0,
-    1672,
-    941
-   ],
-   "id": "D10"
+   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png"
   },
   "1268": {
    "hold": "D10",
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+   "id": "D10",
    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
    "ref": 1267,
-   "region": [
-    700,
-    0,
-    1672,
-    941
-   ],
-   "id": "D10"
+   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png"
   },
   "1269": {
-   "hold": "D10",
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
-   "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
-   "ref": 1267,
-   "region": [
-    700,
-    0,
-    1672,
-    941
-   ],
-   "id": "D10"
+   "hold": "D10b",
+   "id": "D10b",
+   "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+   "ref": 1269,
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
   },
   "1270": {
-   "hold": "D10",
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
-   "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
-   "ref": 1267,
-   "region": [
-    700,
-    0,
-    1672,
-    941
-   ],
-   "id": "D10"
+   "hold": "D10b",
+   "id": "D10b",
+   "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+   "ref": 1269,
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
   },
   "1271": {
-   "hold": "D10",
-   "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
-   "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
-   "ref": 1267,
-   "region": [
-    700,
-    0,
-    1672,
-    941
-   ],
-   "id": "D10"
+   "hold": "D10b",
+   "id": "D10b",
+   "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+   "ref": 1269,
+   "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png"
   },
   "1272": {
    "drawing": "collab/from_limo/025/completion_001/D11_n1272.png",
@@ -203,52 +173,43 @@
    "id": "D14"
   },
   "1276": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "hold": "D14b",
+   "id": "D14b",
+   "full": "collab/from_limo/027/pose_additions_001/D14b_n1276.png",
+   "ref": 1276,
+   "mode": "full"
   },
   "1277": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "hold": "D14b",
+   "id": "D14b",
+   "full": "collab/from_limo/027/pose_additions_001/D14b_n1276.png",
+   "ref": 1276,
+   "mode": "full"
   },
   "1278": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "hold": "D14c",
+   "id": "D14c",
+   "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+   "ref": 1278,
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
   },
   "1279": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "hold": "D14c",
+   "id": "D14c",
+   "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+   "ref": 1278,
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
   },
   "1280": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "hold": "D14c",
+   "id": "D14c",
+   "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+   "ref": 1278,
+   "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png"
   },
   "1281": {
-   "hold": "D14p",
-   "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
-   "full": "collab/from_limo/025/completion_001/D14_n1275.png",
-   "ref": 1275,
-   "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
-   "id": "D14"
+   "drawing": "collab/from_limo/027/pose_additions_001/D14d_n1281.png",
+   "id": "D14d"
   },
   "1282": {
    "drawing": "collab/from_limo/025/completion_001/D15_n1282.png",

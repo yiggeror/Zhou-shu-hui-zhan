@@ -10,8 +10,8 @@ A window is described by an exposure sheet (JSON):
 Every frame of the window must be listed.
   drawing  a complete drawing (characters, background, its own drawn effects), shown unchanged
   hold     one drawing held for several frames.  Its effect-free version (plate, drawn in the framing of source
-           frame ref) is moved by ONE full-frame perspective transform per frame (the camera, measured on the
-           original by feature matching; no local warping; one extra zoom for the whole hold, at most MAX_ZOOM, keeps
+           frame ref) is moved by ONE whole-drawing transform per frame: move + rotation + uniform scale, as an
+           animation camera moves a cel (measured on the original by feature matching; no local warping, no tilt; one extra zoom for the whole hold, at most MAX_ZOOM, keeps
            the drawing's edges out of frame, and what still shows is filled with its smeared edge colours, logged),
            blurred along that same camera path where the original is blurred (length fitted per frame), lit by
            the light the full drawing has over the plate (a smooth quadratic field; a strong drawn light such as
@@ -22,12 +22,14 @@ Every frame of the window must be listed.
 
 usage: python3 anime/action_window.py SHEET.json OUT_DIR
 Writes OUT_DIR/R_nNNNN.png, side_by_side.mp4 (24 fps), slow_6fps.mp4, holds_diag_6fps.mp4 (original | effect-free
-base | effects alone | result, hold frames only), contact_sheet.jpg, sources.md, run.json."""
+base | effects alone | result, hold frames only), cover_check_sheet.jpg (yellow: where the full drawing has its own
+flames, so the plate there is inferred; red: such inferred plate left showing), contact_sheet.jpg, sources.md, run.json."""
 import hashlib
 import json
 import os
 import subprocess
 import sys
+import time
 
 import cv2
 import numpy as np
@@ -41,6 +43,8 @@ W, H = L.W, L.H
 SHUTTERS = (0.0, 0.05, 0.1, 0.15, 0.25, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0)   # blur length along the camera path, in frame intervals
 LINES_THROUGH = 0.0   # the plate's lines inside the rebuilt flame: off, so the parts of the plate that are only
                       # inferred (hidden under the flame in the full drawing) stay covered (Limo, completion_001)
+CAMERA = 'similarity'   # hold camera: move + rotation + uniform scale (no tilt, no stretch of the drawing)
+THR = {'similarity': 5.0, 'perspective': 3.0}   # RANSAC tolerance, source pixels (a cel move fits a 3D scene loosely)
 MAX_ZOOM = 1.06                               # at most this much zoom to keep the drawing's edges out of frame
 
 
@@ -139,8 +143,9 @@ def feature_mask(o, a=None):
     return m
 
 
-def match_h(a, b, ma, mb, ratio=0.75, thr=2.0):
-    """perspective transform a -> b from SIFT matches (RANSAC thr px); returns (H, inliers, median error px)"""
+def match_h(a, b, ma, mb, ratio=0.75, thr=2.0, model='perspective'):
+    """transform a -> b from SIFT matches (RANSAC thr px), as a 3x3 matrix: a perspective transform, or with
+    model='similarity' a move + rotation + uniform scale only; returns (H, inliers, median error px)"""
     ga = cv2.cvtColor(np.clip(a * 255, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
     gb = cv2.cvtColor(np.clip(b * 255, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
     ka, da = _sift.detectAndCompute(ga, ma)
@@ -152,10 +157,16 @@ def match_h(a, b, ma, mb, ratio=0.75, thr=2.0):
         return None, 0, np.inf
     pa = np.float32([ka[m.queryIdx].pt for m in good])
     pb = np.float32([kb[m.trainIdx].pt for m in good])
-    Hm, inl = cv2.findHomography(pa, pb, cv2.RANSAC, thr)
+    if model == 'similarity':
+        M, inl = cv2.estimateAffinePartial2D(pa, pb, method=cv2.RANSAC, ransacReprojThreshold=thr, maxIters=5000)
+        Hm = None if M is None else np.vstack([M, [0, 0, 1]])
+    else:
+        Hm, inl = cv2.findHomography(pa, pb, cv2.RANSAC, thr)
     if Hm is None:
         return None, 0, np.inf
     inl = inl.ravel().astype(bool)
+    if inl.sum() < 4:
+        return None, int(inl.sum()), np.inf
     err = np.linalg.norm(cv2.perspectiveTransform(pa[inl][None], Hm)[0] - pb[inl], axis=1)
     return Hm, int(inl.sum()), float(np.median(err))
 
@@ -170,16 +181,30 @@ def describe(Hm):
     return s, r, (float(p[0][0] - W / 2), float(p[0][1] - H / 2))
 
 
-def overscan(Hs):
-    """the smallest zoom about the frame centre (one for the whole hold) at which the moved plate covers the whole
-    frame in every frame, so no edge of the drawing is ever shown"""
+def non_uniform(Hm):
+    """how far the transform is from a rigid move plus uniform scale, at the frame centre: the ratio of its two
+    scale axes and its shear (deg)"""
+    c = np.float32([[[W / 2, H / 2], [W / 2 + 10, H / 2], [W / 2, H / 2 + 10]]])
+    p = cv2.perspectiveTransform(c, Hm)[0]
+    J = np.stack([(p[1] - p[0]) / 10, (p[2] - p[0]) / 10], 1)
+    sv = np.linalg.svd(J, compute_uv=False)
+    ex, ey = J[:, 0], J[:, 1]
+    shear = 90 - np.degrees(np.arccos(np.clip(ex @ ey / (np.linalg.norm(ex) * np.linalg.norm(ey)), -1, 1)))
+    return float(sv[0] / sv[1]), float(shear)
+
+
+def overscan(Hs, size=(W, H)):
+    """the smallest zoom about the frame centre (one for the whole hold) at which the moved plate (size: its pixel
+    width and height; Hs map its pixels to the frame) covers the whole frame in every frame, so no edge of the
+    drawing is ever shown"""
+    pw, ph = size
     corners = np.float32([[[0, 0], [W, 0], [0, H], [W, H], [W / 2, 0], [W / 2, H], [0, H / 2], [W, H / 2]]])
 
     def covers(c):
         C = np.array([[c, 0, (1 - c) * W / 2], [0, c, (1 - c) * H / 2], [0, 0, 1]])
         for Hm in Hs.values():
             q = cv2.perspectiveTransform(corners, np.linalg.inv(C @ Hm))[0]
-            if (q[:, 0] < -0.5).any() or (q[:, 0] > W + 0.5).any() or (q[:, 1] < -0.5).any() or (q[:, 1] > H + 0.5).any():
+            if (q[:, 0] < -0.5).any() or (q[:, 0] > pw + 0.5).any() or (q[:, 1] < -0.5).any() or (q[:, 1] > ph + 0.5).any():
                 return False
         return True
     lo, hi = 1.0, MAX_ZOOM
@@ -206,13 +231,15 @@ def agreement(o_ref, o, Hm, m):
     return float((a * b).sum() / max(np.sqrt((a * a).sum() * (b * b).sum()), 1e-6))
 
 
-def hold_camera(O, A, ref, ns, raw, region=None):
+def hold_camera(O, A, ref, ns, raw, region=None, model=None):
     """H[n]: ref -> n (display pixels) for the frames of a hold, one perspective transform per frame.  Features
     are matched on the full-resolution original (flames and watermark left out); candidates are the match
     straight to ref, the match chained through the previous frame (subject features, and whole frame), and the
     previous transform; the one under which the previous frame, moved on to n, agrees best with frame n (edge
     correlation) is used.  region (x0, y0, x1, y1 in ref
-    display pixels) limits the features to the subject."""
+    display pixels) limits the features to the subject.  model: 'similarity' (default, CAMERA) moves, turns and
+    scales the drawing as an animation camera does a cel; 'perspective' also tilts it."""
+    model = model or CAMERA
     sx, sy = raw[ref].shape[1] / W, raw[ref].shape[0] / H
     S = np.diag([sx, sy, 1.0])
     Si = np.linalg.inv(S)
@@ -235,15 +262,16 @@ def hold_camera(O, A, ref, ns, raw, region=None):
             continue
         mn = feature_mask(O[n], A[n])
         cands = []
-        Hd, id_, ed = match_h(full(ref), full(n), bigmask(mref), bigmask(mn), thr=3.0)
+        Hd, id_, ed = match_h(full(ref), full(n), bigmask(mref), bigmask(mn), thr=THR[model], model=model)
         if Hd is not None and id_ >= 12:
             cands.append((Si @ Hd @ S, f'matched to n{ref}: {id_} inliers, median error {ed * 1 / sx:.2f} px'))
         mprev = cv2.warpPerspective(mref, Hs[prev], (W, H), flags=cv2.INTER_NEAREST) & feature_mask(O[prev], A[prev])
-        Hc, ic, ec = match_h(full(prev), full(n), bigmask(mprev), bigmask(mn), thr=3.0)
+        Hc, ic, ec = match_h(full(prev), full(n), bigmask(mprev), bigmask(mn), thr=THR[model], model=model)
         if Hc is not None and ic >= 12:
             cands.append((Si @ Hc @ S @ Hs[prev], f'chained via n{prev}: {ic} inliers, median error {ec / sx:.2f} px'))
         if region is not None or mprev.mean() < 0.9 * 255 * (mn > 0).mean():
-            Hw, iw, ew = match_h(full(prev), full(n), bigmask(feature_mask(O[prev], A[prev])), bigmask(mn), thr=3.0)
+            Hw, iw, ew = match_h(full(prev), full(n), bigmask(feature_mask(O[prev], A[prev])), bigmask(mn), thr=THR[model],
+                                model=model)
             if Hw is not None and iw >= 12:
                 cands.append((Si @ Hw @ S @ Hs[prev], f'chained via n{prev} (whole frame): {iw} inliers, median '
                                                       f'error {ew / sx:.2f} px'))
@@ -259,9 +287,9 @@ def hold_camera(O, A, ref, ns, raw, region=None):
 
 
 def register_plate(plate, o_ref):
-    """the plate is drawn in the framing of the reference frame but not pixel-locked to it: one perspective
-    transform plate -> reference frame (identity if the match is weak)"""
-    Hm, inl, err = match_h(plate, o_ref, None, feature_mask(o_ref), ratio=0.8)
+    """the plate is drawn in the framing of the reference frame but not pixel-locked to it: one move + rotation +
+    uniform scale plate -> reference frame (identity if the match is weak)"""
+    Hm, inl, err = match_h(plate, o_ref, None, feature_mask(o_ref), ratio=0.8, model='similarity')
     if Hm is None or inl < 50:
         return np.eye(3), f'identity (weak match: {inl} inliers)'
     s, r, c = describe(Hm)
@@ -372,56 +400,66 @@ def light_of_full(full, plate):
     return poly_gain(plate, full, m)
 
 
-def _lowpass(img, m, sig=30):
-    a = cv2.GaussianBlur(img * m[..., None], (0, 0), sig)
-    w = cv2.GaussianBlur(m.astype(np.float32), (0, 0), sig)
-    return a / np.maximum(w, 1e-3)[..., None], w
-
-
-def light_change(o, o_ref_moved, a, a_ref_moved):
-    """the original's change of light since the reference frame (e.g. the purple wash fading out), smooth:
-    the ratio of the two frames' local means (30 px, flames and a 30 px band around them left out, so that small
-    misfits and changed details do not count), fitted with exp(quadratic in x, y) per colour channel"""
-    fx = cv2.dilate(((a > 0.05) | (a_ref_moved > 0.05)).astype(np.uint8),
-                    cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (61, 61)))
-    m = fx == 0
-    m[L.WATERMARK] = False
-    on, wn = _lowpass(o, m)
-    orf, _ = _lowpass(o_ref_moved, m)
-    return poly_gain(orf, on, m & (wn > 0.5) & (L.lum(orf) > 0.05))
-
-
 WASH = 0.25      # the full drawing's added light is followed frame by frame only when it is this strong (std of log)
 
 
-def frame_light(light0, change, o, o_ref_moved, a, a_ref_moved):
-    """this frame's light.  Where the full drawing adds a strong light of its own (D04's purple wash), it is raised
-    to w (1 = all of it, 0 = none) and times one brightness gain g for all colours, fitted to the original's
-    change since ref (log change = (w - 1) log light0 + log g, least squares over the frame): the drawn light fades
-    as the original's does, without tinting the drawing in a colour of its own.  Otherwise the drawing's light is
-    kept (w = 1) and g is the original's change of mean brightness, away from the flames (a sliding character
-    or a changed detail cannot pump it)."""
-    L0 = np.log(light0[::4, ::4]).reshape(-1)
-    if L0.std() < WASH:
-        m = (a < 0.05) & (a_ref_moved < 0.05)
+def _lit(o, a):
+    """lit, flame-free pixels of an original frame (60 px away from the flames, not the watermark)"""
+    m = (cv2.dilate((a > 0.05).astype(np.uint8), np.ones((61, 61), np.uint8)) == 0) & (L.lum(o) > 0.12)
+    m[L.WATERMARK] = False
+    return m
+
+
+def frame_light(light0, o, o_ref, a, a_ref):
+    """this frame's light.  Where the full drawing adds a strong coloured light of its own (D04's purple wash),
+    that light is raised to w = how much of the wash colour the original still has, relative to the reference
+    frame (the lit pixels' mean colour along the wash's own hue: for D04 1.0 at n1254 down to 0.22 at n1261),
+    times g = the change of the lit pixels' mean brightness.  Otherwise the drawing's light is kept (w = 1) and
+    g is the original's change of mean brightness away from the flames.  Brightness and wash are measured
+    separately: the purple glow going out is not taken for the picture getting darker."""
+    L0 = np.log(light0)
+    if L0[::4, ::4].std() < WASH:
+        m = (a < 0.05) & (a_ref < 0.05)
         m[L.WATERMARK] = False
-        v = float(np.log(max(L.lum(o)[m].mean(), 1e-4) / max(L.lum(o_ref_moved)[m].mean(), 1e-4)))
-        u = 0.0
-    else:
-        Lc = np.log(change[::4, ::4]).reshape(-1)
-        X = np.stack([L0, np.ones_like(L0)], 1)
-        (u, v), *_ = np.linalg.lstsq(X, Lc, rcond=None)
-        u = float(np.clip(u, -1.0, 0.2))
-        v = float((Lc - u * L0).mean())
-    w = 1 + u
-    return np.exp(w * np.log(light0) + v).astype(np.float32), w, np.float32([v, v, v])
+        g = max(L.lum(o)[m].mean(), 1e-4) / max(L.lum(o_ref)[m].mean(), 1e-4)
+        return light0 * np.float32(g), 1.0, float(g)
+    d = L0.reshape(-1, 3).mean(0)
+    d = d - d.mean()
+    d = d / max(np.linalg.norm(d), 1e-6)                     # the wash's hue as a direction in colour space
+
+    def wash(x, m):
+        c = x[m] - L.lum(x)[m][:, None]
+        return float((c @ d).mean()), float(L.lum(x)[m].mean())
+    pn, ln = wash(o, _lit(o, a))
+    pr, lr = wash(o_ref, _lit(o_ref, a_ref))
+    w = float(np.clip(pn / max(pr, 1e-4), 0, 1.2)) if pr > 0.02 else 1.0
+    g = ln / max(lr, 1e-4)
+    return np.exp(w * L0).astype(np.float32) * np.float32(g), w, float(g)
 
 
 # ---------------------------------------------------------------- assembly
 
 def load(p):
     im = cv2.imread(p).astype(np.float32) / 255
+    if abs(im.shape[1] / im.shape[0] - W / H) > 0.01 * W / H:
+        sys.exit(f'{p}: {im.shape[1]}x{im.shape[0]} is not the source framing; give it a viewport')
     return im if im.shape[:2] == (H, W) else cv2.resize(im, (W, H), interpolation=cv2.INTER_AREA)
+
+
+def load_canvas(p, viewport=None):
+    """a plate and the transform from its pixels to the source framing (display pixels).  viewport = [x, y, w, h]:
+    where the source framing sits inside a plate drawn with extra margin; without it the whole image is the
+    source framing.  The margin is kept (not squeezed into the frame): it is what the camera may reveal."""
+    im = cv2.imread(p).astype(np.float32) / 255
+    x, y, w, h = viewport if viewport else (0, 0, im.shape[1], im.shape[0])
+    V = np.array([[W / w, 0, -x * W / w], [0, H / h, -y * H / h], [0, 0, 1]], np.float64)
+    if abs(W / w - H / h) > 0.01 * W / w:
+        sys.exit(f'{p}: viewport {viewport} does not have the source aspect ratio')
+    if W / w < 1:                                   # work at display resolution (plates are larger than it)
+        f = W / w
+        im = cv2.resize(im, (int(round(im.shape[1] * f)), int(round(im.shape[0] * f))), interpolation=cv2.INTER_AREA)
+        V = V @ np.diag([1 / f, 1 / f, 1.0])
+    return im, V
 
 
 def sha(p):
@@ -438,18 +476,37 @@ def small(x, label=None, w=836):
 
 
 def render_holds(name, hn, fs, O, A, raw):
+    """the frames hn of one hold.  mode "fx" (default): the effect-free plate moved by the camera, the original's
+    flames rebuilt on top (temporary).  mode "full": a short hold of the full drawing itself, its own drawn flames
+    moving with it, no source effect added."""
     spec = fs[hn[0]]
     ref = spec['ref']
-    plate, full = load(spec['plate']), load(spec['full'])
-    Hp, preg = register_plate(plate, O[ref])
-    light0, _ = light_of_full(*(cv2.warpPerspective(x, Hp, (W, H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
-                                for x in (full, plate)))
+    mode = spec.get('mode', 'fx')
+    full_c, Vf = load_canvas(spec['full'], spec.get('full_viewport'))
+    if mode == 'full':
+        plate_c, Vp = full_c, Vf
+    else:
+        plate_c, Vp = load_canvas(spec['plate'], spec.get('viewport'))
+    view = cv2.warpPerspective(plate_c, Vp, (W, H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+    Hp, preg = register_plate(view, O[ref])
+    P = Hp @ Vp                                          # plate pixels -> the reference frame
+    if mode == 'full':
+        light0 = np.ones((H, W, 3), np.float32)
+        drawn_fx = np.zeros((H, W), np.float32)
+    else:
+        full_v = cv2.warpPerspective(full_c, Hp @ Vf, (W, H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+        light0, _ = light_of_full(full_v, cv2.warpPerspective(plate_c, P, (W, H), flags=cv2.INTER_CUBIC,
+                                                               borderMode=cv2.BORDER_REFLECT))
+        # where the full drawing has its own flames: under them the plate's content is inferred, so the rebuilt
+        # flame must cover it (Limo, completion_001); checked per frame below
+        drawn_fx = (flames(full_v) > 0.3).astype(np.float32)
     ns = sorted(set(hn) | {ref})
-    Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'))
-    zoom = overscan({n: Hs[n] @ Hp for n in hn})
+    Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'), spec.get('camera'))
+    size = (plate_c.shape[1], plate_c.shape[0])
+    zoom = overscan({n: Hs[n] @ P for n in hn}, size)
     C = np.array([[zoom, 0, (1 - zoom) * W / 2], [0, zoom, (1 - zoom) * H / 2], [0, 0, 1]])
-    edge_px = {n: 100 * float((cv2.warpPerspective(np.ones((H, W), np.float32), C @ Hs[n] @ Hp, (W, H)) < 0.999).mean())
-               for n in hn}
+    ones = np.ones(plate_c.shape[:2], np.float32)
+    edge_px = {n: 100 * float((cv2.warpPerspective(ones, C @ Hs[n] @ P, (W, H)) < 0.999).mean()) for n in hn}
     out = {}
     prev = None
     for n in ns:
@@ -460,37 +517,52 @@ def render_holds(name, hn, fs, O, A, raw):
         Hprev = Hs[prev] if prev is not None else Hn
         fmask = (feature_mask(O[n], A[n]) > 0).astype(np.uint8)
         shutter, target, ratios = fit_shutter(O[ref], O[n], Hprev, Hn, fmask) if prev is not None else (0.0, 1.0, {})
-        o_ref_moved = cv2.warpPerspective(O[ref], Hn, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        a_ref_moved = cv2.warpPerspective(A[ref], Hn, (W, H), flags=cv2.INTER_LINEAR)
-        lc, _ = light_change(O[n], o_ref_moved, A[n], a_ref_moved)
         light0_moved = cv2.warpPerspective(light0, Hn, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        light, w, bgain = frame_light(light0_moved, lc, O[n], o_ref_moved, A[n], a_ref_moved)
-        base = path_blur(plate, Hprev @ Hp, Hn @ Hp, shutter) * light
-        lp = L.lum(base)
-        lines = LINES_THROUGH * np.clip((cv2.GaussianBlur(lp, (0, 0), 4) - lp) / 0.12, 0, 1)
-        a = A[n]
-        fill, glow, colour, strength = fx_layer(O[n], a, lines)
-        a3 = a[..., None]
-        res = (base + glow * (1 - a3)) * (1 - a3) + fill * a3
-        fx_only = glow * (1 - a3) + colour * a3          # the effect alone, plate lines OFF
+        light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref])
+        base = path_blur(plate_c, Hprev @ P, Hn @ P, shutter) * light
+        zone = cv2.warpPerspective(drawn_fx, Hn, (W, H), flags=cv2.INTER_NEAREST) > 0.5
+        if mode == 'full':
+            res, fx_only, fxs = base, np.zeros_like(base), 'no source effect: the drawing\'s own flames move with it'
+            exposed = np.zeros((H, W), bool)
+        else:
+            lp = L.lum(base)
+            lines = LINES_THROUGH * np.clip((cv2.GaussianBlur(lp, (0, 0), 4) - lp) / 0.12, 0, 1)
+            a = A[n]
+            fill, glow, colour, strength = fx_layer(O[n], a, lines)
+            a3 = a[..., None]
+            res = (base + glow * (1 - a3)) * (1 - a3) + fill * a3
+            fx_only = glow * (1 - a3) + colour * a3          # the effect alone, plate lines OFF
+            exposed = zone & (a < 0.5)
+            fxs = (f'TEMPORARY effect: flames of original n{n} (shape, colour, glow; zoomed with the frame), opaque: '
+                   f'plate lines through them ' + (f'at {strength:.2f}' if LINES_THROUGH else 'off') +
+                   f'; of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
+                   f'({100 * exposed.sum() / max(zone.sum(), 1):.1f}%) are not under the rebuilt flame')
+        cover = (0.45 * res).copy()
+        cover[zone] = 0.45 * res[zone] + np.float32([0.25, 0.25, 0.0])         # drawn-flame zone: tinted
+        cover[exposed] = np.float32([0.1, 0.1, 1.0])                             # inferred plate showing: red
 
         def zoomed(x):
             return x if zoom == 1.0 else cv2.warpPerspective(x, C, (W, H), flags=cv2.INTER_CUBIC,
                                                              borderMode=cv2.BORDER_REFLECT)
         s, r, c = describe(C @ Hn)
-        out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), src=(
+        nu = non_uniform(Hn)
+        what = (f'full drawing `{spec["full"]}` held (short hold, its own effects)' if mode == 'full' else
+                f'plate `{spec["plate"]}`' + (f' (viewport {spec["viewport"]})' if spec.get('viewport') else ''))
+        light_s = (f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n})' if mode == 'full' else
+                   f'light of the full drawing `{spec["full"]}` over the plate (smooth: exp of a quadratic in x, y per '
+                   f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
+                   f'brightness gain {bgain:.3f}')
+        out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover),
+                      exposed=(int(exposed.sum()), int(zone.sum())), src=(
             f'{name} repeat exposure (hold, ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
-            f'plate `{spec["plate"]}` (registered to n{ref}: {preg}); light of the full drawing `{spec["full"]}` '
-            f'over the plate (smooth: exp of a quadratic in x, y per colour channel), kept at {w:.2f} of its strength '
-            f'as the original\'s light changes n{ref}->n{n}, brightness gain {float(np.exp(bgain[0])):.3f}; '
-            f'camera (one perspective transform; measured {cinfo[n]}; whole hold zoomed {zoom:.3f} about the centre to '
+            f'{what}, registered to n{ref}: {preg}; {light_s}; '
+            f'camera (one {spec.get("camera", CAMERA)} transform of the whole drawing; measured {cinfo[n]}; whole hold zoomed {zoom:.3f} about the centre to '
             f'keep the drawing\'s edges out of frame (at most {MAX_ZOOM}; beyond that its edge colours are smeared in: '
             f'{edge_px[n]:.1f}% of this frame)): at the centre scale {s:.4f}, rotation {r:+.2f} deg, shift ({c[0]:+.1f}, {c[1]:+.1f}) '
-            f'px; camera blur: shutter {shutter} frame(s) along the path from n{prev} (original\'s edge energy vs. '
+            f'px, scale axes ratio {nu[0]:.4f}, shear {nu[1]:+.2f} deg; camera blur: shutter {shutter} frame(s) along the path from n{prev} (original\'s edge energy vs. '
             f'moved n{ref}: {target:.2f}' +
             (f'; reached ' + ', '.join(f'{k}: {v:.2f}' for k, v in ratios.items()) if len(ratios) > 1 else '') + '); '
-            f'TEMPORARY effect: flames of original n{n} (shape, colour, glow; zoomed with the frame), opaque: plate '
-            f'lines through them ' + (f'at {strength:.2f}' if LINES_THROUGH else 'off')))
+            + fxs))
         prev = n
     return out
 
@@ -536,10 +608,14 @@ def main():
         for n in set(hn) | {fs[hn[0]]['ref']}:
             if n not in A:
                 A[n] = flames(O[n])
-    R, BASE, FX, src, tag = {}, {}, {}, {}, {}
+    R, BASE, FX, src, tag, COVER, EXPOSED = {}, {}, {}, {}, {}, {}, {}
     for name, hn in holds.items():
-        for n, d in render_holds(name, hn, fs, O, A, raw).items():
+        t0 = time.time()
+        rendered = render_holds(name, hn, fs, O, A, raw)
+        print(f'hold {name}: {len(hn)} frames in {time.time() - t0:.0f} s', flush=True)
+        for n, d in rendered.items():
             R[n], BASE[n], FX[n], src[n] = d['R'], d['base'], d['fx'], d['src']
+            COVER[n], EXPOSED[n] = d['cover'], d['exposed']
             k = hn.index(n) + 1
             tag[n] = f'{name} hold {k}/{len(hn)}' + (' PROVISIONAL' if fs[n].get('provisional') else '')
     for n in ns:
@@ -566,6 +642,12 @@ def main():
         cv2.imwrite(os.path.join(out, 'holds_diag_sheet.jpg'),
                     np.vstack([cv2.resize(d, (d.shape[1] // 2, d.shape[0] // 2), interpolation=cv2.INTER_AREA)
                                for d in diag[::2]]), [cv2.IMWRITE_JPEG_QUALITY, 85])
+    cov = [small(COVER[n], f'n{n} {tag[n]}: inferred showing {EXPOSED[n][0]} px of {EXPOSED[n][1]}', 560)
+           for n in hold_ns if EXPOSED[n][1]]
+    if cov:
+        cov += [np.zeros_like(cov[0])] * (-len(cov) % 3)
+        cv2.imwrite(os.path.join(out, 'cover_check_sheet.jpg'),
+                    np.vstack([np.hstack(cov[i:i + 3]) for i in range(0, len(cov), 3)]), [cv2.IMWRITE_JPEG_QUALITY, 85])
     tiles = [np.vstack([small(O[n], f'orig n{n}', 320), small(R[n], tag[n], 320)]) for n in ns]
     rows = [np.hstack(tiles[i:i + 6]) for i in range(0, len(tiles), 6)]
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
