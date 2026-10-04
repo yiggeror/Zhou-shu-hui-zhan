@@ -1,0 +1,746 @@
+{
+ "sheet": {
+  "name": "shots 42-44 action test, 20 drawings + 2 drawn flame states for D04; D02 two layers; short holds show the full drawing",
+  "frames": [
+   1248,
+   1284
+  ],
+  "frames_sheet": {
+   "1248": {
+    "drawing": "collab/from_limo/025/completion_001/D01_n1248.png",
+    "id": "D01"
+   },
+   "1249": {
+    "hold": "D02",
+    "id": "D02",
+    "mode": "layers",
+    "ref": 1249,
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "cel": {
+     "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+     "ref": 1249,
+     "to_framing": [
+      [
+       0.9845618200752274,
+       -0.0012065425060239802,
+       -1.247009414545687
+      ],
+      [
+       0.0012065425060240771,
+       0.9845618200752274,
+       -67.27435048771264
+      ]
+     ],
+     "clear": [
+      [
+       540,
+       495,
+       640,
+       560
+      ]
+     ]
+    },
+    "background": {
+     "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+     "ref": 1252
+    }
+   },
+   "1250": {
+    "hold": "D02",
+    "id": "D02",
+    "mode": "layers",
+    "ref": 1249,
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "cel": {
+     "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+     "ref": 1249,
+     "to_framing": [
+      [
+       0.9845618200752274,
+       -0.0012065425060239802,
+       -1.247009414545687
+      ],
+      [
+       0.0012065425060240771,
+       0.9845618200752274,
+       -67.27435048771264
+      ]
+     ],
+     "clear": [
+      [
+       540,
+       495,
+       640,
+       560
+      ]
+     ]
+    },
+    "background": {
+     "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+     "ref": 1252
+    }
+   },
+   "1251": {
+    "hold": "D02",
+    "id": "D02",
+    "mode": "layers",
+    "ref": 1249,
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "cel": {
+     "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+     "ref": 1249,
+     "to_framing": [
+      [
+       0.9845618200752274,
+       -0.0012065425060239802,
+       -1.247009414545687
+      ],
+      [
+       0.0012065425060240771,
+       0.9845618200752274,
+       -67.27435048771264
+      ]
+     ],
+     "clear": [
+      [
+       540,
+       495,
+       640,
+       560
+      ]
+     ]
+    },
+    "background": {
+     "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+     "ref": 1252
+    }
+   },
+   "1252": {
+    "hold": "D02",
+    "id": "D02",
+    "mode": "layers",
+    "ref": 1249,
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "cel": {
+     "image": "collab/from_limo/030/cel_top_candidate_001/D02_char_key_top.png",
+     "ref": 1249,
+     "to_framing": [
+      [
+       0.9845618200752274,
+       -0.0012065425060239802,
+       -1.247009414545687
+      ],
+      [
+       0.0012065425060240771,
+       0.9845618200752274,
+       -67.27435048771264
+      ]
+     ],
+     "clear": [
+      [
+       540,
+       495,
+       640,
+       560
+      ]
+     ]
+    },
+    "background": {
+     "plate": "collab/from_limo/028/d02_layers_001/D02_bg_n1252.png",
+     "ref": 1252
+    }
+   },
+   "1253": {
+    "drawing": "collab/from_limo/025/completion_001/D03_n1253.png",
+    "id": "D03"
+   },
+   "1254": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1255": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1256": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1257": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1258": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1259": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1260": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1261": {
+    "hold": "D04",
+    "id": "D04",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "fx_drawn": [
+     {
+      "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+      "frames": [
+       1254,
+       1255
+      ],
+      "to_framing": [
+       [
+        0.8,
+        0,
+        82
+       ],
+       [
+        0,
+        0.8,
+        21
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     },
+     {
+      "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+      "frames": [
+       1256,
+       1257,
+       1258,
+       1259,
+       1260,
+       1261
+      ],
+      "to_framing": [
+       [
+        0.736,
+        0,
+        106.8
+       ],
+       [
+        0,
+        0.736,
+        26.4
+       ]
+      ],
+      "core_clamp": 250,
+      "halo": 0.35
+     }
+    ]
+   },
+   "1262": {
+    "drawing": "collab/from_limo/025/completion_001/D05_n1262.png",
+    "id": "D05"
+   },
+   "1263": {
+    "drawing": "collab/from_limo/025/completion_001/D06_n1263.png",
+    "id": "D06"
+   },
+   "1264": {
+    "drawing": "collab/from_limo/023/pilot_001/D07_n1264.png",
+    "id": "D07"
+   },
+   "1265": {
+    "drawing": "collab/from_limo/023/pilot_001/D08_n1265.png",
+    "id": "D08"
+   },
+   "1266": {
+    "drawing": "collab/from_limo/023/pilot_001/D09_n1266.png",
+    "id": "D09"
+   },
+   "1267": {
+    "hold": "D10",
+    "id": "D10",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "mode": "full"
+   },
+   "1268": {
+    "hold": "D10",
+    "id": "D10",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "mode": "full"
+   },
+   "1269": {
+    "hold": "D10b",
+    "id": "D10b",
+    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+    "ref": 1269,
+    "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+    "mode": "full"
+   },
+   "1270": {
+    "hold": "D10b",
+    "id": "D10b",
+    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+    "ref": 1269,
+    "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+    "mode": "full"
+   },
+   "1271": {
+    "hold": "D10b",
+    "id": "D10b",
+    "full": "collab/from_limo/027/pose_additions_001/D10b_n1269_v2.png",
+    "ref": 1269,
+    "plate": "collab/from_limo/027/pose_additions_001/D10b_n1269_noFX_v2.png",
+    "mode": "full"
+   },
+   "1272": {
+    "drawing": "collab/from_limo/025/completion_001/D11_n1272.png",
+    "id": "D11"
+   },
+   "1273": {
+    "drawing": "collab/from_limo/025/completion_001/D12_n1273.png",
+    "id": "D12"
+   },
+   "1274": {
+    "drawing": "collab/from_limo/025/completion_001/D13_n1274.png",
+    "id": "D13"
+   },
+   "1275": {
+    "drawing": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "id": "D14"
+   },
+   "1276": {
+    "hold": "D14b",
+    "id": "D14b",
+    "full": "collab/from_limo/027/pose_additions_001/D14b_n1276.png",
+    "ref": 1276,
+    "mode": "full"
+   },
+   "1277": {
+    "hold": "D14b",
+    "id": "D14b",
+    "full": "collab/from_limo/027/pose_additions_001/D14b_n1276.png",
+    "ref": 1276,
+    "mode": "full"
+   },
+   "1278": {
+    "hold": "D14c",
+    "id": "D14c",
+    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+    "ref": 1278,
+    "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+    "mode": "full"
+   },
+   "1279": {
+    "hold": "D14c",
+    "id": "D14c",
+    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+    "ref": 1278,
+    "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+    "mode": "full"
+   },
+   "1280": {
+    "hold": "D14c",
+    "id": "D14c",
+    "full": "collab/from_limo/027/pose_additions_001/D14c_n1278.png",
+    "ref": 1278,
+    "plate": "collab/from_limo/027/pose_additions_001/D14c_n1278_noFX.png",
+    "mode": "full"
+   },
+   "1281": {
+    "drawing": "collab/from_limo/027/pose_additions_001/D14d_n1281.png",
+    "id": "D14d"
+   },
+   "1282": {
+    "drawing": "collab/from_limo/025/completion_001/D15_n1282.png",
+    "id": "D15"
+   },
+   "1283": {
+    "drawing": "collab/from_limo/025/completion_001/D16_n1283.png",
+    "id": "D16"
+   }
+  }
+ },
+ "code_sha256_16": {
+  "action_window.py": "30d3041f44f4eb72",
+  "layered.py": "ae9bdeb2e7b7d42b",
+  "frames.py": "07a025a47fe894dc",
+  "review_window.py": "b58cf92d7bc71e6c"
+ },
+ "git_head": "ee086de10a1aef607822ad9a84344e3bd7f11455",
+ "shutters": [
+  0.0,
+  0.05,
+  0.1,
+  0.15,
+  0.25,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  5.0
+ ]
+}

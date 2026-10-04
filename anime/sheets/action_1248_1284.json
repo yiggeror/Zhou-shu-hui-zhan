@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test, 20-drawing sheet; D02 as two layers; short holds show the full drawing; D04 uses the temporary source flame",
+ "name": "shots 42-44 action test, 20 drawings + 2 drawn flame states for D04; D02 two layers; short holds show the full drawing",
  "frames": [
   1248,
   1284
@@ -158,56 +158,440 @@
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1255": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1256": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1257": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1258": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1259": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1260": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1261": {
    "hold": "D04",
    "id": "D04",
    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
    "ref": 1254,
-   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png"
+   "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+   "fx_drawn": [
+    {
+     "image": "collab/from_limo/031/fx_candidate_001/D04_FX_n1254.png",
+     "frames": [
+      1254,
+      1255
+     ],
+     "to_framing": [
+      [
+       0.8,
+       0,
+       82
+      ],
+      [
+       0,
+       0.8,
+       21
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    },
+    {
+     "image": "collab/from_limo/032/C_candidate_001/D04_FX_C_n1259.png",
+     "frames": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+     ],
+     "to_framing": [
+      [
+       0.736,
+       0,
+       106.8
+      ],
+      [
+       0,
+       0.736,
+       26.4
+      ]
+     ],
+     "core_clamp": 250,
+     "halo": 0.35
+    }
+   ]
   },
   "1262": {
    "drawing": "collab/from_limo/025/completion_001/D05_n1262.png",
