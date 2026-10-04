@@ -1,0 +1,71 @@
+{
+  "status": "diagnostic simulation only, no production image changed",
+  "native_file": "D04_FX_n1254.png",
+  "proposed_whole_FX_similarity": [
+    [
+      0.8,
+      0,
+      82
+    ],
+    [
+      0,
+      0.8,
+      21
+    ]
+  ],
+  "core_clamp": "diagnostic only: alpha >=250/255 becomes1; softedgeunchanged",
+  "alpha_samples": {
+    "fist_knuckle": {
+      "xy": [
+        507,
+        315
+      ],
+      "alpha_8bit": 254
+    },
+    "fist_outer_left": {
+      "xy": [
+        485,
+        316
+      ],
+      "alpha_8bit": 253
+    },
+    "fist_upper": {
+      "xy": [
+        509,
+        288
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_top": {
+      "xy": [
+        490,
+        368
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_front": {
+      "xy": [
+        481,
+        415
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_bottom": {
+      "xy": [
+        508,
+        452
+      ],
+      "alpha_8bit": 253
+    },
+    "contact_bridge": {
+      "xy": [
+        503,
+        354
+      ],
+      "alpha_8bit": 252
+    }
+  },
+  "applied_to_production_png": false,
+  "scope": "single n1254 compositing proposal; not full D04 animation or final approval",
+  "native_png_alpha_association": "RGBA PNG; use straight-alpha interpretation and verify edge behavior"
+}

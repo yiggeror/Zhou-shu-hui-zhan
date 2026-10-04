@@ -1,0 +1,16 @@
+{
+  "filename": "D04_FX_n1254.png",
+  "status": "native candidate failed direct 1:1 acceptance; proposed explicit placement/matte test pending",
+  "width": 1672,
+  "height": 941,
+  "mode": "RGBA",
+  "bytes": 303200,
+  "sha256": "01096bedc66779df278544c7f003876428addf62737b8393c12d54407fc0b139",
+  "git_blob_sha": "42786cb5561fb02e0f94d841448f629456e83958",
+  "alpha_min": 0,
+  "alpha_max": 255,
+  "alpha_255_pixels": 68,
+  "alpha_zero_pixels": 1424546,
+  "production_pixel_processing": "None; native imagegen bytes preserved",
+  "imagegen_calls": 2
+}
