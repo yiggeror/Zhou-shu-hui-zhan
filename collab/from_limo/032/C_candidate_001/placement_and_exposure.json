@@ -1,0 +1,96 @@
+{
+  "status": "read-only diagnostic, native productionPNG unchanged",
+  "C_to_D04_frame": [
+    [
+      0.736,
+      0,
+      106.8
+    ],
+    [
+      0,
+      0.736,
+      26.4
+    ]
+  ],
+  "A_to_D04_frame": [
+    [
+      0.8,
+      0,
+      82
+    ],
+    [
+      0,
+      0.8,
+      21
+    ]
+  ],
+  "rationale": "Normalize C enlarged blue group approximately back to accepted A footprint with one whole-layer similarity. No separatecolorwarps.",
+  "core_clamp_proposal": "afterplacement alpha>=250/255 to1, edgesunchanged",
+  "alpha_probes": {
+    "fist_knuckle": {
+      "xy": [
+        507,
+        315
+      ],
+      "alpha_8bit": 253
+    },
+    "fist_outer_left": {
+      "xy": [
+        485,
+        316
+      ],
+      "alpha_8bit": 253
+    },
+    "fist_upper": {
+      "xy": [
+        509,
+        288
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_top": {
+      "xy": [
+        490,
+        368
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_front": {
+      "xy": [
+        481,
+        415
+      ],
+      "alpha_8bit": 253
+    },
+    "shoe_bottom": {
+      "xy": [
+        508,
+        452
+      ],
+      "alpha_8bit": 253
+    },
+    "contact_bridge": {
+      "xy": [
+        503,
+        354
+      ],
+      "alpha_8bit": 253
+    }
+  },
+  "exposures": {
+    "A": [
+      1254,
+      1255
+    ],
+    "C": [
+      1256,
+      1257,
+      1258,
+      1259,
+      1260,
+      1261
+    ]
+  },
+  "placement_scope": "before D04 plate camera; one similarity per wholeFXlayer, no independentblue/redwarp",
+  "production_png_modified": false
+}

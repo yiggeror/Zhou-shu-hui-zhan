@@ -1,0 +1,18 @@
+{
+  "filename": "D04_FX_C_n1259.png",
+  "status": "candidate for v4 using distinct explicit wholeC placement; not pixel-locked blue or temporal approval",
+  "width": 1672,
+  "height": 941,
+  "mode": "RGBA",
+  "bytes": 306088,
+  "sha256": "a6e16f3f3cec1be79463440027be70206fae9ff9d348787a6d235dc638ff8f9a",
+  "git_blob_sha": "605b880d960cc325f7c422beabfc9b76e77cdc5f",
+  "alpha_min": 0,
+  "alpha_max": 255,
+  "alpha_255_pixels": 95,
+  "alpha_zero_pixels": 1427828,
+  "production_pixel_processing": "None, native imagegen bytes",
+  "imagegen_calls": 2,
+  "shape_reference": "Original n1259 JPEG,1280x720",
+  "known_limit": "bluewasenlarged in native output; explicit C placement approximately restores A footprint, but contours/colors are not identical"
+}
