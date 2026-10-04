@@ -10,11 +10,16 @@ Writes to OUT_DIR:
   diff_sheet.jpg     per adjacent pair: original change | redraw change | change of (redraw - original)
   metrics.md         the same as numbers
 
-The key number is the last one.  E_n = redraw_n - original_n is everything the redraw adds or removes
-(hatching, cleaned lines, removed watermark).  If that layer stays put from frame to frame, the redraw
-moves exactly like the original; if it jumps, that is flicker.  The original's own change is the
-yardstick: in a shot where only the energy edge moves, |dE| should stay well below |dO| everywhere
-except at that edge."""
+E_n = redraw_n - original_n is everything the redraw adds or removes (hatching, cleaned lines, removed
+watermark, brightness changes).  The third heat map shows where that layer changes between adjacent
+frames.  It is an anomaly locator, not a pass mark: it is measured in screen coordinates, so even a
+perfectly stable redraw that follows the original's camera push changes there, and it also picks up
+brightness gain, sharpening, resampling and the removed watermark.  Use it to find where to look
+(texture areas vs. the real energy edge vs. camera motion vs. the fade from black), then judge by eye.
+
+Videos: played 3 times; every frame carries "loop k/3", so the jump from the last frame back to the first
+is a loop seam, not a cut inside the shot.  Odd sizes get one replicated pixel row/column for the encoder;
+the PNGs keep their native size."""
 import os
 import subprocess
 import sys
@@ -55,12 +60,18 @@ def label(im, text):
 def write_mp4(path, imgs, loops=3):
     h, w = imgs[0].shape[:2]
     h2, w2 = h + h % 2, w + w % 2
+    if (h2, w2) != (h, w):
+        print(f'{os.path.basename(path)}: padded {w}x{h} -> {w2}x{h2} for the encoder (PNG size unchanged)')
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{w2}x{h2}', '-r', '24',
                           '-i', '-', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', path],
                          stdin=subprocess.PIPE)
-    for _ in range(loops):
+    for k in range(loops):
         for im in imgs:
-            p.stdin.write(cv2.copyMakeBorder(im, 0, h2 - h, 0, w2 - w, cv2.BORDER_REPLICATE).tobytes())
+            im = cv2.copyMakeBorder(im, 0, h2 - h, 0, w2 - w, cv2.BORDER_REPLICATE)
+            t = f'loop {k + 1}/{loops}'
+            cv2.putText(im, t, (w - 120, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 3)
+            cv2.putText(im, t, (w - 120, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+            p.stdin.write(im.tobytes())
     p.stdin.close()
     p.wait()
 
@@ -121,7 +132,8 @@ def main():
     with open(os.path.join(out, 'metrics.md'), 'w') as f:
         f.write(f'# flicker check [{f0}, {f1}), {len(ns)} frames, {w}x{h}\n\n'
                 f'Mean absolute change of a 1.5 px blurred grey image between adjacent frames (0-255).\n'
-                f'"ratio" = change of (redraw - orig) / orig change; well under 1 means the redraw moves like the original.\n'
+                f'"ratio" = change of (redraw - orig) / orig change.  Anomaly locator only (screen coordinates; camera\n'
+                f'motion, gain, sharpening and the removed watermark all count), not a pass mark: judge by eye.\n'
                 f'crop for crop_1to1.mp4: x={cx} y={cy} w={cw} h={ch}\n\n')
         f.write('\n'.join(lines) + '\n')
     print('\n'.join(lines))
