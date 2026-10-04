@@ -8,7 +8,7 @@ import numpy as np
 from anime import comp as C
 
 SRC = 'collab/from_limo/002/test_B'
-F0, F1 = 73, 91
+F0, F1 = 73, 91          # shot interval [F0, F1): zero-based frame numbers n, PTS = n / 24
 # exposure: on twos, the last two drawings on ones so the shot keeps its 18 frames
 SHEET = [(73, 'B01'), (75, 'B02'), (77, 'B03'), (79, 'B04'), (81, 'B05'), (83, 'B06'), (85, 'B07'), (87, 'B08'),
          (89, 'B09'), (90, 'B10')]
@@ -62,7 +62,7 @@ def main(out):
     bg4 = np.concatenate([bg, np.ones(bg.shape[:2] + (1,), np.float32)], -1)
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{C.W}x{C.H}', '-r', '24',
                           '-i', '-', '-c:v', 'libx264', '-crf', '14', '-preset', 'slow', '-pix_fmt', 'yuv420p', out], stdin=subprocess.PIPE)
-    for f in range(F0, F1 + 1):
+    for f in range(F0, F1):
         n = drawing_at(f)
         u = (f - F0) / (F1 - F0)
         # camera: a small push as the fist arrives (B03), then held; a short shake on arrival

@@ -9,7 +9,7 @@ from anime import comp as C
 from anime.test_b import flame_layer
 
 SRC = 'collab/from_limo/002/test_C'
-F0, F1 = 91, 108
+F0, F1 = 91, 109          # shot interval [F0, F1): zero-based frame numbers n, PTS = n / 24
 SHEET = [(91 + 2 * i, f'C{i + 1:02d}') for i in range(9)]
 FX = {'C01': 'C01_char_fx_v2', 'C09': 'C09_char_fx_v2'}
 RED = (1.0, 0.16, 0.22)
@@ -74,7 +74,7 @@ def main(out):
     bg4 = np.concatenate([bg, np.ones(bg.shape[:2] + (1,), np.float32)], -1)
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{C.W}x{C.H}', '-r', '24',
                           '-i', '-', '-c:v', 'libx264', '-crf', '14', '-preset', 'slow', '-pix_fmt', 'yuv420p', out], stdin=subprocess.PIPE)
-    for f in range(F0, F1 + 1):
+    for f in range(F0, F1):
         n = drawing_at(f)
         u = (f - F0) / (F1 - F0)
         # slow push in, held hand-held drift; a short shake as the shot cuts in (the punch lands)
