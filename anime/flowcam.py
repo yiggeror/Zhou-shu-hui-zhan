@@ -42,7 +42,8 @@ def _dis():
 
 
 def fields(frames, ref, smooth=6.0):
-    """frames: {n: float BGR 0-1}, consecutive n.  Returns {n: HxWx2 float32 displacement to ref}."""
+    """frames: {n: float BGR 0-1}; n need not be consecutive (left-out frames are skipped in the chain).
+    Returns {n: HxWx2 float32 displacement to ref} for the frames given."""
     ns = sorted(frames)
     h, w = frames[ref].shape[:2]
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
@@ -57,10 +58,12 @@ def fields(frames, ref, smooth=6.0):
         return f1 + f2w
 
     out = {ref: np.zeros((h, w, 2), np.float32)}
-    for n in [m for m in ns if m > ref]:
-        out[n] = compose(step(n, n - 1), out[n - 1])
-    for n in [m for m in reversed(ns) if m < ref]:
-        out[n] = compose(step(n, n + 1), out[n + 1])
+    after = [m for m in ns if m > ref]
+    before = [m for m in reversed(ns) if m < ref]
+    for prev, n in zip([ref] + after, after):              # chain to the nearest frame given (gaps allowed)
+        out[n] = compose(step(n, prev), out[prev])
+    for prev, n in zip([ref] + before, before):
+        out[n] = compose(step(n, prev), out[prev])
     # chaining adds up small errors; measure what is left directly against the reference and take it out
     for n in ns:
         if n == ref:
