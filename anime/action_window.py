@@ -223,9 +223,23 @@ def _edges(x):
     return cv2.GaussianBlur(np.hypot(cv2.Sobel(g, cv2.CV_32F, 1, 0), cv2.Sobel(g, cv2.CV_32F, 0, 1)), (0, 0), 2)
 
 
+def plausible(Hm):
+    """a camera move between neighbouring frames of one hold: finite, scale 0.5-2, centre kept within the frame"""
+    if Hm is None or not np.all(np.isfinite(Hm)):
+        return False
+    s, _, c = describe(Hm)
+    return 0.5 < s < 2.0 and abs(c[0]) < W and abs(c[1]) < H
+
+
 def agreement(o_ref, o, Hm, m):
     """normalised correlation of edge strength between the moved reference frame and frame n, on mask m"""
-    a = _edges(cv2.warpPerspective(o_ref, Hm, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT))[m]
+    if not plausible(Hm):
+        return -1.0
+    moved_ = cv2.warpPerspective(o_ref, Hm, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    m = m & (cv2.warpPerspective(np.ones((H, W), np.uint8), Hm, (W, H), flags=cv2.INTER_NEAREST) > 0)
+    if m.sum() < 1000:
+        return -1.0
+    a = _edges(moved_)[m]
     b = _edges(o)[m]
     a, b = a - a.mean(), b - b.mean()
     return float((a * b).sum() / max(np.sqrt((a * a).sum() * (b * b).sum()), 1e-6))
@@ -278,6 +292,7 @@ def hold_camera(O, A, ref, ns, raw, region=None, model=None):
         cands.append((Hs[prev], f'previous transform (n{prev}) kept'))
         m = mn > 0
         # judged against the previous frame (less has changed there than since ref)
+        cands = [(Hc_, t) for Hc_, t in cands if plausible(Hc_ @ np.linalg.inv(Hs[prev]))]
         scored = [(agreement(O[prev], O[n], Hc_ @ np.linalg.inv(Hs[prev]), m), Hc_, t) for Hc_, t in cands]
         sc, Hs[n], t = max(scored, key=lambda x: x[0])
         info[n] = f'{t}; edge agreement with n{prev} {sc:.3f} (other candidates: ' + \
@@ -499,7 +514,7 @@ def render_holds(name, hn, fs, O, A, raw):
                                                                borderMode=cv2.BORDER_REFLECT))
         # where the full drawing has its own flames: under them the plate's content is inferred, so the rebuilt
         # flame must cover it (Limo, completion_001); checked per frame below
-        drawn_fx = (flames(full_v) > 0.3).astype(np.float32)
+        drawn_fx = (np.maximum(_core(full_v, 'cyan'), _core(full_v, 'red')) > 0.3).astype(np.float32)   # cores only
     ns = sorted(set(hn) | {ref})
     Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'), spec.get('camera'))
     size = (plate_c.shape[1], plate_c.shape[0])
