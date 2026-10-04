@@ -21,7 +21,8 @@ Every frame of the window must be listed.
            them stay covered)
 
 usage: python3 anime/action_window.py SHEET.json OUT_DIR
-Writes OUT_DIR/R_nNNNN.png, side_by_side.mp4 (24 fps), slow_6fps.mp4, holds_diag_6fps.mp4 (original | effect-free
+Writes OUT_DIR/R_nNNNN.png, redraw_24fps_once.mp4 (the redraw alone at 1672x941, one pass; the encoder needs even
+sizes, so one row is repeated to 1672x942), side_by_side.mp4 (24 fps), slow_6fps.mp4, holds_diag_6fps.mp4 (original | effect-free
 base | effects alone | result, hold frames only), cover_check_sheet.jpg (yellow: where the full drawing has its own
 flames, so the plate there is inferred; red: such inferred plate left showing), contact_sheet.jpg, sources.md, run.json."""
 import hashlib
@@ -601,9 +602,13 @@ def render_holds(name, hn, fs, O, A, raw):
                 l2 = np.where(lu < 0.3, lu + lift * (1 - lu / 0.3), lu)
                 hc = tn.get('highlight', 1.0)
                 l2 = np.where(l2 > 0.75, 0.75 + (l2 - 0.75) * hc, l2)
-                dark = lu < 0.05                         # near black: add the lift as its own (darkened) colour
-                rgb = np.where(dark[..., None], rgb + (l2 - lu)[..., None] * (mean / max(L.lum(mean[None])[0], 1e-3)) * 0.5,
-                               rgb * (l2 / lu)[..., None])
+                # near black a ratio cannot lift (no colour to scale): there the lift is added in the layer's mean
+                # flame colour, i.e. near-black pixels are TINTED as they are lifted; blended smoothly with the ratio
+                # branch over luminance 0.02-0.08 so there is no seam
+                tint = rgb + (l2 - lu)[..., None] * (mean / max(L.lum(mean[None])[0], 1e-3)) * 0.5
+                ratio = rgb * (l2 / lu)[..., None]
+                k = np.clip((lu - 0.02) / 0.06, 0, 1)[..., None]
+                rgb = k * ratio + (1 - k) * tint
             rgba_t[..., :3] = np.clip(rgb, 0, 1)
             loaded = (rgba_t, loaded[1], dict(loaded[2], tone=sp['tone']))
         for fn in sp['frames']:
@@ -666,7 +671,8 @@ def render_holds(name, hn, fs, O, A, raw):
                    + (f', placed by {drawn_spec[n]["to_framing"]}' if drawn_spec[n].get('to_framing') else '')
                    + (f', core alpha >= {clamp}/255 made solid after placement ({int(solid.sum())} px)' if clamp else '')
                    + (f', faint halo {halo_s} x drawn-light strength {w:.2f} within ~40 px of its outline' if halo_s else '')
-                   + (f', layer tone {drawn_spec[n]["tone"]}' if drawn_spec[n].get('tone') else '')
+                   + (f', layer tone {drawn_spec[n]["tone"]} (luminance curve; near-black pixels tinted with the layer\'s '
+                      f'mean flame colour as they are lifted)' if drawn_spec[n].get('tone') else '')
                    + f', its own general glow {L.BLOOM} (not tied to the purple fade)'
                    + ', moved with the plate; '
                    f'of the full drawing\'s own flame zone (where the plate is inferred), {exposed.sum()} px '
@@ -793,8 +799,46 @@ def render_layers(name, hn, fs, O, A, raw):
     Hb_, binl, berr = match_h(bview, O[bref], None, bm, ratio=0.8, model='similarity')
     Pb = (Hb_ if (Hb_ is not None and binl >= 30 and plausible(Hb_)) else np.eye(3)) @ Vb
     Hb, binfo = hold_camera(O, A, bref, ns, raw, exclude=excl, model='similarity')
+    for tn, (na, nb) in ((int(k), v) for k, v in bs.get('interp', {}).items()):
+        # this frame's background camera from two measured anchors on the original, interpolated as a similarity
+        # (scale geometric, rotation and translation linear); an anchor outside the hold is measured against the
+        # nearest held frame on the original's background (its character area left out by anchor_exclude)
+        anchors = {}
+        for na_ in (na, nb):
+            if na_ in Hb and na_ != tn:
+                anchors[na_] = (Hb[na_], binfo[na_])
+                continue
+            near = min((m for m in Hb if m != tn and m in hn), key=lambda m: abs(m - na_))
+            mk = feature_mask(O[na_], A[na_] if na_ in A else flames(O[na_]))
+            for box in bs.get('anchor_exclude', {}).get(str(na_), []):
+                x0, y0, x1, y1 = box
+                mk[y0:y1, x0:x1] = 0
+            mnear = feature_mask(O[near], A[near])
+            mnear[excl[near]] = 0
+            sx_, sy_ = raw[near].shape[1] / W, raw[near].shape[0] / H
+            Sm = np.diag([sx_, sy_, 1.0])
+            Hn_, inl_, err_ = match_h(raw[near].astype(np.float32) / 255, raw[na_].astype(np.float32) / 255,
+                                      cv2.resize(mnear, (raw[near].shape[1], raw[near].shape[0]), interpolation=cv2.INTER_NEAREST),
+                                      cv2.resize(mk, (raw[na_].shape[1], raw[na_].shape[0]), interpolation=cv2.INTER_NEAREST),
+                                      thr=THR['similarity'], model='similarity')
+            if Hn_ is None or inl_ < 12:
+                sys.exit(f'background anchor n{na_}: no reliable match to n{near} ({inl_} inliers)')
+            anchors[na_] = (np.linalg.inv(Sm) @ Hn_ @ Sm @ Hb[near],
+                            f'measured n{near}->n{na_} on the background: {inl_} inliers, median error {err_ / sx_:.2f} px')
+
+        def params(M):
+            M = M / M[2, 2]
+            return np.hypot(M[0, 0], M[1, 0]), np.arctan2(M[1, 0], M[0, 0]), M[0, 2], M[1, 2]
+        (sa, ra, xa, ya), (sb_, rb_, xb, yb) = params(anchors[na][0]), params(anchors[nb][0])
+        t = (tn - na) / (nb - na)
+        sc = sa ** (1 - t) * sb_ ** t
+        rr = ra + t * (np.arctan2(np.sin(rb_ - ra), np.cos(rb_ - ra)))
+        Hb[tn] = np.array([[sc * np.cos(rr), -sc * np.sin(rr), xa + t * (xb - xa)],
+                           [sc * np.sin(rr), sc * np.cos(rr), ya + t * (yb - ya)], [0, 0, 1]])
+        binfo[tn] = (f'INTERPOLATED at {t:.2f} between n{na} ({anchors[na][1]}) and n{nb} ({anchors[nb][1]}) as a '
+                     f'similarity (was: {binfo[tn]})')
     size = (bimg.shape[1], bimg.shape[0])
-    zoom = overscan({n: Hb[n] @ Pb for n in hn}, size)
+    zoom = bs['zoom'] if bs.get('zoom') else overscan({n: Hb[n] @ Pb for n in hn}, size)
     C = np.array([[zoom, 0, (1 - zoom) * W / 2], [0, zoom, (1 - zoom) * H / 2], [0, 0, 1]])
     ones = np.ones(bimg.shape[:2], np.float32)
     out = {}
@@ -845,8 +889,9 @@ def render_layers(name, hn, fs, O, A, raw):
 
 
 def fit_grade(r, o, ar=None, ao=None, sigma=4.0):
-    """one tone curve per colour channel taking a drawing's look to the original's, fitted on the same content: the
-    drawing and the original at the drawing's reference frame (they are registered within a few px), both
+    """one tone curve per colour channel taking a drawing's look to the original's: each channel's distribution in
+    the drawing matched to the same channel's distribution in the original, in the same frame and area (not a
+    pixel-pair fit; framing, flame share and small misfits can still shift the distributions); both
     smoothed (sigma px) so lines and small misfits do not count; the watermark and a 20 px border left out (and,
     if their masks are given, the flames of either with a 15 px band; by default the flames count: they are part
     of the picture's look, and leaving them out darkened the flame-filled close-ups).  The curve matches the quantiles (2 % ... 98 %) of the two on those
@@ -868,6 +913,45 @@ def fit_grade(r, o, ar=None, ao=None, sigma=4.0):
         hi_s = float(np.clip((y[-1] - y[-3]) / max(x[-1] - x[-3], 1e-3), 0.3, 1.5))
         curves.append((x, y, lo_s, hi_s))
     return curves, int(m.sum())
+
+
+LUMA_WB_LIMIT = 0.10
+
+
+def fit_grade_luma(r, o, sigma=4.0):
+    """a luminance-only grade: the drawing's luminance distribution matched to the original's (same frame and
+    area), applied as a ratio so each pixel keeps its colour ratios, then one global white balance (channel means
+    of the luma-matched drawing against the original's, normalised to keep luminance) limited to +-10 %"""
+    m = np.ones(r.shape[:2], bool)
+    m[L.WATERMARK] = False
+    m[:20], m[-20:], m[:, :20], m[:, -20:] = False, False, False, False
+    lr = L.lum(cv2.GaussianBlur(r, (0, 0), sigma))[m]
+    lo = L.lum(cv2.GaussianBlur(o, (0, 0), sigma))[m]
+    qs = np.array([2, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98], np.float32)
+    x = np.maximum.accumulate(np.percentile(lr, qs) + np.arange(len(qs)) * 1e-5)
+    y = np.maximum.accumulate(np.percentile(lo, qs))
+    lo_s = float(np.clip(y[0] / max(x[0], 1e-3), 0.3, 1.5))
+    hi_s = float(np.clip((y[-1] - y[-3]) / max(x[-1] - x[-3], 1e-3), 0.3, 1.5))
+    cv = dict(x=x, y=y, lo=lo_s, hi=hi_s, wb=np.ones(3, np.float32))
+    lm = apply_grade_luma(r, cv)
+    g = np.float32([o[..., c][m].mean() / max(lm[..., c][m].mean(), 1e-4) for c in range(3)])
+    g = g / float(g @ np.float32([0.114, 0.587, 0.299]))
+    cv['wb'] = np.clip(g, 1 - LUMA_WB_LIMIT, 1 + LUMA_WB_LIMIT)
+    return cv, int(m.sum())
+
+
+def apply_grade_luma(img, cv, strength=1.0):
+    lu = np.maximum(L.lum(img), 1e-4)
+    l2 = np.interp(lu, cv['x'], cv['y'])
+    l2 = np.where(lu < cv['x'][0], lu * cv['lo'], l2)
+    l2 = np.where(lu > cv['x'][-1], cv['y'][-1] + (lu - cv['x'][-1]) * cv['hi'], l2)
+    out = img * (l2 / lu)[..., None] * cv['wb']
+    return np.clip(img + strength * (out - img), 0, 1)
+
+
+def describe_luma(cv):
+    return (f'0.1/0.3/0.5/0.7/0.9 -> {np.round(np.interp([0.1, 0.3, 0.5, 0.7, 0.9], cv["x"], cv["y"]), 3).tolist()}, '
+            f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}')
 
 
 def apply_grade(img, curves, strength=1.0):
@@ -959,22 +1043,31 @@ def main():
             # one curve per drawing, fitted on the same content at its first exposure; a hold also gets one at its
             # last exposure and moves linearly between them (the light changes inside a hold, e.g. D04's fade)
             first, last = dns[0], dns[-1]
-            c0, n0 = fit_grade(R[first], O[first], sigma=grade.get('sigma', 4.0))
-            c1, n1 = fit_grade(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last != first else (c0, n0)
+            mode = grade.get('modes', {}).get(did, 'channels')
+            fit = fit_grade if mode == 'channels' else fit_grade_luma
+            app = apply_grade if mode == 'channels' else apply_grade_luma
+            c0, n0 = fit(R[first], O[first], sigma=grade.get('sigma', 4.0))
+            c1, n1 = fit(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last != first else (c0, n0)
             for n in dns:
                 t = 0.0 if last == first else (n - first) / (last - first)
 
                 def g(x):
-                    return (1 - t) * apply_grade(x, c0, st) + t * apply_grade(x, c1, st) if t else apply_grade(x, c0, st)
+                    return (1 - t) * app(x, c0, st) + t * app(x, c1, st) if t else app(x, c0, st)
                 R[n] = g(R[n])
                 if n in BASE:
                     BASE[n], FX[n] = g(BASE[n]), g(FX[n])
-                src[n] += (f'; GRADE {did}: one tone curve per colour channel fitted on the same content (quantile '
-                           f'match of the smoothed drawing and original, strength {st}) at n{first} ({n0} px): '
-                           f'{describe_curve(c0)}' + (f'; and at n{last} ({n1} px): {describe_curve(c1)}; this frame '
-                           f'blends them at {t:.2f}' if last != first else ''))
+                how = ('one tone curve per colour channel (each channel\'s distribution matched to the original\'s, '
+                       'same frame and area; not a pixel-pair fit)' if mode == 'channels' else
+                       'one luminance curve (distribution match, colour ratios kept) and a global white balance '
+                       f'limited to +-{int(100 * LUMA_WB_LIMIT)} %')
+                desc = describe_curve if mode == 'channels' else (lambda cv: f'luma {describe_luma(cv)}')
+                src[n] += (f'; GRADE {did}: {how}, strength {st}, at n{first} ({n0} px): {desc(c0)}'
+                           + (f'; and at n{last} ({n1} px): {desc(c1)}; this frame blends the two graded results at '
+                              f'{t:.2f}' if last != first else ''))
     for n in ns:
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
+    # the redraw alone, native size, 24 fps, played once (no labels): for judging the motion itself
+    write_mp4(os.path.join(out, 'redraw_24fps_once.mp4'), [to8(R[n]) for n in ns], 24, loops=1)
     pair = [np.hstack([small(O[n], f'original n{n}'), small(R[n], f'n{n} {tag[n]}')]) for n in ns]
     write_mp4(os.path.join(out, 'side_by_side.mp4'), pair, 24, loops=3)
     slow = [cv2.putText(p.copy(), 'SLOW 6 fps (each frame x4)', (p.shape[1] // 2 - 140, p.shape[0] - 12),

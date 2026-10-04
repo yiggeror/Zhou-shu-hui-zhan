@@ -1,5 +1,5 @@
 {
- "name": "shots 42-44 action test v5: 20 drawings + 2 drawn flame states; per-drawing grade to the original; D02 two layers",
+ "name": "shots 42-44 action test v6: v5 + D10b graded by luminance with limited white balance",
  "frames": [
   1248,
   1284
@@ -754,6 +754,9 @@
  },
  "grade": {
   "strength": 1.0,
-  "sigma": 4.0
+  "sigma": 4.0,
+  "modes": {
+   "D10b": "luma"
+  }
  }
 }
