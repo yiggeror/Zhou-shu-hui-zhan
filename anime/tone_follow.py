@@ -6,8 +6,12 @@
 LP = grey level blurred with a Gaussian of sigma 18 px at 1672x941; ref = an approved redraw.  In words: the
 redraw keeps the approved frame's local lift over the original, and its exposure then follows the
 original's own frame-to-frame ramp.  The approved frame itself comes out unchanged (gain exactly 1).
-Lines and screentone (a few px) pass through untouched; only exposure at the scale of a sleeve or a face
-is corrected.  It fixes brightness pulses, not lines or hatching that change from frame to frame.
+The positions and shapes of lines and screentone (a few px) are not redrawn, but the gain multiplies every
+pixel, so their brightness and local contrast scale with the area around them, and bright areas can clip.
+It fixes brightness pulses at the scale of a sleeve or a face, not lines or hatching that change from
+frame to frame.  When using it on a full window, check: gain limits / clipping flattening the cyan rim or
+the screentone; the fade from black (n73-77) staying as dark and soft as the source; and halos where the
+energy edge moves across the reference frame's brightness map.
 
 usage: python3 anime/tone_follow.py DELIVERY_DIR REF_N F0 F1 OUT_DIR"""
 import os
