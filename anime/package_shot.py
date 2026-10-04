@@ -1,12 +1,12 @@
-"""Render shot 0 and every review file from ONE run, and record what produced them.
+"""Render one layered shot and every review file from ONE run, and record what produced them.
 
-usage: python3 anime/package_shot0.py PANEL.png OUT_DIR [--ref 86]
+usage: python3 anime/package_shot.py PANEL.png OUT_DIR [--shot s0|s1] [--ref N]
 
 OUT_DIR gets: frames/R_n0073..R_n0090.png, side_by_side.mp4, crop_1to1.mp4, rebuilt_only.mp4 (3 loops, labelled),
-sequence.jpg (all 18 frames, original above rebuilt), layers_nXX.jpg (flame alpha, flame colour, panel lines shown
-through the flame, ink, FX on flat grey) for n74 n75 n82 n88, and run.json (code hashes, git commit, panel hash,
-reference frame, parameters).  The camera check on left-out frames is a separate run
-(anime/validate_shot0_camera.py) because it needs its own camera estimate without those frames."""
+sequence.jpg (all frames, original above rebuilt), layers_nXX.jpg (flame alpha, flame colour, panel lines shown
+through the flame, ink, FX on flat grey) for a few frames per shot, and run.json (code hashes, git commit, panel hash,
+reference frame, parameters).  A camera check on left-out frames is a separate run (anime/validate_shot0_camera.py
+for shot 0) because it needs its own camera estimate without those frames."""
 import hashlib
 import json
 import os
@@ -17,10 +17,11 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import shot0 as S0  # noqa: E402
+import layered as S0  # noqa: E402
 import review_window as RW  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+LAYER_FRAMES = {'s0': (74, 75, 82, 88), 's1': (92, 93, 100, 106)}
 
 
 def sha(path):
@@ -41,7 +42,9 @@ def tile(x, name, crop, k=1.0, size=(475, 395)):
 
 def main():
     panel_path, out = sys.argv[1], sys.argv[2]
-    S0.REF = int(sys.argv[sys.argv.index('--ref') + 1]) if '--ref' in sys.argv else 86
+    S0.configure(sys.argv[sys.argv.index('--shot') + 1] if '--shot' in sys.argv else 's0')
+    if '--ref' in sys.argv:
+        S0.REF = int(sys.argv[sys.argv.index('--ref') + 1])
     os.makedirs(os.path.join(out, 'frames'), exist_ok=True)
     panel = cv2.imread(panel_path).astype(np.float32) / 255
     vig = S0.vignette()
@@ -56,7 +59,7 @@ def main():
         img = S0.render(panel, n, O[n], o_ref, gains[n], vig, fields[n], L)
         R[n] = np.clip(img * 255 + 0.5, 0, 255).astype(np.uint8)
         cv2.imwrite(os.path.join(out, 'frames', f'R_n{n:04d}.png'), R[n])
-        if n in (74, 75, 82, 88):
+        if n in LAYER_FRAMES[S0.SHOT]:
             layers[n] = L
 
     # videos, from the same frames
@@ -81,13 +84,15 @@ def main():
         cv2.putText(a, f'orig n{n}', (4, 16), 0, 0.45, (0, 255, 255), 1)
         cv2.putText(b, f'rebuilt n{n}', (4, 16), 0, 0.45, (0, 255, 255), 1)
         t.append(np.vstack([a, b]))
-    cv2.imwrite(os.path.join(out, 'sequence.jpg'), np.vstack([np.hstack(t[i:i + 6]) for i in range(0, 18, 6)]),
+    while len(t) % 6:
+        t.append(np.zeros_like(t[0]))
+    cv2.imwrite(os.path.join(out, 'sequence.jpg'), np.vstack([np.hstack(t[i:i + 6]) for i in range(0, len(t), 6)]),
                 [cv2.IMWRITE_JPEG_QUALITY, 85])
 
     # layer views
     crop = (150, 941, 500, 1450)
     for n, L in layers.items():
-        k = 2.5 if n < 78 else 1.0
+        k = 2.5 if n < S0.FADE_END else 1.0
         row = [tile(O[n], f'orig n{n}' + (' x2.5' if k > 1 else ''), crop, k),
                tile(R[n] / 255.0, 'rebuilt' + (' x2.5' if k > 1 else ''), crop, k),
                tile(L['core'], 'flame alpha', crop), tile(L['fill_colour'], 'flame colour (from orig)', crop),
@@ -103,16 +108,17 @@ def main():
     except OSError:
         commit, dirty = '?', True
     run = dict(git_commit=commit, anime_dir_had_uncommitted_changes=dirty,
-               code_sha256={f: sha(os.path.join(HERE, f)) for f in ('shot0.py', 'flowcam.py', 'package_shot0.py')},
+               code_sha256={f: sha(os.path.join(HERE, f)) for f in ('layered.py', 'flowcam.py', 'package_shot.py')},
                panel=os.path.relpath(panel_path, os.path.dirname(HERE)), panel_sha256=sha(panel_path),
-               reference_frame=S0.REF, frames=[S0.F0, S0.F1], size=[S0.W, S0.H],
+               shot=S0.SHOT, reference_frame=S0.REF, frames=[S0.F0, S0.F1], fade_end=S0.FADE_END, flame=S0.FLAME,
+               size=[S0.W, S0.H],
                params=dict(SIGMA_PARALLAX=S0.SIGMA_PARALLAX, REFINE=S0.REFINE, FOCUS=S0.FOCUS,
                            HOLDOUT=sorted(S0.HOLDOUT), BLOOM=list(S0.BLOOM), GLOW=S0.GLOW.round(4).tolist(),
                            WATERMARK=[[S0.WATERMARK[0].start, S0.WATERMARK[0].stop],
                                       [S0.WATERMARK[1].start, S0.WATERMARK[1].stop]]),
                exposure={n: round(float(gains[n]), 4) for n in ns},
                line_strength={n: round(float(layers[n]['line_strength']), 3) for n in layers},
-               fade_steps={f'n{77 - i}->n{78 - i}': e for i, e in enumerate(S0.FADE_LOG)})
+               fade_steps={f'n{S0.FADE_END - 1 - i}->n{S0.FADE_END - i}': e for i, e in enumerate(S0.FADE_LOG)})
     json.dump(run, open(os.path.join(out, 'run.json'), 'w'), indent=1)
     print(json.dumps(run, indent=1)[:1500])
 

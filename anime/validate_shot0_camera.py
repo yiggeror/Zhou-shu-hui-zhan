@@ -15,7 +15,7 @@ import numpy as np  # noqa: E402
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import flowcam  # noqa: E402
-import shot0 as S0  # noqa: E402
+import layered as S0  # noqa: E402
 
 K = 1672 / 2560
 # the fade frames are not left out (they are tied to n78 by their own flow similarity), but they are checked the
@@ -45,7 +45,7 @@ def track(g_ref, g_n, p, half=30, search=70):
 
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else None
-    S0.REF = 86
+    S0.configure('s0')
     O = {n: S0.orig(n) for n in range(S0.F0, S0.F1)}
     F = S0.camera_fields(O)
     G = {n: cv2.GaussianBlur(flowcam.prep(O[n]).astype(np.float32), (0, 0), 1.0) for n in O}

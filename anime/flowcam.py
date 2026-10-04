@@ -19,12 +19,16 @@ import cv2
 import numpy as np
 
 
-def prep(o):
-    """o: float BGR 0-1 original frame -> uint8 grey for tracking"""
-    o = o * 255.0
+def cyan_chroma(o):
     b, g, r = o[..., 0], o[..., 1], o[..., 2]
-    l = o.mean(2)
-    l = np.where(np.minimum(g, b) - r > 35, l * 0.35, l)
+    return np.minimum(g, b) - r
+
+
+def prep(o, chroma=cyan_chroma):
+    """o: float BGR 0-1 original frame -> uint8 grey for tracking; the effect (pixels whose chroma(o), on a 0-1
+    scale, exceeds 35/255) is toned down so the drawing's lines inside it are as strong as those outside"""
+    l = o.mean(2) * 255.0
+    l = np.where(chroma(o) > 35 / 255.0, l * 0.35, l)
     l = 255 * np.clip(l / max(np.percentile(l, 99.7), 1.0), 0, 1) ** 0.6
     return cv2.createCLAHE(3.0, (16, 16)).apply(l.astype(np.uint8))
 
@@ -41,13 +45,13 @@ def _dis():
     return d
 
 
-def fields(frames, ref, smooth=6.0):
+def fields(frames, ref, smooth=6.0, chroma=cyan_chroma):
     """frames: {n: float BGR 0-1}; n need not be consecutive (left-out frames are skipped in the chain).
     Returns {n: HxWx2 float32 displacement to ref} for the frames given."""
     ns = sorted(frames)
     h, w = frames[ref].shape[:2]
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    P = {n: prep(frames[n]) for n in ns}
+    P = {n: prep(frames[n], chroma) for n in ns}
     dis = _dis()
 
     def step(a, b):
