@@ -226,8 +226,11 @@ def exposure(n, o, o_ref, field):
     m = cv2.erode(m.astype(np.uint8), np.ones((15, 15), np.uint8)).astype(bool)
     if m.sum() < 500:
         return float(lum(o).mean() / max(lum(o_ref).mean(), 1e-4))
-    if n < 78:      # fade: most of the panel is still black, compare the brightest panel parts instead
-        return float(np.percentile(lum(o)[m], 95) / max(np.percentile(lum(w)[m], 95), 1e-4))
+    if n < 78:      # fade: the panel first shows near the flame; compare its brightest parts there
+        d = cv2.distanceTransform((flame_core(o) < 0.5).astype(np.uint8), cv2.DIST_L2, 5)
+        mm = m & (d < 250)
+        mm = mm if mm.sum() > 500 else m
+        return float(np.percentile(lum(o)[mm], 95) / max(np.percentile(lum(w)[mm], 95), 1e-4))
     return float(np.median(lum(o)[m]) / np.median(lum(w)[m]))
 
 
@@ -238,6 +241,11 @@ def smooth_ramp(g):
     for n in ns[1:-1]:
         if g[n] > 0.3:
             out[n] = (g[n - 1] + g[n] + g[n + 1]) / 3
+    # the shot only ever fades in and brightens: no dips (two measurements meet at n77/78)
+    run = 0.0
+    for n in ns:
+        run = max(run, out[n])
+        out[n] = run
     return out
 
 
