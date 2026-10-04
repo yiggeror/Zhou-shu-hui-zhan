@@ -1,0 +1,285 @@
+{
+ "sheet": {
+  "name": "shots 42-44 action test",
+  "frames": [
+   1248,
+   1284
+  ],
+  "frames_sheet": {
+   "1248": {
+    "drawing": "collab/from_limo/025/completion_001/D01_n1248.png",
+    "id": "D01"
+   },
+   "1249": {
+    "hold": "D02",
+    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "ref": 1249,
+    "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
+    "id": "D02"
+   },
+   "1250": {
+    "hold": "D02",
+    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "ref": 1249,
+    "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
+    "id": "D02"
+   },
+   "1251": {
+    "hold": "D02",
+    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "ref": 1249,
+    "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
+    "id": "D02"
+   },
+   "1252": {
+    "hold": "D02",
+    "plate": "collab/from_limo/025/completion_001/D02_n1249_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D02_n1249.png",
+    "ref": 1249,
+    "provisional": "Gojo slides across the street over a separately moving background in the original; that needs a character cel and a clean background (requested). Here the whole drawing follows the background, so Gojo does not slide",
+    "id": "D02"
+   },
+   "1253": {
+    "drawing": "collab/from_limo/025/completion_001/D03_n1253.png",
+    "id": "D03"
+   },
+   "1254": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1255": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1256": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1257": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1258": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1259": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1260": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1261": {
+    "hold": "D04",
+    "plate": "collab/from_limo/025/completion_001/D04_n1254_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D04_n1254.png",
+    "ref": 1254,
+    "id": "D04"
+   },
+   "1262": {
+    "drawing": "collab/from_limo/025/completion_001/D05_n1262.png",
+    "id": "D05"
+   },
+   "1263": {
+    "drawing": "collab/from_limo/025/completion_001/D06_n1263.png",
+    "id": "D06"
+   },
+   "1264": {
+    "drawing": "collab/from_limo/023/pilot_001/D07_n1264.png",
+    "id": "D07"
+   },
+   "1265": {
+    "drawing": "collab/from_limo/023/pilot_001/D08_n1265.png",
+    "id": "D08"
+   },
+   "1266": {
+    "drawing": "collab/from_limo/023/pilot_001/D09_n1266.png",
+    "id": "D09"
+   },
+   "1267": {
+    "hold": "D10",
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "region": [
+     700,
+     0,
+     1672,
+     941
+    ],
+    "id": "D10"
+   },
+   "1268": {
+    "hold": "D10",
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "region": [
+     700,
+     0,
+     1672,
+     941
+    ],
+    "id": "D10"
+   },
+   "1269": {
+    "hold": "D10",
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "region": [
+     700,
+     0,
+     1672,
+     941
+    ],
+    "id": "D10"
+   },
+   "1270": {
+    "hold": "D10",
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "region": [
+     700,
+     0,
+     1672,
+     941
+    ],
+    "id": "D10"
+   },
+   "1271": {
+    "hold": "D10",
+    "plate": "collab/from_limo/025/completion_001/D10_n1267_noFX.png",
+    "full": "collab/from_limo/023/pilot_001/D10_n1267.png",
+    "ref": 1267,
+    "region": [
+     700,
+     0,
+     1672,
+     941
+    ],
+    "id": "D10"
+   },
+   "1272": {
+    "drawing": "collab/from_limo/025/completion_001/D11_n1272.png",
+    "id": "D11"
+   },
+   "1273": {
+    "drawing": "collab/from_limo/025/completion_001/D12_n1273.png",
+    "id": "D12"
+   },
+   "1274": {
+    "drawing": "collab/from_limo/025/completion_001/D13_n1274.png",
+    "id": "D13"
+   },
+   "1275": {
+    "drawing": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "id": "D14"
+   },
+   "1276": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1277": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1278": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1279": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1280": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1281": {
+    "hold": "D14p",
+    "plate": "collab/from_limo/025/completion_001/D14_n1275_noFX.png",
+    "full": "collab/from_limo/025/completion_001/D14_n1275.png",
+    "ref": 1275,
+    "provisional": "stand-in until D14b/c/d are drawn: the hand does not rise here",
+    "id": "D14"
+   },
+   "1282": {
+    "drawing": "collab/from_limo/025/completion_001/D15_n1282.png",
+    "id": "D15"
+   },
+   "1283": {
+    "drawing": "collab/from_limo/025/completion_001/D16_n1283.png",
+    "id": "D16"
+   }
+  }
+ },
+ "code_sha256_16": {
+  "action_window.py": "5dde794ff061591b",
+  "layered.py": "ae9bdeb2e7b7d42b",
+  "frames.py": "07a025a47fe894dc",
+  "review_window.py": "b58cf92d7bc71e6c"
+ },
+ "git_head": "c638e7e675f5cd02b94bfa16b856631e9c9af439",
+ "shutters": [
+  0.0,
+  0.05,
+  0.1,
+  0.15,
+  0.25,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  5.0
+ ]
+}

@@ -16,3 +16,12 @@ def frame(n, src=SRC, w=2560, h=1440):
 def save(n, path, src=SRC):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-vf', f'select=eq(n\\,{n})', '-vsync', '0', '-frames:v', '1', path],
                    check=True)
+
+
+def frames(f0, f1, src=SRC, w=2560, h=1440):
+    """decoded frames [f0, f1) as {n: BGR uint8}, in one decoding pass"""
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', src, '-vf', f'select=between(n\\,{f0}\\,{f1 - 1})', '-vsync', '0',
+                          '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-'], capture_output=True, check=True).stdout
+    a = np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3)
+    assert len(a) == f1 - f0, (len(a), f0, f1)
+    return {f0 + i: a[i] for i in range(len(a))}
