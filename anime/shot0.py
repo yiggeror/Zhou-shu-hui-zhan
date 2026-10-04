@@ -185,7 +185,7 @@ def flame_core(o):
     k = float(np.percentile(g[cand], 95)) / 0.86 if cand.sum() > 500 else 1.0
     k = min(max(k, 0.25), 1.0)
     # the flame is strongly saturated (red ~0.15 of green); the flame-lit sleeve beside it is cyan but paler
-    sat = 1 - smooth(r / np.maximum(g, 1e-3), 0.32, 0.48)
+    sat = 1 - smooth(r / np.maximum(g, 1e-3), 0.27, 0.40)    # flame ~0.14, its dim body ~0.22, lit sleeve ~0.5
     a = close_watermark(smooth(cy / k, 0.20, 0.42) * smooth(g / k, 0.30, 0.55) * sat)
     keep = cv2.morphologyEx((a > 0.5).astype(np.uint8), cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
     n, lab, st, _ = cv2.connectedComponentsWithStats(keep)
@@ -195,7 +195,7 @@ def flame_core(o):
     a = a * m
     # the body can be much dimmer than its bright crest (n74-77): grow the flame from the confident part into
     # connected, clearly cyan pixels that are still well above the dark glow-over-ink beside it (green > 0.32 k)
-    weak = ((cy / k > 0.18) & (g / k > 0.32) & (r < 0.4 * g)).astype(np.uint8)
+    weak = ((cy / k > 0.18) & (g / k > 0.32) & (r < 0.3 * g)).astype(np.uint8)
     n2, lab2 = cv2.connectedComponents(weak | (a > 0.5).astype(np.uint8))
     seeded = np.zeros(n2, bool)
     seeded[np.unique(lab2[a > 0.5])] = True
