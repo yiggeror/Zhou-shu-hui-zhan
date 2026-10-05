@@ -590,9 +590,9 @@ def load_sprite(sp):
 def _exposure_counts(fs, ns):
     """how many frames are single exposures and how many belong to holds (the same image on consecutive frames)"""
     runs, prev = [], None
-    whites = [n for n in ns if fs[n].get('white') or fs[n].get('black')]
+    whites = [n for n in ns if fs[n].get('white') or fs[n].get('black') or fs[n].get('mix')]
     for n in ns:
-        if fs[n].get('white') or fs[n].get('black'):
+        if fs[n].get('white') or fs[n].get('black') or fs[n].get('mix'):
             prev = None
             continue
         key = fs[n].get('id', fs[n].get('drawing', fs[n].get('hold')))
@@ -615,7 +615,7 @@ def _exposure_counts(fs, ns):
         out.append(f'{sum(loop.values())} frames re-show a drawing already used earlier in a cycle '
                    f'({", ".join(f"{k} +{c}" for k, c in loop.items())}; not new drawings)')
     if whites:
-        out.append(f'{len(whites)} frame(s) are composited white/black frames (no drawing)')
+        out.append(f'{len(whites)} frame(s) are composited white/black/dissolve frames (no new drawing)')
     if held:
         out.append(f'{sum(r[1] for r in held)} frames are {len(held)} hold(s) of one image each '
                    f'({", ".join(f"{k} x{c}" for k, c in held)}; the {sum(r[1] - 1 for r in held)} repeat exposures are '
@@ -1206,18 +1206,24 @@ def main():
             src[n] = (f'WHITE FLASH (composited, no drawing): pure white; the original has '
                       f'{100 * float((O[n].min(2) >= 250 / 255).mean()):.1f}% of its pixels >= 250/255 in all channels')
             tag[n] = 'white flash'
+        elif fs[n].get('mix'):
+            # a dissolve frame between two approved drawings (composited, not a new drawing): each graded with its own
+            # curve (filled in after grading, below); placeholder until then
+            R[n] = load(fs[n]['mix'][0]['drawing'])
+            tag[n] = f'dissolve {fs[n]["mix"][0]["id"]}/{fs[n]["mix"][1]["id"]} {fs[n].get("t", 0.5):.2f}'
         elif fs[n].get('black'):
             # a black frame: composited, no drawing
             R[n] = np.zeros((H, W, 3), np.float32)
             src[n] = (f'BLACK FRAME (composited, no drawing): pure black; the original has '
                       f'{100 * float((O[n].max(2) <= 5 / 255).mean()):.1f}% of its pixels <= 5/255 in all channels')
             tag[n] = 'black frame'
+    fitted = {}
     grade = sheet.get('grade')
     if grade:
         # one tone curve per drawing (all its exposures), fitted at its reference frame on the same content
         ids = {}
         for n in ns:
-            if fs[n].get('frozen') or fs[n].get('white') or fs[n].get('black'):  # frozen / flat frames: not graded
+            if fs[n].get('frozen') or fs[n].get('white') or fs[n].get('black') or fs[n].get('mix'):  # not graded here
                 continue
             ids.setdefault(fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))), []).append(n)
         st = grade.get('strength', 1.0)
@@ -1227,7 +1233,6 @@ def main():
             pr = apply_grade(probe, cv, st).reshape(5, 3)
             return (f'inputs 0.1/0.3/0.5/0.7/0.9 -> B {np.round(pr[:, 0], 3).tolist()}, G {np.round(pr[:, 1], 3).tolist()}, '
                     f'R {np.round(pr[:, 2], 3).tolist()}')
-        fitted = {}
         for did, dns in ids.items():
             # one curve per drawing, fitted on the same content at its first exposure; a hold also gets one at its
             # last exposure and moves linearly between them (the light changes inside a hold, e.g. D04's fade)
@@ -1298,6 +1303,24 @@ def main():
                               f'input luminance {grade["glow_hold"][did][0]} the curve eases (smoothstep to '
                               f'{grade["glow_hold"][did][1]}) back to the n{fa} curve, so only mid-tones and shadows darken'
                               if did in grade.get('glow_hold', {}) and n == fb and fb != fa else ''))
+    for n in ns:
+        mx = fs[n].get('mix')
+        if mx:
+            # the two drawings, each graded with the curve of its own exposures (so the dissolve frame carries the
+            # colours of both neighbours), mixed at t
+            t = fs[n].get('t', 0.5)
+            parts = []
+            for m in mx:
+                if grade and m['id'] in fitted:
+                    c0, _, mode_m = fitted[m['id']]
+                    app_m = apply_grade if mode_m == 'channels' else apply_grade_luma
+                    parts.append(app_m(load(m['drawing']), c0, grade.get('strength', 1.0)))
+                else:
+                    parts.append(load(m['drawing']))
+            R[n] = (1 - t) * parts[0] + t * parts[1]
+            src[n] = (f'DISSOLVE (composited, not a new drawing): {mx[0]["id"]} `{mx[0]["drawing"]}` x {1 - t:.2f} + '
+                      f'{mx[1]["id"]} `{mx[1]["drawing"]}` x {t:.2f}, each graded with its own curve; approximates the '
+                      f'original\'s in-between state')
     for n in ns:
         ww = fs[n].get('white_wash')
         if ww:
@@ -1444,7 +1467,7 @@ def main():
     rows = [np.hstack(tiles[i:i + 6]) for i in range(0, len(tiles), 6)]
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
     drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns
-                       if not fs[n].get('white') and not fs[n].get('black')})
+                       if not fs[n].get('white') and not fs[n].get('black') and not fs[n].get('mix')})
     with open(os.path.join(out, 'sources.md'), 'w') as f:
         f.write(f'# {sheet.get("name", "window")} [{f0}, {f1}): where every frame comes from\n\n')
         frozen = sorted({fs[n].get('id') for n in ns if fs[n].get('frozen')})
