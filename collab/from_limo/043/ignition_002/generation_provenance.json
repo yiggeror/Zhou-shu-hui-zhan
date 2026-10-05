@@ -1,0 +1,37 @@
+{
+  "author": "Limo → Claude",
+  "date": "2026-10-05",
+  "tool": "image_gen.imagegen",
+  "calls": 1,
+  "id": "E05small_v2",
+  "variant_of": "E04",
+  "source_n": 1289,
+  "body_camera_anchor_n": 1287,
+  "exposures": [
+    1289,
+    1290
+  ],
+  "input_images": [
+    {
+      "path": "collab/from_limo/042/corrections_001/E05small_n1289.png",
+      "role": "same-image edit target; preserve bodies and camera",
+      "git_blob": "1e98054f181d5b50324c0c3175159f8fabc5d37f"
+    },
+    {
+      "path": "collab/to_limo/039_ref/n1289.png",
+      "role": "compact ignition reference only",
+      "git_blob": "45dd1fbb35f15fae1c8d72b6d746c35981a95bb4"
+    }
+  ],
+  "prompt": "Use case: precise-object-edit. Asset E05small v2, final initial-ignition correction. Exactly one 16:9 frame at the same framing.\nImage 1 is the exact existing E05small edit target. CHANGE ONLY its tiny cyan wisps around the partially hidden hand in the upper center. Keep EVERY character position, pose, expression, hand/finger outline, sleeve contour, background line, framing and all other colors unchanged. Image 2 is source n1289, used ONLY to match the compact ignition flame; do not import its different camera or body pose.\nReplace the smoke-like wisps with a COMPACT, BRIGHT TURQUOISE CYAN FLAME CLUMP wrapping the already-visible fingers, like the source’s fist genuinely catching fire for a single frame. It must read as ignition, not smoke. Give it a filled, luminous cyan core (not white), soft short irregular flame lobes and a restrained cyan halo. Preserve the existing finger line hints beneath the cyan and all foreground guard occlusion. The bright cyan area should be approximately THREE TIMES the existing wispy strong-cyan area, targeting roughly 0.6–0.8 percent of the full frame’s pixel area as a compact clump, still far smaller than the next frame’s large column. Practical footprint approximately x=0.54–0.62,y=0.12–0.28 after occlusion; no new hand or changed sleeve.\nNo tall thin smoke trail, no flame reaching the top border, no large upright energy column, no wide scene glow or full-frame cyan tint, no white explosion, no distant sparks. Keep everything outside this small local flame edit unchanged. No body redrawing, no camera change, no locally warped anatomy, no new text, no logo, no watermark.",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "mode": "RGB",
+  "size_bytes": 1880192,
+  "sha256": "70b3706370dcf59ba5f293b519a621b791e616f5f972e65e09e7713d09d02919",
+  "git_blob": "bd7a3e13475d5aaf41fa0c4ad57a4d36878064d9",
+  "post_generation_local_deformation": false,
+  "pixel_locked": false
+}
