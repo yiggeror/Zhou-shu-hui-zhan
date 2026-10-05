@@ -1,0 +1,233 @@
+{
+  "windows": [
+    {
+      "frames": [
+        1437,
+        1438
+      ],
+      "native_bgr_md5": {
+        "n1437": "417bcbf76df1341b46dbabde111a734e"
+      },
+      "main_video_sha256": "7deabcab2918ade3d2babc207ad5eaf985454b85bba96bd30b3d2af424a38962",
+      "video_frame_count": 1,
+      "full_decode": "PASS",
+      "exact_24fps_pts": "PASS"
+    },
+    {
+      "frames": [
+        1474,
+        1485
+      ],
+      "native_bgr_md5": {
+        "n1474": "c1595947b2dbd2f98974c42a1973d065",
+        "n1475": "e81a81ab5b7e8f2d4748176960fb9622",
+        "n1476": "f7205a8bdc939b2e37a4ce03291d205a",
+        "n1477": "f7205a8bdc939b2e37a4ce03291d205a",
+        "n1478": "33837aa68533a2ca55f0a742d7d151f4",
+        "n1479": "9fd1d575ac5db2829366e1dd71103813",
+        "n1480": "9689066d6a428b30a0529cc505eabb80",
+        "n1481": "9689066d6a428b30a0529cc505eabb80",
+        "n1482": "1c095ed673fadb46ca2d9ea42accd3a4",
+        "n1483": "5759ca47e619f6937ffd359aa6c42732",
+        "n1484": "21bbae9635c19fcbabed3d605f60a5fc"
+      },
+      "main_video_sha256": "f75fb4c40a64c873b8e868b42d752bd0701d3955c35ad4645dab7390dfd088d4",
+      "video_frame_count": 11,
+      "full_decode": "PASS",
+      "exact_24fps_pts": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "source": {
+    "sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+    "stream": {
+      "codec_name": "av1",
+      "width": 2560,
+      "height": 1440,
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "3499"
+    }
+  },
+  "independent_pixel_recheck": {
+    "expected_file_sha256": "80a8863e80b7f8b480151265fe1b90c53ab148005fc410d9fa4278342dca2390",
+    "method": "Pillow RGB decode, NumPy channel reverse to BGR, hashlib md5; no producer verification code reused",
+    "checked_exposures_including_repeat_window": 17,
+    "distinct_frames": 12,
+    "rows": [
+      {
+        "window": "Q5",
+        "n": 1437,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "417bcbf76df1341b46dbabde111a734e",
+        "exact_to_expected": true
+      },
+      {
+        "window": "R3",
+        "n": 1480,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "9689066d6a428b30a0529cc505eabb80",
+        "exact_to_expected": true
+      },
+      {
+        "window": "R3",
+        "n": 1481,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "9689066d6a428b30a0529cc505eabb80",
+        "exact_to_expected": true
+      },
+      {
+        "window": "R3",
+        "n": 1482,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "1c095ed673fadb46ca2d9ea42accd3a4",
+        "exact_to_expected": true
+      },
+      {
+        "window": "R3",
+        "n": 1483,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "5759ca47e619f6937ffd359aa6c42732",
+        "exact_to_expected": true
+      },
+      {
+        "window": "R3",
+        "n": 1484,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "21bbae9635c19fcbabed3d605f60a5fc",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1474,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "c1595947b2dbd2f98974c42a1973d065",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1475,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "e81a81ab5b7e8f2d4748176960fb9622",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1476,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "f7205a8bdc939b2e37a4ce03291d205a",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1477,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "f7205a8bdc939b2e37a4ce03291d205a",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1478,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "33837aa68533a2ca55f0a742d7d151f4",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1479,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "9fd1d575ac5db2829366e1dd71103813",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1480,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "9689066d6a428b30a0529cc505eabb80",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1481,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "9689066d6a428b30a0529cc505eabb80",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1482,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "1c095ed673fadb46ca2d9ea42accd3a4",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1483,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "5759ca47e619f6937ffd359aa6c42732",
+        "exact_to_expected": true
+      },
+      {
+        "window": "gaps",
+        "n": 1484,
+        "native_dimensions": [
+          1672,
+          941
+        ],
+        "BGR_md5": "21bbae9635c19fcbabed3d605f60a5fc",
+        "exact_to_expected": true
+      }
+    ]
+  },
+  "helper_exit_code": 0
+}
