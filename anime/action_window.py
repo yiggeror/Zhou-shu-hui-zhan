@@ -626,7 +626,8 @@ def render_holds(name, hn, fs, O, A, raw):
     zoom = spec['zoom'] if spec.get('zoom') else overscan({n: Hs[n] @ P for n in hn}, size)
     C = np.array([[zoom, 0, (1 - zoom) * W / 2], [0, zoom, (1 - zoom) * H / 2], [0, 0, 1]])
     ones = np.ones(plate_c.shape[:2], np.float32)
-    edge_px = {n: 100 * float((cv2.warpPerspective(ones, C @ Hs[n] @ P, (W, H)) < 0.999).mean()) for n in hn}
+    fill_m = {n: cv2.warpPerspective(ones, C @ Hs[n] @ P, (W, H)) < 0.999 for n in hn}
+    edge_px = {n: 100 * float(fill_m[n].mean()) for n in hn}
     out = {}
     prev = None
     for n in ns:
@@ -713,7 +714,7 @@ def render_holds(name, hn, fs, O, A, raw):
                    f'light of the full drawing `{spec["full"]}` over the plate (smooth: exp of a quadratic in x, y per '
                    f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
                    f'brightness gain {bgain:.3f} (on the same content)')
-        out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover),
+        out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover), fill=fill_m[n],
                       base_label=labels[0], fx_label=labels[1],
                       exposed=(int(exposed.sum()), int(zone.sum())), src=(
             f'{name} repeat exposure (hold, ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
@@ -1017,7 +1018,7 @@ def main():
         for n in set(hn) | {sp['ref']} | extra:
             if n not in A:
                 A[n] = flames(O[n])
-    R, BASE, FX, src, tag, COVER, EXPOSED, LABELS = {}, {}, {}, {}, {}, {}, {}, {}
+    R, BASE, FX, src, tag, COVER, EXPOSED, LABELS, FILL = {}, {}, {}, {}, {}, {}, {}, {}, {}
     for name, hn in holds.items():
         t0 = time.time()
         rendered = (render_layers if fs[hn[0]].get('mode') == 'layers' else render_holds)(name, hn, fs, O, A, raw)
@@ -1025,6 +1026,8 @@ def main():
         for n, d in rendered.items():
             R[n], BASE[n], FX[n], src[n] = d['R'], d['base'], d['fx'], d['src']
             COVER[n], EXPOSED[n] = d.get('cover', d['R']), d['exposed']
+            if d.get('fill') is not None:
+                FILL[n] = d['fill']
             LABELS[n] = (d.get('base_label', 'effect-free base (plate+camera+blur+light)'),
                          d.get('fx_label', 'effects alone, new lines OFF (temporary, from original)'))
             k = hn.index(n) + 1
@@ -1081,6 +1084,36 @@ def main():
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
     # the redraw alone, native size, 24 fps, played once (no labels): for judging the motion itself
     write_mp4(os.path.join(out, 'redraw_24fps_once.mp4'), [to8(R[n]) for n in ns], 24, loops=1)
+    new_ns = [n for n in ns if not fs[n].get('frozen')]
+    if len(new_ns) != len(ns):                       # also the new frames alone (frozen seam frames left out)
+        write_mp4(os.path.join(out, 'redraw_24fps_once_new_frames_only.mp4'), [to8(R[n]) for n in new_ns], 24, loops=1)
+    if FILL:
+        # where the drawing's edge came into frame and was filled with its smeared edge colours: whole frame
+        # (red tint), and the depth of the fill at each side's middle and corners, so no edge goes unchecked
+        tiles = []
+        for n in sorted(FILL):
+            fm = FILL[n]
+            v = small(R[n], None, 560).copy()
+            fs_ = cv2.resize(fm.astype(np.uint8), (v.shape[1], v.shape[0]), interpolation=cv2.INTER_NEAREST) > 0
+            v[fs_] = (0.5 * v[fs_] + np.float32([0, 0, 127])).astype(np.uint8)
+
+            def depth(line):
+                idx = np.nonzero(~line)[0]
+                return int(idx[0]) if len(idx) else len(line)
+            d = dict(top=depth(fm[:, W // 2]), bottom=depth(fm[::-1, W // 2]), left=depth(fm[H // 2, :]),
+                     right=depth(fm[H // 2, ::-1]))
+            xs_, ys_ = range(int(0.1 * W), int(0.9 * W), 8), range(int(0.1 * H), int(0.9 * H), 8)   # inner 80 %
+            mx = dict(top=int(max(depth(fm[:, x]) for x in xs_)), bottom=int(max(depth(fm[::-1, x]) for x in xs_)),
+                      left=int(max(depth(fm[y, :]) for y in ys_)), right=int(max(depth(fm[y, ::-1]) for y in ys_)))
+            RW.label(v, f'n{n} fill {100 * fm.mean():.1f}%  mid T{d["top"]} B{d["bottom"]} L{d["left"]} R{d["right"]}'
+                        f'  max T{mx["top"]} B{mx["bottom"]} L{mx["left"]} R{mx["right"]} px')
+            tiles.append(v)
+            src[n] += (f'; edge fill: {100 * fm.mean():.1f}% of the frame, depth at the side middles top {d["top"]}, '
+                       f'bottom {d["bottom"]}, left {d["left"]}, right {d["right"]} px, deepest along the inner 80 % of each side top '
+                       f'{mx["top"]}, bottom {mx["bottom"]}, left {mx["left"]}, right {mx["right"]} px')
+        tiles += [np.zeros_like(tiles[0])] * (-len(tiles) % 3)
+        cv2.imwrite(os.path.join(out, 'edge_fill_sheet.jpg'),
+                    np.vstack([np.hstack(tiles[i:i + 3]) for i in range(0, len(tiles), 3)]), [cv2.IMWRITE_JPEG_QUALITY, 85])
     pair = [np.hstack([small(O[n], f'original n{n}'), small(R[n], f'n{n} {tag[n]}')]) for n in ns]
     write_mp4(os.path.join(out, 'side_by_side.mp4'), pair, 24, loops=3)
     slow = [cv2.putText(p.copy(), 'SLOW 6 fps (each frame x4)', (p.shape[1] // 2 - 140, p.shape[0] - 12),
@@ -1111,9 +1144,16 @@ def main():
     drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns})
     with open(os.path.join(out, 'sources.md'), 'w') as f:
         f.write(f'# {sheet.get("name", "window")} [{f0}, {f1}): where every frame comes from\n\n')
-        f.write(f'{len(ns)} frames at 24 fps; {len(drawings)} distinct drawings ({", ".join(drawings)}); '
-                f'{sum(1 for n in ns if "hold" in fs[n])} frames are exposures of a held drawing (each hold counted once, '
-                f'with its effect-free version; not counted as new drawings).\n\n')
+        frozen = sorted({fs[n].get('id') for n in ns if fs[n].get('frozen')})
+        variants = sorted({fs[n].get('id') for n in ns if fs[n].get('variant_of')})
+        bodies = [d for d in drawings if d not in frozen and d not in variants]
+        f.write(f'{len(ns)} frames at 24 fps ({len(new_ns)} new, {len(ns) - len(new_ns)} frozen seam frame(s) from an '
+                f'earlier window: {", ".join(frozen) or "none"}); {len(drawings)} distinct images in use: '
+                f'{len(bodies)} body/smear states ({", ".join(bodies)})'
+                + (f', {len(variants)} effect variant(s) of an existing body ({", ".join(variants)})' if variants else '')
+                + (f', {len(frozen)} frozen' if frozen else '') +
+                f'; {sum(1 for n in ns if "hold" in fs[n])} frames are exposures of a held image (repeat exposures are not '
+                f'new drawings).\n\n')
         for n in ns:
             f.write(f'- n{n}: {src[n]}\n')
     code = {p: sha(os.path.join(os.path.dirname(os.path.abspath(__file__)), p))

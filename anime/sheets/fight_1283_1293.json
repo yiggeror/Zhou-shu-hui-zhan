@@ -55,7 +55,8 @@
    "full": "collab/from_limo/037/completion_001/E05_n1290.png",
    "ref": 1287,
    "camera_only": "scale",
-   "zoom": 1.0
+   "zoom": 1.0,
+   "variant_of": "E04"
   },
   "1290": {
    "hold": "E05",
@@ -64,7 +65,8 @@
    "full": "collab/from_limo/037/completion_001/E05_n1290.png",
    "ref": 1287,
    "camera_only": "scale",
-   "zoom": 1.0
+   "zoom": 1.0,
+   "variant_of": "E04"
   },
   "1291": {
    "hold": "E05",
@@ -73,7 +75,8 @@
    "full": "collab/from_limo/037/completion_001/E05_n1290.png",
    "ref": 1287,
    "camera_only": "scale",
-   "zoom": 1.0
+   "zoom": 1.0,
+   "variant_of": "E04"
   }
  }
 }
