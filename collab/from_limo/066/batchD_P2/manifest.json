@@ -1,0 +1,651 @@
+{
+  "package": "P2",
+  "plan_version": "D34_v2",
+  "scope": "[1521,1540),19 exposures at24fps",
+  "selected_states": 10,
+  "exposure_frames": 19,
+  "quality_retries": 3,
+  "total_imagegen_calls": 13,
+  "moderation_failures": 0,
+  "target_native_dimensions": [
+    1672,
+    941
+  ],
+  "publication_scope": "Selected generated PNGs and public-safe prompts/QA only. Original source images and rejected candidates remain local. Coordinator alone creates tree/commit/ref.",
+  "rows": [
+    {
+      "id": "D_S01",
+      "start_n": 1521,
+      "end_n": 1522,
+      "exposure_frames": 1,
+      "source_n": 1521,
+      "source_pts": "1521/24",
+      "source_png": "source_png/n1521.png",
+      "group": "sukuna_side",
+      "category": "event",
+      "description": "Hard cut to high side angle: cropped face at far left and raised joined fingers against roof.",
+      "hold_approximation": "Single exposure; do not prematurely center the face or show a red eye.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "e9ed8208846c0664f888d5aea9a6c7f9e1ed933092acb683fea57199226e41ac",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S01_n1521.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S01_n1521.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1766637,
+      "output_sha256": "4405e0024fa0cd6d53cf3fc2c716d8db24334f695d7af1754c4c2215947f886c",
+      "output_git_blob_sha1": "aecd26b50f58f4aa7b8a776a5e58de6a3b4d60ad",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1521.png"
+      ],
+      "call_count": 2,
+      "selected_call": 2,
+      "selected_prompt_path": "prompts/D_S01_n1521_call2.txt",
+      "prompt_paths": [
+        "prompts/D_S01_n1521_call1.txt",
+        "prompts/D_S01_n1521_call2.txt"
+      ],
+      "retry_reason": "First candidate used 1602x981 canvas; source geometry required a wide16:9 frame. One targeted retry returned1672x941.",
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "None material observed locally.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 88.0971,
+          "mean_red_green_ratio": 0.8049,
+          "top_10_percent_red_mean": 16.9652
+        },
+        "output": {
+          "mean_luma_709": 86.855,
+          "mean_red_green_ratio": 0.777,
+          "top_10_percent_red_mean": 17.6601
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "aecd26b50f58f4aa7b8a776a5e58de6a3b4d60ad",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S02",
+      "start_n": 1522,
+      "end_n": 1523,
+      "exposure_frames": 1,
+      "source_n": 1522,
+      "source_pts": "1522/24",
+      "source_png": "source_png/n1522.png",
+      "group": "sukuna_side",
+      "category": "event",
+      "description": "Face slides fully into the side view with both visible lids still closed.",
+      "hold_approximation": "Single exposure before the lower red-eye reveal.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "01aeec06ce7aa02927b5b630ab6b3954fed0118c39c34bf2d1d5e2d49e261221",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S02_n1522.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S02_n1522.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1786049,
+      "output_sha256": "f74a34b5c038853961302720af1fb9b4b97852f3f4054b1b6df0f47c4f45f0a9",
+      "output_git_blob_sha1": "9bc7218f40e78099489bbd54debb0d40de4e4cd8",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1522.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S02_n1522_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S02_n1522_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "None material observed locally; visible lids closed and no red reveal.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 73.6813,
+          "mean_red_green_ratio": 0.8054,
+          "top_10_percent_red_mean": 14.0391
+        },
+        "output": {
+          "mean_luma_709": 74.405,
+          "mean_red_green_ratio": 0.8236,
+          "top_10_percent_red_mean": 18.0868
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "9bc7218f40e78099489bbd54debb0d40de4e4cd8",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S03",
+      "start_n": 1523,
+      "end_n": 1525,
+      "exposure_frames": 2,
+      "source_n": 1523,
+      "source_pts": "1523/24",
+      "source_png": "source_png/n1523.png",
+      "group": "sukuna_side",
+      "category": "event",
+      "description": "Lower extra red eye first visible; red top streak appears, main upper lid closed.",
+      "hold_approximation": "Two-frame hold samples side travel and warm-up. Preserve this reveal at1523.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "b6cf48f88c3c3f3d93727f77464e132d9272225f602e528983cbf7cc5a3f780c",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S03_n1523.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S03_n1523.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1645270,
+      "output_sha256": "821b927da0328b5c6492e94b69400369791e1163631f7ae484210574772354db",
+      "output_git_blob_sha1": "bc542f50f7e6932de1f31cb4d10f2a40c5cc32ca",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1523.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S03_n1523_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S03_n1523_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Ordinary surfaces slightly brighter than source; main lid remains closed.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 59.5877,
+          "mean_red_green_ratio": 0.9183,
+          "top_10_percent_red_mean": 14.5835
+        },
+        "output": {
+          "mean_luma_709": 67.1253,
+          "mean_red_green_ratio": 0.8845,
+          "top_10_percent_red_mean": 15.6612
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "bc542f50f7e6932de1f31cb4d10f2a40c5cc32ca",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S04",
+      "start_n": 1525,
+      "end_n": 1526,
+      "exposure_frames": 1,
+      "source_n": 1525,
+      "source_pts": "1525/24",
+      "source_png": "source_png/n1525.png",
+      "group": "sukuna_side",
+      "category": "event",
+      "description": "Main upper lid first visibly separates, before the red iris clearly emerges.",
+      "hold_approximation": "Single exposure; avoid importing the fully open1526/1528 eye.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "a8d9228270ef5c65af0da7230545987e8e820025079075417d1e5f11508169c6",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S04_n1525.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S04_n1525.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1556677,
+      "output_sha256": "1886356e0459e38d97ae397cddf6462c0388024a1c533c08198bea2ab4b21fe0",
+      "output_git_blob_sha1": "9e27eff09066a024da9892428d0a62a38f28d6e8",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1525.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S04_n1525_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S04_n1525_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Ordinary skin/clothing brighter than source; main eye narrow dark opening with no clear iris. Assess bounded surface grading, not blanket emissive protection.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 49.9369,
+          "mean_red_green_ratio": 1.2292,
+          "top_10_percent_red_mean": 34.4282
+        },
+        "output": {
+          "mean_luma_709": 62.661,
+          "mean_red_green_ratio": 1.2785,
+          "top_10_percent_red_mean": 40.0773
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "9e27eff09066a024da9892428d0a62a38f28d6e8",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S05",
+      "start_n": 1526,
+      "end_n": 1528,
+      "exposure_frames": 2,
+      "source_n": 1526,
+      "source_pts": "1526/24",
+      "source_png": "source_png/n1526.png",
+      "group": "sukuna_side",
+      "category": "event",
+      "description": "Main red iris emerges under the opening upper lid; joined hand stays stable.",
+      "hold_approximation": "Two-frame eye-opening hold; slight camera motion is a declared approximation.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "9037c454803d78d3bc4a934d9af1d413eece7e94f386c4c8bb946830b7cae2e7",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S05_n1526.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S05_n1526.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1576666,
+      "output_sha256": "1323595db1bb8c6610465d67831f26d1228903708812e3e573b06201dd5ae7ec",
+      "output_git_blob_sha1": "45b57d95f73dd2c7a6225153b5bff888a761201d",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1526.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S05_n1526_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S05_n1526_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Ordinary skin/clothing brighter than source. Assess source-led surface grading without dulling actual red effects.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 48.7495,
+          "mean_red_green_ratio": 1.3631,
+          "top_10_percent_red_mean": 42.9604
+        },
+        "output": {
+          "mean_luma_709": 64.9897,
+          "mean_red_green_ratio": 1.3309,
+          "top_10_percent_red_mean": 50.521
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "45b57d95f73dd2c7a6225153b5bff888a761201d",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S06",
+      "start_n": 1528,
+      "end_n": 1532,
+      "exposure_frames": 4,
+      "source_n": 1528,
+      "source_pts": "1528/24",
+      "source_png": "source_png/n1528.png",
+      "group": "sukuna_side",
+      "category": "settled_pose",
+      "description": "Settled open red eyes and side-angle hand-sign under growing warm flare.",
+      "hold_approximation": "Four-frame settled side-sign hold. n1532 introduces a separately drawn later light/viewpoint sample; no whole-frame camera or body warp.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "4cb64dfc271ea4cd8fb384b304bb6193a1c1d0e7dc683f13be9eee9c676ebd9f",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S06_n1528.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S06_n1528.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1599360,
+      "output_sha256": "bfc8546132c7510e0346001d91648dbe1188691f5733de22a1c14f3d61494ac8",
+      "output_git_blob_sha1": "375a066fcafe7c102d20f071abbddb529ebf4281",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1528.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S06_n1528_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S06_n1528_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Ordinary skin/clothing brighter than source. Its four-frame hold must stop before1532; do not stretch to1537.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 46.9676,
+          "mean_red_green_ratio": 1.5073,
+          "top_10_percent_red_mean": 42.4684
+        },
+        "output": {
+          "mean_luma_709": 62.7203,
+          "mean_red_green_ratio": 1.4939,
+          "top_10_percent_red_mean": 48.1341
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "375a066fcafe7c102d20f071abbddb529ebf4281",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S06b",
+      "start_n": 1532,
+      "end_n": 1537,
+      "exposure_frames": 5,
+      "source_n": 1532,
+      "source_pts": "1532/24",
+      "source_png": "source_png/n1532.png",
+      "group": "sukuna_side",
+      "category": "viewpoint_light_anchor",
+      "description": "Late settled side-sign sampling its actual stronger red top flare, warmer surface lighting and slightly changed crop.",
+      "hold_approximation": "Five-frame late light/viewpoint hold; body action remains settled. Minor remaining drift and light progression may be approximated by source-led endpoint grading, never a manufactured camera or an early future pose.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "a44cd7276af14c79df50e338fa75ed45e2a229141f4701b039c0bb4c38671ae8",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S06b_n1532.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S06b_n1532.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1584392,
+      "output_sha256": "b2fa3927a9167511d2d434ac22c3e0d44d15b91febad3f5b3cd243c2bd4097ef",
+      "output_git_blob_sha1": "647e9b3d89247d861ee9792493c90a052bbcccb6",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1532.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S06b_n1532_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S06b_n1532_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Ordinary surfaces brighter and red/green balance warmer than own source. Conditioned static pass reported by coordinator; assess actual-speed grade/seam before final composite.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 47.2189,
+          "mean_red_green_ratio": 1.8264,
+          "top_10_percent_red_mean": 71.2989
+        },
+        "output": {
+          "mean_luma_709": 58.4045,
+          "mean_red_green_ratio": 2.065,
+          "top_10_percent_red_mean": 85.8244
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "647e9b3d89247d861ee9792493c90a052bbcccb6",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S07",
+      "start_n": 1537,
+      "end_n": 1538,
+      "exposure_frames": 1,
+      "source_n": 1537,
+      "source_pts": "1537/24",
+      "source_png": "source_png/n1537.png",
+      "group": "sukuna_push",
+      "category": "transition",
+      "description": "Hand blur and accelerated side-angle push begin.",
+      "hold_approximation": "Single exposure; preserve the onset instead of carrying the sharp settled pose across1537.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "e996f94257707f17b63a6d525d0054d9f624a46b0822c55769beb48b14ad92bc",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S07_n1537.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S07_n1537.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1580769,
+      "output_sha256": "07b9ee2e83f9430ff2e281fcd51a5cdc82edec9982d0e96c15963e308d5d4cdf",
+      "output_git_blob_sha1": "15cf0db97b0004afef88e890bed777e95e094214",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1537.png"
+      ],
+      "call_count": 1,
+      "selected_call": 1,
+      "selected_prompt_path": "prompts/D_S07_n1537_call1.txt",
+      "prompt_paths": [
+        "prompts/D_S07_n1537_call1.txt"
+      ],
+      "retry_reason": null,
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Hand blur deliberately retained. Ordinary surfaces moderately brighter; preserve source red streak and narrow edge-light core in grading.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 63.7451,
+          "mean_red_green_ratio": 2.1859,
+          "top_10_percent_red_mean": 147.9247
+        },
+        "output": {
+          "mean_luma_709": 71.8251,
+          "mean_red_green_ratio": 2.087,
+          "top_10_percent_red_mean": 157.8777
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "15cf0db97b0004afef88e890bed777e95e094214",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S08",
+      "start_n": 1538,
+      "end_n": 1539,
+      "exposure_frames": 1,
+      "source_n": 1538,
+      "source_pts": "1538/24",
+      "source_png": "source_png/n1538.png",
+      "group": "sukuna_push",
+      "category": "transition",
+      "description": "Closer side-face push with blurred hand crossing the right.",
+      "hold_approximation": "Single exposure; preserve source crop and smear.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "d57a6b420651133b9c74e9c7c715320f74904c3b7c8c160857bbed4a3436da23",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S08_n1538.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S08_n1538.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1356415,
+      "output_sha256": "ca5bbf963b5ae0ecd82751550a2f879b35d4b0c1795087dce73afee013163a8a",
+      "output_git_blob_sha1": "f6497e604d63fe8545e82ee52a2fcefc450947a0",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1538.png"
+      ],
+      "call_count": 2,
+      "selected_call": 2,
+      "selected_prompt_path": "prompts/D_S08_n1538_call2.txt",
+      "prompt_paths": [
+        "prompts/D_S08_n1538_call1.txt",
+        "prompts/D_S08_n1538_call2.txt"
+      ],
+      "retry_reason": "First candidate facial contour lines were too crisp for this actual motion smear. One targeted retry softened the face in the generated drawing.",
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Horizontal face/hand blur deliberately retained; selected second call restores source-motion softness.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 78.081,
+          "mean_red_green_ratio": 2.2754,
+          "top_10_percent_red_mean": 202.7952
+        },
+        "output": {
+          "mean_luma_709": 79.7254,
+          "mean_red_green_ratio": 2.4965,
+          "top_10_percent_red_mean": 214.8641
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "f6497e604d63fe8545e82ee52a2fcefc450947a0",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    },
+    {
+      "id": "D_S09",
+      "start_n": 1539,
+      "end_n": 1540,
+      "exposure_frames": 1,
+      "source_n": 1539,
+      "source_pts": "1539/24",
+      "source_png": "source_png/n1539.png",
+      "group": "sukuna_push",
+      "category": "transition",
+      "description": "Extreme side-eye smear and red wash, still the side view.",
+      "hold_approximation": "Single exposure; this is not yet the frontal view and not a white/red flat flash.",
+      "camera": "none",
+      "delivery_type": "one full-frame selected drawing",
+      "source_image_sha256": "828535384817100295f572b8507a550cf6b9ce7db351157abbd5f076923eaee1",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_file": "selected/D_S09_n1539.png",
+      "public_output_path": "collab/from_limo/066/batchD_P2/selected/D_S09_n1539.png",
+      "output_dimensions": [
+        1672,
+        941
+      ],
+      "output_mode": "RGB",
+      "output_bytes": 1236179,
+      "output_sha256": "069d2f3d52ad91eba273df5a06d029abb8668ad188acf1835467a94e171942f3",
+      "output_git_blob_sha1": "da67c1b4731e2740449e25b831c1d47ccdbea7be",
+      "method": "built-in image_gen strong-source style transfer; one image per call",
+      "creative_postprocessing": "none; generated PNG bytes preserved unchanged",
+      "reference_images": [
+        "source_png/n1539.png"
+      ],
+      "call_count": 2,
+      "selected_call": 2,
+      "selected_prompt_path": "prompts/D_S09_n1539_call2.txt",
+      "prompt_paths": [
+        "prompts/D_S09_n1539_call1.txt",
+        "prompts/D_S09_n1539_call2.txt"
+      ],
+      "retry_reason": "First candidate used too-crisp fibrous speed-line hatching. One targeted retry returned smoother broad motion blur; contours remain slightly firmer than the original.",
+      "enhancement": "Restrained ink/cel line clarity while preserving own source composition, actual eye event, effect positions and focus; no added action/effect.",
+      "residual": "Extreme side-eye crop retained with broad horizontal smear, no frontal reconstruction. Selected retry is smoother than rejected first call; some black edges remain firmer than source and need independent actual-speed seam review.",
+      "local_qa": "All own source images and every returned candidate visually inspected. Selected file PNG decoded and hashed.",
+      "source_output_photometric_metrics": {
+        "source": {
+          "mean_luma_709": 88.3646,
+          "mean_red_green_ratio": 2.0719,
+          "top_10_percent_red_mean": 191.5727
+        },
+        "output": {
+          "mean_luma_709": 88.9429,
+          "mean_red_green_ratio": 2.1001,
+          "top_10_percent_red_mean": 195.9696
+        }
+      },
+      "github_blob_receipt": {
+        "repository": "yiggeror/Zhou-shu-hui-zhan",
+        "sha": "da67c1b4731e2740449e25b831c1d47ccdbea7be",
+        "verified_against_local_git_blob_sha1": true,
+        "status": "blob stored; not a commit or published tree"
+      }
+    }
+  ],
+  "selected_blob_upload_status": "10/10 stored and returned SHA verified; no trees, commits, refs created by this producer"
+}

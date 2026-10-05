@@ -1,0 +1,13 @@
+P2 production QA: D34 plan v2
+
+Scope: ten selected drawings for source exposures [1521,1540), 19 frames at24fps. The source n1528 quiet state covers [1528,1532); the independently drawn n1532 later light/viewpoint state covers [1532,1537). No whole-frame pan, zoom, body warp or optical-flow interpolation was used.
+
+All ten selected files are original generated opaque RGB PNG bytes at1672x941. Artwork was not resized, cropped, stretched, recolored or otherwise programmatically edited after generation. These are native1672x941 art frames, not1080p. Any later video padding is separate compositor work.
+
+Built-in image_gen was used for every drawing, one image per call. Own source geometry was the sole reference for each state. All ten source images and all thirteen returned candidates were visually inspected. There were thirteen calls: one first call per selected state plus one targeted retry each for S01 wrong canvas ratio, S08 overly sharp facial focus and S09 overly fibrous smear edges. Three rejected candidates remain local and are excluded from selected publication. There were no moderation denials.
+
+Eye events checked: S01 cropped high-side entry with no invented red eye; S02 closed lids; S03 small lower red eye with main lid closed and thin top red streak; S04 upper-lid separation as a narrow dark gap; S05 emerging main red iris; S06 settled eye state. S06b independently samples the stronger n1532 source light and its own crop. S07 begins hand blur; S08 pushes closer with face and hand blur; S09 remains an extreme side-eye smear rather than becoming frontal or a flat flash.
+
+Residuals for compositor/independent review: ordinary skin and clothing are brighter than source especially S04-S06, and S06b is somewhat warmer. Do not treat all bright surface pixels as emissive and do not dull actual effect cores to match a global average. S09 selected retry removed fine scratchlike streaks but some black edges remain firmer than source; inspect its actual-speed seam. Detailed photometric diagnostics are in manifest.json and are diagnostics only. No luma metric was used to alter the artwork.
+
+All ten selected PNG Git blobs were stored in yiggeror/Zhou-shu-hui-zhan and every returned SHA matched locally calculated Git blob SHA1. No tree, commit, branch or ref was created here. Source images, source video and rejected candidates were not uploaded. Final selection, bounded photography and commit creation remain with the coordinator following independent review.

@@ -1,0 +1,76 @@
+{
+  "review_utc": "2026-10-05T14:32:04.408340+00:00",
+  "review_scope": "Independent image-only static review. Photography, temporal grading, encoded playback and frozen-master join are not certified here.",
+  "verdict": "CONDITIONAL_STATIC_PASS",
+  "material_redraw_request": false,
+  "selected_states": 34,
+  "covered_exposure_frames": 74,
+  "window_half_open": [
+    1485,
+    1559
+  ],
+  "fps": "24/1",
+  "repeated_exposures": 40,
+  "source_video_sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+  "source_png_dimensions": [
+    2560,
+    1440
+  ],
+  "table_commit": "245690f0195eba4c7dce168b618fb2d96da65b03",
+  "table_gitblob_sha1": "fa70c6149b4e4d53703c8904f84863cc2f6bae91",
+  "table_sha256": "0683a9b79bbaf3a80253656dc6f21ab3eec6f4db657c8b6f1875d358fad67c92",
+  "table_url": "https://github.com/yiggeror/Zhou-shu-hui-zhan/blob/245690f0195eba4c7dce168b618fb2d96da65b03/collab/from_limo/066/D_34_exposure_table_002.csv",
+  "selected_dimensions_histogram": {
+    "1672x941": 33,
+    "1671x941": 1
+  },
+  "total_calls": 41,
+  "total_prompts": 41,
+  "selected_prompt_count": 34,
+  "prompt_directory_txt_count": 41,
+  "retained_candidate_prompt_txt_count": 2,
+  "prompt_accounting_note": "41 distinct call prompts are saved as 41 public-safe TXT files in producer prompts directories. P1 also retains two byte-identical rejected-call prompt copies with private candidates; these duplicate copies are not counted as extra calls/prompts. There are 34 selected prompts. Rejected images and raw tool logs remain excluded.",
+  "total_rejected_candidates": 7,
+  "all_selected_hashes_match_final_manifests_and_visual_review": true,
+  "packages": [
+    {
+      "package": "P1",
+      "selected_count": 14,
+      "exposure_frames": 36,
+      "calls": 16,
+      "prompts": 16,
+      "rejects": 2,
+      "reported_moderation_failures": 0,
+      "manifest_sha256": "b507c880a7f0b24509263e50a1f790017be8daf8d5fdd6bd0828c6588e8e2312"
+    },
+    {
+      "package": "P2",
+      "selected_count": 10,
+      "exposure_frames": 19,
+      "calls": 13,
+      "prompts": 13,
+      "rejects": 3,
+      "reported_moderation_failures": 0,
+      "manifest_sha256": "37096c680b3ed9b1bda54e7d3da0e5d306f940f58d599b82e627a053bf34aeb0"
+    },
+    {
+      "package": "P3",
+      "selected_count": 10,
+      "exposure_frames": 19,
+      "calls": 12,
+      "prompts": 12,
+      "rejects": 2,
+      "reported_moderation_failures": 0,
+      "manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "publication_note": "This directory contains public-safe hashes and findings only. Source-bearing contact sheets are excluded. No files were published by this review.",
+  "limits": [
+    "No new image generation or production-file edits by reviewer.",
+    "Git blob hashes are locally recomputed object identities, not a claim of remote upload or publication.",
+    "Producer call/candidate accounting is checked against prompt and retained candidate files; external model service logs are not independently available.",
+    "Frozen 298-frame master was not edited or processed by this static review."
+  ]
+}

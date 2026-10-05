@@ -1,0 +1,19 @@
+P3 local QA: 10 selected source-specific full-frame drawings, 19 exposures [1540,1559) at 24 fps.
+All source images and all 12 generated candidates inspected. No pixel-level post-generation editing, resizing, cropping, masks, interpolation, or pan/zoom substitution. Selected files byte-identical to image_gen originals.
+
+D_F01 n1540: Frontal hand-obscured extreme close smear and red-eye fragments retained; no clean anatomy reconstructed. Dimensions [1672, 941]; selected call 1/1.
+D_F02 n1542: Assembling foreground hands remain intentionally blurred; face and warm sky readable. Dimensions [1672, 941]; selected call 1/1.
+D_F03 n1543: Sharp joined fingertips precede the full grin; mouth still partly occluded. Dimensions [1672, 941]; selected call 1/1.
+D_F04 n1544: Clear sign and readable grin; warm sky present with no premature black halo. Dimensions [1672, 941]; selected call 1/1.
+D_D01 n1548: First modest ragged black patches appear at temple/neck; warm sky and true hand highlights remain. Dimensions [1672, 941]; selected call 2/2.
+D_D02 n1550: Large ragged black halo with broad left sky remnant and narrow hand rim present. Dimensions [1671, 941]; selected call 2/2.
+D_D03 n1552: Narrow left sky wedge, tiny fingertip and knuckle highlights remain; no continuous white hand outline. Dimensions [1672, 941]; selected call 1/1.
+D_D04 n1553: Rim highlights off, only extreme upper-left sky sliver remains, with dim warm lower-face underlight. Dimensions [1672, 941]; selected call 1/1.
+D_D05 n1554: Fully black background; structured person, red eyes, sign and warm underlight remain visible. Dimensions [1672, 941]; selected call 1/1.
+D_D06 n1557: Farther crop reveals more wrist and forearm; dark background and visible underlit character retained. Dimensions [1672, 941]; selected call 1/1.
+
+D_D02 n1550 is native 1671x941. One-column smooth-edge extension may be handled by compositor; selected native bytes unchanged.
+Two targeted quality retries on n1548/n1550 corrected materially lifted face shadows. Red eyes, sky and true narrow hand rims retained. No moderation failures.
+Residual: mild source-to-drawing local color and contour differences. n1540 photographic blur interpreted as directional ink smear. All 10 are independent full-frame drawings; darkening states represent light/view progression, not six new body actions. Final sequence/compositor review remains required.
+
+Independent static review passed all ten poses/events. Residual: D_D05/D_D06 ordinary warm underlit surfaces slightly bright; compositor may adjust those non-emissive surface tones without dimming red eyes.
