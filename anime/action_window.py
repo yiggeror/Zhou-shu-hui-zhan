@@ -706,7 +706,12 @@ def render_holds(name, hn, fs, O, A, raw):
         fmask = (feature_mask(O[n], A[n]) > 0).astype(np.uint8)
         shutter, target, ratios = fit_shutter(O[ref], O[n], Hprev, Hn, fmask) if prev is not None else (0.0, 1.0, {})
         light0_moved = cv2.warpPerspective(light0, Hn, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref], Hn)
+        if spec.get('light') == 'fixed':
+            # each original frame of this hold is a different view (drawings on twos over a 3D fly-through): there is
+            # no same content to measure a change of light on, so the light is held
+            light, w, bgain = light0_moved, 1.0, 1.0
+        else:
+            light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref], Hn)
         base = path_blur(plate_c, Hprev @ P, Hn @ P, shutter) * light
         zone = cv2.warpPerspective(drawn_fx, Hn, (W, H), flags=cv2.INTER_NEAREST) > 0.5
         if mode == 'full':
@@ -777,7 +782,9 @@ def render_holds(name, hn, fs, O, A, raw):
         nu = non_uniform(Hn)
         what = (f'full drawing `{spec["full"]}` held (short hold, its own effects)' if mode == 'full' else
                 f'plate `{spec["plate"]}`' + (f' (viewport {spec["viewport"]})' if spec.get('viewport') else ''))
-        light_s = (f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n} on the same content)' if mode == 'full' else
+        light_s = ('light held (light: fixed; the original\'s frames of this hold are different views, no same content '
+                   'to measure a change on)' if spec.get('light') == 'fixed' else
+                   f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n} on the same content)' if mode == 'full' else
                    f'light of the full drawing `{spec["full"]}` over the plate (smooth: exp of a quadratic in x, y per '
                    f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
                    f'brightness gain {bgain:.3f} (on the same content)')
@@ -1202,28 +1209,47 @@ def main():
             lo, hi = ww.get('lo', 0.80), ww.get('hi', 0.95)
             w = np.clip((L.lum(O[n]) - lo) / (hi - lo), 0, 1).astype(np.float32)
             a0 = np.clip(cv2.GaussianBlur(w, (0, 0), ww.get('sigma', 40)), 0, 1)[..., None]
-            before = float((R[n].min(2) >= 250 / 255).mean())
-            target = float((O[n].min(2) >= 250 / 255).mean())
+            thr = 249.5 / 255                          # what rounds to >= 250 in the 8-bit output
+            before = float((R[n].min(2) >= thr).mean())
+            target = float((O[n].min(2) >= thr).mean())
+            lum_o = float(L.lum(O[n]).mean())
+            sub = (slice(None, None, 2), slice(None, None, 2))
+            r_s, a_s = R[n][sub], a0[sub]
 
-            def share(k):
-                x = R[n] * (1 - np.clip(k * a0, 0, 1)) + np.clip(k * a0, 0, 1)
-                return float((x.min(2) >= 250 / 255).mean())
-            # one scalar on the field so the white share matches the original's (bisection; 0 if the drawing is
-            # already as white)
-            klo, khi = 0.0, 3.0
-            if share(0.0) < target:
-                for _ in range(20):
+            def washed(k, c, x=r_s, a=a_s):
+                al = np.clip(k * a + c, 0, 1)
+                return x * (1 - al) + al
+
+            def share(k, c):
+                return float((washed(k, c).min(2) >= thr).mean())
+
+            def fit_k(c):
+                # the scalar on the field so the white share matches the original's (bisection; 0 if already as white)
+                if share(0.0, c) >= target:
+                    return 0.0
+                klo, khi = 0.0, 3.0
+                for _ in range(18):
                     km = (klo + khi) / 2
-                    klo, khi = (km, khi) if share(km) < target else (klo, km)
-            kk = (klo + khi) / 2 if share(0.0) < target else 0.0
-            alpha = np.clip(kk * a0, 0, 1)
+                    klo, khi = (km, khi) if share(km, c) < target else (klo, km)
+                return (klo + khi) / 2
+            # two numbers fitted to the original: the field's scale (white share) and a uniform white veil over the
+            # whole frame (mean luminance; the flash washes out the frame as a whole as it fades)
+            best = None
+            for c in np.arange(0.0, 0.62, 0.02):
+                k = fit_k(c)
+                err = abs(float(L.lum(washed(k, c)).mean()) - lum_o)
+                if best is None or err < best[0]:
+                    best = (err, k, float(c))
+            _, kk, cc = best
+            alpha = np.clip(kk * a0 + cc, 0, 1)
             R[n] = R[n] * (1 - alpha) + alpha
-            src[n] += (f'; WHITE WASH (composited): white over the drawing with the strength of the original\'s '
-                       f'whiteness (luminance {lo}-{hi} -> 0-1), blurred {ww.get("sigma", 40)} px, times {kk:.3f} so '
-                       f'that the white share matches the original\'s, mean strength '
-                       f'{float(alpha.mean()):.2f}; pixels >= 250/255 in all channels: original '
-                       f'{100 * float((O[n].min(2) >= 250 / 255).mean()):.1f}%, drawing before {100 * before:.1f}%, after '
-                       f'{100 * float((R[n].min(2) >= 250 / 255).mean()):.1f}%')
+            src[n] += (f'; WHITE WASH (composited): white over the drawing, strength = {kk:.3f} x the original\'s '
+                       f'whiteness (luminance {lo}-{hi} -> 0-1, blurred {ww.get("sigma", 40)} px) + a uniform veil {cc:.2f}; '
+                       f'the two numbers fitted so that the share of pixels >= 250/255 in all channels and the mean '
+                       f'luminance match the original; mean strength {float(alpha.mean()):.2f}; white share original '
+                       f'{100 * target:.1f}%, drawing before {100 * before:.1f}%, after '
+                       f'{100 * float((R[n].min(2) >= thr).mean()):.1f}%; mean luminance original {255 * lum_o:.1f}, after '
+                       f'{255 * float(L.lum(R[n]).mean()):.1f}')
             tag[n] += ' + white wash'
     for n in ns:
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
