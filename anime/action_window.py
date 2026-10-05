@@ -374,11 +374,28 @@ def _energy(x, m):
     return float(e[m].mean())
 
 
+def _cell_energy(x, m, gx=4, gy=3):
+    """edge energy per cell of a gx x gy grid (cells with too little usable area or almost no edges left out)"""
+    g = L.lum(cv2.resize(x, (W // 2, H // 2), interpolation=cv2.INTER_AREA))
+    e = np.hypot(cv2.Sobel(g, cv2.CV_32F, 1, 0), cv2.Sobel(g, cv2.CV_32F, 0, 1))
+    h, w = m.shape
+    out = {}
+    for j in range(gy):
+        for i in range(gx):
+            sl = (slice(j * h // gy, (j + 1) * h // gy), slice(i * w // gx, (i + 1) * w // gx))
+            if m[sl].sum() >= 2000:
+                out[(i, j)] = float(e[sl][m[sl]].mean())
+    return out
+
+
 def fit_shutter(o_ref, o, Hprev, Hcur, mask):
     """the shutter (blur length along the camera path) that makes the original's reference frame, moved along the
     path, as soft as the original's frame n.  Matched on edge energy (mean gradient), away from flames and the
     watermark, so that a changed detail does not pass for blur; measured back in the reference framing, so that a
-    zoom-in's enlargement does not pass for blur either.  0 unless frame n is clearly softer (< 0.85)."""
+    zoom-in's enlargement does not pass for blur either.  A camera blur softens the whole frame, so it is read per
+    cell of a 4 x 3 grid and the upper quartile of the cells decides: a blur that only one part of the original has
+    (a foreground limb moving on its own) does not pass for a camera blur (Limo, 042: never blur a sharp character
+    to chase a local blur).  0 unless frame n is clearly softer (< 0.85)."""
     back = np.linalg.inv(Hcur)
     m = cv2.warpPerspective(mask, back, (W, H), flags=cv2.INTER_NEAREST)
     m = cv2.resize(m, (W // 2, H // 2), interpolation=cv2.INTER_NEAREST) > 0
@@ -386,14 +403,26 @@ def fit_shutter(o_ref, o, Hprev, Hcur, mask):
         return 0.0, 1.0, {0.0: 1.0}
 
     def e(x):
-        return _energy(cv2.warpPerspective(x, back, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE), m)
-    e0 = e(path_blur(o_ref, Hprev, Hcur, 0))
-    target = e(o) / max(e0, 1e-6)
+        return _cell_energy(cv2.warpPerspective(x, back, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE), m)
+    c0 = e(path_blur(o_ref, Hprev, Hcur, 0))
+    keep = [k for k, v in c0.items() if v > 1e-3]
+    if len(keep) < 3:                                    # too little to read per cell: the whole frame
+        def stat(x):
+            return _energy(cv2.warpPerspective(x, back, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE), m)
+        e0 = stat(path_blur(o_ref, Hprev, Hcur, 0))
+
+        def ratio(x):
+            return stat(x) / max(e0, 1e-6)
+    else:
+        def ratio(x):
+            cx = e(x)
+            return float(np.percentile([cx[k] / c0[k] for k in keep], 75))
+    target = ratio(o)
     ratios = {0.0: 1.0}
     if target >= 0.85:
         return 0.0, target, ratios
     for s in SHUTTERS[1:]:
-        ratios[s] = e(path_blur(o_ref, Hprev, Hcur, s, samples=24)) / max(e0, 1e-6)
+        ratios[s] = ratio(path_blur(o_ref, Hprev, Hcur, s, samples=24))
     best = min(ratios, key=lambda k: abs(ratios[k] - target))
     return best, target, ratios
 
@@ -757,7 +786,7 @@ def render_holds(name, hn, fs, O, A, raw):
             f'keep the drawing\'s edges out of frame (at most {MAX_ZOOM}; beyond that its edge colours are smeared in: '
             f'{edge_px[n]:.1f}% of this frame)): at the centre scale {s:.4f}, rotation {r:+.2f} deg, shift ({c[0]:+.1f}, {c[1]:+.1f}) '
             f'px, scale axes ratio {nu[0]:.4f}, shear {nu[1]:+.2f} deg; camera blur: shutter {shutter} frame(s) along the path from n{prev} (original\'s edge energy vs. '
-            f'moved n{ref}: {target:.2f}' +
+            f'moved n{ref}, upper quartile of 12 cells: {target:.2f}' +
             (f'; reached ' + ', '.join(f'{k}: {v:.2f}' for k, v in ratios.items()) if len(ratios) > 1 else '') + '); '
             + fxs))
         prev = n
@@ -1139,8 +1168,10 @@ def main():
             xs_, ys_ = range(int(0.1 * W), int(0.9 * W), 8), range(int(0.1 * H), int(0.9 * H), 8)   # inner 80 %
             mx = dict(top=int(max(depth(fm[:, x]) for x in xs_)), bottom=int(max(depth(fm[::-1, x]) for x in xs_)),
                       left=int(max(depth(fm[y, :]) for y in ys_)), right=int(max(depth(fm[y, ::-1]) for y in ys_)))
-            RW.label(v, f'n{n} fill {100 * fm.mean():.1f}%  mid T{d["top"]} B{d["bottom"]} L{d["left"]} R{d["right"]}'
-                        f'  max T{mx["top"]} B{mx["bottom"]} L{mx["left"]} R{mx["right"]} px')
+            RW.label(v, f'n{n} fill {100 * fm.mean():.1f}%  side middles T{d["top"]} B{d["bottom"]} L{d["left"]} R{d["right"]} px')
+            for th, col in ((3, (0, 0, 0)), (1, (255, 255, 255))):
+                cv2.putText(v, f'deepest (inner 80%) T{mx["top"]} B{mx["bottom"]} L{mx["left"]} R{mx["right"]} px', (6, 42),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.55, col, th)
             tiles.append(v)
             src[n] += (f'; edge fill: {100 * fm.mean():.1f}% of the frame, depth at the side middles top {d["top"]}, '
                        f'bottom {d["bottom"]}, left {d["left"]}, right {d["right"]} px, deepest along the inner 80 % of each side top '

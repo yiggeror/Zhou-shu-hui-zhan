@@ -6,7 +6,12 @@
  ],
  "grade": {
   "strength": 1.0,
-  "sigma": 4.0
+  "sigma": 4.0,
+  "modes": {
+   "E04": "luma",
+   "E05small": "luma",
+   "E05b": "luma"
+  }
  },
  "frames_sheet": {
   "1283": {
@@ -26,17 +31,13 @@
    "drawing": "collab/from_limo/037/completion_001/E03_n1286_v2.png",
    "id": "E03"
   },
-  "1292": {
-   "drawing": "collab/from_limo/037/anchors_001/E06_n1292.png",
-   "id": "E06"
-  },
   "1287": {
    "hold": "E04",
    "id": "E04",
    "mode": "full",
    "full": "collab/from_limo/037/anchors_001/E04_n1287.png",
    "ref": 1287,
-   "camera_only": "scale",
+   "camera_only": "none",
    "zoom": 1.0
   },
   "1288": {
@@ -45,38 +46,39 @@
    "mode": "full",
    "full": "collab/from_limo/037/anchors_001/E04_n1287.png",
    "ref": 1287,
-   "camera_only": "scale",
+   "camera_only": "none",
    "zoom": 1.0
   },
   "1289": {
-   "hold": "E05",
-   "id": "E05",
+   "hold": "E05small",
+   "id": "E05small",
    "mode": "full",
-   "full": "collab/from_limo/037/completion_001/E05_n1290.png",
+   "full": "collab/from_limo/042/corrections_001/E05small_n1289.png",
    "ref": 1287,
-   "camera_only": "scale",
+   "camera_only": "none",
    "zoom": 1.0,
-   "variant_of": "E04"
+   "variant_of": "E04",
+   "register_with": "collab/from_limo/037/anchors_001/E04_n1287.png"
   },
   "1290": {
-   "hold": "E05",
-   "id": "E05",
+   "hold": "E05b",
+   "id": "E05b",
    "mode": "full",
-   "full": "collab/from_limo/037/completion_001/E05_n1290.png",
-   "ref": 1287,
-   "camera_only": "scale",
-   "zoom": 1.0,
-   "variant_of": "E04"
+   "full": "collab/from_limo/042/corrections_001/E05b_n1290.png",
+   "ref": 1290,
+   "zoom": 1.0
   },
   "1291": {
-   "hold": "E05",
-   "id": "E05",
+   "hold": "E05b",
+   "id": "E05b",
    "mode": "full",
-   "full": "collab/from_limo/037/completion_001/E05_n1290.png",
-   "ref": 1287,
-   "camera_only": "scale",
-   "zoom": 1.0,
-   "variant_of": "E04"
+   "full": "collab/from_limo/042/corrections_001/E05b_n1290.png",
+   "ref": 1290,
+   "zoom": 1.0
+  },
+  "1292": {
+   "drawing": "collab/from_limo/037/anchors_001/E06_n1292.png",
+   "id": "E06"
   }
  }
 }
