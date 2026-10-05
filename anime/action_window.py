@@ -1033,18 +1033,34 @@ def fit_grade_luma(r, o, sigma=4.0):
     return cv, int(m.sum())
 
 
-def apply_grade_luma(img, cv, strength=1.0):
-    lu = np.maximum(L.lum(img), 1e-4)
+def _luma_curve(lu, cv):
     l2 = np.interp(lu, cv['x'], cv['y'])
     l2 = np.where(lu < cv['x'][0], np.maximum(cv['y'][0] + (lu - cv['x'][0]) * cv['lo'], 0), l2)   # joins at (x0, y0)
-    l2 = np.where(lu > cv['x'][-1], cv['y'][-1] + (lu - cv['x'][-1]) * cv['hi'], l2)
+    return np.where(lu > cv['x'][-1], cv['y'][-1] + (lu - cv['x'][-1]) * cv['hi'], l2)
+
+
+def apply_grade_luma(img, cv, strength=1.0):
+    lu = np.maximum(L.lum(img), 1e-4)
+    l2 = _luma_curve(lu, cv)
+    ref = cv.get('ref')
+    if ref is not None and cv.get('hold_hi'):
+        # a darker exposure of the same drawing: the curve darkens the mid-tones and shadows, but above the drawing's
+        # input luminance x0 it eases (smoothstep up to x1) back to the reference exposure's curve, so the glow
+        # (white core and its soft pink-purple falloff) keeps the reference exposure's tones (Limo, 038 review_003)
+        x0, x1 = cv['hold_hi']
+        sh = np.clip((lu - x0) / (x1 - x0), 0, 1)
+        sh = sh * sh * (3 - 2 * sh)
+        l2 = (1 - sh) * l2 + sh * _luma_curve(lu, ref)
     out = img * (l2 / lu)[..., None]
     wb = cv['wb']
     if cv.get('protect'):
         # highlight protection: the white balance fades out towards pure white (smallest channel from a to b), so
-        # a white core stays white instead of taking the balance's tint
+        # a white core stays white instead of taking the balance's tint.  For a later exposure of the same drawing
+        # the mask is the reference exposure's (fixed within the hold), so a glow protected there does not drop out
+        # of the protection when this exposure darkens it
         a, b = cv['protect']
-        k = np.clip((np.clip(out, 0, 1).min(2) - a) / (b - a), 0, 1)[..., None]
+        base = img * (_luma_curve(lu, ref) / lu)[..., None] if ref is not None else out
+        k = np.clip((np.clip(base, 0, 1).min(2) - a) / (b - a), 0, 1)[..., None]
         k = k * k * (3 - 2 * k)
         wb = 1 + (wb - 1) * (1 - k)
     out = out * wb
@@ -1187,6 +1203,9 @@ def main():
             c1, n1 = fit(R[fb], O[fb], sigma=grade.get('sigma', 4.0)) if fb != fa else (c0, n0)
             if mode == 'luma' and grade.get('white_protect'):
                 c1 = dict(c1, protect=tuple(grade['white_protect']))
+            if did in grade.get('glow_hold', {}):
+                # the later exposure keeps the reference exposure's protection mask and, above x0, its curve
+                c1 = dict(c1, ref=c0, hold_hi=tuple(grade['glow_hold'][did]))
             if did in grade.get('wb_same', []):
                 # each exposure gets its own luminance curve (fitted at the original's frame, e.g. a darkening
                 # fly-through on twos), but one white balance, the one at the drawing's own source frame: the same
@@ -1223,7 +1242,11 @@ def main():
                            + (f'; white balance taken from {wb_from} at its last exposure (same canvas, unchanged body)'
                               if wb_from else '')
                            + (f'; one white balance for all exposures, the one at n{fa} (wb_same)'
-                              if did in grade.get('wb_same', []) else ''))
+                              if did in grade.get('wb_same', []) else '')
+                           + (f'; glow hold: at n{fb} the white-balance protection mask is the one of n{fa}, and above '
+                              f'input luminance {grade["glow_hold"][did][0]} the curve eases (smoothstep to '
+                              f'{grade["glow_hold"][did][1]}) back to the n{fa} curve, so only mid-tones and shadows darken'
+                              if did in grade.get('glow_hold', {}) and n == fb and fb != fa else ''))
     for n in ns:
         ww = fs[n].get('white_wash')
         if ww:
@@ -1355,7 +1378,7 @@ def main():
         bodies = [d for d in drawings if d not in frozen and d not in variants]
         f.write(f'{len(ns)} frames at 24 fps ({len(new_ns)} new, {len(ns) - len(new_ns)} frozen seam frame(s) from an '
                 f'earlier window: {", ".join(frozen) or "none"}); {len(drawings)} distinct images in use: '
-                f'{len(bodies)} body/smear states ({", ".join(bodies)})'
+                f'{len(bodies)} {sheet.get("state_label", "body/smear states")} ({", ".join(bodies)})'
                 + (f', {len(variants)} effect variant(s) of an existing body ({", ".join(variants)})' if variants else '')
                 + (f', {len(frozen)} frozen' if frozen else '') +
                 f'; ' + '; '.join(_exposure_counts(fs, ns)) + '.\n\n')
