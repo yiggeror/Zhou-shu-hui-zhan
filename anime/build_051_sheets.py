@@ -180,6 +180,19 @@ def b45():
     return out
 
 
+def from_csv(path):
+    """a batch as locked by Limo in an exposure table (id, source_n, start, end): every state in its own source
+    geometry; holds are discrete (no camera), graded at their source frame"""
+    import csv
+    out = []
+    for r in csv.DictReader(open(os.path.join(ROOT, path), encoding='utf-8-sig')):
+        src, a, b = int(r['source_n']), int(r['start']), int(r['end'])
+        ns = list(range(a, b))
+        out.append((r['id'], src, ns, 'single' if len(ns) == 1 else 'still', {} if len(ns) == 1 else
+                    {'grade_at': [src, src]}))
+    return out
+
+
 BATCHES = {'A': (A, A_FLAT, [1202, 1248], '051', 'anime/sheets/batchA_1202_1248.json'),
            'B': (None, {1319: 'black'}, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
            'C1': (C1, C1_FLAT, [1357, 1411], '057', 'anime/sheets/batchC1_1357_1411.json'),
@@ -250,4 +263,6 @@ if __name__ == '__main__':
     table, flat, frames, msg, default_out = BATCHES[which]
     if which == 'B':
         table = b45()
+    elif which == 'C1' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/C1_43_exposure_table_001.csv')):
+        table = from_csv('collab/from_limo/057/C1_43_exposure_table_001.csv')    # Limo's lock, 057/msg_001
     build(which, table, flat, frames, out or default_out, d, msg)
