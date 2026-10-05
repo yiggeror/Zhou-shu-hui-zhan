@@ -1,0 +1,299 @@
+{
+  "package": "A_city_partial_001",
+  "source_window": [
+    1202,
+    1248
+  ],
+  "selected_states": 9,
+  "imagegen_calls": 9,
+  "rejected_candidates": 0,
+  "pending": {
+    "ST3a": {
+      "source_n": 1246,
+      "exposure": [
+        1246,
+        1247
+      ],
+      "reason": "Exact source PNG not yet available; no inferred or placeholder image created."
+    }
+  },
+  "method": "AI-generated/edited strong-reference images. Original source controls geometry. No local body deformation or post-generation pixel edits. Native 1672x941, not native1080p.",
+  "qa": "Source/output static self-check; coordinator additionally inspected C1, R3, ST3b. Whole46-frame composite review pending.",
+  "residuals": [
+    "City/window/roof lines are somewhat clearer than source.",
+    "C1 sky streaks are stronger.",
+    "Representative held viewpoints remain the approved limited-frame approximation."
+  ],
+  "states": [
+    {
+      "id": "C1",
+      "source_n": 1202,
+      "exposure": [
+        1202,
+        1204
+      ],
+      "source_pts_seconds": 50.083333333333336,
+      "asset": "C1_n1202.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C1_n1202.png",
+      "imagegen_call_number": 1,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset: C1, exact zero-based source frame n1202, city continuation immediately after Purple's first fly-through.\nImage1 is the ONLY edit target and sole authority for geometry, camera, occlusion, light and blur. Re-render this exact full-frame anime action composition at native1672x941, retaining the full original bounds and perspective.\nKeep the dark foreground rooftop slab occupying the lower half, with its diagonal top edge rising toward right; distant blocky skyline across the upper middle; tall rectangular dark central-right tower and the pale vertical face of the tower cropped at the far right. Copy source building silhouettes, angles, overlaps and scale faithfully, not a new city layout.\nPreserve source violet sky with diffuse pink high glow, cool dark indigo city, and white-pink Purple residual light clipped at the bottom-left with its thin purple-white lightning squiggle reaching inward. The light is almost offscreen now. Do not invent a complete orb or brighten the dark roof. Preserve pale-magenta glow and white core, never gray paint.\nRetain source directional motion blur, soft distant roofs and smeared window bands. Restrained dark ink and cool flat shading, only where source detail is readable; no crisp new window grids, no detailed photoreal architecture, no sharp crosshatching on blurred areas. Keep original exposure distribution. No characters.\nNo text, captions, signature, logo, watermark, border, outpainting, crop, zoom, reframing, camera rotation or new objects. One full landscape frame.",
+      "github_blob": "f48348ccb65d292739b1758630570bbc5e5c359c",
+      "sha256": "7b5b5fcb8dcebf58d258b5ee4875a92ecc8b0858a4fe33402e36677585364069",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1202.png",
+        "sha": "0c29eadc80fb397deef15cfe3358d8311ff98c9e",
+        "sha256": "c6309c8ee9fc6d9e828cf629c6abb89d1c1ca6cc58dbac87bbb821ca3440200e",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1202.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "C2",
+      "source_n": 1204,
+      "exposure": [
+        1204,
+        1206
+      ],
+      "source_pts_seconds": 50.166666666666664,
+      "asset": "C2_n1204.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C2_n1204.png",
+      "imagegen_call_number": 2,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset C2, exact source n1204. Image1 is the ONLY edit target and sole geometry/camera/color authority. Re-render its exact full-frame landscape composition at native1672x941.\nKeep the city fly-through's dense dark indigo rectangular towers across the lower two-thirds and wide cloudy violet sky above. Keep the dominant broad central building with long dark horizontal window bands, the taller nearly black right-edge tower with its pale narrow left face, the stepped foreground roof at lower-left and all the intermediate towers. Preserve exact source skyline, perspective, slanted planes, overlaps and crop. This view is different from adjacent city frames; do not replace it with another angle.\nDark restrained ink outlines, cool flat shading, source violet-blue shadows and dim pale window accents. Preserve source soft directional blur and atmospheric haze, with no new high-frequency detail or hard new window grids in source-blurred areas. Match original exposure and sky color without an added blast, orb, lightning or characters. Do not brighten all window faces.\nNo text, caption, signature, logo, watermark, margin, crop, zoom, rotation, reframing, outpainting or extra objects. One complete anime frame.",
+      "github_blob": "bd4e74c32f0cdee6d1d5ea570301c9e0d43ce38d",
+      "sha256": "e3540d104afe715f3b5b669577489ee1a312f649f14c5b4f07e29400bb018ef6",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1204.png",
+        "sha": "c6d0bcd341089f36fe83910e0becfc3c0314eba8",
+        "sha256": "d395b997890fcd52b36cc00e7fa1bad3a5e01e2f9c62f8c97c63978f06dd52b1",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1204.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "C3",
+      "source_n": 1206,
+      "exposure": [
+        1206,
+        1207
+      ],
+      "source_pts_seconds": 50.25,
+      "asset": "C3_n1206.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C3_n1206.png",
+      "imagegen_call_number": 3,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset C3, exact source n1206. Image1 is the ONLY edit target and sole geometry/camera/color authority. Re-render this exact full-frame landscape anime composition at native1672x941.\nPreserve the low forward-moving city viewpoint. Keep the tall central-left rectangular tower with thin horizontal bands and bright right edge, smaller dark tower directly left, large broad windowed slab on center-right, cropped bright striped wall at left edge, tall dark right-side tower and pale striped structure at far right, and low foreground roof cut along the bottom. Keep every dominant building angle, skyline, overlap, scale and full frame crop exactly as in source.\nDark restrained ink outlines and cool flat shading, violet-blue shadows, narrow pale window stripes. Preserve the source's current relative clarity; do not over-sharpen or invent new roof details, elaborate micro-windows or hard crosshatching. Match soft purple cloud gradients with a faint diffuse pink-violet light high above. Preserve original dark-light balance. No energy rays, lightning, orb, new blast or characters.\nNo text, captions, signature, logo, watermark, border, crop, zoom, reframing, camera change, outpainting or added objects. One complete frame.",
+      "github_blob": "effc053e1b6de3632ffebf5eafb94e6439b0a0b7",
+      "sha256": "590a825b91766cd24831a25b502c9000d155d6535c1ad9901bd7c68ce56f1839",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1206.png",
+        "sha": "415c3a15fb1b0fd4bbc62061a1b9980126f17906",
+        "sha256": "12c2469da5c2eb3602b5bdd48a4f2f52d70502ae83b8957d3b465199b3ee25ce",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1206.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "R1",
+      "source_n": 1208,
+      "exposure": [
+        1207,
+        1209
+      ],
+      "source_pts_seconds": 50.333333333333336,
+      "asset": "R1_n1208.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R1_n1208.png",
+      "imagegen_call_number": 4,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset R1, source n1208. Image1 is the ONLY edit target and authority for this exact continuous camera-push state. Re-render the full landscape source frame at native1672x941.\nPreserve exact rooftop view: foreground ribbed parapet/building face covering the lower portion, nearly horizontal roof edge at source height, pale windowed block at left, tall dark banded building toward right-center, distant small skyline, and violet softly cloudy sky. Keep every plane, slope, overlap and building silhouette. Use restrained dark anime ink and cool flat shading without adding architecture.\nMost important, preserve the small heavily motion-blurred Sukuna shape just right of center at the roof edge, exact size, position, dark silhouettes, pale open-hand smears and occlusion. Keep it indistinct as in this fast source frame: do not enlarge it, resolve a clean face, invent limbs, change the pose or turn it into multiple people. Blur is intentional and must remain strong on the moving silhouette while the buildings retain their own source-specific clarity.\nMatch source cool indigo/purple exposure and muted pale highlights; no new lighting rays, lightning, orb, blast or glow.\nNo text, caption, signature, logo, watermark, border, crop, zoom, rotation, reframing or outpainting. One complete frame.",
+      "github_blob": "d8903df8ebf010ee36ba81473255ceadf247d73b",
+      "sha256": "813d509141491f88038a80586d63b809a4ad78d27101d1f6213aa2778b9ad5f1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1208.png",
+        "sha": "89001c8ef8565b53df62c0130c3d5b44afc5e43f",
+        "sha256": "d83b1a8cbe8efcb266e1961eb49d8c25dfa066108d79e8b19e16eb38c4c8cff0",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1208.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "R2",
+      "source_n": 1210,
+      "exposure": [
+        1209,
+        1211
+      ],
+      "source_pts_seconds": 50.416666666666664,
+      "asset": "R2_n1210.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R2_n1210.png",
+      "imagegen_call_number": 5,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset R2, exact original n1210, the closer rooftop camera-push state. Image1 is the ONLY reference and edit target, sole authority for geometry, perspective, character shape, color and blur. Re-render this exact full-frame landscape composition at native1672x941.\nPreserve the visible flat rooftop and its nearer ribbed wall along the lower third, pale windowed building cropped at left, banded tall dark tower at right and roof equipment, all at their exact source positions/angles/scales. Preserve the violet cloudy sky without new rays, bolts or extra glow.\nKeep Sukuna's strongly motion-blurred dark silhouette in the center-right, closer than before, its exact head/body shapes and the two pale spread-hand smears reaching toward camera. Retain all source occlusions, sizes and positions. Do not clean it into a static pose, resolve an invented face, add limbs or erase any source-visible hand. The source's long soft directionally dragged fingertips and silhouette are essential. Match blur strength and direction rather than drawing crisp fingers with blur lines.\nUse restrained dark anime ink/cool flat shading only where source is clear. Keep source softness on rooftop/window bands; no sharpened intricate building grid or added surface texture. Match original indigo-violet light/dark masses and cool pale skin.\nNo text, signature, caption, logo, watermark, border, crop, zoom, reframing, outpainting or camera change. One complete frame.",
+      "github_blob": "7613c0eedbbbaae2c762cd344625597c6d6d230a",
+      "sha256": "030467fdb9404f46c054ab663d8dd13f5e58961fa051f41c419fa6b63fac8b06",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1210.png",
+        "sha": "fc8873bdaf83b4ad567e90863b5308c84d1e30a7",
+        "sha256": "62cf972e1142d0c824fa9246b3b2e65f412732fa7a9eff12b5ef6771d7dccf03",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1210.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "R3",
+      "source_n": 1211,
+      "exposure": [
+        1211,
+        1212
+      ],
+      "source_pts_seconds": 50.458333333333336,
+      "asset": "R3_n1211.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R3_n1211.png",
+      "imagegen_call_number": 6,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset R3, source n1211, last heavily motion-blurred close approach before clearer open-hand pose.\nImage1 is the ONLY edit target and sole authority for exact camera, anatomy, occlusion, architecture, color and blur. Re-render its whole landscape frame at native1672x941.\nMatch the exact center-right Sukuna silhouette, both arms thrust toward the camera with pale spread-open palms and fingers, source-specific dark markings, dark spiky hair/head and dark clothing, all strongly diagonally motion-smeared. Preserve the very large right-side near hand and smaller left-side hand, their exact finger silhouettes and gaps, all overlapping parts and source framing. Do not infer or redraw unseen limbs, make a crisp static portrait, change hands or move the figure.\nThe intentional motion blur must stay inside the finger/palm/head/clothing shapes and edges just as in source, not merely decorative lines around sharp anatomy. Preserve relative clarity of background: pale windowed building cropped left, dark banded tower behind right hand, low rooftop equipment and foreground ribbed wall. Same perspective, exact dominant edge placement.\nRestrained dark ink and cool flat shading consistent with source anime, dim indigo-violet atmosphere, cloudy sky with pink-violet haze high above. Keep source exposure. No new rays, lightning, energy blast, detailed face or buildings.\nNo text, captions, signature, logo, watermark, border, crop, zoom, reframing, camera rotation or outpainting. One complete full-frame image.",
+      "github_blob": "fc151d411f191f9825d0263d9c1d34e7e6b27188",
+      "sha256": "9408e7d74467092c058bea39189cda620e8a631fcefeecf4054cd70466f852b9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1211.png",
+        "sha": "ce001395fbfc7d1967c6fe6fe8909e7b6e2b232f",
+        "sha256": "25cea03c72718b3462fd8a5eb9e41093cd6933c45599d4936baa9a903af72645",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1211.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "ST1",
+      "source_n": 1242,
+      "exposure": [
+        1242,
+        1244
+      ],
+      "source_pts_seconds": 51.75,
+      "asset": "ST1_n1242.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST1_n1242.png",
+      "imagegen_call_number": 7,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset ST1, exact original n1242, dark empty street corner after the explosion.\nImage1 is the ONLY edit target and sole geometry/camera/color/blur authority. Re-render this precise full-frame landscape composition at native1672x941.\nKeep the huge near-black building wall filling top-left/center, its sharp lower corner near right-center, the violet-lit window grid receding along the right wall, and the broad pale blue-gray sidewalk wrapping round the building with its smoothly curved bright curb across bottom-right. Preserve exact source planes, corner location, curb geometry, perspective and crop; dark road fills lower frame.\nPreserve source horizontal motion softness and slightly smeared pavement texture and window edges. Restrained dark anime ink and cool flat shading, almost-black blue shadows, source pink-lavender residual glow on the right-side windows and sidewalk. Match source exposure; do not turn glow gray, over-sharpen architecture, add realistic street clutter or add a blast.\nThe street is empty: no person, arm, hand, leg, vehicle, signage or new props. No extra light rays.\nNo text, caption, signature, logo, watermark, border, crop, zoom, outpainting, camera rotation or reframing. One complete frame.",
+      "github_blob": "6ad6ed718b789a8223e76e833b643759c94dc157",
+      "sha256": "1958ae57029343492100c95736331f5d97434b1cf68bd8815e8a1f14a0f639df",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1242.png",
+        "sha": "b47deaaf415ed01c8eea7f5d746412ecd8d321b7",
+        "sha256": "ae70887e66ec14b4a9b7870b322da279d69cf1ba932d08a1bea33e393f27fed9",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1242.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "ST2",
+      "source_n": 1244,
+      "exposure": [
+        1244,
+        1246
+      ],
+      "source_pts_seconds": 51.833333333333336,
+      "asset": "ST2_n1244.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST2_n1244.png",
+      "imagegen_call_number": 8,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset ST2, exact original n1244. Image1 is the ONLY edit target and final authority for exact camera, geometry, colors and blur. Re-render this full-frame landscape anime street view at native1672x941.\nPreserve source composition precisely: near-black large building occupies upper-right and center-right, its bottom-front corner pointing into the pale cool sidewalk near center; street recedes toward upper-left between dim buildings; broad bluish sidewalk crosses the middle-lower picture diagonally with a thin bright curb, dark empty road in foreground. Preserve source corner position, slope, vanishing perspective and all silhouettes.\nThis is a fast pan with strong source motion softness, especially distant lights and horizontal pavement streaks. Retain the softness and indistinct dark architectural planes; do not create crisp window grids, new street detail or sharp textures. Use dark restrained anime ink only on readable outlines, cool flat shadows, pale cyan-blue sidewalk and subtle pink-gray rim beside wall. Match original low exposure and mostly dark frame; do not brighten the walls.\nNo people, arms, hands, legs, vehicles, added props, signs, lightning or energy rays. No text, caption, signature, logo, watermark, crop, zoom, border, outpainting or reframing. One complete frame.",
+      "github_blob": "c404fae86351f689b3c83b5e59d9dd5b91c2e54e",
+      "sha256": "b8c2f4252d9300f714b21134b6779fbf3e49ca6d90acb3a3052671daa5144626",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1244.png",
+        "sha": "4e90a8716810ffe21756741819e4380a624b6070",
+        "sha256": "3bdbee0b7c759825970d25f4fe6aea33a26a278b3631c48ba16db864939a0346",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1244.png"
+      },
+      "imagegen_call_count": 1
+    },
+    {
+      "id": "ST3b",
+      "source_n": 1247,
+      "exposure": [
+        1247,
+        1248
+      ],
+      "source_pts_seconds": 51.958333333333336,
+      "asset": "ST3b_n1247.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST3b_n1247.png",
+      "imagegen_call_number": 9,
+      "prompt": "Use case: style-transfer, strong-reference anime frame edit.\nAsset ST3b, exact source frame n1247, the street transition immediately before the next shot.\nImage1 is the ONLY edit target and sole authority for camera, architecture, anatomy, crop, exposure and blur. Re-render the exact full landscape source composition at native1672x941.\nKeep the wide dark street filling the lower half, cool pale blue sidewalk and curb receding toward upper-right, near-black building facade across upper half with its dim vertical bluish window columns, all exact source geometry/angles/scale. Preserve the strong fast-pan motion softness and dark exposure; no sharp new architecture or pavement details.\nCritical: at the FAR LEFT EDGE there is only a narrow cropped pale forearm, wrist and open hand with fingers extending down/right, softly blurred. Preserve exactly that source-visible small edge silhouette, location and proportions, only about the first few percent of image width. It is an ARM AND HAND, not a leg or foot. Do not erase it; do not enlarge it; do not invent any more of the person, shoulder, head, torso, legs or extra fingers. Retain its cool dim skin shading and blur, not a brightly lit foreground hand.\nUse restrained dark anime ink/cool flat shading and muted pale highlights. No new light beams, lightning, glow, vehicles or props. No text, caption, signature, logo, watermark, border, crop, zoom, outpainting, camera rotation or reframing. One complete frame.",
+      "github_blob": "719de4f337fb244c4e8ca0e7138f3968fe528034",
+      "sha256": "8409d8069a6e6574674e8537a8532187769e79837015639c2fde68fb2513031c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source": {
+        "name": "n1247.png",
+        "sha": "45e3799143f2dd453facf448a0c4395e7493d711",
+        "sha256": "27256e226480942a062bf4e6a06df6cc8ed86b6b65b253da4828464495f0bb3e",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "repository_path": "collab/to_limo/051_ref/n1247.png"
+      },
+      "imagegen_call_count": 1
+    }
+  ]
+}
