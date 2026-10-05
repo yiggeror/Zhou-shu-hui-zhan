@@ -1,9 +1,12 @@
 """Frame-exact access to the original video.  Convention used everywhere in this project:
 n = zero-based decoded frame number, PTS = n / 24 s, intervals are [start, end)."""
+import os
 import subprocess
 import numpy as np
 
-SRC = '/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/246ca686-706e-5160-9340-459ab573d49f/scratchpad/src/orig.mp4'
+# the original video (sha256 9dae3a6e..., AV1 2560x1440 24 fps, 3499 frames); set JJK_SRC to its path on another machine
+SRC = os.environ.get('JJK_SRC', '/tmp/claude-0/-home-user-Zhou-shu-hui-zhan/246ca686-706e-5160-9340-459ab573d49f/'
+                     'scratchpad/src/orig.mp4')
 
 
 def frame(n, src=SRC, w=2560, h=1440):

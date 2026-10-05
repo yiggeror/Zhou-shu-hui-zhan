@@ -1,0 +1,7 @@
+# Python packages of the compositor (anime/action_window.py and the tools next to it), as used for C2.
+# Python 3.11.15.  Only these two; no scipy / Pillow / skimage are imported.
+numpy==2.4.6
+opencv-python-headless==5.0.0.93
+# System tools (not pip): ffmpeg / ffprobe 6.1.1 (Ubuntu 24.04 package 7:6.1.1-3ubuntu5) built with libdav1d 1.4.1
+# (AV1 decoding of the original) and libx264 0.164.3108 (encoding); git (run.json records the commit).
+#   apt-get install -y ffmpeg git && python3 -m pip install -r anime/requirements.txt

@@ -1,0 +1,115 @@
+{
+ "name": "PLAN A comparison (B1 held over the blocked n1476)",
+ "frames": [
+  1475,
+  1479
+ ],
+ "state_label": "generated/edited picture states (character, effect and background views)",
+ "grade": {
+  "strength": 1.0,
+  "sigma": 4.0,
+  "modes": {
+   "P1": "luma",
+   "P2": "luma",
+   "P3": "luma",
+   "P4": "luma",
+   "P4b": "luma",
+   "P5": "luma",
+   "P6": "luma",
+   "P7": "luma",
+   "P8": "luma",
+   "P9": "luma",
+   "P9b": "luma",
+   "P10": "luma",
+   "P10b": "luma",
+   "P11": "luma",
+   "P11b": "luma",
+   "Q1": "luma",
+   "Q2": "luma",
+   "Q3": "luma",
+   "Q4": "luma",
+   "Q5": "luma",
+   "Q6": "luma",
+   "Q7a": "luma",
+   "Q7a1": "luma",
+   "Q7a2": "luma",
+   "Q7b": "luma",
+   "Q7b2": "luma",
+   "Q8": "luma",
+   "W0": "luma",
+   "T1": "luma",
+   "T1b": "luma",
+   "T2": "luma",
+   "T2b": "luma",
+   "L1": "luma",
+   "L2": "luma",
+   "L3": "luma",
+   "L3b": "luma",
+   "L4": "luma",
+   "L5": "luma",
+   "L6": "luma",
+   "L7": "luma",
+   "L8": "luma",
+   "L9": "luma",
+   "B1": "luma",
+   "B3": "luma",
+   "R1": "luma",
+   "R2": "luma",
+   "R3": "luma",
+   "Z1": "luma"
+  },
+  "white_protect": [
+   0.85,
+   0.97
+  ],
+  "grade_at": {
+   "B1": [
+    1475,
+    1475
+   ]
+  },
+  "wb_same": [],
+  "wb_from": {},
+  "glow_hold": {},
+  "keep_highlights": [
+   0.7,
+   0.9
+  ]
+ },
+ "encode": {
+  "sws_flags": "accurate_rnd+full_chroma_int"
+ },
+ "keep_highlights_note": "msg_008: enhanced glows kept as drawn",
+ "frames_sheet": {
+  "1478": {
+   "drawing": "collab/from_limo/057/batchC2_P3/selected/R1_n1478.png",
+   "id": "R1"
+  },
+  "1475": {
+   "hold": "B1",
+   "id": "B1",
+   "mode": "full",
+   "full": "collab/from_limo/057/batchC2_P3/selected/B1_n1475.png",
+   "ref": 1475,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed",
+   "provisional": "PLAN A comparison only: B1 held one more frame for the blocked B2 (n1476)"
+  },
+  "1476": {
+   "hold": "B1",
+   "id": "B1",
+   "mode": "full",
+   "full": "collab/from_limo/057/batchC2_P3/selected/B1_n1475.png",
+   "ref": 1475,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed",
+   "provisional": "PLAN A comparison only: B1 held one more frame for the blocked B2 (n1476)"
+  },
+  "1477": {
+   "drawing": "collab/from_limo/057/batchC2_P3/selected/B3_n1477.png",
+   "id": "B3"
+  }
+ }
+}
