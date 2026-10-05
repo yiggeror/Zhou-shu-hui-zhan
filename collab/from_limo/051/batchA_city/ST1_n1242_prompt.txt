@@ -1,0 +1,7 @@
+Use case: style-transfer, strong-reference anime frame edit.
+Asset ST1, exact original n1242, dark empty street corner after the explosion.
+Image1 is the ONLY edit target and sole geometry/camera/color/blur authority. Re-render this precise full-frame landscape composition at native1672x941.
+Keep the huge near-black building wall filling top-left/center, its sharp lower corner near right-center, the violet-lit window grid receding along the right wall, and the broad pale blue-gray sidewalk wrapping round the building with its smoothly curved bright curb across bottom-right. Preserve exact source planes, corner location, curb geometry, perspective and crop; dark road fills lower frame.
+Preserve source horizontal motion softness and slightly smeared pavement texture and window edges. Restrained dark anime ink and cool flat shading, almost-black blue shadows, source pink-lavender residual glow on the right-side windows and sidewalk. Match source exposure; do not turn glow gray, over-sharpen architecture, add realistic street clutter or add a blast.
+The street is empty: no person, arm, hand, leg, vehicle, signage or new props. No extra light rays.
+No text, caption, signature, logo, watermark, border, crop, zoom, outpainting, camera rotation or reframing. One complete frame.

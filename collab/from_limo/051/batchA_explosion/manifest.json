@@ -1,0 +1,721 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 051 batchA_explosion provenance",
+  "status": "10 selected states delivered for combined A compositing; static QA conditionally passed.",
+  "source_snapshot": "dee6cf6923ace49a235fc023220a6d7689d0a2d4",
+  "locked_plan": "collab/from_limo/051/msg_003_A批24态分包与修正曝光表.md",
+  "source_indexing": "zero-based decoded n, PTS=n/24 seconds, half-open [start,end)",
+  "owned_window": [
+    1223,
+    1242
+  ],
+  "owned_exposures": 19,
+  "parent_A_window": [
+    1202,
+    1248
+  ],
+  "selected_state_count": 10,
+  "selected": [
+    {
+      "state": "W1",
+      "asset": "W1_n1224.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/W1_n1224.png",
+      "source_n": 1224,
+      "source_pts_seconds": 51.0,
+      "exposure": [
+        1223,
+        1225
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1224.png",
+        "git_blob": "4c1042a4abb2fdbaeefbd5da5df26bf14cc4cc1d",
+        "sha256": "25642140f431cfc55b6c1a4f09b74c268be91237a1cfd89f95233d9b033acc01",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1229033,
+        "sha256": "4a171c02cec123ede8a6bbea544be9edd1a4428d7c9586b7c8158cdd05b6186f",
+        "git_blob_computed": "b7e6f2b34f87105a8e74cb029e82e06075e614fd",
+        "mean_rgb": [
+          151.84740668331054,
+          87.13418548424002,
+          206.5952634883993
+        ],
+        "white_all_channels_ge240_percent": 0.0
+      },
+      "github_uploaded_blob": "b7e6f2b34f87105a8e74cb029e82e06075e614fd",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/W1_prompt.txt"
+      ],
+      "self_check": "Three broad columns, source band slopes and floor reveal retained; no added explosion. Panel outlines are sharper than source and pink wash is slightly cooler. W1 n1224 only; n1223 white reveal remains compositor work.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          156.94993462456597,
+          78.83531005859375,
+          204.7720743815104
+        ],
+        "white_all_channels_ge240_percent": 0.0
+      }
+    },
+    {
+      "state": "W2",
+      "asset": "W2_n1225.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/W2_n1225.png",
+      "source_n": 1225,
+      "source_pts_seconds": 51.041666666666664,
+      "exposure": [
+        1225,
+        1226
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1225.png",
+        "git_blob": "d2bfc6f49e5b12b17d0393b3fd80124e45b9043d",
+        "sha256": "7935f504cbebcbf857b6db758550fa3132e8515f2551d056ef2c9aafc2c8127e",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1289267,
+        "sha256": "bc0b70f3a75dbd4ac003d16f9a5740ee400889a5b6ab56d34837691968333b1e",
+        "git_blob_computed": "81a7f38715f92dc292e44ed9559cd511944aaec2",
+        "mean_rgb": [
+          98.06026305620102,
+          67.54540496977154,
+          172.17307061611135
+        ],
+        "white_all_channels_ge240_percent": 0.07379149738901403
+      },
+      "github_uploaded_blob": "81a7f38715f92dc292e44ed9559cd511944aaec2",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/W2_prompt.txt"
+      ],
+      "self_check": "New n1225 viewpoint retained: four columns, steeper band slopes and additional lower floor bands, with source upper-left cloud/light. Wall seam detail sharper than source; small cloud contour residuals. Not a locked W1 edit.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          107.0053648546007,
+          67.09312608506944,
+          176.02924452039932
+        ],
+        "white_all_channels_ge240_percent": 0.060845269097222224
+      }
+    },
+    {
+      "state": "X1",
+      "asset": "X1_n1226.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X1_n1226.png",
+      "source_n": 1226,
+      "source_pts_seconds": 51.083333333333336,
+      "exposure": [
+        1226,
+        1228
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1226.png",
+        "git_blob": "e0d372ded2a9ab7154b8d1575c3d9589b802e0cd",
+        "sha256": "23801f82540bd6a4fe83c49335b649a92bf491563e896a37b0b862051c886b97",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1461062,
+        "sha256": "71d48bda2f563547714962aebc68c008c6bc0433dcddaaac1707f1799b099d8c",
+        "git_blob_computed": "0c6fe2c6968bfc56ab33fae7fa9e331596561f69",
+        "mean_rgb": [
+          91.95895769033248,
+          63.08653054116307,
+          174.6927763145183
+        ],
+        "white_all_channels_ge240_percent": 0.19321804656554922
+      },
+      "github_uploaded_blob": "0c6fe2c6968bfc56ab33fae7fa9e331596561f69",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 2,
+      "prompt_files": [
+        "provenance/X1_prompt.txt",
+        "provenance/X1_retry_prompt.txt"
+      ],
+      "self_check": "Full n1226 viewpoint and narrow right facade retained. v1 rejected for hard painted explosion; v2 restores soft luminous cloud and pink wash. Architecture still sharper than source and some cloud edges differ slightly.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          87.12879503038195,
+          62.958033854166665,
+          158.79074462890625
+        ],
+        "white_all_channels_ge240_percent": 0.3206380208333333
+      }
+    },
+    {
+      "state": "X2",
+      "asset": "X2_n1228.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X2_n1228.png",
+      "source_n": 1228,
+      "source_pts_seconds": 51.166666666666664,
+      "exposure": [
+        1228,
+        1230
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1228.png",
+        "git_blob": "b6cfa52f1cb34140ac8020cc88804e1b3be39775",
+        "sha256": "b22a071ef65a595cff9b4e7ea08698ae8100e3dfcaa4ad411335ee8344f13db1",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1465992,
+        "sha256": "f40d40aa5844705742080f20a52b12cbe7fc19c575e9de25001c792d0f3a5ce4",
+        "git_blob_computed": "52ac120cd439708309d7f8cc44256dfb4c478072",
+        "mean_rgb": [
+          102.17589706562804,
+          80.19134116205402,
+          156.36193490077235
+        ],
+        "white_all_channels_ge240_percent": 6.350263640939853
+      },
+      "github_uploaded_blob": "52ac120cd439708309d7f8cc44256dfb4c478072",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X2_prompt.txt"
+      ],
+      "self_check": "Own n1228 building corner, broad upper blast, lightning crossing left and right, and source facade occlusion retained. Some lightning and panel edges are a little sharper; minor contour and line-weight differences.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          104.28586371527778,
+          83.36193684895834,
+          153.6867320421007
+        ],
+        "white_all_channels_ge240_percent": 6.618326822916666
+      }
+    },
+    {
+      "state": "X3",
+      "asset": "X3_n1230.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X3_n1230.png",
+      "source_n": 1230,
+      "source_pts_seconds": 51.25,
+      "exposure": [
+        1230,
+        1232
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1230.png",
+        "git_blob": "cb733e6aa2b52c83b3677c68d5fd83d9f8557365",
+        "sha256": "80385c5c4480f1375628cbaceb2fc08b226d4df1a68a5ea926fa6ce9cf7da424",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1391042,
+        "sha256": "b1645d69998ab8afbdf583db09685f6c4b5fa9a3211d5a7a49672a2a20656b0c",
+        "git_blob_computed": "272e201ef5988a5ceec04a6c9115b742738bd147",
+        "mean_rgb": [
+          97.17530469977474,
+          70.23127437471081,
+          145.16034809756493
+        ],
+        "white_all_channels_ge240_percent": 3.8100819142823728
+      },
+      "github_uploaded_blob": "272e201ef5988a5ceec04a6c9115b742738bd147",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X3_prompt.txt"
+      ],
+      "self_check": "Own n1230 perspective, descending cloud lobe, left angular lightning and pronounced source defocus retained. Slightly harder lightning/cloud texture remains; no replacement with a whole-image zoom. White>=240 fraction is modestly larger than source; source/output values retained in manifest for compositor review.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          94.70941731770833,
+          70.71830186631945,
+          137.68028483072916
+        ],
+        "white_all_channels_ge240_percent": 2.3605414496527777
+      }
+    },
+    {
+      "state": "X4",
+      "asset": "X4_n1232.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X4_n1232.png",
+      "source_n": 1232,
+      "source_pts_seconds": 51.333333333333336,
+      "exposure": [
+        1232,
+        1234
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1232.png",
+        "git_blob": "66d5f8f23e18aa0a41eced209a3a0e0e8f507a72",
+        "sha256": "9070967e49ce56fdd1b68f27e1f83127425d94adc2854119da920df71595eadc",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1340648,
+        "sha256": "ab3409eb8a19d68bdec6295172498eb4c40c85581807f2b0ecbb77200e839180",
+        "git_blob_computed": "7c8e9ecc886070caab1381e6f43da01b7d3b2231",
+        "mean_rgb": [
+          133.130120278234,
+          92.55364533810616,
+          170.35187866415143
+        ],
+        "white_all_channels_ge240_percent": 7.102288616914715
+      },
+      "github_uploaded_blob": "7c8e9ecc886070caab1381e6f43da01b7d3b2231",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X4_prompt.txt"
+      ],
+      "self_check": "Own n1232 perspective, large left descending bolt and large cloud occlusion retained. Heavy defocus preserved. Local white/pink contour differences remain; no extra lightning branches identified. White>=240 fraction is modestly larger than source; source/output values retained in manifest for compositor review.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          129.9121316189236,
+          99.00662272135416,
+          163.50246636284723
+        ],
+        "white_all_channels_ge240_percent": 5.473198784722221
+      }
+    },
+    {
+      "state": "X5",
+      "asset": "X5_n1234.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X5_n1234.png",
+      "source_n": 1234,
+      "source_pts_seconds": 51.416666666666664,
+      "exposure": [
+        1234,
+        1236
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1234.png",
+        "git_blob": "0c90d349d414eb247ca8692b93534a7cd411b697",
+        "sha256": "4bd6aacd24d2c8b08b1243751102e48525f13cd65f3132a89c445477e34a8685",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1291849,
+        "sha256": "d83e1983fa6cbbc53d721bdc4a8615cde6ab7f7e248731ab1b69568018a4263d",
+        "git_blob_computed": "89878c9d9619c5f214ba229939f3a877ed92b9ce",
+        "mean_rgb": [
+          101.84951619218077,
+          76.52248447899771,
+          145.6513367638011
+        ],
+        "white_all_channels_ge240_percent": 7.728912538325816
+      },
+      "github_uploaded_blob": "89878c9d9619c5f214ba229939f3a877ed92b9ce",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X5_prompt.txt"
+      ],
+      "self_check": "Own n1234 perspective and heavy defocus retained, cloud over roof/front face with low taper and no large left bolt. Window seams stay indistinct. Small contour and exposure residuals remain.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          102.92404378255209,
+          81.34386149088542,
+          140.12512017144098
+        ],
+        "white_all_channels_ge240_percent": 7.211371527777779
+      }
+    },
+    {
+      "state": "X6",
+      "asset": "X6_n1236.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X6_n1236.png",
+      "source_n": 1236,
+      "source_pts_seconds": 51.5,
+      "exposure": [
+        1236,
+        1238
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1236.png",
+        "git_blob": "aa2dab208b512a16119b95ad349663e76d5ec7f8",
+        "sha256": "4bd632c34c0be2882f60c8d0ae1d2624f5e67e3c5a53d9efeb24c554fda41d0e",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1415781,
+        "sha256": "3b489392553ae2cf6e6e396164cf689f5e87033c5ce1ae60e34c9a28b5a27d39",
+        "git_blob_computed": "5781201846d3fd8a53999487e1a1e9021539d9ad",
+        "mean_rgb": [
+          108.44495383105624,
+          85.93456454753927,
+          148.04391070783905
+        ],
+        "white_all_channels_ge240_percent": 11.363763480772263
+      },
+      "github_uploaded_blob": "5781201846d3fd8a53999487e1a1e9021539d9ad",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X6_prompt.txt"
+      ],
+      "self_check": "Own n1236 perspective and broader white cloud retained. Existing tiny dark shape at far-left plume preserved without assigning identity. Cloud texture and architectural detail sharper than source; no invented extra objects identified.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          109.5134375,
+          89.81166883680555,
+          146.48548502604166
+        ],
+        "white_all_channels_ge240_percent": 10.800645616319445
+      }
+    },
+    {
+      "state": "X7",
+      "asset": "X7_n1238.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X7_n1238.png",
+      "source_n": 1238,
+      "source_pts_seconds": 51.583333333333336,
+      "exposure": [
+        1238,
+        1240
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1238.png",
+        "git_blob": "6e65cbdf73e442effee04167b77b2bc15fdd5510",
+        "sha256": "c8e2e55ec514456fb3fcc3d2cbf6417715558ec707b7a141c314b6e721294624",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1426905,
+        "sha256": "faf5f05f53207689224e615484bfda05b7f23fc9d90c81c79be014b887fd754d",
+        "git_blob_computed": "9d30ec20ff0efca5d6da92083df8b974786c4ae5",
+        "mean_rgb": [
+          111.8960836481601,
+          94.18210101744556,
+          149.34217072848287
+        ],
+        "white_all_channels_ge240_percent": 13.06459075909269
+      },
+      "github_uploaded_blob": "9d30ec20ff0efca5d6da92083df8b974786c4ae5",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 1,
+      "prompt_files": [
+        "provenance/X7_prompt.txt"
+      ],
+      "self_check": "Own n1238 perspective, lower round lobe, roof/front occlusion and left purple plume retained. Source relative clarity retained; cloud border is somewhat more granular and wall seams slightly sharper.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          113.49217746310764,
+          95.94123643663194,
+          150.64602837456596
+        ],
+        "white_all_channels_ge240_percent": 13.515272352430555
+      }
+    },
+    {
+      "state": "X8",
+      "asset": "X8_n1240.png",
+      "intended_repository_path": "collab/from_limo/051/batchA_explosion/X8_n1240.png",
+      "source_n": 1240,
+      "source_pts_seconds": 51.666666666666664,
+      "exposure": [
+        1240,
+        1242
+      ],
+      "source": {
+        "repository_path": "collab/to_limo/051_ref/n1240.png",
+        "git_blob": "a8d517784f44d8580946628c8491a4debf64fc6b",
+        "sha256": "2eb2866a5de561bea53341d2134ce3c66851094176b1ab99ffec3eed1758cce8",
+        "dimensions": [
+          2560,
+          1440
+        ]
+      },
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1402819,
+        "sha256": "966ecd3b851c467125da30a5189db001e0bf3395a70cbff3274144a56bf29271",
+        "git_blob_computed": "7b45f829c71d1b86a43fa6a808f69f853248e72a",
+        "mean_rgb": [
+          118.95936255841032,
+          103.22154355795779,
+          160.81474838434121
+        ],
+        "white_all_channels_ge240_percent": 17.085877794670232
+      },
+      "github_uploaded_blob": "7b45f829c71d1b86a43fa6a808f69f853248e72a",
+      "upload_status": "Selected PNG included in this package",
+      "generation_calls": 2,
+      "prompt_files": [
+        "provenance/X8_prompt.txt",
+        "provenance/X8_retry_prompt.txt"
+      ],
+      "self_check": "Own n1240 perspective and largest white cloud retained. v1 rejected for hard cell-like cloud contours; v2 restores diffuse emission. Relatively clearer than X5 as source requires. Building seams and some cloud edges remain harder than source.",
+      "visible_text_check": "No visible text, watermark, caption or logo in visual inspection",
+      "source_metric": {
+        "mean_rgb": [
+          121.17407552083333,
+          107.16538411458333,
+          157.34346978081598
+        ],
+        "white_all_channels_ge240_percent": 17.175889756944446
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "state": "X1",
+      "asset": "rejected/X1_n1226_v1_hard_glow.png",
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1536121,
+        "sha256": "b65043ccef934b412f23bffaad36c10afe1c4df8108d69128d093e25446288e8",
+        "mean_rgb": [
+          84.21661395542765,
+          61.85246975883337,
+          153.9811599692885
+        ],
+        "white_all_channels_ge240_percent": 0.31016581159206585
+      },
+      "reason": "Hard painted/scalloped emission contour and excessive sharpness; replaced after one source-directed softness retry.",
+      "uploaded": false,
+      "publication": "Retained candidate not included among the24 published selected images."
+    },
+    {
+      "state": "X8",
+      "asset": "rejected/X8_n1240_v1_hard_glow.png",
+      "output": {
+        "dimensions": [
+          1672,
+          941
+        ],
+        "bytes": 1540779,
+        "sha256": "1dd432ca3ed432d4c69067edb0832f55ad72b2f05ecebb849ea7efc04aeb152c",
+        "mean_rgb": [
+          112.61164952280227,
+          96.3108369900696,
+          157.75516286247452
+        ],
+        "white_all_channels_ge240_percent": 15.669983576466043
+      },
+      "reason": "Hard painted/scalloped emission contour and excessive sharpness; replaced after one source-directed softness retry.",
+      "uploaded": false,
+      "publication": "Retained candidate not included among the24 published selected images."
+    }
+  ],
+  "generation": {
+    "tool": "built-in image_gen.imagegen",
+    "provenance": "AI-generated/edited strong-reference images, not manual drawing and not proof of absence of tracing",
+    "calls_total": 12,
+    "calls_failed": 0,
+    "retry_calls": 2,
+    "selected_outputs": 10,
+    "rejected_outputs": 2,
+    "transparent_background": false,
+    "calls": [
+      {
+        "state": "W1",
+        "call": 1,
+        "output": "selected/W1_n1224.png",
+        "prompt_file": "provenance/W1_prompt.txt",
+        "reference_paths": [
+          "sources/n1224.png"
+        ]
+      },
+      {
+        "state": "W2",
+        "call": 2,
+        "output": "selected/W2_n1225.png",
+        "prompt_file": "provenance/W2_prompt.txt",
+        "reference_paths": [
+          "sources/n1225.png"
+        ]
+      },
+      {
+        "state": "X1",
+        "call": 3,
+        "output": "rejected/X1_n1226_v1_hard_glow.png",
+        "prompt_file": "provenance/X1_prompt.txt",
+        "reference_paths": [
+          "sources/n1226.png"
+        ]
+      },
+      {
+        "state": "X1",
+        "call": 4,
+        "output": "selected/X1_n1226.png",
+        "prompt_file": "provenance/X1_retry_prompt.txt",
+        "reference_paths": [
+          "rejected/X1_n1226_v1_hard_glow.png",
+          "sources/n1226.png"
+        ]
+      },
+      {
+        "state": "X2",
+        "call": 5,
+        "output": "selected/X2_n1228.png",
+        "prompt_file": "provenance/X2_prompt.txt",
+        "reference_paths": [
+          "sources/n1228.png"
+        ]
+      },
+      {
+        "state": "X3",
+        "call": 6,
+        "output": "selected/X3_n1230.png",
+        "prompt_file": "provenance/X3_prompt.txt",
+        "reference_paths": [
+          "sources/n1230.png"
+        ]
+      },
+      {
+        "state": "X4",
+        "call": 7,
+        "output": "selected/X4_n1232.png",
+        "prompt_file": "provenance/X4_prompt.txt",
+        "reference_paths": [
+          "sources/n1232.png"
+        ]
+      },
+      {
+        "state": "X5",
+        "call": 8,
+        "output": "selected/X5_n1234.png",
+        "prompt_file": "provenance/X5_prompt.txt",
+        "reference_paths": [
+          "sources/n1234.png"
+        ]
+      },
+      {
+        "state": "X6",
+        "call": 9,
+        "output": "selected/X6_n1236.png",
+        "prompt_file": "provenance/X6_prompt.txt",
+        "reference_paths": [
+          "sources/n1236.png"
+        ]
+      },
+      {
+        "state": "X7",
+        "call": 10,
+        "output": "selected/X7_n1238.png",
+        "prompt_file": "provenance/X7_prompt.txt",
+        "reference_paths": [
+          "sources/n1238.png"
+        ]
+      },
+      {
+        "state": "X8",
+        "call": 11,
+        "output": "rejected/X8_n1240_v1_hard_glow.png",
+        "prompt_file": "provenance/X8_prompt.txt",
+        "reference_paths": [
+          "sources/n1240.png"
+        ]
+      },
+      {
+        "state": "X8",
+        "call": 12,
+        "output": "selected/X8_n1240.png",
+        "prompt_file": "provenance/X8_retry_prompt.txt",
+        "reference_paths": [
+          "rejected/X8_n1240_v1_hard_glow.png",
+          "sources/n1240.png"
+        ]
+      }
+    ]
+  },
+  "file_handling": {
+    "native_dimensions": [
+      1672,
+      941
+    ],
+    "post_generation_pixel_edits": false,
+    "resize_upscale_crop_stretch": false,
+    "local_compositing": false,
+    "whole_native_viewport": [
+      0,
+      0,
+      1672,
+      941
+    ],
+    "original_sources_preserved": true
+  },
+  "review_limitations": [
+    "Brief static source/output comparison only; no formal camera fit or proof of temporal geometry.",
+    "No video or compositing created by this worker; Opus assembles, then combined46-frame reciprocal review remains.",
+    "Source-specific blur baked into drawings; avoid adding the same-direction blur again.",
+    "W1 is n1224; n1223 reveal and its perspective approximation are compositor responsibilities.",
+    "All ten outputs visually checked for viewpoint, building silhouette, explosion coverage, light color, source sharpness and visible text. Residuals listed per state."
+  ],
+  "metrics_note": "Native-file RGB arithmetic means and fraction with all channels >=240. Source/output differ in resolution, so these are descriptive exposure statistics, not pixel correspondence, segmentation or formal acceptance tests."
+}

@@ -1,0 +1,264 @@
+{
+  "identity": "Limo to Claude; 2026-10-05; 051 batch A Sukuna guard/impact package",
+  "schema_version": 1,
+  "scope": "S1-S4 only; A=[1202,1248); selected guard exposure=[1212,1222)",
+  "frame_convention": "Zero-based source decode n, PTS=n/24, half-open exposure ranges.",
+  "source_commit": "f4fd6e43147d034b3264952be5d6b907deb387f2",
+  "independent_source_video_decode_verified": false,
+  "source_validation": "All four original 2560x1440 PNGs locally verified against repository Git blob SHA-1; no original video independently decoded by this worker.",
+  "selected_state_count": 4,
+  "imagegen_calls": 5,
+  "rejected_candidate_count": 1,
+  "dimensions": [
+    1672,
+    941
+  ],
+  "provenance": "AI-generated/edited strong-reference images using built-in image_gen. Not asserted to be hand-drawn or proven non-tracing. Exact source frames dominate geometry. No Python drawing, body deformation, geometric interpolation, post-generation resize, crop or stretch.",
+  "style_anchors_inspected": [
+    {
+      "file": "E04_n1287.png",
+      "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+    },
+    {
+      "file": "E05b_n1290.png",
+      "git_blob": "477e4988b5102c2b633ced5dfacdd62f88d91c11"
+    },
+    {
+      "file": "K1_n1188_v1.png"
+    },
+    {
+      "file": "K2_n1197_v2.png"
+    }
+  ],
+  "style_usage": "Anchors visually inspected for ink/cel vocabulary and first-Purple energy; not supplied as neighboring pose references.",
+  "qa_status": "Static producer self-check passes with listed residuals; final combined A animation review remains pending.",
+  "compositing_constraints": [
+    "No body-local deformation during compositing.",
+    "S2 exposure-internal brightness and S4 later white-overlay exposures must be source-measured and separately recorded.",
+    "n1222 is not an S5 or a pure-white drawing; transition residual is to be handled by compositor using exact source.",
+    "Frozen [1187,1202) and [1248,1293) untouched; no B states produced."
+  ],
+  "metrics_note": "Luma means use RGB weights 0.2126,0.7152,0.0722 on native image pixels, not proof of geometry equivalence. Forehead ROIs are approximate matched normalized image regions and include ink.",
+  "states": [
+    {
+      "state": "S1",
+      "filename": "S1_n1212.png",
+      "source_n": 1212,
+      "source_pts_seconds": 50.5,
+      "exposure": [
+        1212,
+        1213
+      ],
+      "source_git_blob": "3f731060df16f59a8677129a03c5fcf3d003945e",
+      "source_sha256": "e2820f8f2f6414badd45388eb7c9458ac2e86343375646f87493a90763979057",
+      "source_repo_path": "collab/to_limo/051_ref/n1212.png",
+      "source_commit": "f4fd6e43147d034b3264952be5d6b907deb387f2",
+      "source_git_blob_verified": true,
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_sha256": "3130aa4058bfd7b354960f7a4176af1b73b74db0a85a20c62f05e43d7c28c225",
+      "output_git_blob": "4b3db404a9a4af097c5d64e9b3d10e69dd37a18b",
+      "size_bytes": 1645084,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "call_count": 1,
+      "selection": "selected",
+      "rejected_candidates": [],
+      "method": "Built-in image_gen, exact source-only style-transfer reference; no neighboring state as image input",
+      "prompt_file": "S1_prompt.txt",
+      "global_luma_mean": 72.898,
+      "source_global_luma_mean": 72.565,
+      "white_all_channels_ge250_fraction": 1e-05,
+      "source_white_all_channels_ge250_fraction": 0.0,
+      "qa": {
+        "geometry": "Source n1212 medium framing, both complete open palms, arm connections and silhouette retained.",
+        "known_residuals": [
+          "Figure edges and finger creases slightly cleaner/harder than source. Forehead ROI about +12.7 luma above source; face remains dark relative to palms."
+        ]
+      },
+      "forehead_qa_roi_normalized": [
+        0.609,
+        0.365,
+        0.65,
+        0.405
+      ],
+      "forehead_output_mean_luma": 79.726,
+      "forehead_source_mean_luma": 67.015,
+      "github_blob_uploaded": true
+    },
+    {
+      "state": "S2",
+      "filename": "S2_n1213.png",
+      "source_n": 1213,
+      "source_pts_seconds": 50.541666666666664,
+      "exposure": [
+        1213,
+        1216
+      ],
+      "source_git_blob": "53ecc65d6b3b57fd21072ded5cafa77d51a16091",
+      "source_sha256": "e3893c154dddc77871fc3a69e165afbc180d6669471d2441cdc5694fe1767c5b",
+      "source_repo_path": "collab/to_limo/051_ref/n1213.png",
+      "source_commit": "f4fd6e43147d034b3264952be5d6b907deb387f2",
+      "source_git_blob_verified": true,
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_sha256": "ac34a7a5f10cf182debad875ba6bbf62bbd95e8f42730d7b9239c1edc1b47272",
+      "output_git_blob": "22e16c6ae525adb9c43429f850ad77ab0c4e5d1d",
+      "size_bytes": 1654104,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "call_count": 2,
+      "selection": "selected",
+      "rejected_candidates": [
+        {
+          "filename": "S2_n1213_rejected_brightface.png",
+          "reason": "Materially overbright face relative to source and adjacent S3. Forehead ROI mean 114.541 versus source 75.507.",
+          "sha256": "2e414951ac51352bfa6c05ccf9a504c4f6d2ba2704bece8a5a0e9b2324644db0",
+          "size_bytes": 1617834,
+          "dimensions": [
+            1672,
+            941
+          ],
+          "call_number": 1,
+          "selection": "rejected",
+          "publication": "Retained candidate not included among the24 published selected images."
+        }
+      ],
+      "method": "Built-in image_gen: source-only first pass, followed by one local face/inner-robe color edit of first pass with source n1213 color reference",
+      "prompt_file": "S2_retry_prompt.txt",
+      "global_luma_mean": 86.471,
+      "source_global_luma_mean": 83.687,
+      "white_all_channels_ge250_fraction": 8e-06,
+      "source_white_all_channels_ge250_fraction": 0.0,
+      "qa": {
+        "geometry": "Source n1213 close framing and cut-off finger boundaries retained. Second call fixes materially bright face and inner robe without changing pose.",
+        "known_residuals": [
+          "Small source/output skin-color and edge-hardness differences remain. Face ROI now about -10.0 luma below source, rather than +39.0 in rejected candidate. Camera/hand geometry preserved in targeted edit."
+        ]
+      },
+      "forehead_qa_roi_normalized": [
+        0.63,
+        0.285,
+        0.682,
+        0.32
+      ],
+      "forehead_output_mean_luma": 65.513,
+      "forehead_source_mean_luma": 75.507,
+      "github_blob_uploaded": true,
+      "first_pass_prompt_file": "S2_prompt.txt"
+    },
+    {
+      "state": "S3",
+      "filename": "S3_n1216.png",
+      "source_n": 1216,
+      "source_pts_seconds": 50.666666666666664,
+      "exposure": [
+        1216,
+        1218
+      ],
+      "source_git_blob": "44c691f39c241f1e82002a74b39a3f70aad63cba",
+      "source_sha256": "4912b8631ed909319d9d6949a4e3558d8b7ec01177fe7967c46ac548f64f087c",
+      "source_repo_path": "collab/to_limo/051_ref/n1216.png",
+      "source_commit": "f4fd6e43147d034b3264952be5d6b907deb387f2",
+      "source_git_blob_verified": true,
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_sha256": "071431000d02e2d95dce35b0666b5f91d00d8ca31a51c06383bd8eaca07e17c3",
+      "output_git_blob": "adc12f5f427db94570369a798008c16139e1f942",
+      "size_bytes": 1577116,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "call_count": 1,
+      "selection": "selected",
+      "rejected_candidates": [],
+      "method": "Built-in image_gen, exact source-only style-transfer reference; no neighboring state as image input",
+      "prompt_file": "S3_prompt.txt",
+      "global_luma_mean": 122.186,
+      "source_global_luma_mean": 122.444,
+      "white_all_channels_ge250_fraction": 0.043655,
+      "source_white_all_channels_ge250_fraction": 0.013085,
+      "qa": {
+        "geometry": "Uses n1216 new viewpoint, right palm expansion and left forearm extension, not S2 body lock or zoom.",
+        "known_residuals": [
+          "Ink edges and facial hatching sharper than source. White all-channel >=250 area 4.37% versus source 1.31%; white increase is concentrated in glow/palms, face stays dim."
+        ]
+      },
+      "forehead_qa_roi_normalized": [
+        0.62,
+        0.273,
+        0.675,
+        0.311
+      ],
+      "forehead_output_mean_luma": 72.197,
+      "forehead_source_mean_luma": 74.3,
+      "github_blob_uploaded": true
+    },
+    {
+      "state": "S4",
+      "filename": "S4_n1218.png",
+      "source_n": 1218,
+      "source_pts_seconds": 50.75,
+      "exposure": [
+        1218,
+        1222
+      ],
+      "source_git_blob": "0f4b9570c14109c7d9538a7b11c881a5b34f996e",
+      "source_sha256": "5a50edde6e1fdb1f9fc8b6e424ca79774cfd02fbe22518d79204e97cc1bbb2aa",
+      "source_repo_path": "collab/to_limo/051_ref/n1218.png",
+      "source_commit": "f4fd6e43147d034b3264952be5d6b907deb387f2",
+      "source_git_blob_verified": true,
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "output_sha256": "3297e2e12ee94af7b6d2a08e86f5064a5a7d2b86deeae7d993c366a800db015b",
+      "output_git_blob": "67f25586d6bdeb7502fc9b7a75181181e0de62c2",
+      "size_bytes": 1410858,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "call_count": 1,
+      "selection": "selected",
+      "rejected_candidates": [],
+      "method": "Built-in image_gen, exact source-only style-transfer reference; no neighboring state as image input",
+      "prompt_file": "S4_prompt.txt",
+      "global_luma_mean": 131.869,
+      "source_global_luma_mean": 132.075,
+      "white_all_channels_ge250_fraction": 0.066151,
+      "source_white_all_channels_ge250_fraction": 0.057075,
+      "qa": {
+        "geometry": "Source n1218 outlines independently referenced. Strong defocus and magenta-white bloom retained, with substantial dark figure silhouette.",
+        "known_residuals": [
+          "Face/hair outline and some hatching remain slightly more legible than source; face ROI about -20.2 luma below source under impact tint. Later white-overlay exposures are not rendered here."
+        ]
+      },
+      "forehead_qa_roi_normalized": [
+        0.615,
+        0.271,
+        0.671,
+        0.307
+      ],
+      "forehead_output_mean_luma": 63.984,
+      "forehead_source_mean_luma": 84.22,
+      "github_blob_uploaded": true
+    }
+  ],
+  "status": "4 selected states delivered for combined A compositing; static QA conditionally passed."
+}

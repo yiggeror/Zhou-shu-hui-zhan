@@ -1,0 +1,6 @@
+Use case: style-transfer, strong-reference anime frame edit.
+Asset R1, source n1208. Image1 is the ONLY edit target and authority for this exact continuous camera-push state. Re-render the full landscape source frame at native1672x941.
+Preserve exact rooftop view: foreground ribbed parapet/building face covering the lower portion, nearly horizontal roof edge at source height, pale windowed block at left, tall dark banded building toward right-center, distant small skyline, and violet softly cloudy sky. Keep every plane, slope, overlap and building silhouette. Use restrained dark anime ink and cool flat shading without adding architecture.
+Most important, preserve the small heavily motion-blurred Sukuna shape just right of center at the roof edge, exact size, position, dark silhouettes, pale open-hand smears and occlusion. Keep it indistinct as in this fast source frame: do not enlarge it, resolve a clean face, invent limbs, change the pose or turn it into multiple people. Blur is intentional and must remain strong on the moving silhouette while the buildings retain their own source-specific clarity.
+Match source cool indigo/purple exposure and muted pale highlights; no new lighting rays, lightning, orb, blast or glow.
+No text, caption, signature, logo, watermark, border, crop, zoom, rotation, reframing or outpainting. One complete frame.

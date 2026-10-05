@@ -1,0 +1,7 @@
+Use case: style-transfer, strong-reference anime frame edit.
+Asset R3, source n1211, last heavily motion-blurred close approach before clearer open-hand pose.
+Image1 is the ONLY edit target and sole authority for exact camera, anatomy, occlusion, architecture, color and blur. Re-render its whole landscape frame at native1672x941.
+Match the exact center-right Sukuna silhouette, both arms thrust toward the camera with pale spread-open palms and fingers, source-specific dark markings, dark spiky hair/head and dark clothing, all strongly diagonally motion-smeared. Preserve the very large right-side near hand and smaller left-side hand, their exact finger silhouettes and gaps, all overlapping parts and source framing. Do not infer or redraw unseen limbs, make a crisp static portrait, change hands or move the figure.
+The intentional motion blur must stay inside the finger/palm/head/clothing shapes and edges just as in source, not merely decorative lines around sharp anatomy. Preserve relative clarity of background: pale windowed building cropped left, dark banded tower behind right hand, low rooftop equipment and foreground ribbed wall. Same perspective, exact dominant edge placement.
+Restrained dark ink and cool flat shading consistent with source anime, dim indigo-violet atmosphere, cloudy sky with pink-violet haze high above. Keep source exposure. No new rays, lightning, energy blast, detailed face or buildings.
+No text, captions, signature, logo, watermark, border, crop, zoom, reframing, camera rotation or outpainting. One complete full-frame image.

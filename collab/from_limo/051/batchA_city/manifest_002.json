@@ -1,0 +1,337 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 051 batchA_city provenance",
+  "status": "10 selected states complete; static QA conditionally passed; combined A composite review pending.",
+  "scope": "City, rooftop and street states only within bridge A=[1202,1248). No B work; approved Purple[1187,1202) and fight[1248,1293) unchanged.",
+  "source_indexing": "Exact zero-based decoded n, PTS=n/24 seconds, half-open exposure intervals",
+  "production_method": "Built-in image_gen, one full-frame source-only strong-reference edit per state. Exact source controls camera/geometry; style anchors viewed but not passed as geometry references.",
+  "style_anchors_inspected": [
+    "collab/from_limo/038/batch_003/K5_n1200_v2.png",
+    "collab/from_limo/038/batch_003/C1198_n1198_v1.png"
+  ],
+  "calls_total": 10,
+  "selected_states": 10,
+  "rejected_candidates": [],
+  "retry_calls": 0,
+  "file_handling": {
+    "post_generation_pixel_edits": false,
+    "crop": false,
+    "upscale": false,
+    "stretch": false,
+    "outpainting": false,
+    "transparent_background": false,
+    "native_viewport": [
+      0,
+      0,
+      1672,
+      941
+    ]
+  },
+  "source_validation": "Nine051PNG sources match GitHub Contents blob SHA1. ST3a uses verified older023n1246JPEG blob7f73abf416fbf20a83126517ce52e6438559ba99 at1280x720; source resolution/compression limitation retained. Blob identity does not establish independent video decoding.",
+  "qa_method": "Direct source/output visual self-check for dominant geometry, viewpoint, visible limbs, blur, light masses and unwanted text. Native dimensions and output blob hashes verified. No formal camera fit or temporal acceptance claimed.",
+  "assembly_notes": [
+    "C/R labels are state groups within continuous camera push, not independently claimed cuts.",
+    "R1 and R2 representative source frame is later than exposure start, per approved limited-frame approximation.",
+    "Do not automatically add a second directional blur; source-style blur is already baked in.",
+    "ST3b hand belongs to n1247 only; never display it at1246.",
+    "Source-indexed assembly and combined A review still required.",
+    "ST3a was generated using verified0231280x720JPEG; later recovered2560x1440PNG confirms the same source frame and empty street geometry. Original generation source and its resolution/compression remain disclosed."
+  ],
+  "selected": [
+    {
+      "id": "C1",
+      "source_n": 1202,
+      "source_pts_seconds": 50.083333333333336,
+      "exposure": [
+        1202,
+        1204
+      ],
+      "asset": "C1_n1202.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C1_n1202.png",
+      "github_blob": "f48348ccb65d292739b1758630570bbc5e5c359c",
+      "sha256": "7b5b5fcb8dcebf58d258b5ee4875a92ecc8b0858a4fe33402e36677585364069",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 1,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1202.png",
+      "source_git_blob": "0c29eadc80fb397deef15cfe3358d8311ff98c9e",
+      "source_sha256": "c6309c8ee9fc6d9e828cf629c6abb89d1c1ca6cc58dbac87bbb821ca3440200e",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "C1_n1202_prompt.txt",
+      "qa": "City silhouettes, lower-left clipped residual white/pink light and main lightning path retained. Sky streaks and some building edges are clearer than source."
+    },
+    {
+      "id": "C2",
+      "source_n": 1204,
+      "source_pts_seconds": 50.166666666666664,
+      "exposure": [
+        1204,
+        1206
+      ],
+      "asset": "C2_n1204.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C2_n1204.png",
+      "github_blob": "bd4e74c32f0cdee6d1d5ea570301c9e0d43ce38d",
+      "sha256": "e3540d104afe715f3b5b669577489ee1a312f649f14c5b4f07e29400bb018ef6",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 2,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1204.png",
+      "source_git_blob": "c6d0bcd341089f36fe83910e0becfc3c0314eba8",
+      "source_sha256": "d395b997890fcd52b36cc00e7fa1bad3a5e01e2f9c62f8c97c63978f06dd52b1",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "C2_n1204_prompt.txt",
+      "qa": "Dominant tower silhouettes, central windowed plane and perspective retained; no energy or character invented. Window/roof edges and cloudy sky are clearer than source."
+    },
+    {
+      "id": "C3",
+      "source_n": 1206,
+      "source_pts_seconds": 50.25,
+      "exposure": [
+        1206,
+        1207
+      ],
+      "asset": "C3_n1206.png",
+      "repository_path": "collab/from_limo/051/batchA_city/C3_n1206.png",
+      "github_blob": "effc053e1b6de3632ffebf5eafb94e6439b0a0b7",
+      "sha256": "590a825b91766cd24831a25b502c9000d155d6535c1ad9901bd7c68ce56f1839",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 3,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1206.png",
+      "source_git_blob": "415c3a15fb1b0fd4bbc62061a1b9980126f17906",
+      "source_sha256": "12c2469da5c2eb3602b5bdd48a4f2f52d70502ae83b8957d3b465199b3ee25ce",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "C3_n1206_prompt.txt",
+      "qa": "Distinct source n1206 view retained. Buildings and foreground roof align visually; finer window/roof marks and cloud texture are crisper than source."
+    },
+    {
+      "id": "R1",
+      "source_n": 1208,
+      "source_pts_seconds": 50.333333333333336,
+      "exposure": [
+        1207,
+        1209
+      ],
+      "asset": "R1_n1208.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R1_n1208.png",
+      "github_blob": "d8903df8ebf010ee36ba81473255ceadf247d73b",
+      "sha256": "813d509141491f88038a80586d63b809a4ad78d27101d1f6213aa2778b9ad5f1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 4,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1208.png",
+      "source_git_blob": "89001c8ef8565b53df62c0130c3d5b44afc5e43f",
+      "source_sha256": "d83b1a8cbe8efcb266e1961eb49d8c25dfa066108d79e8b19e16eb38c4c8cff0",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "R1_n1208_prompt.txt",
+      "qa": "Small center-right figure size and heavily blurred hands/silhouette retained. Architecture is crisper; cloud texture differs slightly. Uses later n1208 representative for exposure starting1207."
+    },
+    {
+      "id": "R2",
+      "source_n": 1210,
+      "source_pts_seconds": 50.416666666666664,
+      "exposure": [
+        1209,
+        1211
+      ],
+      "asset": "R2_n1210.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R2_n1210.png",
+      "github_blob": "7613c0eedbbbaae2c762cd344625597c6d6d230a",
+      "sha256": "030467fdb9404f46c054ab663d8dd13f5e58961fa051f41c419fa6b63fac8b06",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 5,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1210.png",
+      "source_git_blob": "fc8873bdaf83b4ad567e90863b5308c84d1e30a7",
+      "source_sha256": "62cf972e1142d0c824fa9246b3b2e65f412732fa7a9eff12b5ef6771d7dccf03",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "R2_n1210_prompt.txt",
+      "qa": "Closer blurred figure, two hand smears and roof framing retained. No clean invented face or added limbs. Some background edges clearer. Uses later n1210 representative for exposure starting1209."
+    },
+    {
+      "id": "R3",
+      "source_n": 1211,
+      "source_pts_seconds": 50.458333333333336,
+      "exposure": [
+        1211,
+        1212
+      ],
+      "asset": "R3_n1211.png",
+      "repository_path": "collab/from_limo/051/batchA_city/R3_n1211.png",
+      "github_blob": "fc151d411f191f9825d0263d9c1d34e7e6b27188",
+      "sha256": "9408e7d74467092c058bea39189cda620e8a631fcefeecf4054cd70466f852b9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 6,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1211.png",
+      "source_git_blob": "ce001395fbfc7d1967c6fe6fe8909e7b6e2b232f",
+      "source_sha256": "25cea03c72718b3462fd8a5eb9e41093cd6933c45599d4936baa9a903af72645",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "R3_n1211_prompt.txt",
+      "qa": "Large near-right hand, smaller left hand, head/clothing and source motion smears retained. Rooftop texture/window grids slightly clearer than source."
+    },
+    {
+      "id": "ST1",
+      "source_n": 1242,
+      "source_pts_seconds": 51.75,
+      "exposure": [
+        1242,
+        1244
+      ],
+      "asset": "ST1_n1242.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST1_n1242.png",
+      "github_blob": "6ad6ed718b789a8223e76e833b643759c94dc157",
+      "sha256": "1958ae57029343492100c95736331f5d97434b1cf68bd8815e8a1f14a0f639df",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 7,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1242.png",
+      "source_git_blob": "b47deaaf415ed01c8eea7f5d746412ecd8d321b7",
+      "source_sha256": "ae70887e66ec14b4a9b7870b322da279d69cf1ba932d08a1bea33e393f27fed9",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "ST1_n1242_prompt.txt",
+      "qa": "Empty dark street corner and curved curb match source; purple-pink residual glow preserved. Pavement texture and wall joints slightly more defined."
+    },
+    {
+      "id": "ST2",
+      "source_n": 1244,
+      "source_pts_seconds": 51.833333333333336,
+      "exposure": [
+        1244,
+        1246
+      ],
+      "asset": "ST2_n1244.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST2_n1244.png",
+      "github_blob": "c404fae86351f689b3c83b5e59d9dd5b91c2e54e",
+      "sha256": "b8c2f4252d9300f714b21134b6779fbf3e49ca6d90acb3a3052671daa5144626",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 8,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1244.png",
+      "source_git_blob": "4e90a8716810ffe21756741819e4380a624b6070",
+      "source_sha256": "3bdbee0b7c759825970d25f4fe6aea33a26a278b3631c48ba16db864939a0346",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "ST2_n1244_prompt.txt",
+      "qa": "Empty street, dark wall corner and diagonal sidewalk perspective match source; blur retained. Sidewalk texture is a little more granular."
+    },
+    {
+      "id": "ST3a",
+      "source_n": 1246,
+      "source_pts_seconds": 51.916666666666664,
+      "exposure": [
+        1246,
+        1247
+      ],
+      "asset": "ST3a_n1246.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST3a_n1246.png",
+      "github_blob": "8ecc624bfea8a122a99037f5abd43a1fa4840671",
+      "sha256": "630bfa131b456e194d4d7f83f31904c3e36182c6f6a04961dbe87e1be9e69495",
+      "local_git_blob_sha1": "8ecc624bfea8a122a99037f5abd43a1fa4840671",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 10,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/023_files/all_frames_jpg/n1246.jpg",
+      "source_git_blob": "7f73abf416fbf20a83126517ce52e6438559ba99",
+      "source_sha256": "d9b6b85b391239d55ee645a9dd457558cd67fc4eb8781a3b368392bf018c91f4",
+      "source_dimensions": [
+        1280,
+        720
+      ],
+      "source_format": "JPEG",
+      "source_limitation": "1280x720 lossy source, not the unavailable0512560x1440PNG. Generated native output; no pixel upscaling of source into deliverable.",
+      "prompt_file": "ST3a_n1246_prompt.txt",
+      "qa": "Empty street with correct distinctn1246view, curved curb, bright blurred window bands and cropped dark right building. No person or limb. Softness retained; pavement is slightly more textured than JPEG source.",
+      "post_generation_source_check": {
+        "source_n": 1246,
+        "format": "PNG",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "sha256": "b881ca49defb6381248d9005e8c39b36c0dcc004fd2c156e6f41cb97d09b35f2",
+        "git_blob_sha1": "814118ccb5590787febe41e4d287c799f1ff0490",
+        "result": "Full-resolution source recovered after generation. Direct visual check confirms the same empty street geometry and blur; original generation source remains the earlier023JPEG. No redraw or additional imagegen call.",
+        "source_validation_packet_report": "Original video source was independently recovered and matched19known051PNGframes pixel-for-pixel; fulln1246PNG downsampled to1280x720 differed from023JPEG by mean absolute RGB error0.609/255, as reported by source-validation process."
+      }
+    },
+    {
+      "id": "ST3b",
+      "source_n": 1247,
+      "source_pts_seconds": 51.958333333333336,
+      "exposure": [
+        1247,
+        1248
+      ],
+      "asset": "ST3b_n1247.png",
+      "repository_path": "collab/from_limo/051/batchA_city/ST3b_n1247.png",
+      "github_blob": "719de4f337fb244c4e8ca0e7138f3968fe528034",
+      "sha256": "8409d8069a6e6574674e8537a8532187769e79837015639c2fde68fb2513031c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "imagegen_call_number": 9,
+      "imagegen_call_count": 1,
+      "source_repository_path": "collab/to_limo/051_ref/n1247.png",
+      "source_git_blob": "45e3799143f2dd453facf448a0c4395e7493d711",
+      "source_sha256": "27256e226480942a062bf4e6a06df6cc8ed86b6b65b253da4828464495f0bb3e",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "prompt_file": "ST3b_n1247_prompt.txt",
+      "qa": "Only cropped forearm, wrist and open hand visible at far left. No legs or extra body added. Dark street/curb perspective and blur retained; slight new pavement streak definition."
+    }
+  ],
+  "pending": []
+}
