@@ -11,6 +11,12 @@
    "E04": "luma",
    "E05small": "luma",
    "E05b": "luma"
+  },
+  "first_only": [
+   "E05b"
+  ],
+  "wb_from": {
+   "E05small": "E04"
   }
  },
  "frames_sheet": {
@@ -53,7 +59,7 @@
    "hold": "E05small",
    "id": "E05small",
    "mode": "full",
-   "full": "collab/from_limo/042/corrections_001/E05small_n1289.png",
+   "full": "collab/from_limo/043/ignition_002/E05small_n1289_v2.png",
    "ref": 1287,
    "camera_only": "none",
    "zoom": 1.0,

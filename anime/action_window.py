@@ -1118,6 +1118,7 @@ def main():
             pr = apply_grade(probe, cv, st).reshape(5, 3)
             return (f'inputs 0.1/0.3/0.5/0.7/0.9 -> B {np.round(pr[:, 0], 3).tolist()}, G {np.round(pr[:, 1], 3).tolist()}, '
                     f'R {np.round(pr[:, 2], 3).tolist()}')
+        fitted = {}
         for did, dns in ids.items():
             # one curve per drawing, fitted on the same content at its first exposure; a hold also gets one at its
             # last exposure and moves linearly between them (the light changes inside a hold, e.g. D04's fade)
@@ -1126,7 +1127,22 @@ def main():
             fit = fit_grade if mode == 'channels' else fit_grade_luma
             app = apply_grade if mode == 'channels' else apply_grade_luma
             c0, n0 = fit(R[first], O[first], sigma=grade.get('sigma', 4.0))
-            c1, n1 = fit(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last != first else (c0, n0)
+            # first_only: one grade for the whole hold, fitted at its first exposure.  For a hold whose last original
+            # frame differs from the drawing in content (n1291's larger source flame), not only in light, a second fit
+            # there would carry that content difference into the colour (Limo, 043: keep the colour continuous; the
+            # light change is the scalar brightness gain alone)
+            last_fit = first if did in grade.get('first_only', []) else last
+            c1, n1 = fit(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last_fit != first else (c0, n0)
+            wb_from = grade.get('wb_from', {}).get(did)
+            if wb_from:
+                # a same-canvas effect edit of the previous drawing: its own luminance curve (the edit can come back
+                # a little lighter or darker), but the white balance of that drawing at its last exposure, so the
+                # unchanged body keeps its colour across the change (Limo, 043: no colour flicker)
+                if mode != 'luma' or fitted.get(wb_from, (None, None, None))[2] != 'luma':
+                    sys.exit(f'wb_from: {did} and {wb_from} must both be graded in luma mode')
+                wb = fitted[wb_from][1]['wb']
+                c0, c1 = dict(c0, wb=wb), dict(c1, wb=wb)
+            fitted[did] = (c0, c1, mode)
             for n in dns:
                 t = 0.0 if last == first else (n - first) / (last - first)
 
@@ -1142,7 +1158,11 @@ def main():
                 desc = describe_curve if mode == 'channels' else (lambda cv: f'luma {describe_luma(cv)}')
                 src[n] += (f'; GRADE {did}: {how}, strength {st}, at n{first} ({n0} px): {desc(c0)}'
                            + (f'; and at n{last} ({n1} px): {desc(c1)}; this frame blends the two graded results at '
-                              f'{t:.2f}' if last != first else ''))
+                              f'{t:.2f}' if last_fit != first else
+                              (f'; the same grade on every exposure of the hold (first_only; the light change inside '
+                               f'the hold is the scalar brightness gain above)' if last != first else ''))
+                           + (f'; white balance taken from {wb_from} at its last exposure (same canvas, unchanged body)'
+                              if wb_from else ''))
     for n in ns:
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
     # the redraw alone, native size, 24 fps, played once (no labels): for judging the motion itself
