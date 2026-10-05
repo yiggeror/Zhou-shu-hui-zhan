@@ -331,7 +331,12 @@
    "zoom": 1.0,
    "light": "fixed",
    "white_wash": {
-    "sigma": 40
+    "sigma": 40,
+    "color": "source",
+    "lo": 0.45,
+    "hi": 0.9,
+    "blend": "screen",
+    "veil_max": 0.6
    }
   },
   "1220": {
@@ -344,7 +349,12 @@
    "zoom": 1.0,
    "light": "fixed",
    "white_wash": {
-    "sigma": 40
+    "sigma": 40,
+    "color": "source",
+    "lo": 0.45,
+    "hi": 0.9,
+    "blend": "screen",
+    "veil_max": 0.6
    }
   },
   "1221": {
@@ -357,7 +367,12 @@
    "zoom": 1.0,
    "light": "fixed",
    "white_wash": {
-    "sigma": 40
+    "sigma": 40,
+    "color": "source",
+    "lo": 0.45,
+    "hi": 0.9,
+    "blend": "screen",
+    "veil_max": 0.6
    }
   },
   "1222": {
@@ -370,7 +385,12 @@
    "zoom": 1.0,
    "light": "fixed",
    "white_wash": {
-    "sigma": 40
+    "sigma": 40,
+    "color": "source",
+    "lo": 0.45,
+    "hi": 0.9,
+    "blend": "screen",
+    "veil_max": 0.6
    }
   },
   "1223": {
@@ -383,7 +403,12 @@
    "zoom": 1.0,
    "light": "fixed",
    "white_wash": {
-    "sigma": 40
+    "sigma": 40,
+    "color": "source",
+    "lo": 0.45,
+    "hi": 0.9,
+    "blend": "screen",
+    "veil_max": 0.6
    }
   },
   "1224": {

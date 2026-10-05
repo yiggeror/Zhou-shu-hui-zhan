@@ -1298,9 +1298,28 @@ def main():
             sub = (slice(None, None, 2), slice(None, None, 2))
             r_s, a_s = R[n][sub], a0[sub]
 
+            if ww.get('color') == 'source':
+                # a coloured light field (a white-to-pink/purple flood): the wash colour is the original's own colour,
+                # blurred like the field (watermark box filled from its surroundings first), so only the rough
+                # colour of the light is taken, never the original's detail or figure
+                o_f = O[n].copy()
+                fill3 = cv2.GaussianBlur(o_f * outside[..., None], (0, 0), 15) / \
+                    np.maximum(cv2.GaussianBlur(outside, (0, 0), 15), 1e-4)[..., None]
+                o_f[L.WATERMARK] = fill3[L.WATERMARK]
+                wcol = np.clip(cv2.GaussianBlur(o_f, (0, 0), ww.get('sigma', 40)), 0, 1)
+            else:
+                wcol = np.ones((1, 1, 3), np.float32)
+            wcol_s = wcol[sub] if wcol.shape[0] > 1 else wcol
+
+            screen = ww.get('blend') == 'screen'
+
             def washed(k, c, x=r_s, a=a_s):
                 al = np.clip(k * a + c, 0, 1)
-                return x * (1 - al) + al
+                if screen:
+                    # light added over the drawing (screen): the drawing's dark lines and shapes stay readable under
+                    # the flood, as in the original where the figure still shows through the light
+                    return 1 - (1 - x) * (1 - al * wcol_s)
+                return x * (1 - al) + al * wcol_s
 
             def share(k, c):
                 return float((washed(k, c).min(2) >= thr).mean())
@@ -1317,15 +1336,18 @@ def main():
             # two numbers fitted to the original: the field's scale (white share) and a uniform white veil over the
             # whole frame (mean luminance; the flash washes out the frame as a whole as it fades)
             best = None
-            for c in np.arange(0.0, 0.92, 0.02):
+            for c in np.arange(0.0, ww.get('veil_max', 0.9) + 0.02, 0.02):
                 k = fit_k(c)
                 err = abs(float(L.lum(washed(k, c)).mean()) - lum_o)
                 if best is None or err < best[0]:
                     best = (err, k, float(c))
             _, kk, cc = best
             alpha = np.clip(kk * a0 + cc, 0, 1)
-            R[n] = R[n] * (1 - alpha) + alpha
-            src[n] += (f'; WHITE WASH (composited): white over the drawing, strength = {kk:.3f} x the original\'s '
+            R[n] = 1 - (1 - R[n]) * (1 - alpha * wcol) if screen else R[n] * (1 - alpha) + alpha * wcol
+            src[n] += (f'; WHITE WASH (composited): ' + ('the original\'s own colour blurred ' + str(ww.get('sigma', 40)) +
+                                                         ' px (watermark filled; rough light colour only)' if
+                                                         ww.get('color') == 'source' else 'white') +
+                       (' added as light (screen)' if screen else ' over the drawing') + f', strength = {kk:.3f} x the original\'s '
                        f'whiteness (luminance {lo}-{hi} -> 0-1; inside the source watermark box filled from its '
                        f'surroundings, mean {wm_before:.3f} -> {float(w[L.WATERMARK].mean()):.3f}; blurred '
                        f'{ww.get("sigma", 40)} px) + a uniform veil {cc:.2f}; '

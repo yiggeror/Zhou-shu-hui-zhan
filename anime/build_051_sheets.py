@@ -120,7 +120,7 @@ def build(name, table, flat, frames, out, d=None):
                 if kind in ('views', 'still'):
                     e.update(camera_only='none', zoom=1.0, light='fixed')
             if n in ex.get('wash', []):
-                e['white_wash'] = {'sigma': 40}
+                e['white_wash'] = {'sigma': 40, 'color': 'source', 'lo': 0.45, 'hi': 0.90, 'blend': 'screen', 'veil_max': 0.6}
             fs[str(n)] = e
         if kind == 'views' and len(ns) > 1:
             other = [n for n in ns if n != src]
