@@ -590,7 +590,11 @@ def load_sprite(sp):
 def _exposure_counts(fs, ns):
     """how many frames are single exposures and how many belong to holds (the same image on consecutive frames)"""
     runs, prev = [], None
+    whites = [n for n in ns if fs[n].get('white')]
     for n in ns:
+        if fs[n].get('white'):
+            prev = None
+            continue
         key = fs[n].get('id', fs[n].get('drawing', fs[n].get('hold')))
         if runs and key == prev:
             runs[-1][1] += 1
@@ -599,6 +603,8 @@ def _exposure_counts(fs, ns):
         prev = key
     held = [r for r in runs if r[1] > 1]
     out = [f'{sum(1 for r in runs if r[1] == 1)} frames are single exposures']
+    if whites:
+        out.append(f'{len(whites)} frame(s) are composited white flashes (no drawing)')
     if held:
         out.append(f'{sum(r[1] for r in held)} frames are {len(held)} hold(s) of one image each '
                    f'({", ".join(f"{k} x{c}" for k, c in held)}; the {sum(r[1] - 1 for r in held)} repeat exposures are '
@@ -1017,13 +1023,24 @@ def apply_grade_luma(img, cv, strength=1.0):
     l2 = np.interp(lu, cv['x'], cv['y'])
     l2 = np.where(lu < cv['x'][0], np.maximum(cv['y'][0] + (lu - cv['x'][0]) * cv['lo'], 0), l2)   # joins at (x0, y0)
     l2 = np.where(lu > cv['x'][-1], cv['y'][-1] + (lu - cv['x'][-1]) * cv['hi'], l2)
-    out = img * (l2 / lu)[..., None] * cv['wb']
+    out = img * (l2 / lu)[..., None]
+    wb = cv['wb']
+    if cv.get('protect'):
+        # highlight protection: the white balance fades out towards pure white (smallest channel from a to b), so
+        # a white core stays white instead of taking the balance's tint
+        a, b = cv['protect']
+        k = np.clip((np.clip(out, 0, 1).min(2) - a) / (b - a), 0, 1)[..., None]
+        k = k * k * (3 - 2 * k)
+        wb = 1 + (wb - 1) * (1 - k)
+    out = out * wb
     return np.clip(img + strength * (out - img), 0, 1)
 
 
 def describe_luma(cv):
     return (f'0.1/0.3/0.5/0.7/0.9 -> {np.round(np.interp([0.1, 0.3, 0.5, 0.7, 0.9], cv["x"], cv["y"]), 3).tolist()}, '
-            f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}')
+            f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}'
+            + (f', faded out towards pure white (smallest channel {cv["protect"][0]}-{cv["protect"][1]})'
+               if cv.get('protect') else ''))
 
 
 def apply_grade(img, curves, strength=1.0):
@@ -1103,12 +1120,18 @@ def main():
                       f'{fs[n].get("id", "drawing")} new drawing `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), its lines '
                       f'and shapes unchanged; AI-generated/edited image (Limo), whole-frame camera only')
             tag[n] = f'{fs[n].get("id", "drawing")} drawing'
+        elif fs[n].get('white'):
+            # a white flash: composited, no drawing
+            R[n] = np.ones((H, W, 3), np.float32)
+            src[n] = (f'WHITE FLASH (composited, no drawing): pure white; the original has '
+                      f'{100 * float((O[n].min(2) >= 250 / 255).mean()):.1f}% of its pixels >= 250/255 in all channels')
+            tag[n] = 'white flash'
     grade = sheet.get('grade')
     if grade:
         # one tone curve per drawing (all its exposures), fitted at its reference frame on the same content
         ids = {}
         for n in ns:
-            if fs[n].get('frozen'):                       # an already graded, frozen output frame: shown as it is
+            if fs[n].get('frozen') or fs[n].get('white'):  # a frozen output frame / a white flash: not graded
                 continue
             ids.setdefault(fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))), []).append(n)
         st = grade.get('strength', 1.0)
@@ -1126,13 +1149,21 @@ def main():
             mode = grade.get('modes', {}).get(did, 'channels')
             fit = fit_grade if mode == 'channels' else fit_grade_luma
             app = apply_grade if mode == 'channels' else apply_grade_luma
-            c0, n0 = fit(R[first], O[first], sigma=grade.get('sigma', 4.0))
+            # grade_at: the frames the grade is fitted at, when the hold's first or last exposure cannot show the
+            # drawing's own light (e.g. under a white wash); between them it blends, outside them it is held
+            fa, fb = grade.get('grade_at', {}).get(did, [first, last])
+            c0, n0 = fit(R[fa], O[fa], sigma=grade.get('sigma', 4.0))
+            if mode == 'luma' and grade.get('white_protect'):
+                c0 = dict(c0, protect=tuple(grade['white_protect']))
             # first_only: one grade for the whole hold, fitted at its first exposure.  For a hold whose last original
             # frame differs from the drawing in content (n1291's larger source flame), not only in light, a second fit
             # there would carry that content difference into the colour (Limo, 043: keep the colour continuous; the
             # light change is the scalar brightness gain alone)
-            last_fit = first if did in grade.get('first_only', []) else last
-            c1, n1 = fit(R[last], O[last], sigma=grade.get('sigma', 4.0)) if last_fit != first else (c0, n0)
+            if did in grade.get('first_only', []):
+                fb = fa
+            c1, n1 = fit(R[fb], O[fb], sigma=grade.get('sigma', 4.0)) if fb != fa else (c0, n0)
+            if mode == 'luma' and grade.get('white_protect'):
+                c1 = dict(c1, protect=tuple(grade['white_protect']))
             wb_from = grade.get('wb_from', {}).get(did)
             if wb_from:
                 # a same-canvas effect edit of the previous drawing: its own luminance curve (the edit can come back
@@ -1144,7 +1175,7 @@ def main():
                 c0, c1 = dict(c0, wb=wb), dict(c1, wb=wb)
             fitted[did] = (c0, c1, mode)
             for n in dns:
-                t = 0.0 if last == first else (n - first) / (last - first)
+                t = 0.0 if fb == fa else float(np.clip((n - fa) / (fb - fa), 0, 1))
 
                 def g(x):
                     return (1 - t) * app(x, c0, st) + t * app(x, c1, st) if t else app(x, c0, st)
@@ -1156,13 +1187,44 @@ def main():
                        'one luminance curve (distribution match, colour ratios kept) and a global white balance '
                        f'limited to +-{int(100 * LUMA_WB_LIMIT)} %')
                 desc = describe_curve if mode == 'channels' else (lambda cv: f'luma {describe_luma(cv)}')
-                src[n] += (f'; GRADE {did}: {how}, strength {st}, at n{first} ({n0} px): {desc(c0)}'
-                           + (f'; and at n{last} ({n1} px): {desc(c1)}; this frame blends the two graded results at '
-                              f'{t:.2f}' if last_fit != first else
+                src[n] += (f'; GRADE {did}: {how}, strength {st}, at n{fa} ({n0} px): {desc(c0)}'
+                           + (f'; and at n{fb} ({n1} px): {desc(c1)}; this frame blends the two graded results at '
+                              f'{t:.2f}' if fb != fa else
                               (f'; the same grade on every exposure of the hold (first_only; the light change inside '
                                f'the hold is the scalar brightness gain above)' if last != first else ''))
                            + (f'; white balance taken from {wb_from} at its last exposure (same canvas, unchanged body)'
                               if wb_from else ''))
+    for n in ns:
+        ww = fs[n].get('white_wash')
+        if ww:
+            # the white flash fading out over the drawing: where the original is (near) white, a smooth white field,
+            # i.e. only the rough shape of the original's white area (blurred by sigma px), not its detail
+            lo, hi = ww.get('lo', 0.80), ww.get('hi', 0.95)
+            w = np.clip((L.lum(O[n]) - lo) / (hi - lo), 0, 1).astype(np.float32)
+            a0 = np.clip(cv2.GaussianBlur(w, (0, 0), ww.get('sigma', 40)), 0, 1)[..., None]
+            before = float((R[n].min(2) >= 250 / 255).mean())
+            target = float((O[n].min(2) >= 250 / 255).mean())
+
+            def share(k):
+                x = R[n] * (1 - np.clip(k * a0, 0, 1)) + np.clip(k * a0, 0, 1)
+                return float((x.min(2) >= 250 / 255).mean())
+            # one scalar on the field so the white share matches the original's (bisection; 0 if the drawing is
+            # already as white)
+            klo, khi = 0.0, 3.0
+            if share(0.0) < target:
+                for _ in range(20):
+                    km = (klo + khi) / 2
+                    klo, khi = (km, khi) if share(km) < target else (klo, km)
+            kk = (klo + khi) / 2 if share(0.0) < target else 0.0
+            alpha = np.clip(kk * a0, 0, 1)
+            R[n] = R[n] * (1 - alpha) + alpha
+            src[n] += (f'; WHITE WASH (composited): white over the drawing with the strength of the original\'s '
+                       f'whiteness (luminance {lo}-{hi} -> 0-1), blurred {ww.get("sigma", 40)} px, times {kk:.3f} so '
+                       f'that the white share matches the original\'s, mean strength '
+                       f'{float(alpha.mean()):.2f}; pixels >= 250/255 in all channels: original '
+                       f'{100 * float((O[n].min(2) >= 250 / 255).mean()):.1f}%, drawing before {100 * before:.1f}%, after '
+                       f'{100 * float((R[n].min(2) >= 250 / 255).mean()):.1f}%')
+            tag[n] += ' + white wash'
     for n in ns:
         cv2.imwrite(os.path.join(out, f'R_n{n:04d}.png'), to8(R[n]))
     # the redraw alone, native size, 24 fps, played once (no labels): for judging the motion itself
@@ -1226,7 +1288,7 @@ def main():
     tiles += [np.zeros_like(tiles[0])] * (-len(tiles) % 6)         # pad the last row
     rows = [np.hstack(tiles[i:i + 6]) for i in range(0, len(tiles), 6)]
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
-    drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns})
+    drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns if not fs[n].get('white')})
     with open(os.path.join(out, 'sources.md'), 'w') as f:
         f.write(f'# {sheet.get("name", "window")} [{f0}, {f1}): where every frame comes from\n\n')
         frozen = sorted({fs[n].get('id') for n in ns if fs[n].get('frozen')})
