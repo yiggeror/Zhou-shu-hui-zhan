@@ -1,0 +1,374 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 049 independent native/decoded verification",
+  "method": "native uint8, float64 BT601luma; source Pillow LANCZOS analysis resize; decoded RGB FFmpeg; native and decoded kept separate",
+  "rows": [
+    {
+      "n": 1187,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "d3c1898bf4cd0164e66fe46bdd6fbc3f4028be2a0fcbec57f6b35b844308df0d",
+      "native_rgb_sha256": "cd99dcffabec29ac7f83386f5d881590a7f48a90c8e6f1d4eba5d98fb900794a",
+      "source": {
+        "luma601_mean": 84.77746031148783,
+        "white250_percent": 0.32967829195246834,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 83.34618145844031,
+        "white250_percent": 0.3692117212168669,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 82.04755515739643,
+        "white250_percent": 0.2572850830583366,
+        "max": 255
+      }
+    },
+    {
+      "n": 1188,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "8bb71c8cdd1bd6c1ae372e6dfd408effdb49a2480638fa13359f6ba7dd5c78df",
+      "native_rgb_sha256": "7b0d04326eb9b22b7628019895273dcc4a6e3a8b3e9930084889ccde9b24dc70",
+      "source": {
+        "luma601_mean": 120.29500755012228,
+        "white250_percent": 2.0661619268923928,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 120.47446286209316,
+        "white250_percent": 2.7150949056536615,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 119.23487628006956,
+        "white250_percent": 2.4014969313923396,
+        "max": 255
+      }
+    },
+    {
+      "n": 1189,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "2f9d7c9a6f0af86f144446cf21cb09329dae2ae6665fa428cb29c88896708d61",
+      "native_rgb_sha256": "982b469b8113d9fac2aee9cff8b05ac8ad7e93c4e5072e60fba767ff3cd67b63",
+      "source": {
+        "luma601_mean": 192.7592478027803,
+        "white250_percent": 22.321324153781227,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 193.09758406192637,
+        "white250_percent": 24.32360971988468,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 192.01661421283984,
+        "white250_percent": 23.40029440328674,
+        "max": 255
+      }
+    },
+    {
+      "n": 1190,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "78e28770e689a974e9865f5ade9c6536d79d19a4e376411b75646bc64ba4accb",
+      "native_rgb_sha256": "51b1097144b4b181a9eb278f12d537043aa9742abf47b28173c08aefad69299a",
+      "source": {
+        "luma601_mean": 254.67506150308387,
+        "white250_percent": 99.61985620509587,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 255,
+        "white250_percent": 100,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 255,
+        "white250_percent": 100,
+        "max": 255
+      }
+    },
+    {
+      "n": 1191,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "78e28770e689a974e9865f5ade9c6536d79d19a4e376411b75646bc64ba4accb",
+      "native_rgb_sha256": "51b1097144b4b181a9eb278f12d537043aa9742abf47b28173c08aefad69299a",
+      "source": {
+        "luma601_mean": 254.51652157432028,
+        "white250_percent": 96.56065521256527,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 255,
+        "white250_percent": 100,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 255,
+        "white250_percent": 100,
+        "max": 255
+      }
+    },
+    {
+      "n": 1192,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "ba16a683998ac157201e777befea92816c577ab0fbc74f4ad33d307fe36ad29b",
+      "native_rgb_sha256": "3624b6a9fb8a887c64e4902993c1d43ac88e782b88b89edb8175f0488bd13951",
+      "source": {
+        "luma601_mean": 242.4328478649406,
+        "white250_percent": 59.745498782217844,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 242.53247985066278,
+        "white250_percent": 59.73984206967036,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 241.5502189363855,
+        "white250_percent": 41.6902257091865,
+        "max": 255
+      }
+    },
+    {
+      "n": 1193,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "c753070a24e1bfb0ee1cf3847579c7b769a613bbf8713da6dd9cfba7ac9351bb",
+      "native_rgb_sha256": "a747733fa2b5b277bc68691e014ca9dc388fdee2cbec3abf64e7f44acf52c79d",
+      "source": {
+        "luma601_mean": 222.93895117176575,
+        "white250_percent": 35.8207826347823,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 223.21327041310528,
+        "white250_percent": 35.80679974983348,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 222.16763620855346,
+        "white250_percent": 30.467689366397348,
+        "max": 255
+      }
+    },
+    {
+      "n": 1194,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "27d2984e55ed0d49a42f38b114b36d82944d5b39c3bd842458d7609e9af59e63",
+      "native_rgb_sha256": "d53ce7e50ebc8778cdff6afd106e6e9f4d9f60011691a06f0cddbe7d68a6c0ad",
+      "source": {
+        "luma601_mean": 169.92782453449706,
+        "white250_percent": 8.518119276550957,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 169.32379043341857,
+        "white250_percent": 9.360270301877774,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 168.17736207472961,
+        "white250_percent": 8.862988066243283,
+        "max": 255
+      }
+    },
+    {
+      "n": 1195,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "8a04c64b5553868394e2345cad6346c318ca80eddc7d8eed6056518762f6a2da",
+      "native_rgb_sha256": "a122b51e5a9f64246e8e84b09e47486dcd0459891b4f647705a551c1111072cf",
+      "source": {
+        "luma601_mean": 165.41324607017373,
+        "white250_percent": 12.201465406342637,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 165.045362048035,
+        "white250_percent": 11.676217400810499,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 163.88514491734844,
+        "white250_percent": 10.866799037977517,
+        "max": 255
+      }
+    },
+    {
+      "n": 1196,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "92e1d2f11b59e52f343501e7a2c2bedd13b91fde3c59663124a9481e1e4c1019",
+      "native_rgb_sha256": "f4e83897c758d44e9d330dde4b916879fa756bbf959bfa043a186ab113a073ad",
+      "source": {
+        "luma601_mean": 183.13355615844387,
+        "white250_percent": 16.793953292079586,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 179.7276100777194,
+        "white250_percent": 15.776253502077095,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 178.58300443956597,
+        "white250_percent": 14.931687251168208,
+        "max": 255
+      }
+    },
+    {
+      "n": 1197,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "cc5551f7585b577de0ecd91d244c7720432abaa969f44846104c7de24e74fcb5",
+      "native_rgb_sha256": "50fd948d53eea0d044ed3f26d1881e4b9b0c3851c70da2535432800dc5505326",
+      "source": {
+        "luma601_mean": 165.43925349572126,
+        "white250_percent": 12.638621236697192,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 165.36525714398303,
+        "white250_percent": 14.79103214029664,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 164.30908731167597,
+        "white250_percent": 14.151378712455953,
+        "max": 255
+      }
+    },
+    {
+      "n": 1198,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "9d900a6a5ba9ce7daafe7d90668a65d8a6833b1df972ec36989561f6c121ae06",
+      "native_rgb_sha256": "95c5a68fd2ca92a372334ea5ec7dde4d543a908fa3f7cc92a77e0db230595784",
+      "source": {
+        "luma601_mean": 154.72015724580385,
+        "white250_percent": 7.705395868184614,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 154.5280338951487,
+        "white250_percent": 8.81264968042752,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 153.36893740053083,
+        "white250_percent": 8.322168211563593,
+        "max": 255
+      }
+    },
+    {
+      "n": 1199,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "94c83314e531e357230f19c5fc367cc21f67c28a55db0718cffa24cdb2314922",
+      "native_rgb_sha256": "9533476dc5551773ccbc35e699e4efaeae6aa0225f63df2cd73d7c1da521f479",
+      "source": {
+        "luma601_mean": 141.84627310735297,
+        "white250_percent": 6.126156130350996,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 141.2221981698946,
+        "white250_percent": 7.802958269986628,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 140.0727644023715,
+        "white250_percent": 7.6434898230021,
+        "max": 255
+      }
+    },
+    {
+      "n": 1200,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "77a28d559e7e34056a7386f801ebf5ec3fb1e6951140502f7b7144aa867ffd76",
+      "native_rgb_sha256": "121be3c29e32234328876610419528f9a47e4f471c8e148bbf479368a179fef7",
+      "source": {
+        "luma601_mean": 143.0754033725447,
+        "white250_percent": 6.320136879731936,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 142.227358854217,
+        "white250_percent": 7.925117837584978,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 141.03485207378895,
+        "white250_percent": 7.414742536952951,
+        "max": 255
+      }
+    },
+    {
+      "n": 1201,
+      "native_size": [
+        1672,
+        941
+      ],
+      "native_file_sha256": "38d1991faffd9d16748197e89af65e53befb23ba1abfa9607b909c2ecfa830c5",
+      "native_rgb_sha256": "ab894e8d64744162559fad263904fa0bb23079e37185b788206348a89c412f54",
+      "source": {
+        "luma601_mean": 103.43686376792986,
+        "white250_percent": 4.118086734564167,
+        "max": 255
+      },
+      "native": {
+        "luma601_mean": 104.48202387895398,
+        "white250_percent": 6.263506195689204,
+        "max": 255
+      },
+      "decoded": {
+        "luma601_mean": 103.30373289702496,
+        "white250_percent": 6.406068063599244,
+        "max": 255
+      }
+    }
+  ],
+  "stats": {
+    "mean_abs_luma_difference": 0.686180136464488,
+    "max_abs_luma_difference": 3.405946080724476,
+    "mean_abs_frame_change_difference": 0.9037038931166543,
+    "max_abs_frame_change_difference": 3.3319497289862454,
+    "decoded_frames": 15,
+    "decoded_white_frames_all255": true
+  }
+}
