@@ -1,0 +1,174 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 038 batch_002 provenance",
+  "status": "K3 K4 candidates awaiting reciprocal review; not complete15-frame release",
+  "source_indexing": "zero-based decoded n; PTS=n/24; half-open intervals",
+  "source_snapshot": "594ea6c539204f620a5cc784692b18dcffc3d03c",
+  "window": {
+    "start": 1187,
+    "end": 1202,
+    "frames": 15,
+    "fps": 24,
+    "total_planned_states": 7,
+    "synthetic_white_exposures": [
+      1190,
+      1192
+    ]
+  },
+  "preview": {
+    "start": 1188,
+    "end": 1196,
+    "frames": 8,
+    "fps": 24,
+    "states": [
+      "K1",
+      "K3",
+      "synthetic_white",
+      "K4"
+    ],
+    "not_included": "K0 n1187; no source stand-in may be counted as completed generated art",
+    "approximation": "n1192 and n1193 use K4 n1194 geometry under independently derived white/exposure treatment; does not recreate their changing city perspective"
+  },
+  "source_frames": [
+    {
+      "path": "collab/to_limo/038_ref/n1189.png",
+      "git_blob": "4476f6ddf88bb96eb6f81399bf99f0028969c2ae",
+      "sha256": "b7b2d0435ae6955d45ddbf9a5f87045d1cac2c99bf3821a3b5d1755c4efd1e43",
+      "native_size": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "path": "collab/to_limo/038_ref/n1194.png",
+      "git_blob": "c7d856caac0b6de1edd951c7003cc7e2b8b77366",
+      "sha256": "1540d5f33810dceb4e94c0c4e7f1984c3d7b25d4dcdeb78d10f8baa4862f5acc",
+      "native_size": [
+        2560,
+        1440
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "asset": "K3_n1189_v1.png",
+      "source_n": 1189,
+      "source_pts_seconds": 49.541666666666664,
+      "candidate_exposure": [
+        1189,
+        1190
+      ],
+      "state_type": "full-frame flash with obscured Gojo silhouette",
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1466238,
+      "sha256": "a7d330e2f642d341dfbee3222c87ae93186df05623a8a8bf753a29f3247d74f3",
+      "git_blob": "ea3c361136213eca1ed7854764fd048835f4296f",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        246.1463747464013,
+        157.91809080231252,
+        241.37010154116817
+      ],
+      "mean_rgb_average": 215.14485569662733,
+      "white_mask_all_percent": 28.922199228144752,
+      "largest_white_component_percent": 27.564651775317923,
+      "largest_white_component_centroid": [
+        780.0753927353472,
+        623.1812981191591
+      ]
+    },
+    {
+      "asset": "K4_n1194_v1.png",
+      "source_n": 1194,
+      "source_pts_seconds": 49.75,
+      "candidate_exposure": [
+        1192,
+        1196
+      ],
+      "state_type": "full-frame early tilted city and lower clipped white-core projectile",
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1672230,
+      "sha256": "88359f0ba93ded0b88c9dfb7b75e129646eb523a1a9e65ff88dd34943d551095",
+      "git_blob": "19fe6aefefcaa5cc984777499c15deb84f9bef92",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        214.68839649360092,
+        133.6975114278305,
+        232.9940649009249
+      ],
+      "mean_rgb_average": 193.7933242741188,
+      "white_mask_all_percent": 13.342595935302462,
+      "largest_white_component_percent": 13.053912919677224,
+      "largest_white_component_centroid": [
+        726.7057706539945,
+        691.2638472325011
+      ]
+    }
+  ],
+  "generation": {
+    "tool": "built-in image_gen.imagegen",
+    "batch_call_count": 2,
+    "cumulative_first_purple_call_count": 5,
+    "failed_calls": 0,
+    "revision_calls_this_batch": 0,
+    "transparent_background": false,
+    "calls": [
+      {
+        "call": 4,
+        "output": "K3_n1189_v1.png",
+        "reference_paths": [
+          "collab/to_limo/038_ref/n1189.png"
+        ],
+        "prompt_file": "prompts.md",
+        "prompt_section": "Call 4"
+      },
+      {
+        "call": 5,
+        "output": "K4_n1194_v1.png",
+        "reference_paths": [
+          "collab/to_limo/038_ref/n1194.png"
+        ],
+        "prompt_file": "prompts.md",
+        "prompt_section": "Call 5"
+      }
+    ]
+  },
+  "file_handling": {
+    "post_generation_pixel_edits": false,
+    "crop": false,
+    "upsample": false,
+    "output_padding": false,
+    "whole_native_viewport": [
+      0,
+      0,
+      1672,
+      941
+    ]
+  },
+  "blur": {
+    "K3": "Source-like luminous diffusion, soft flash occlusion, clearer remaining hair/clothing/lightning lines; no deterministic blur kernel known.",
+    "K4": "Strong baked-in source-directed diagonal architectural softness and pink wash; preserves lower-left/upper-right streak axis, varying by building plane. No known deterministic shutter/kernel/radius; do not blindly double blur."
+  },
+  "analysis": {
+    "analysis_size": [
+      1672,
+      941
+    ],
+    "source_resize": "Pillow LANCZOS only for measurement; delivered files unchanged",
+    "white_mask": "all RGB channels >=240",
+    "component": "scipy.ndimage.label default 4-connectivity; largest connected component. Lightning can join this mask; it is not an independently segmented sphere.",
+    "mean": "Arithmetic mean of RGB channel values, not perceptual luminance",
+    "geometry_review": "Actual-pixel visual comparison of character pose/occlusion and dominant city silhouettes; no formal camera fit or proof of temporal geometry."
+  }
+}
