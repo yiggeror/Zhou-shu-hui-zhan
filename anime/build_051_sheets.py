@@ -144,7 +144,8 @@ C2 = [
     ('Q6', 1438, [1438], 'single', {}),
     # 1439-1452 the original pushes in ~25 %: three drawings of the same pose, each framed on the WIDEST frame of its
     # exposures, so the measured push only enlarges (no edge fill) and by at most ~10 %
-    ('Q7a', 1439, [1439, 1440, 1441], 'hold', {}),
+    ('Q7a', 1439, [1439, 1440], 'hold', {}),
+    ('Q7a2', 1441, [1441], 'single', {}),       # the push is steepest here (1439 -> 1441 ~16 %)
     ('Q7b', 1442, [1442, 1443, 1444, 1445], 'hold', {}),
     ('Q8', 1446, list(range(1446, 1453)), 'hold', {}),
     ('W0', 1453, [1453], 'single', {}),
