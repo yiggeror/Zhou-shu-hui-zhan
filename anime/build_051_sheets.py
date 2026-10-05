@@ -13,10 +13,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #                   fast pan): no camera, light held, each exposure's luminance curve fitted at its own original frame
 #                   with one white balance (the drawing's own source frame)
 #   kind 'hold'     a hold on the same view: the whole-frame camera and the light change measured on the original
+#   kind 'still'    a hold, no camera, light held, graded at the frames given by grade_at
 #   kind 'chain'    a chain of same-canvas edits (S2 -> S3 -> S4, E09a -> E09b, ...) held as ONE group: the base's
 #                   registration, one camera path from the base's source frame ('measured', or 'none' = still), each
 #                   frame showing its own image of the chain; light held when still
-A = [
+A = [   # as locked by Limo, from_limo/051/msg_003 (24 states)
     ('C1', 1202, [1202, 1203], 'views', {}),
     ('C2', 1204, [1204, 1205], 'views', {}),
     ('C3', 1206, [1206], 'single', {}),
@@ -24,12 +25,13 @@ A = [
     ('R2', 1210, [1209, 1210], 'views', {}),
     ('R3', 1211, [1211], 'single', {}),
     ('S1', 1212, [1212], 'single', {}),
-    ('S2', 1213, [1213, 1214, 1215], 'chain', {'chain': ('S', 1213, 'none')}),
-    ('S3', 1216, [1216, 1217], 'chain', {'chain': ('S', 1213, 'none'), 'wb_from': 'S2'}),
-    ('S4', 1218, [1218, 1219, 1220, 1221], 'chain', {'chain': ('S', 1213, 'none'), 'wash': [1219, 1220, 1221],
-                                                       'grade_at': [1218, 1218]}),
-    ('W1', 1224, [1223, 1224], 'chain', {'chain': ('W', 1224, 'none'), 'wash': [1223], 'grade_at': [1224, 1224]}),
-    ('W2', 1225, [1225], 'chain', {'chain': ('W', 1224, 'none'), 'wb_from': 'W1'}),
+    ('S2', 1213, [1213, 1214, 1215], 'hold', {}),
+    ('S3', 1216, [1216, 1217], 'hold', {}),
+    # 1219-1222: S4 under the white wash fitted to the original (n1222 is 84 % white with a faint pink/figure residue,
+    # not a pure white frame)
+    ('S4', 1218, [1218, 1219, 1220, 1221, 1222], 'still', {'wash': [1219, 1220, 1221, 1222], 'grade_at': [1218, 1218]}),
+    ('W1', 1224, [1223, 1224], 'still', {'wash': [1223], 'grade_at': [1224, 1224]}),
+    ('W2', 1225, [1225], 'single', {}),
     ('X1', 1226, [1226, 1227], 'views', {}),
     ('X2', 1228, [1228, 1229], 'views', {}),
     ('X3', 1230, [1230, 1231], 'views', {}),
@@ -40,9 +42,10 @@ A = [
     ('X8', 1240, [1240, 1241], 'views', {}),
     ('ST1', 1242, [1242, 1243], 'views', {}),
     ('ST2', 1244, [1244, 1245], 'views', {}),
-    ('ST3', 1247, [1246, 1247], 'views', {}),
+    ('ST3a', 1246, [1246], 'single', {}),
+    ('ST3b', 1247, [1247], 'single', {}),
 ]
-A_FLAT = {1222: 'white'}
+A_FLAT = {}
 
 B = [
     ('E07', 1293, [1293], 'single', {}),
@@ -114,7 +117,7 @@ def build(name, table, flat, frames, out, d=None):
                     e.update(camera_only='none', zoom=1.0, light='fixed')
             else:
                 e = {'hold': did, 'id': did, 'mode': 'full', 'full': path[did], 'ref': src}
-                if kind == 'views':
+                if kind in ('views', 'still'):
                     e.update(camera_only='none', zoom=1.0, light='fixed')
             if n in ex.get('wash', []):
                 e['white_wash'] = {'sigma': 40}

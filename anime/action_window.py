@@ -1317,7 +1317,7 @@ def main():
             # two numbers fitted to the original: the field's scale (white share) and a uniform white veil over the
             # whole frame (mean luminance; the flash washes out the frame as a whole as it fades)
             best = None
-            for c in np.arange(0.0, 0.62, 0.02):
+            for c in np.arange(0.0, 0.92, 0.02):
                 k = fit_k(c)
                 err = abs(float(L.lum(washed(k, c)).mean()) - lum_o)
                 if best is None or err < best[0]:
