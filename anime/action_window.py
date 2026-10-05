@@ -706,7 +706,12 @@ def render_holds(name, hn, fs, O, A, raw):
         fmask = (feature_mask(O[n], A[n]) > 0).astype(np.uint8)
         shutter, target, ratios = fit_shutter(O[ref], O[n], Hprev, Hn, fmask) if prev is not None else (0.0, 1.0, {})
         light0_moved = cv2.warpPerspective(light0, Hn, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-        if spec.get('light') == 'fixed':
+        if spec.get('light') == 'mean_ratio' and n != ref:
+            # a different view in the original (drawings on twos) that is darker or lighter as a whole: the exposure
+            # change is the ratio of the original's mean luminance, one scalar for the whole drawing
+            bgain = float(L.lum(O[n]).astype(np.float64).mean() / L.lum(O[ref]).astype(np.float64).mean())
+            light, w = light0_moved * np.float32(bgain), 1.0
+        elif spec.get('light') in ('fixed', 'mean_ratio'):
             # each original frame of this hold is a different view (drawings on twos over a 3D fly-through): there is
             # no same content to measure a change of light on, so the light is held
             light, w, bgain = light0_moved, 1.0, 1.0
@@ -782,8 +787,11 @@ def render_holds(name, hn, fs, O, A, raw):
         nu = non_uniform(Hn)
         what = (f'full drawing `{spec["full"]}` held (short hold, its own effects)' if mode == 'full' else
                 f'plate `{spec["plate"]}`' + (f' (viewport {spec["viewport"]})' if spec.get('viewport') else ''))
-        light_s = ('light held (light: fixed; the original\'s frames of this hold are different views, no same content '
-                   'to measure a change on)' if spec.get('light') == 'fixed' else
+        light_s = (f'exposure scalar {bgain:.3f} = the original\'s mean luminance n{n} / n{ref} (light: mean_ratio; a '
+                   f'different, darker or lighter view, approximated by the drawing of n{ref})'
+                   if spec.get('light') == 'mean_ratio' and n != ref else
+                   'light held (light: fixed; the original\'s frames of this hold are different views, no same content '
+                   'to measure a change on)' if spec.get('light') in ('fixed', 'mean_ratio') else
                    f'brightness gain {bgain:.3f} (the original\'s change n{ref}->n{n} on the same content)' if mode == 'full' else
                    f'light of the full drawing `{spec["full"]}` over the plate (smooth: exp of a quadratic in x, y per '
                    f'colour channel), kept at {w:.2f} of its strength as the original\'s light changes n{ref}->n{n}, '
@@ -1179,6 +1187,11 @@ def main():
             c1, n1 = fit(R[fb], O[fb], sigma=grade.get('sigma', 4.0)) if fb != fa else (c0, n0)
             if mode == 'luma' and grade.get('white_protect'):
                 c1 = dict(c1, protect=tuple(grade['white_protect']))
+            if did in grade.get('wb_same', []):
+                # each exposure gets its own luminance curve (fitted at the original's frame, e.g. a darkening
+                # fly-through on twos), but one white balance, the one at the drawing's own source frame: the same
+                # drawing does not change colour between its exposures
+                c1 = dict(c1, wb=c0['wb'])
             wb_from = grade.get('wb_from', {}).get(did)
             if wb_from:
                 # a same-canvas effect edit of the previous drawing: its own luminance curve (the edit can come back
@@ -1208,7 +1221,9 @@ def main():
                               (f'; the same grade on every exposure of the hold (first_only; the light change inside '
                                f'the hold is the scalar brightness gain above)' if last != first else ''))
                            + (f'; white balance taken from {wb_from} at its last exposure (same canvas, unchanged body)'
-                              if wb_from else ''))
+                              if wb_from else '')
+                           + (f'; one white balance for all exposures, the one at n{fa} (wb_same)'
+                              if did in grade.get('wb_same', []) else ''))
     for n in ns:
         ww = fs[n].get('white_wash')
         if ww:
@@ -1216,6 +1231,13 @@ def main():
             # i.e. only the rough shape of the original's white area (blurred by sigma px), not its detail
             lo, hi = ww.get('lo', 0.80), ww.get('hi', 0.95)
             w = np.clip((L.lum(O[n]) - lo) / (hi - lo), 0, 1).astype(np.float32)
+            # the source watermark (light grey text) would lower the whiteness under it and leave a faint dark band
+            # in the blurred field: inside its box the field is filled from the surroundings (normalised convolution)
+            wm_before = float(w[L.WATERMARK].mean())
+            outside = np.ones_like(w)
+            outside[L.WATERMARK] = 0
+            fill = cv2.GaussianBlur(w * outside, (0, 0), 15) / np.maximum(cv2.GaussianBlur(outside, (0, 0), 15), 1e-4)
+            w[L.WATERMARK] = fill[L.WATERMARK]
             a0 = np.clip(cv2.GaussianBlur(w, (0, 0), ww.get('sigma', 40)), 0, 1)[..., None]
             thr = 249.5 / 255                          # what rounds to >= 250 in the 8-bit output
             before = float((R[n].min(2) >= thr).mean())
@@ -1252,9 +1274,12 @@ def main():
             alpha = np.clip(kk * a0 + cc, 0, 1)
             R[n] = R[n] * (1 - alpha) + alpha
             src[n] += (f'; WHITE WASH (composited): white over the drawing, strength = {kk:.3f} x the original\'s '
-                       f'whiteness (luminance {lo}-{hi} -> 0-1, blurred {ww.get("sigma", 40)} px) + a uniform veil {cc:.2f}; '
-                       f'the two numbers fitted so that the share of pixels >= 250/255 in all channels and the mean '
-                       f'luminance match the original; mean strength {float(alpha.mean()):.2f}; white share original '
+                       f'whiteness (luminance {lo}-{hi} -> 0-1; inside the source watermark box filled from its '
+                       f'surroundings, mean {wm_before:.3f} -> {float(w[L.WATERMARK].mean()):.3f}; blurred '
+                       f'{ww.get("sigma", 40)} px) + a uniform veil {cc:.2f}; '
+                       f'the two numbers fitted (grid of 0.02 on the veil, bisection on the scale, on every 2nd pixel) so '
+                       f'that the share of pixels >= 250/255 in all channels and the mean luminance come close to the '
+                       f'original\'s; mean strength {float(alpha.mean()):.2f}; white share original '
                        f'{100 * target:.1f}%, drawing before {100 * before:.1f}%, after '
                        f'{100 * float((R[n].min(2) >= thr).mean()):.1f}%; mean luminance original {255 * lum_o:.1f}, after '
                        f'{255 * float(L.lum(R[n]).mean()):.1f}')

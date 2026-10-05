@@ -1,0 +1,179 @@
+{
+ "name": "first Hollow Purple release core [1187,1202): K0 K1 K3, white flash, city on twos K4 K2 C1198 K5",
+ "frames": [
+  1187,
+  1202
+ ],
+ "grade": {
+  "strength": 1.0,
+  "sigma": 4.0,
+  "modes": {
+   "K0": "luma",
+   "K1": "luma",
+   "K3": "luma",
+   "K4": "luma",
+   "K2": "luma",
+   "C1198": "luma",
+   "K5": "luma"
+  },
+  "white_protect": [
+   0.85,
+   0.97
+  ],
+  "grade_at": {
+   "K4": [
+    1194,
+    1195
+   ],
+   "K2": [
+    1197,
+    1196
+   ],
+   "C1198": [
+    1198,
+    1199
+   ],
+   "K5": [
+    1200,
+    1201
+   ]
+  },
+  "wb_same": [
+   "K4",
+   "K2",
+   "C1198",
+   "K5"
+  ]
+ },
+ "encode": {
+  "sws_flags": "accurate_rnd+full_chroma_int"
+ },
+ "frames_sheet": {
+  "1187": {
+   "drawing": "collab/from_limo/038/batch_003/K0_n1187_v1.png",
+   "id": "K0"
+  },
+  "1188": {
+   "drawing": "collab/from_limo/038/pilot_001/K1_n1188_v1.png",
+   "id": "K1"
+  },
+  "1189": {
+   "drawing": "collab/from_limo/038/batch_002/K3_n1189_v1.png",
+   "id": "K3"
+  },
+  "1190": {
+   "white": true,
+   "id": "white"
+  },
+  "1191": {
+   "white": true,
+   "id": "white"
+  },
+  "1192": {
+   "hold": "K4",
+   "id": "K4",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+   "ref": 1194,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed",
+   "white_wash": {
+    "sigma": 40
+   }
+  },
+  "1193": {
+   "hold": "K4",
+   "id": "K4",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+   "ref": 1194,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed",
+   "white_wash": {
+    "sigma": 40
+   }
+  },
+  "1194": {
+   "hold": "K4",
+   "id": "K4",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+   "ref": 1194,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1195": {
+   "hold": "K4",
+   "id": "K4",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+   "ref": 1194,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1196": {
+   "hold": "K2",
+   "id": "K2",
+   "mode": "full",
+   "full": "collab/from_limo/038/pilot_001/K2_n1197_v2.png",
+   "ref": 1197,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1197": {
+   "hold": "K2",
+   "id": "K2",
+   "mode": "full",
+   "full": "collab/from_limo/038/pilot_001/K2_n1197_v2.png",
+   "ref": 1197,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1198": {
+   "hold": "C1198",
+   "id": "C1198",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_003/C1198_n1198_v1.png",
+   "ref": 1198,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1199": {
+   "hold": "C1198",
+   "id": "C1198",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_003/C1198_n1198_v1.png",
+   "ref": 1198,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1200": {
+   "hold": "K5",
+   "id": "K5",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_003/K5_n1200_v2.png",
+   "ref": 1200,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  },
+  "1201": {
+   "hold": "K5",
+   "id": "K5",
+   "mode": "full",
+   "full": "collab/from_limo/038/batch_003/K5_n1200_v2.png",
+   "ref": 1200,
+   "camera_only": "none",
+   "zoom": 1.0,
+   "light": "fixed"
+  }
+ }
+}
