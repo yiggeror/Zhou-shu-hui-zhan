@@ -1,6 +1,6 @@
 """Exposure sheets for the batches written up front for Limo: A [1202,1248) and B [1293,1357) (collab/to_limo/051),
-C1 [1357,1411) and C2 [1411,1485) (collab/to_limo/057), from the drawings Limo delivers as
-collab/from_limo/<msg>/batch<name>*/<ID>_n<source>.png.  Usage: python3 anime/build_051_sheets.py A|B|C1|C2"""
+C1 [1357,1411) and C2 [1411,1485) (collab/to_limo/057), D [1485,1560) (collab/to_limo/066), from the drawings Limo delivers as
+collab/from_limo/<msg>/batch<name>*/<ID>_n<source>.png.  Usage: python3 anime/build_051_sheets.py A|B|C1|C2|D"""
 import glob
 import json
 import os
@@ -246,10 +246,59 @@ C1_EXTEND = {
 }
 
 
+# batch D: shots 58-61 [1485,1560) (collab/to_limo/066), proposal: discrete holds graded at their own source frame
+def _still(did, src, ns):
+    return (did, src, ns, 'still', {'grade_at': [src, src]}) if len(ns) > 1 else (did, src, ns, 'single', {})
+
+
+D = [
+    # shot 58: Gojo hovering among towers, fast camera arc (background parallax sampled on threes), then a rush in
+    _still('GF1', 1485, [1485]),                    # the dark from Z1 withdrawing to the left, city revealed
+    _still('GF2', 1487, [1486, 1487, 1488]),        # large dark debris cubes near the camera
+    _still('GF3', 1490, [1489, 1490, 1491]),
+    _still('GF4', 1493, [1492, 1493, 1494]),
+    _still('GF5', 1496, [1495, 1496, 1497]),
+    _still('GF6', 1499, [1498, 1499, 1500]),
+    _still('GF7', 1501, [1501]),                    # rush begins (motion blur)
+    _still('GF8', 1502, [1502]),                    # rush, cold blue
+    _still('GF9', 1503, [1503]),                    # rush, closest
+    # shot 59: Gojo close-up, head turn, eye lights up, two fingers rise
+    _still('GE1', 1504, [1504, 1505]),
+    _still('GE2', 1506, [1506, 1507]),
+    _still('GE3', 1508, [1508, 1509]),
+    _still('GE4', 1512, [1510, 1511, 1512, 1513, 1514]),
+    _still('GE5', 1518, [1515, 1516, 1517, 1518, 1519, 1520]),   # same canvas as GE4: stronger cyan glow at the top
+    # shot 60: Sukuna's hand sign, eye opens, red light rises, swipe across the eye
+    _still('SH1', 1521, [1521]),
+    _still('SH2', 1522, [1522]),
+    _still('SH3', 1523, [1523]),
+    _still('SH4', 1524, [1524, 1525]),
+    _still('SH5', 1526, [1526]),
+    _still('SH6', 1529, [1527, 1528, 1529, 1530, 1531]),
+    _still('SH7', 1534, [1532, 1533, 1534, 1535, 1536]),   # same canvas as SH6: redder light, red flare line
+    _still('SH8', 1537, [1537]),
+    _still('SH9', 1538, [1538]),
+    _still('SH10', 1539, [1539]),
+    # shot 61: low angle Sukuna, palms pressed, black spreads from the left, flare into the shrine
+    _still('SU1', 1540, [1540]),
+    _still('SU2', 1541, [1541]),
+    _still('SU3', 1542, [1542]),
+    _still('SU4', 1544, [1543, 1544, 1545]),
+    _still('SU5', 1547, [1546, 1547, 1548]),
+    _still('SU6', 1549, [1549]),                    # SU6-SU9: same canvas as SU5, only the black area grows
+    _still('SU7', 1550, [1550]),
+    _still('SU8', 1551, [1551]),
+    _still('SU9', 1554, [1552, 1553, 1554, 1555, 1556]),
+    _still('SU10', 1558, [1557, 1558]),
+    _still('SU11', 1559, [1559]),
+]
+D_FLAT = {}
+
 BATCHES = {'A': (A, A_FLAT, [1202, 1248], '051', 'anime/sheets/batchA_1202_1248.json'),
            'B': (None, {1319: 'black'}, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
            'C1': (C1, C1_FLAT, [1357, 1411], '057', 'anime/sheets/batchC1_1357_1411.json'),
-           'C2': (C2, C2_FLAT, [1411, 1485], '057', 'anime/sheets/batchC2_1411_1485.json')}
+           'C2': (C2, C2_FLAT, [1411, 1485], '057', 'anime/sheets/batchC2_1411_1485.json'),
+           'D': (D, D_FLAT, [1485, 1560], '066', 'anime/sheets/batchD_1485_1560.json')}
 
 
 def build(name, table, flat, frames, out, d=None, msg='051', paths=None):
