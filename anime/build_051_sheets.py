@@ -214,6 +214,12 @@ def from_manifest(path, extend):
     return out, paths
 
 
+C2_EXTEND = {
+    'B1': (1477, 'B2 (n1476) has no image (blocked by the image tool): B1 held one more frame - an approximation from '
+                 'approved material, not a new drawing, pending review of the real composite'),
+}
+
+
 # drawings whose bright areas are lit surfaces (white hair, skin), not light: only coloured light is kept as drawn
 KEEP_SAT_ONLY = {'C1': ['N2', 'N3a', 'N3b']}     # Limo, 057 msg_004 (P3 enhancement notes)
 
@@ -306,6 +312,12 @@ if __name__ == '__main__':
     elif which == 'C1' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/manifest_C1_available041.json')):
         # Limo's 41 delivered states (057/msg_004) + the two agreed one-frame holds for the blocked U4/V6
         table, cpaths = from_manifest('collab/from_limo/057/manifest_C1_available041.json', C1_EXTEND)
+        build(which, table, flat, frames, out or default_out, d, msg, cpaths)
+        sys.exit(0)
+    elif which == 'C2' and glob.glob(os.path.join(ROOT, 'collab/from_limo/057/manifest_C2*.json')):
+        # Limo's delivered C2 states (exact paths) + the agreed hold for the blocked B2 (057/msg_007)
+        mpath = os.path.relpath(sorted(glob.glob(os.path.join(ROOT, 'collab/from_limo/057/manifest_C2*.json')))[-1], ROOT)
+        table, cpaths = from_manifest(mpath, C2_EXTEND)
         build(which, table, flat, frames, out or default_out, d, msg, cpaths)
         sys.exit(0)
     elif which == 'C2' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/C2_50_exposure_table_001.csv')):

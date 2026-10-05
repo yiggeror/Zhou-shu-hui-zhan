@@ -519,8 +519,34 @@ def frame_light(light0, o, o_ref, a, a_ref, Hn):
 
 # ---------------------------------------------------------------- assembly
 
+PADLOG = {}
+
+
+def pad_to_frame(im, p):
+    """a drawing that is a few columns or rows short of the source framing (e.g. 1671 x 941) is never stretched: the
+    missing columns/rows are added by repeating the edge on the side whose edge is smoother (no visible step), and
+    the padding is logged (Limo, 057 msg_006)"""
+    h, w = im.shape[:2]
+    if (h, w) == (H, W) or not (0 <= W - w <= 4 and 0 <= H - h <= 4):
+        return im
+    notes = []
+    if W - w:
+        left = float(np.abs(im[:, 0] - im[:, 1]).mean())
+        right = float(np.abs(im[:, -1] - im[:, -2]).mean())
+        side = 'right' if right <= left else 'left'
+        im = cv2.copyMakeBorder(im, 0, 0, (W - w) if side == 'left' else 0, (W - w) if side == 'right' else 0,
+                                cv2.BORDER_REPLICATE)
+        notes.append(f'{W - w} column(s) added on the {side} by repeating its edge column (edge steps: left '
+                     f'{255 * left:.2f}, right {255 * right:.2f} levels)')
+    if H - h:
+        im = cv2.copyMakeBorder(im, 0, H - h, 0, 0, cv2.BORDER_REPLICATE)
+        notes.append(f'{H - h} row(s) added at the bottom by repeating its edge row')
+    PADLOG[p] = f'native {w}x{h}, not resized: ' + '; '.join(notes)
+    return im
+
+
 def load(p):
-    im = cv2.imread(p).astype(np.float32) / 255
+    im = pad_to_frame(cv2.imread(p).astype(np.float32) / 255, p)
     if abs(im.shape[1] / im.shape[0] - W / H) > 0.01 * W / H:
         sys.exit(f'{p}: {im.shape[1]}x{im.shape[0]} is not the source framing; give it a viewport')
     return im if im.shape[:2] == (H, W) else cv2.resize(im, (W, H), interpolation=cv2.INTER_AREA)
@@ -531,6 +557,8 @@ def load_canvas(p, viewport=None):
     where the source framing sits inside a plate drawn with extra margin; without it the whole image is the
     source framing.  The margin is kept (not squeezed into the frame): it is what the camera may reveal."""
     im = cv2.imread(p).astype(np.float32) / 255
+    if not viewport:
+        im = pad_to_frame(im, p)
     x, y, w, h = viewport if viewport else (0, 0, im.shape[1], im.shape[0])
     V = np.array([[W / w, 0, -x * W / w], [0, H / h, -y * H / h], [0, 0, 1]], np.float64)
     if abs(W / w - H / h) > 0.01 * W / w:
@@ -1481,6 +1509,11 @@ def main():
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
     drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns
                        if not fs[n].get('white') and not fs[n].get('black') and not fs[n].get('mix')})
+    for n in ns:                                     # drawings that were padded to the framing, never stretched
+        used = [fs[n].get('drawing'), fs[n].get('full')] + [m['drawing'] for m in fs[n].get('mix', [])]
+        pads = [f'`{u}` {PADLOG[u]}' for u in used if u and u in PADLOG]
+        if pads:
+            src[n] += '; PADDED TO THE FRAMING: ' + '; '.join(pads)
     with open(os.path.join(out, 'sources.md'), 'w') as f:
         f.write(f'# {sheet.get("name", "window")} [{f0}, {f1}): where every frame comes from\n\n')
         frozen = sorted({fs[n].get('id') for n in ns if fs[n].get('frozen')})
