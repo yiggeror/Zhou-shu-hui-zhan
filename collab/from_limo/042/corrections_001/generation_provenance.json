@@ -1,0 +1,70 @@
+{
+  "author": "Limo → Claude",
+  "date": "2026-10-05",
+  "tool": "image_gen.imagegen",
+  "source_commit": "94d61b24f3e0f936337d55cb860ee3738ca03325",
+  "images": [
+    {
+      "file": "E05b_n1290.png",
+      "size_bytes": 1706472,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "3ebf9439ca36aa3d61ccb1b2d2e59f3bcf12654bcdfa2f05e12b29c9f48bf62e",
+      "git_blob": "477e4988b5102c2b633ced5dfacdd62f88d91c11",
+      "id": "E05b",
+      "reference_n": 1290,
+      "exposures": [
+        1290,
+        1292
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/039_ref/n1290.png",
+          "role": "sole pose, camera and all geometry reference",
+          "git_blob": "10bd94184f4dd5e65380b2ff84a245896aae4ad4"
+        }
+      ],
+      "prompt": "Use case: style-transfer. Asset E05b: one NEW complete 16:9 cel-animation pose drawing, exact source n1290.\nThe single input is the ONLY authority for geometry, camera/crop, every head/eye/hand center, silhouette, limb angles, clothing/occlusion and background. Follow this exact source, not n1287 or any neighboring drawing. Fully redraw the complete scene as cool dark inked manga/cel artwork.\nThis pose restores the relative opposite body movements: foreground left Sukuna's guard sleeve and hands are LOWER and tilted from the earlier guard, while Gojo on the right leans forward with his attack arm extending behind the guard. Preserve source exact raised fist, broad diagonally sloping foreground sleeve, left profile and circular shoulder emblem. Preserve the lighter lower garment band/shape crossing the bottom where source shows it. Gojo's white hair, cyan eyes, head tilt, neck, black shirt, horizontal pale attack forearm and low other fist all stay at exact n1290 positions. Do not turn both characters as one rigid block; redraw their actual source-specific relative pose. Exactly source-visible arms/hands; no extra limbs or invented hidden anatomy.\nDraw source’s cyan flame ignited around the attack hand in the upper middle, partly occluded by guard sleeve and cropped by the TOP edge. Same irregular filled turquoise shape, black-edged tongues, restrained glow, no white core, no invented horizontal projectile. Redraw the same blue city window grids and street perspective in source positions. No reframing, no extra headroom, no global downward offset.\nStyle: dark tapered contours and selective hatching, restrained cool gray-blue flat cel shadows, cold pale cream/gray skin and robe, deep black shirt, cyan eyes/effect accents. Coherent source dark/light mass design, avoid warm tan skin, glossy 3D, overly elaborate line texture or bright standalone illustration polish. Not a screenshot clean-up or a deformed previous drawing, but complete new reference-based artwork. No text whatsoever, including faint remnant letters; no logo, labels, signature or watermark.",
+      "calls": 1
+    },
+    {
+      "file": "E05small_n1289.png",
+      "size_bytes": 1848927,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "01e38cf785cbfeaac245b793846ee3ca144cfe6580c40d9fd17d9cfcf54cb004",
+      "git_blob": "1e98054f181d5b50324c0c3175159f8fabc5d37f",
+      "id": "E05small",
+      "reference_n": 1289,
+      "body_camera_anchor_n": 1287,
+      "variant_of": "E04",
+      "exposures": [
+        1289,
+        1290
+      ],
+      "input_images": [
+        {
+          "path": "collab/from_limo/037/anchors_001/E04_n1287.png",
+          "role": "same-image edit target; all body/camera geometry",
+          "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+        },
+        {
+          "path": "collab/to_limo/039_ref/n1289.png",
+          "role": "small ignition reference only",
+          "git_blob": "45dd1fbb35f15fae1c8d72b6d746c35981a95bb4"
+        }
+      ],
+      "prompt": "Use case: precise-object-edit. Asset E05small, initial cyan ignition variant, one 16:9 animation frame.\nImage 1 is the EXACT edit target E04. Keep its camera, crop, both bodies, faces, expressions, hands, clothing folds, background and colors unchanged. Image 2 is source n1289 ONLY for a SMALL initial cyan flame, not body/camera geometry.\nAdd only the small translucent cyan ignition around Gojo's partly hidden fingers behind the upper-central foreground guard sleeve. Image 2’s small flame is concentrated around the hand with a thin little wisp above it; it does NOT reach the top edge and is NOT the tall solid column that appears next. Approximate target footprint upper center behind the guard, x=.52-.62,y=.10-.27; obey Image1 existing hand/occlusion and adapt the flame to those existing fingers. Keep the source-like finger hints visible through translucent cyan where already visible in Image1. Do not reconstruct hidden fingers or change the guard silhouette to expose them. No large opaque flame, no white core, no wide glow wash, no top-edge cropped column, no sparks elsewhere. Cyan edges restrained and pale turquoise glow at the small hand area only. All other image regions unchanged. No new pose, no body local warping. No text, logos, signature, watermark or borders.",
+      "calls": 1
+    }
+  ],
+  "geometry_check": "Static visual inspection and half-resolution grayscale local correlation; no real-time playback claim",
+  "post_generation_body_warp": false,
+  "non_fx_pixel_identity": false
+}
