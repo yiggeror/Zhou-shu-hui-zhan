@@ -1074,12 +1074,15 @@ def apply_grade_luma(img, cv, strength=1.0):
         sh = np.clip((lu - x0) / (x1 - x0), 0, 1)
         sh = sh * sh * (3 - 2 * sh)
         l2 = (1 - sh) * l2 + sh * _luma_curve(lu, ref)
+    sk = None
     if cv.get('keep_highlights'):
-        # the drawing's own highlights are kept as drawn: above input luminance x0 the curve eases (smoothstep to x1)
-        # to the identity, so a deliberately enhanced glow is not fitted back into the original's blown-out white
-        # (Limo, 051 msg_008: the original's statistics are a reference, not a target to wash enhancements out)
+        # the drawing's own highlights and coloured glows are kept as drawn: where the drawing's BRIGHTEST channel is
+        # above x0 (smoothstep to x1) the curve eases to the identity and the white balance fades out, so a
+        # deliberately enhanced glow is not fitted back into the original's blown-out white.  The brightest channel,
+        # not luminance, decides: a saturated red or cyan glow has a low luminance (pure red 0.299) but is a glow
+        # (Limo, 051 msg_008 / msg_009)
         h0, h1 = cv['keep_highlights']
-        sk = np.clip((lu - h0) / (h1 - h0), 0, 1)
+        sk = np.clip((img.max(2) - h0) / (h1 - h0), 0, 1)
         sk = sk * sk * (3 - 2 * sk)
         l2 = (1 - sk) * l2 + sk * lu
     out = img * (l2 / lu)[..., None]
@@ -1093,7 +1096,11 @@ def apply_grade_luma(img, cv, strength=1.0):
         base = img * (_luma_curve(lu, ref) / lu)[..., None] if ref is not None else out
         k = np.clip((np.clip(base, 0, 1).min(2) - a) / (b - a), 0, 1)[..., None]
         k = k * k * (3 - 2 * k)
+        if sk is not None:
+            k = np.maximum(k, sk[..., None])
         wb = 1 + (wb - 1) * (1 - k)
+    elif sk is not None:
+        wb = 1 + (wb - 1) * (1 - sk[..., None])
     out = out * wb
     return np.clip(img + strength * (out - img), 0, 1)
 
@@ -1101,8 +1108,9 @@ def apply_grade_luma(img, cv, strength=1.0):
 def describe_luma(cv):
     return (f'0.1/0.3/0.5/0.7/0.9 -> {np.round(np.interp([0.1, 0.3, 0.5, 0.7, 0.9], cv["x"], cv["y"]), 3).tolist()}, '
             f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}'
-            + (f', the drawing\'s own highlights kept (curve eases to identity from {cv["keep_highlights"][0]} to '
-               f'{cv["keep_highlights"][1]})' if cv.get('keep_highlights') else '')
+            + (f', the drawing\'s own highlights and coloured glows kept (where its brightest channel is above '
+               f'{cv["keep_highlights"][0]}, easing to {cv["keep_highlights"][1]}: curve to identity, white balance off)'
+               if cv.get('keep_highlights') else '')
             + (f', faded out towards pure white (smallest channel {cv["protect"][0]}-{cv["protect"][1]})'
                if cv.get('protect') else ''))
 
