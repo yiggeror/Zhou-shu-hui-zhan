@@ -1,0 +1,191 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 038 batch_003 measurements",
+  "method": {
+    "analysis_size": [
+      1672,
+      941
+    ],
+    "source_resize": "Pillow LANCZOS only for measurement; delivered files unchanged",
+    "white_mask": "all RGB channels >=240",
+    "component": "scipy.ndimage.label default 4-connectivity; largest connected component. Lightning can join this mask; it is not an independently segmented sphere.",
+    "mean": "Arithmetic mean of RGB channel values, not perceptual luminance",
+    "geometry_review": "Actual-pixel visual comparison of character pose/occlusion and dominant city silhouettes; no formal camera fit or proof of temporal geometry."
+  },
+  "files": {
+    "C1198_n1198_v1.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1675740,
+      "sha256": "fdcdbb85df77fb73d28198eb63d2ac79e4f6aa406d19b89396e69920b442b2c9",
+      "git_blob": "6100863fbdf4191b1fbe488ae6c7259d45004c80",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        188.55877515012534,
+        125.70897802907423,
+        217.7763831615557
+      ],
+      "mean_rgb_average": 177.34804544691843,
+      "white_mask_all_percent": 14.005384681876656,
+      "largest_white_component_percent": 12.558600999649155,
+      "largest_white_component_centroid": [
+        981.4155958520378,
+        595.1231635044106
+      ]
+    },
+    "K0_n1187_v1.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1640779,
+      "sha256": "178589acc1c14872f419513107f02fe7c8768bf185f9f3f4b70b69948b58ccf7",
+      "git_blob": "ea7c3e243fa0158020992cd6250c1bcda0592cad",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        80.28495594120069,
+        60.93066904290966,
+        127.47433060116236
+      ],
+      "mean_rgb_average": 89.56331852842423,
+      "white_mask_all_percent": 0.8189521480253623,
+      "largest_white_component_percent": 0.45952844627267136,
+      "largest_white_component_centroid": [
+        779.4525587828492,
+        630.0269709543569
+      ]
+    },
+    "K5_n1200_v1.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1859448,
+      "sha256": "3d10aacccd3b88c546ef5d75d9e853482b029a3b5ad91089e1340e9468521b26",
+      "git_blob": "3c7e094cd0cbe9509a05768756166e8f8eb85f00",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        145.8241823825819,
+        94.92819534344508,
+        187.4370337979041
+      ],
+      "mean_rgb_average": 142.72980384131037,
+      "white_mask_all_percent": 11.285395766490906,
+      "largest_white_component_percent": 9.881450559061165,
+      "largest_white_component_centroid": [
+        454.50582749083424,
+        668.9561973371068
+      ]
+    },
+    "source_n1187.png": {
+      "native_size": [
+        2560,
+        1440
+      ],
+      "bytes": 2788153,
+      "sha256": "fc427d3b2175ddc5584bace6f29339da4726c53089afb61e8dcd39c230c50a68",
+      "git_blob": "15f2dde44c8275f958ee14b712c006ac21be6b24",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        89.02171033564008,
+        73.09725859184722,
+        133.7884046290976
+      ],
+      "mean_rgb_average": 98.6357911855283,
+      "white_mask_all_percent": 0.9285271191697725,
+      "largest_white_component_percent": 0.6805215870320183,
+      "largest_white_component_centroid": [
+        752.7531521434576,
+        615.4822079013729
+      ]
+    },
+    "source_n1198.png": {
+      "native_size": [
+        2560,
+        1440
+      ],
+      "bytes": 3076318,
+      "sha256": "8232121141e1ffc2aa012afa493ffc44a97fffccfa5c8e7614831acb7638df31",
+      "git_blob": "461d1e0eb79cfb81fb61a0f7272a150a0b039044",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        186.33517293015169,
+        127.08774387422523,
+        214.08276215366936
+      ],
+      "mean_rgb_average": 175.83522631934875,
+      "white_mask_all_percent": 13.083785446613344,
+      "largest_white_component_percent": 11.586917612841882,
+      "largest_white_component_centroid": [
+        1010.6998513463849,
+        590.0677114474255
+      ]
+    },
+    "source_n1200.png": {
+      "native_size": [
+        2560,
+        1440
+      ],
+      "bytes": 2993447,
+      "sha256": "7bc73d83512e3f79cd7afb3fd4824bbf1752c7416832eaf5853fd093cddda15a",
+      "git_blob": "f425ee6f35d0336e36691edefc2129c0e63555c5",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        171.65537400403724,
+        115.92263714667791,
+        207.92858368629524
+      ],
+      "mean_rgb_average": 165.16886494567012,
+      "white_mask_all_percent": 10.170197133254351,
+      "largest_white_component_percent": 8.59508870233743,
+      "largest_white_component_centroid": [
+        465.0890402348574,
+        687.9642685478922
+      ]
+    },
+    "K5_n1200_v2.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1610580,
+      "sha256": "28a2f0076dc40aa40c28459a87d7cea1abe00de19e6b7118b7d73d60cdc2b394",
+      "git_blob": "d4821f94c468849cd56167993dc86225d7b069f2",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        166.22963138572933,
+        109.7644919890781,
+        208.57496542413904
+      ],
+      "mean_rgb_average": 161.52302959964882,
+      "white_mask_all_percent": 11.835749406362975,
+      "largest_white_component_percent": 9.56785258479984,
+      "largest_white_component_centroid": [
+        446.62713902322366,
+        662.1130892278259
+      ]
+    }
+  }
+}
