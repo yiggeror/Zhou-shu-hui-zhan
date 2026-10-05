@@ -615,8 +615,15 @@ def render_holds(name, hn, fs, O, A, raw):
             drawn[fn], drawn_spec[fn] = loaded, sp
     ns = sorted(set(hn) | {ref})
     Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'), spec.get('camera'))
+    if spec.get('camera_only') == 'scale':
+        # the characters move differently from each other inside this hold (no single whole-frame move fits both):
+        # keep only the shared push/pull, a uniform scale about the frame centre, and drop rotation and slide
+        for n in ns:
+            sc_n = describe(Hs[n])[0]
+            Hs[n] = np.array([[sc_n, 0, (1 - sc_n) * W / 2], [0, sc_n, (1 - sc_n) * H / 2], [0, 0, 1]])
+            cinfo[n] += f'; REDUCED to its uniform scale {sc_n:.4f} about the frame centre (rotation and slide dropped)'
     size = (plate_c.shape[1], plate_c.shape[0])
-    zoom = overscan({n: Hs[n] @ P for n in hn}, size)
+    zoom = spec['zoom'] if spec.get('zoom') else overscan({n: Hs[n] @ P for n in hn}, size)
     C = np.array([[zoom, 0, (1 - zoom) * W / 2], [0, zoom, (1 - zoom) * H / 2], [0, 0, 1]])
     ones = np.ones(plate_c.shape[:2], np.float32)
     edge_px = {n: 100 * float((cv2.warpPerspective(ones, C @ Hs[n] @ P, (W, H)) < 0.999).mean()) for n in hn}
@@ -1025,13 +1032,18 @@ def main():
     for n in ns:
         if 'drawing' in fs[n]:
             R[n] = load(fs[n]['drawing'])
-            src[n] = f'{fs[n].get("id", "drawing")} new drawing `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), its lines and shapes unchanged'
+            src[n] = (f'{fs[n].get("id", "drawing")} FROZEN output frame `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), '
+                      f'shown as it is (not regraded)' if fs[n].get('frozen') else
+                      f'{fs[n].get("id", "drawing")} new drawing `{fs[n]["drawing"]}` (sha256 {sha(fs[n]["drawing"])}), its lines '
+                      f'and shapes unchanged; AI-generated/edited image (Limo), whole-frame camera only')
             tag[n] = f'{fs[n].get("id", "drawing")} drawing'
     grade = sheet.get('grade')
     if grade:
         # one tone curve per drawing (all its exposures), fitted at its reference frame on the same content
         ids = {}
         for n in ns:
+            if fs[n].get('frozen'):                       # an already graded, frozen output frame: shown as it is
+                continue
             ids.setdefault(fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))), []).append(n)
         st = grade.get('strength', 1.0)
         probe = np.repeat(np.float32([0.1, 0.3, 0.5, 0.7, 0.9])[:, None, None], 3, 2).reshape(5, 1, 3)
@@ -1093,6 +1105,7 @@ def main():
         cv2.imwrite(os.path.join(out, 'cover_check_sheet.jpg'),
                     np.vstack([np.hstack(cov[i:i + 3]) for i in range(0, len(cov), 3)]), [cv2.IMWRITE_JPEG_QUALITY, 85])
     tiles = [np.vstack([small(O[n], f'orig n{n}', 320), small(R[n], tag[n], 320)]) for n in ns]
+    tiles += [np.zeros_like(tiles[0])] * (-len(tiles) % 6)         # pad the last row
     rows = [np.hstack(tiles[i:i + 6]) for i in range(0, len(tiles), 6)]
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
     drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns})
