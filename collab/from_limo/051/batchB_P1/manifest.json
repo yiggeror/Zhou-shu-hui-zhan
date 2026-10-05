@@ -1,0 +1,835 @@
+{
+  "package": "B_P1",
+  "status": "Selected package delivered for B45 compositing. Independent45-state static QA passed; final64-frame video and frozen-prefix checks remain pending.",
+  "window": [
+    1293,
+    1315
+  ],
+  "fps": 24,
+  "selected_artwork_states": 15,
+  "artwork_exposures": 22,
+  "first_pass_calls": 15,
+  "retry_calls": 3,
+  "total_imagegen_calls": 18,
+  "selected_calls": 15,
+  "rejected_calls": 3,
+  "generation_method": "Built-in image_gen tool, one exact source image per call; AI-generated/edited provenance.",
+  "source_video": {
+    "file": "orig.mp4",
+    "sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+    "dimensions": [
+      2560,
+      1440
+    ],
+    "fps": 24,
+    "indexing": "zero-based n; PTS=n/24; decoded from beginning with select, no floating time seek"
+  },
+  "style_anchor_inspection": [
+    "accepted E06_n1292.png",
+    "accepted S1_n1212.png"
+  ],
+  "style_anchor_usage": "Inspected for vocabulary; not sent as geometry inputs. Each state used its own source PNG only.",
+  "native_artwork_dimensions": [
+    1672,
+    941
+  ],
+  "video_delivery_rule": "1672x942 only by later compositor replication of the single bottom row; no native-1080p claim.",
+  "compositing_rules": [
+    "Use the locked discrete half-open exposure ranges exactly.",
+    "No body warps, optical-flow interpolation, or camera tricks to substitute for missing poses.",
+    "Preserve source smears and optical focus differences; do not sharpen E14/E17 states.",
+    "Do not flatten intentionally structured cyan energy back to unreadable source clipping.",
+    "E09a/m/b and E17a/b are independent source geometries, never locked-body FX swaps."
+  ],
+  "states": [
+    {
+      "id": "E07",
+      "source_n": 1293,
+      "start": 1293,
+      "end": 1294,
+      "exposure": [
+        1293
+      ],
+      "state_class": "new action / source smear",
+      "action": "Cyan horizontal sweep; figures and background strongly smeared.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 53.875,
+      "source_pts_fraction": "1293/24",
+      "source_png_sha256": "d90a4ba44b5f2b78a4bbaf1e72cbb8e7bcc6464689adc593878ac9fdef5ec36e",
+      "source_png_local_git_blob_sha1": "e91fa94398d807204e91b3efb6fe565307c968f9",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E07_n1293.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E07_n1293.png",
+      "output_sha256": "b44a4a2549e26275d06dc4013040ad4cc88df0a186cd686f4b93e25359ecb199",
+      "output_git_blob_sha1": "7a67d816a50393ae5b63fd7de077ea2dc49261a1",
+      "github_blob_sha": "7a67d816a50393ae5b63fd7de077ea2dc49261a1",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1578516,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Drawn smear streaks are harder-edged than the source optical smear; silhouette, occlusion and sweep placement retained."
+      ],
+      "selected_prompt_file": "prompts/E07_n1293.txt"
+    },
+    {
+      "id": "E08a",
+      "source_n": 1294,
+      "start": 1294,
+      "end": 1295,
+      "exposure": [
+        1294
+      ],
+      "state_class": "new action / source smear",
+      "action": "Sweep middle phase; cyan mass and Sukuna silhouette shift.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 53.916666666666664,
+      "source_pts_fraction": "1294/24",
+      "source_png_sha256": "577c437aa22b5eec95b0c8a852deea295c3b2e82d19a430674dba6d9e0559241",
+      "source_png_local_git_blob_sha1": "c20cc6f0ee07083c19ce7bf1125815797683cd43",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E08a_n1294.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E08a_n1294.png",
+      "output_sha256": "4754de09e9afcccc994c48c00448fee3db681852c360f9876ba4131f04cc3334",
+      "output_git_blob_sha1": "6c1a1f921c0d3d250ee1f7db9d85506e1d60c219",
+      "github_blob_sha": "6c1a1f921c0d3d250ee1f7db9d85506e1d60c219",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1562720,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Fine smear strokes and ink texture differ; the middle-phase flame contour and blurred figures remain distinct."
+      ],
+      "selected_prompt_file": "prompts/E08a_n1294.txt"
+    },
+    {
+      "id": "E08",
+      "source_n": 1295,
+      "start": 1295,
+      "end": 1296,
+      "exposure": [
+        1295
+      ],
+      "state_class": "new action",
+      "action": "Sukuna face resolves while Gojo remains swept at right.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 53.958333333333336,
+      "source_pts_fraction": "1295/24",
+      "source_png_sha256": "adb7791a34edb4d5e0a2a071ea7420a4f1963a0bc157ec1b5ee6ae275dd8aa6e",
+      "source_png_local_git_blob_sha1": "bcea450c8bb670a37702b5c427e9bb562d6c8ef1",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E08_n1295.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E08_n1295.png",
+      "output_sha256": "db6d16e898083c03d439df0a368f1dd53e299777ede1a11df828cccf2507eb04",
+      "output_git_blob_sha1": "4d7512c2b5e976776c5743f5700d340faab05ad5",
+      "github_blob_sha": "4d7512c2b5e976776c5743f5700d340faab05ad5",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1547743,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Ink lines are slightly harder and cyan illumination is stronger than source; right-side Gojo remains smeared."
+      ],
+      "selected_prompt_file": "prompts/E08_n1295.txt"
+    },
+    {
+      "id": "E09a",
+      "source_n": 1296,
+      "start": 1296,
+      "end": 1298,
+      "exposure": [
+        1296,
+        1297
+      ],
+      "state_class": "new action",
+      "action": "Cyan punch; Gojo near guard hand still in front of chest.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform.",
+      "source_pts_seconds": 54.0,
+      "source_pts_fraction": "1296/24",
+      "source_png_sha256": "df123668d3b65c6ccbb29ffe67124eca73c90e85f6191eaab6bfa467678a0111",
+      "source_png_local_git_blob_sha1": "1cd03a537d4faed669f381e7bd9c0fcdb608e8e0",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E09a_n1296.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E09a_n1296.png",
+      "output_sha256": "5f93eaa84e798ca875f68cf1f1da1690d9e7b988b20762cdcb5313419f67031d",
+      "output_git_blob_sha1": "b096a24b6bb8444675212275f4b05670a37d9b89",
+      "github_blob_sha": "b096a24b6bb8444675212275f4b05670a37d9b89",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1684978,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Cyan interior texture is richer; small contour and line-weight differences remain. Guard hand is lower at chest as required."
+      ],
+      "selected_prompt_file": "prompts/E09a_n1296.txt"
+    },
+    {
+      "id": "E09m",
+      "source_n": 1298,
+      "start": 1298,
+      "end": 1300,
+      "exposure": [
+        1298,
+        1299
+      ],
+      "state_class": "new pose + framing",
+      "action": "Gojo guard hand rises toward chin; body/arm arrangement and flame change.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform.",
+      "source_pts_seconds": 54.083333333333336,
+      "source_pts_fraction": "1298/24",
+      "source_png_sha256": "88a7df02f817540967375cd202d5a3fbaa6c19f888f6dbca92dbbc2945d30932",
+      "source_png_local_git_blob_sha1": "f62645b84953530997d73e6586b78a16992bc4d9",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E09m_n1298.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E09m_n1298.png",
+      "output_sha256": "e7fa7bf3b352d7760c103a3210b1e89b261e38d306c7863d04648ba1e5714562",
+      "output_git_blob_sha1": "7843c6e0ac961762f9016963355d94d4d196acf2",
+      "github_blob_sha": "7843c6e0ac961762f9016963355d94d4d196acf2",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1676084,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Fine face/hand line weights differ; higher guard-hand position and own curled flame/geometry retained."
+      ],
+      "selected_prompt_file": "prompts/E09m_n1298.txt"
+    },
+    {
+      "id": "E09b",
+      "source_n": 1301,
+      "start": 1300,
+      "end": 1303,
+      "exposure": [
+        1300,
+        1301,
+        1302
+      ],
+      "state_class": "new pose + framing",
+      "action": "Settled guarded punch, own flame shape and opponent position.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform.",
+      "source_pts_seconds": 54.208333333333336,
+      "source_pts_fraction": "1301/24",
+      "source_png_sha256": "2ac45c9f65b3b42f385ca18e3c53a435580c03a517485110740f10c5a69b044b",
+      "source_png_local_git_blob_sha1": "3c2b09d0486077f39715b36d89c9da7aedc18d0c",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E09b_n1301.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E09b_n1301.png",
+      "output_sha256": "35a9b361e0a7f3ebfc46e98ce3bbd6262ea28e2b600b96b72bcfdbb633d7b248",
+      "output_git_blob_sha1": "2fdaf019f6077742f899d32816814e41e572a99f",
+      "github_blob_sha": "2fdaf019f6077742f899d32816814e41e572a99f",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1689482,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Fine contour/line-weight offsets remain; settled hand-to-chin state is independently generated from n1301."
+      ],
+      "selected_prompt_file": "prompts/E09b_n1301.txt"
+    },
+    {
+      "id": "E10",
+      "source_n": 1303,
+      "start": 1303,
+      "end": 1304,
+      "exposure": [
+        1303
+      ],
+      "state_class": "new action",
+      "action": "Sukuna ducks out; preserve his dark moving silhouette behind the arm.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.291666666666664,
+      "source_pts_fraction": "1303/24",
+      "source_png_sha256": "cf4a1387291e2e646840228eff01bc098229c6019485f6f03a4ba8e769384a83",
+      "source_png_local_git_blob_sha1": "7d932ea4c93e7016d074cc2277335d1e00e2bdc9",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E10_n1303.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E10_n1303.png",
+      "output_sha256": "2631b3dc4b77675340d27fa3b828c98446c7571bc4d4690ba2832069bebb700f",
+      "output_git_blob_sha1": "5ac19d3d82b351ce1c547e2859e382e9aab67572",
+      "github_blob_sha": "5ac19d3d82b351ce1c547e2859e382e9aab67572",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1520001,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Background evasion silhouette is somewhat more contrasty, but remains smeared behind the extended arm."
+      ],
+      "selected_prompt_file": "prompts/E10_n1303.txt"
+    },
+    {
+      "id": "E11",
+      "source_n": 1304,
+      "start": 1304,
+      "end": 1305,
+      "exposure": [
+        1304
+      ],
+      "state_class": "new framing + action",
+      "action": "Gojo extended arm; opponent no longer visible in the former position.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.333333333333336,
+      "source_pts_fraction": "1304/24",
+      "source_png_sha256": "e798b717c5cde039142680fb7e4e56bf3719b0aa9387ef35cd02161f6de40b28",
+      "source_png_local_git_blob_sha1": "ea5f1373606b06f6cce6997bdd2c1be4365fe5c6",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E11_n1304.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E11_n1304.png",
+      "output_sha256": "152a859197534c76430a0f4eb777a4867237e6f57b4c5cb8001f6e64f5e08b49",
+      "output_git_blob_sha1": "d6b2b49ec5fc23b545392a1c809ff2d07ffc383c",
+      "github_blob_sha": "d6b2b49ec5fc23b545392a1c809ff2d07ffc383c",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1540942,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional structured cyan interior with brighter luminous bands and a readable dark/cyan perimeter inside the original energy silhouette. Preserve this layer structure in grading; do not fit it back to flat featureless emission. No new energy placement or action was added.",
+      "residuals": [
+        "Slightly harder face/hand linework and brighter cyan edge; no opponent was restored in the former left position."
+      ],
+      "selected_prompt_file": "prompts/E11_n1304.txt"
+    },
+    {
+      "id": "E12",
+      "source_n": 1305,
+      "start": 1305,
+      "end": 1306,
+      "exposure": [
+        1305
+      ],
+      "state_class": "new framing + action",
+      "action": "Push toward Gojo face and retracting/extended arm relation.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.375,
+      "source_pts_fraction": "1305/24",
+      "source_png_sha256": "161fd0d53b67e80567aad4e2d5532df6acbc6d8193baaabd55498941d303fa1e",
+      "source_png_local_git_blob_sha1": "89ac6a42a8fcdec09b65576d0372c882d6fa76f3",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E12_n1305.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E12_n1305.png",
+      "output_sha256": "f8838a7fc3831b2c1c60bbd8952cdffc2e00041dd67431ded6406c1bb3065ed3",
+      "output_git_blob_sha1": "7cb3d2f5b860f2d7ed05dfa14feacf2e7dcb1c17",
+      "github_blob_sha": "7cb3d2f5b860f2d7ed05dfa14feacf2e7dcb1c17",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1540149,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "None beyond the established cool-cel/ink rendering.",
+      "residuals": [
+        "Sharper fine ink and cooler face value than source; close crop, pale eye value and hand-to-chin relationship retained."
+      ],
+      "selected_prompt_file": "prompts/E12_n1305.txt"
+    },
+    {
+      "id": "E13",
+      "source_n": 1306,
+      "start": 1306,
+      "end": 1307,
+      "exposure": [
+        1306
+      ],
+      "state_class": "new action / source smear",
+      "action": "Large curved dark Gojo torso/shoulder crossing lower frame, background sweep.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.416666666666664,
+      "source_pts_fraction": "1306/24",
+      "source_png_sha256": "2e31410deb530ca7cc31123df702ad9c6ca259adc03b4c81b659e124381625bb",
+      "source_png_local_git_blob_sha1": "b5274e413e281f684b83acdaecd3e93936155d56",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E13_n1306.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E13_n1306.png",
+      "output_sha256": "e8aa59958ed28d7bb0f526d9dc08a369e76ae420b08352a93c185ad213c2952f",
+      "output_git_blob_sha1": "4d271281a88e75f2202b20e31d3f1bb5e6eef61b",
+      "github_blob_sha": "4d271281a88e75f2202b20e31d3f1bb5e6eef61b",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1369939,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "None beyond the established cool-cel/ink rendering.",
+      "residuals": [
+        "Shoulder ink and glass-window edges are sharper; curved occlusion and horizontal background sweep retained. The faint red streak is more saturated."
+      ],
+      "selected_prompt_file": "prompts/E13_n1306.txt"
+    },
+    {
+      "id": "E14",
+      "source_n": 1307,
+      "start": 1307,
+      "end": 1308,
+      "exposure": [
+        1307
+      ],
+      "state_class": "new viewpoint / source smear",
+      "action": "Diagonal blue-white whip image; draw this actual obscured transition.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.458333333333336,
+      "source_pts_fraction": "1307/24",
+      "source_png_sha256": "f9edc0d9d05724864e1991f7ccc9bdccd0c3317f1fb623d23972d20563588696",
+      "source_png_local_git_blob_sha1": "5de7a80df68173e987120d79be09cf817aa4c46f",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E14_n1307.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E14_n1307.png",
+      "output_sha256": "c8e0c02603067a547161dbf40eff7eb63580840c2a24f9b20e1961b92de0f324",
+      "output_git_blob_sha1": "a3219efed624b110ad615741e6bf1696ff3acc9d",
+      "github_blob_sha": "a3219efed624b110ad615741e6bf1696ff3acc9d",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1201185,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "None beyond the established cool-cel/ink rendering.",
+      "residuals": [
+        "Soft abstract transition approximates source blur rather than claiming pixel-identical reconstruction."
+      ],
+      "selected_prompt_file": "prompts/E14_retry2.txt"
+    },
+    {
+      "id": "E15",
+      "source_n": 1308,
+      "start": 1308,
+      "end": 1309,
+      "exposure": [
+        1308
+      ],
+      "state_class": "new viewpoint + impact",
+      "action": "Reverse-view punch hits guarded Sukuna face with bright cyan impact.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.5,
+      "source_pts_fraction": "1308/24",
+      "source_png_sha256": "76c5509d9009bfdf08026f6e8a00cfbb4acc01319adc07f9fab0c0e78c265b0c",
+      "source_png_local_git_blob_sha1": "78c68ab2247e87afb6cfcd425b8ea8978370e019",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E15_n1308.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E15_n1308.png",
+      "output_sha256": "880f077a3eb8c524bdc8d9ddcdcb53b8784aa82f8f51898ca0c93a22203697d5",
+      "output_git_blob_sha1": "cc0bcd95aca6b2ed473e7ab8663004d46dccf4e4",
+      "github_blob_sha": "cc0bcd95aca6b2ed473e7ab8663004d46dccf4e4",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1739283,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional controlled cyan transition around a luminous white contact/impact core. Necessary impact flash is retained; core and rim make the existing action silhouette more readable. Do not histogram-fit the shaped cyan edge back into unreadable clipping or gray emission.",
+      "residuals": [
+        "Hatch-stroke smear has harder fine edges than source optical blur; impacted guard, occlusion and reverse composition retained."
+      ],
+      "selected_prompt_file": "prompts/E15_n1308.txt"
+    },
+    {
+      "id": "E16",
+      "source_n": 1309,
+      "start": 1309,
+      "end": 1310,
+      "exposure": [
+        1309
+      ],
+      "state_class": "new viewpoint + impact",
+      "action": "Pullback from hit, arm contact and cyan burst spread.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 54.541666666666664,
+      "source_pts_fraction": "1309/24",
+      "source_png_sha256": "412f5d6e837a077cda934ffe0f81507e3ed901965fa65bb1b75108adc71412d5",
+      "source_png_local_git_blob_sha1": "d84dc9a4b1e376527fb631c6b66acd33aa6b11e6",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E16_n1309.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E16_n1309.png",
+      "output_sha256": "a57cccb04ac5f6127fc5e521e401b06160eb1937cb4a6dc99ab88c53c965b2c4",
+      "output_git_blob_sha1": "b9dbf54b636fb3cefc8ba8a894b80f86be8a1918",
+      "github_blob_sha": "b9dbf54b636fb3cefc8ba8a894b80f86be8a1918",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1769464,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional controlled cyan transition around a luminous white contact/impact core. Necessary impact flash is retained; core and rim make the existing action silhouette more readable. Do not histogram-fit the shaped cyan edge back into unreadable clipping or gray emission.",
+      "residuals": [
+        "Sukuna contour/hatching is more defined than source while Gojo keeps directional smear; contact flash remains deliberately bright."
+      ],
+      "selected_prompt_file": "prompts/E16_n1309.txt"
+    },
+    {
+      "id": "E17a",
+      "source_n": 1310,
+      "start": 1310,
+      "end": 1312,
+      "exposure": [
+        1310,
+        1311
+      ],
+      "state_class": "new action + source defocus",
+      "action": "Uppercut aftermath with raised Gojo arm and large cyan-white burst.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Preserve source defocus.",
+      "source_pts_seconds": 54.583333333333336,
+      "source_pts_fraction": "1310/24",
+      "source_png_sha256": "f17e782b597f4e7888c002a0e7844bdd8d2f0163a54a9fa0d667e16aa916e941",
+      "source_png_local_git_blob_sha1": "d7303fc67ede6e73851ccce63511988ff2f4609c",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E17a_n1310.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E17a_n1310.png",
+      "output_sha256": "1feb3d5eb050f9e090651c5fbe85d5245902307c4dab73f1f6d1b72a93db5301",
+      "output_git_blob_sha1": "6584c11e343fad75bd4b7071b73a636a0c39e687",
+      "github_blob_sha": "6584c11e343fad75bd4b7071b73a636a0c39e687",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1372831,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "Intentional controlled cyan transition around a luminous white contact/impact core. Necessary impact flash is retained; core and rim make the existing action silhouette more readable. Do not histogram-fit the shaped cyan edge back into unreadable clipping or gray emission.",
+      "residuals": [
+        "Optical softness restored in second call; hatch spacing and white-core contour remain approximate, not identical to source."
+      ],
+      "selected_prompt_file": "prompts/E17a_retry2.txt"
+    },
+    {
+      "id": "E17b",
+      "source_n": 1313,
+      "start": 1312,
+      "end": 1315,
+      "exposure": [
+        1312,
+        1313,
+        1314
+      ],
+      "state_class": "new full-state geometry",
+      "action": "Gojo arm/torso settles, Sukuna guarding; sparks scatter and view/occlusion change.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Not an FX-only edit of E17a.",
+      "source_pts_seconds": 54.708333333333336,
+      "source_pts_fraction": "1313/24",
+      "source_png_sha256": "98c87af2d8163231a01dafddba4f59f4cfd072d0c1ab7227484e5941d2a50789",
+      "source_png_local_git_blob_sha1": "c1b999067280b99e7ad3e376f8d3a3cc2005c916",
+      "source_png_git_hash_note": "Computed from locally decoded PNG; not asserted to be a repository object.",
+      "output_file": "E17b_n1313.png",
+      "planned_repository_path": "collab/from_limo/051/batchB_P1/E17b_n1313.png",
+      "output_sha256": "06bdbe9930844a3ed2a978c5a9cf02490b0426d1e9a536dd68b908d0f9c3f9a6",
+      "output_git_blob_sha1": "ab4f68c1883942b15729a22c1c423659802a3806",
+      "github_blob_sha": "ab4f68c1883942b15729a22c1c423659802a3806",
+      "github_blob_hash_matches_local": true,
+      "output_bytes": 1396144,
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "source_geometry_independently_checked": true,
+      "source_inspection": "Exact source PNG inspected before generation; selected output visually checked against it for pose, crop, occlusion, limb connections, smear/focus and text.",
+      "intentional_enhancement": "None beyond the established cool-cel/ink rendering.",
+      "residuals": [
+        "Second call restores softer focus, though some robe edges remain more defined than source. Raised arm crop and later body geometry retained."
+      ],
+      "selected_prompt_file": "prompts/E17b_retry2.txt"
+    }
+  ],
+  "calls": [
+    {
+      "id": "E07",
+      "source_n": 1293,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "b44a4a2549e26275d06dc4013040ad4cc88df0a186cd686f4b93e25359ecb199",
+      "output_git_blob_sha1": "7a67d816a50393ae5b63fd7de077ea2dc49261a1",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E07_n1293.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E08a",
+      "source_n": 1294,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "4754de09e9afcccc994c48c00448fee3db681852c360f9876ba4131f04cc3334",
+      "output_git_blob_sha1": "6c1a1f921c0d3d250ee1f7db9d85506e1d60c219",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E08a_n1294.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E08",
+      "source_n": 1295,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "db6d16e898083c03d439df0a368f1dd53e299777ede1a11df828cccf2507eb04",
+      "output_git_blob_sha1": "4d7512c2b5e976776c5743f5700d340faab05ad5",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E08_n1295.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E09a",
+      "source_n": 1296,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "5f93eaa84e798ca875f68cf1f1da1690d9e7b988b20762cdcb5313419f67031d",
+      "output_git_blob_sha1": "b096a24b6bb8444675212275f4b05670a37d9b89",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E09a_n1296.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E09m",
+      "source_n": 1298,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "e7fa7bf3b352d7760c103a3210b1e89b261e38d306c7863d04648ba1e5714562",
+      "output_git_blob_sha1": "7843c6e0ac961762f9016963355d94d4d196acf2",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E09m_n1298.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E09b",
+      "source_n": 1301,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "35a9b361e0a7f3ebfc46e98ce3bbd6262ea28e2b600b96b72bcfdbb633d7b248",
+      "output_git_blob_sha1": "2fdaf019f6077742f899d32816814e41e572a99f",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E09b_n1301.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E10",
+      "source_n": 1303,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "2631b3dc4b77675340d27fa3b828c98446c7571bc4d4690ba2832069bebb700f",
+      "output_git_blob_sha1": "5ac19d3d82b351ce1c547e2859e382e9aab67572",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E10_n1303.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E11",
+      "source_n": 1304,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "152a859197534c76430a0f4eb777a4867237e6f57b4c5cb8001f6e64f5e08b49",
+      "output_git_blob_sha1": "d6b2b49ec5fc23b545392a1c809ff2d07ffc383c",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E11_n1304.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E12",
+      "source_n": 1305,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "f8838a7fc3831b2c1c60bbd8952cdffc2e00041dd67431ded6406c1bb3065ed3",
+      "output_git_blob_sha1": "7cb3d2f5b860f2d7ed05dfa14feacf2e7dcb1c17",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E12_n1305.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E13",
+      "source_n": 1306,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "e8aa59958ed28d7bb0f526d9dc08a369e76ae420b08352a93c185ad213c2952f",
+      "output_git_blob_sha1": "4d271281a88e75f2202b20e31d3f1bb5e6eef61b",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E13_n1306.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E14",
+      "source_n": 1307,
+      "call": 1,
+      "status": "rejected",
+      "output_sha256": "a21a046b7faa3b98d6ca4d5f917e603ccd992eda3b03754d1bcc7b416b3b93a7",
+      "output_git_blob_sha1": "400355ba9cd9989f4c13fac6508c5f07ba9d3569",
+      "public_png_upload": false,
+      "prompt_file": "prompts/E14_n1307.txt",
+      "reason": "First pass introduced crisp luminous streaks and background detail into an abstract defocused whip. Second call restored muted soft masses and removed invented detail."
+    },
+    {
+      "id": "E14",
+      "source_n": 1307,
+      "call": 2,
+      "status": "selected",
+      "output_sha256": "c8e0c02603067a547161dbf40eff7eb63580840c2a24f9b20e1961b92de0f324",
+      "output_git_blob_sha1": "a3219efed624b110ad615741e6bf1696ff3acc9d",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E14_retry2.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E15",
+      "source_n": 1308,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "880f077a3eb8c524bdc8d9ddcdcb53b8784aa82f8f51898ca0c93a22203697d5",
+      "output_git_blob_sha1": "cc0bcd95aca6b2ed473e7ab8663004d46dccf4e4",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E15_n1308.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E16",
+      "source_n": 1309,
+      "call": 1,
+      "status": "selected",
+      "output_sha256": "a57cccb04ac5f6127fc5e521e401b06160eb1937cb4a6dc99ab88c53c965b2c4",
+      "output_git_blob_sha1": "b9dbf54b636fb3cefc8ba8a894b80f86be8a1918",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E16_n1309.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E17a",
+      "source_n": 1310,
+      "call": 1,
+      "status": "rejected",
+      "output_sha256": "6a2f0bca1bb54bc5205c6c3d9ebe27ca24a7dbceb9160dffc4a7231225623b0a",
+      "output_git_blob_sha1": "76b51faa6f41f25ad8c775076e6ebd000a13b5f4",
+      "public_png_upload": false,
+      "prompt_file": "prompts/E17a_n1310.txt",
+      "reason": "First pass sharpened source optical defocus and produced excess crisp particles. Second call restored soft optical character/energy rendering."
+    },
+    {
+      "id": "E17a",
+      "source_n": 1310,
+      "call": 2,
+      "status": "selected",
+      "output_sha256": "1feb3d5eb050f9e090651c5fbe85d5245902307c4dab73f1f6d1b72a93db5301",
+      "output_git_blob_sha1": "6584c11e343fad75bd4b7071b73a636a0c39e687",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E17a_retry2.txt",
+      "reason": "Selected after source comparison."
+    },
+    {
+      "id": "E17b",
+      "source_n": 1313,
+      "call": 1,
+      "status": "rejected",
+      "output_sha256": "f539992debf0562366cf560594531ae76292f18130f648ae7435efc3bfe7ff01",
+      "output_git_blob_sha1": "76f5add45e1cac159a015c5bdb5fa8d1c08c769c",
+      "public_png_upload": false,
+      "prompt_file": "prompts/E17b_n1313.txt",
+      "reason": "First pass was too crisp for the source focus state. Second call softened characters, hatching and background while preserving its own geometry."
+    },
+    {
+      "id": "E17b",
+      "source_n": 1313,
+      "call": 2,
+      "status": "selected",
+      "output_sha256": "06bdbe9930844a3ed2a978c5a9cf02490b0426d1e9a536dd68b908d0f9c3f9a6",
+      "output_git_blob_sha1": "ab4f68c1883942b15729a22c1c423659802a3806",
+      "public_png_upload": true,
+      "prompt_file": "prompts/E17b_retry2.txt",
+      "reason": "Selected after source comparison."
+    }
+  ],
+  "retry_notes": {
+    "E14": "First pass introduced crisp luminous streaks and background detail into an abstract defocused whip. Second call restored muted soft masses and removed invented detail.",
+    "E17a": "First pass sharpened source optical defocus and produced excess crisp particles. Second call restored soft optical character/energy rendering.",
+    "E17b": "First pass was too crisp for the source focus state. Second call softened characters, hatching and background while preserving its own geometry."
+  },
+  "coverage": {
+    "validated": true,
+    "frames": 22,
+    "gaps": [],
+    "overlaps": []
+  },
+  "central_status": "Selected package delivered for B45 compositing. Independent45-state static QA passed; final64-frame video and frozen-prefix checks remain pending."
+}

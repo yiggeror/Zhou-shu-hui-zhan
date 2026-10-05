@@ -1,0 +1,701 @@
+{
+  "package": "B45 P2",
+  "status": "Selected package delivered for B45 compositing. Independent45-state static QA passed; final64-frame video and frozen-prefix checks remain pending.",
+  "method": "Built-in image_gen source-grounded style-transfer; B04 retry is a targeted image_gen edit of its first generated candidate. No local pixel transforms.",
+  "window": [
+    1315,
+    1332
+  ],
+  "fps": 24,
+  "artwork_states": 15,
+  "artwork_exposures": 16,
+  "compositor_black": {
+    "id": "BLACK_1319",
+    "start": 1319,
+    "end": 1320,
+    "generated_artwork": false
+  },
+  "imagegen_calls": 17,
+  "retries": 2,
+  "selected": 15,
+  "rejected": 2,
+  "source_video": {
+    "filename": "orig.mp4",
+    "sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+    "size": [
+      2560,
+      1440
+    ],
+    "fps": 24,
+    "frames": 3499,
+    "indexing": "zero-based n, PTS=n/24; full decode without floating time seek",
+    "source_png_hash_note": "Source PNG SHA256 identifies local exact decoded input; no claim it is a GitHub repository object."
+  },
+  "style_reference": "Accepted A guard cel S3 n1216 visually inspected; source-only geometry inputs except B04 text-removal retry.",
+  "compositing_notes": [
+    "Default discrete source exposure hold. E17c covers two frames; every other selected image covers one.",
+    "Only n1319 is compositor black; E18 and E18b contain shaped dark image content.",
+    "Native PNG 1672x941 unchanged. Video conversion may replicate only the single bottom row to 1672x942.",
+    "B01-B08 are independent source phases, never loop substitutes. Keep temporal arm smears as echoes, not extra physical limbs.",
+    "Preserve described intentional cyan readability enhancement; no uniform dimming or gray emission.",
+    "Do not alter frozen [1187,1293)."
+  ],
+  "states": [
+    {
+      "id": "E17c",
+      "source_n": 1316,
+      "start": 1315,
+      "end": 1317,
+      "exposure": [
+        1315,
+        1316
+      ],
+      "state_class": "new full-state geometry",
+      "action": "Sharper late aftermath; characters separate in screen space; fewer sparks.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Do not retain E17a body placement or blur.",
+      "source_pts_seconds": 54.833333333333336,
+      "source_png_sha256": "051076ca18e1daee1e2e6a81a8fee0076dc0cc2de043e10df262ce3a95420800",
+      "source_geometry_independently_checked": true,
+      "file": "E17c_n1316.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E17c_n1316.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1531876,
+      "output_sha256": "281a449f97889b42853e28a34701507bba5d714be80490a5a3833581bb9c7cdd",
+      "output_git_blob_sha1": "154a5b52d068d7413235c462faafef9ed806e495",
+      "github_blob_sha": "154a5b52d068d7413235c462faafef9ed806e495",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E17c_v1.txt",
+      "intentional_enhancement": "Reduced dense hatch clutter into restrained flat cold shadow planes for clearer source silhouettes; no pose change.",
+      "residuals": "Pale clothing has cleaner, somewhat lighter cold flat planes and less hatching than source. Some contour offsets remain. Own n1316 separation and sharp focus retained."
+    },
+    {
+      "id": "E17d",
+      "source_n": 1317,
+      "start": 1317,
+      "end": 1318,
+      "exposure": [
+        1317
+      ],
+      "state_class": "new viewpoint / crop",
+      "action": "Camera approaches Gojo back/arm; Sukuna is cropped hard at right.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Essential bridge into E18 foreground occlusion.",
+      "source_pts_seconds": 54.875,
+      "source_png_sha256": "34e92849d03e3f5291cb16c33e13432e50f8de853c7a594a25ef52f8f10647a0",
+      "source_geometry_independently_checked": true,
+      "file": "E17d_n1317.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E17d_n1317.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1654216,
+      "output_sha256": "9e673f64eccd3c7b656427d64ba0db6b38cee2ae1fdbb9dba8dfec63ab0d47ed",
+      "output_git_blob_sha1": "0b6570f7565b7f62f4fa855575e3db28177e0729",
+      "github_blob_sha": "0b6570f7565b7f62f4fa855575e3db28177e0729",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E17d_v1.txt",
+      "intentional_enhancement": "No intentional exposure enhancement; source dark/cold hierarchy retained.",
+      "residuals": "Edges/hatching are sharper than the source; minor silhouette offsets. Hard right Sukuna crop and approach framing retained."
+    },
+    {
+      "id": "E18",
+      "source_n": 1318,
+      "start": 1318,
+      "end": 1319,
+      "exposure": [
+        1318
+      ],
+      "state_class": "new foreground occlusion",
+      "action": "Gojo dark torso fills most frame, white trousers lower-right, city sliver at right.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. This is shaped occlusion, not a generic black smear.",
+      "source_pts_seconds": 54.916666666666664,
+      "source_png_sha256": "bf936f30943f10ac27a5568f681c52aa230ad18c13f6e2570dff0d178d243989",
+      "source_geometry_independently_checked": true,
+      "file": "E18_n1318.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E18_n1318.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1279376,
+      "output_sha256": "e956350e5c1ebf87e643f2ac157d187931a01ca3e93b57ab9baa2a541912ef0e",
+      "output_git_blob_sha1": "5829616b971ea4209eff52e566b8c4c2442b1c2c",
+      "github_blob_sha": "5829616b971ea4209eff52e566b8c4c2442b1c2c",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E18_v1.txt",
+      "intentional_enhancement": "No intentional exposure enhancement; source dark/cold hierarchy retained.",
+      "residuals": "Clothing fold highlights and city edges are more graphic/sharper than source. Exact shaped torso occlusion, pale hip wedge and city sliver remain; no invented head."
+    },
+    {
+      "id": "E18b",
+      "source_n": 1320,
+      "start": 1320,
+      "end": 1321,
+      "exposure": [
+        1320
+      ],
+      "state_class": "new dark transition state",
+      "action": "Near-black dark-blue foreground with faint right-edge streaks and lower-edge diagonal.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Keep extremely dark; do not brighten for readability or replace by pure black.",
+      "source_pts_seconds": 55.0,
+      "source_png_sha256": "f02a44e93f7caef3015dab42d236db3ad957cda0e5fb47acb6bc1a9780e48d6f",
+      "source_geometry_independently_checked": true,
+      "file": "E18b_n1320.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E18b_n1320.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 937313,
+      "output_sha256": "f18c9359a2756a30803e43b34ebf9598a81d04e9d5f2f03b0d9341a889d9558a",
+      "output_git_blob_sha1": "55a147afb503b57fe1088b26586dda33166eedf0",
+      "github_blob_sha": "55a147afb503b57fe1088b26586dda33166eedf0",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E18b_v1.txt",
+      "intentional_enhancement": "No intentional exposure enhancement; source dark/cold hierarchy retained.",
+      "residuals": "Near-black maintained. Mean luminance 3.90/255 vs source 3.46; p99 13.40 vs 9.17. Sparse right-edge streaks are slightly brighter/sharper than source. No invented face/anatomy."
+    },
+    {
+      "id": "E19",
+      "source_n": 1321,
+      "start": 1321,
+      "end": 1322,
+      "exposure": [
+        1321
+      ],
+      "state_class": "new viewpoint / source smear",
+      "action": "Reverse reveal through sweeping black torso; fragments of guard and cyan light visible.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 55.041666666666664,
+      "source_png_sha256": "a4aa704486869a8d7c2a070a2f0cf07a9a96ac0e0293ae0efed27c9939d5d852",
+      "source_geometry_independently_checked": true,
+      "file": "E19_n1321.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E19_n1321.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1720620,
+      "output_sha256": "1a6204f0f0151d175b18610ea707a71db9f815d75a82eb66c394c27ed7cce64e",
+      "output_git_blob_sha1": "8a13d59a7b82b9fb86086cc4d4b5265dccc542b6",
+      "github_blob_sha": "8a13d59a7b82b9fb86086cc4d4b5265dccc542b6",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E19_v1.txt",
+      "intentional_enhancement": "No intentional exposure enhancement; source dark/cold hierarchy retained.",
+      "residuals": "Source torso sweep and pale fragments remain, but some streaks have more visible graphic ink edges than the source soft blur."
+    },
+    {
+      "id": "E20",
+      "source_n": 1322,
+      "start": 1322,
+      "end": 1323,
+      "exposure": [
+        1322
+      ],
+      "state_class": "new action",
+      "action": "Gojo near-right back/neck foreground; Sukuna guarded face and glowing hands.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 55.083333333333336,
+      "source_png_sha256": "c750ac1e3ccb7343a28b783876d91b22c099d094b76d9dc566f672e418e64afe",
+      "source_geometry_independently_checked": true,
+      "file": "E20_n1322.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E20_n1322.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1623776,
+      "output_sha256": "5b2ec2721a44c6f4bd5095ba977c81b1eec0fc8c15929d08961b7409ad3a3dc8",
+      "output_git_blob_sha1": "00d8e23b160078b8ef86ac6f80bf2fbb10c0cec5",
+      "github_blob_sha": "00d8e23b160078b8ef86ac6f80bf2fbb10c0cec5",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E20_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Cyan cluster microstructure and fine hatching differ; face/guard and diagonal streak arrangement retained. Ink is somewhat sharper."
+    },
+    {
+      "id": "E21",
+      "source_n": 1323,
+      "start": 1323,
+      "end": 1324,
+      "exposure": [
+        1323
+      ],
+      "state_class": "new action / source arm smear",
+      "action": "Punch buildup with crossing forearm smear in front of guarded Sukuna.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur.",
+      "source_pts_seconds": 55.125,
+      "source_png_sha256": "3ebcb8cb716c3a446b07952751584c56f299c726c1b1b402e819587f49205bd3",
+      "source_geometry_independently_checked": true,
+      "file": "E21_n1323.png",
+      "public_path": "collab/from_limo/051/batchB_P2/E21_n1323.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1727665,
+      "output_sha256": "75b331007495730b8ca04c8e45d77031e523d5c4899e2485c8b333545a06be1c",
+      "output_git_blob_sha1": "25aebf0256baf1877352f3467fb1add9a8f05ebe",
+      "github_blob_sha": "25aebf0256baf1877352f3467fb1add9a8f05ebe",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/E21_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Cyan contours and smear edges are slightly more graphic; crossing diagonal paths and guard retained."
+    },
+    {
+      "id": "B01",
+      "source_n": 1324,
+      "start": 1324,
+      "end": 1325,
+      "exposure": [
+        1324
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "First phase: distinct upper horizontal fist and crossing diagonal foreground arm.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.166666666666664,
+      "source_png_sha256": "86ed10a91fb9686318abf8598d2229b3eb8f337a8be4a017268648b046f3626c",
+      "source_geometry_independently_checked": true,
+      "file": "B01_n1324.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B01_n1324.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1748035,
+      "output_sha256": "269b1788086fddcece8d1ab034a27e73c2212ccf76a1ea294969d97dbd91a05c",
+      "output_git_blob_sha1": "346e18d72f7dd0f8d092cca287d60369b2796388",
+      "github_blob_sha": "346e18d72f7dd0f8d092cca287d60369b2796388",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B01_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Source phase retained. Smear outlines and cyan cluster edges are harder, with small endpoint/width differences."
+    },
+    {
+      "id": "B02",
+      "source_n": 1325,
+      "start": 1325,
+      "end": 1326,
+      "exposure": [
+        1325
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Next phase: upper fist advances; lower pale forearm arc differs.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.208333333333336,
+      "source_png_sha256": "f387c9380a3b77207aecb262618ae92bbbe7bd242fbd1b36d388930a7032532e",
+      "source_geometry_independently_checked": true,
+      "file": "B02_n1325.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B02_n1325.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1706283,
+      "output_sha256": "0832ba1af1cc185c131d9096c7b92c7fc23b6579f02a66bdd15b1535cda5e056",
+      "output_git_blob_sha1": "aea04fbd56299d265ee2d9301688bc7c635be56b",
+      "github_blob_sha": "aea04fbd56299d265ee2d9301688bc7c635be56b",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 2,
+      "prompt": "prompts/B02_v2.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Targeted retry restores steep lower pale track and diagonal middle recoil after first candidate drifted. Fine track width/endpoints and energy texture remain approximate."
+    },
+    {
+      "id": "B03",
+      "source_n": 1326,
+      "start": 1326,
+      "end": 1327,
+      "exposure": [
+        1326
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Diagonal-dominant phase with own arm intersections and sparks.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.25,
+      "source_png_sha256": "c7d1537e3d8aef132971f1001dbbc4af20e0d15bf9e16652136ff8065ec7b92b",
+      "source_geometry_independently_checked": true,
+      "file": "B03_n1326.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B03_n1326.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1714593,
+      "output_sha256": "853e7c69549c8ecc8c12d068d3d5d08245b07677d8ff4b1f19cbfb56660236ba",
+      "output_git_blob_sha1": "a0cd2e74cb725b7cbee3c6b2fcbb960076aac7aa",
+      "github_blob_sha": "a0cd2e74cb725b7cbee3c6b2fcbb960076aac7aa",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B03_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Distinct diagonal phase retained; source smears are somewhat more sharply inked and cyan cores more discrete."
+    },
+    {
+      "id": "B04",
+      "source_n": 1327,
+      "start": 1327,
+      "end": 1328,
+      "exposure": [
+        1327
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Retracted/high fist phase; crossing lower arm shape differs.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.291666666666664,
+      "source_png_sha256": "011fc386e450f503e95dd5c028890efff9e739b03132a97b8ab1a97b241ef972",
+      "source_geometry_independently_checked": true,
+      "file": "B04_n1327.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B04_n1327.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1837526,
+      "output_sha256": "2467fa7ba4b579c236a53b2337e45a24b7d3b8b8a095e9805601a52dfa25665a",
+      "output_git_blob_sha1": "f19605dae1289f225fcf58636cf27d9f8ef1780d",
+      "github_blob_sha": "f19605dae1289f225fcf58636cf27d9f8ef1780d",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 2,
+      "prompt": "prompts/B04_v2.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Faint source watermark residue removed in targeted edit. Two central pale temporal echoes are somewhat crisper than original soft smears; no added shoulder attachments."
+    },
+    {
+      "id": "B05",
+      "source_n": 1328,
+      "start": 1328,
+      "end": 1329,
+      "exposure": [
+        1328
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Upper punch becomes a double-layer smear; not reusable n1324 geometry.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.333333333333336,
+      "source_png_sha256": "a2002db5c26d6c4f36277630f81828154fbecbde1a07ad154cb61ef37ab72e97",
+      "source_geometry_independently_checked": true,
+      "file": "B05_n1328.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B05_n1328.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1736076,
+      "output_sha256": "fb875d5c4ec0fb5c94b53353ccea8aa9529461e8fdc206fdc7e857c5da6baf4f",
+      "output_git_blob_sha1": "ac43dbb8bfeca58d52de98a2af371330253f6192",
+      "github_blob_sha": "ac43dbb8bfeca58d52de98a2af371330253f6192",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B05_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Distinct doubled upper temporal smear retained. Echo contours are harder than source; small energy cluster differences."
+    },
+    {
+      "id": "B06",
+      "source_n": 1329,
+      "start": 1329,
+      "end": 1330,
+      "exposure": [
+        1329
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Longer advanced horizontal punch and altered lower arc; not literal n1325.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.375,
+      "source_png_sha256": "91d626f7bd285761e09046f7b5f44b17053fc731916a0f198f48fab07f6bc9e5",
+      "source_geometry_independently_checked": true,
+      "file": "B06_n1329.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B06_n1329.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1739573,
+      "output_sha256": "bd5a760fae4d7df53781f9b91032588728e73beaf93928e51fe1e005b3aa65c6",
+      "output_git_blob_sha1": "02d4e65e769f231d1de6e8506c10326088ff08af",
+      "github_blob_sha": "02d4e65e769f231d1de6e8506c10326088ff08af",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B06_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Long horizontal extension and steep lower curved track retained. Fine smear edges and cyan core texture differ."
+    },
+    {
+      "id": "B07",
+      "source_n": 1330,
+      "start": 1330,
+      "end": 1331,
+      "exposure": [
+        1330
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "Diagonal punch path and occlusion differ from n1326.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.416666666666664,
+      "source_png_sha256": "7d54327ecef411f24ba9a086570fc18a61f6b65bc1fe0227e435dd8ea640d896",
+      "source_geometry_independently_checked": true,
+      "file": "B07_n1330.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B07_n1330.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1724322,
+      "output_sha256": "d6422d56b60d6306e2f59de9c495f2fa5db1220e054619bc91dd1f34fc281ae5",
+      "output_git_blob_sha1": "8790bcf33289ebac3c71cbf783057eb278abe8fa",
+      "github_blob_sha": "8790bcf33289ebac3c71cbf783057eb278abe8fa",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B07_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Distinct recoil/diagonal phase retained. Small smear-width differences, slightly crisper lower pale tracks."
+    },
+    {
+      "id": "B08",
+      "source_n": 1331,
+      "start": 1331,
+      "end": 1332,
+      "exposure": [
+        1331
+      ],
+      "state_class": "independent punch phase / smear",
+      "action": "High/withdrawn fist location and forearm crossing differ from n1327.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks.",
+      "source_pts_seconds": 55.458333333333336,
+      "source_png_sha256": "110f9e1450819bfc983f952d011a1159b007fae26079bfaefdc7ba346042d44b",
+      "source_geometry_independently_checked": true,
+      "file": "B08_n1331.png",
+      "public_path": "collab/from_limo/051/batchB_P2/B08_n1331.png",
+      "native_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "bytes": 1732769,
+      "output_sha256": "3476bb0bd7ad6b01af6be4a91c529122785a4d4e9a7f638a4b6535d4474ce7d0",
+      "output_git_blob_sha1": "06ad4c556b1530fb56904cba9785281ac5e4c363",
+      "github_blob_sha": "06ad4c556b1530fb56904cba9785281ac5e4c363",
+      "github_blob_matches_local_bytes": true,
+      "selected_version": 1,
+      "prompt": "prompts/B08_v1.txt",
+      "intentional_enhancement": "Refined existing cyan-white energy cluster edges and white-core/cyan separation to keep guard and punch paths readable. Keep luminous saturated cyan and necessary white cores; do not histogram-fit back to a blurred clipped mass.",
+      "residuals": "Distinct high withdrawn fist and crossed diagonal tracks retained. Smear boundaries are more graphic; small endpoint offsets."
+    }
+  ],
+  "calls": [
+    {
+      "id": "E17c",
+      "source_n": 1316,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E17c_v1.txt",
+      "output_sha256": "281a449f97889b42853e28a34701507bba5d714be80490a5a3833581bb9c7cdd",
+      "output_git_blob_sha1": "154a5b52d068d7413235c462faafef9ed806e495",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1316.png"
+    },
+    {
+      "id": "E17d",
+      "source_n": 1317,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E17d_v1.txt",
+      "output_sha256": "9e673f64eccd3c7b656427d64ba0db6b38cee2ae1fdbb9dba8dfec63ab0d47ed",
+      "output_git_blob_sha1": "0b6570f7565b7f62f4fa855575e3db28177e0729",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1317.png"
+    },
+    {
+      "id": "E18",
+      "source_n": 1318,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E18_v1.txt",
+      "output_sha256": "e956350e5c1ebf87e643f2ac157d187931a01ca3e93b57ab9baa2a541912ef0e",
+      "output_git_blob_sha1": "5829616b971ea4209eff52e566b8c4c2442b1c2c",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1318.png"
+    },
+    {
+      "id": "E18b",
+      "source_n": 1320,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E18b_v1.txt",
+      "output_sha256": "f18c9359a2756a30803e43b34ebf9598a81d04e9d5f2f03b0d9341a889d9558a",
+      "output_git_blob_sha1": "55a147afb503b57fe1088b26586dda33166eedf0",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1320.png"
+    },
+    {
+      "id": "E19",
+      "source_n": 1321,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E19_v1.txt",
+      "output_sha256": "1a6204f0f0151d175b18610ea707a71db9f815d75a82eb66c394c27ed7cce64e",
+      "output_git_blob_sha1": "8a13d59a7b82b9fb86086cc4d4b5265dccc542b6",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1321.png"
+    },
+    {
+      "id": "E20",
+      "source_n": 1322,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E20_v1.txt",
+      "output_sha256": "5b2ec2721a44c6f4bd5095ba977c81b1eec0fc8c15929d08961b7409ad3a3dc8",
+      "output_git_blob_sha1": "00d8e23b160078b8ef86ac6f80bf2fbb10c0cec5",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1322.png"
+    },
+    {
+      "id": "E21",
+      "source_n": 1323,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/E21_v1.txt",
+      "output_sha256": "75b331007495730b8ca04c8e45d77031e523d5c4899e2485c8b333545a06be1c",
+      "output_git_blob_sha1": "25aebf0256baf1877352f3467fb1add9a8f05ebe",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1323.png"
+    },
+    {
+      "id": "B01",
+      "source_n": 1324,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B01_v1.txt",
+      "output_sha256": "269b1788086fddcece8d1ab034a27e73c2212ccf76a1ea294969d97dbd91a05c",
+      "output_git_blob_sha1": "346e18d72f7dd0f8d092cca287d60369b2796388",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1324.png"
+    },
+    {
+      "id": "B02",
+      "source_n": 1325,
+      "version": 1,
+      "status": "rejected",
+      "prompt": "prompts/B02_v1.txt",
+      "output_sha256": "5f30ab1ad5f7e1f86b42b087a2d2f0303d03f33dda38584db7e249a599c949ac",
+      "output_git_blob_sha1": "a9cd00606a973d90ecd209b55a7d6bdf86baafa9",
+      "reason": "Lower pale and middle dark smear paths drifted",
+      "input": "source n1325.png"
+    },
+    {
+      "id": "B02",
+      "source_n": 1325,
+      "version": 2,
+      "status": "selected",
+      "prompt": "prompts/B02_v2.txt",
+      "output_sha256": "0832ba1af1cc185c131d9096c7b92c7fc23b6579f02a66bdd15b1535cda5e056",
+      "output_git_blob_sha1": "aea04fbd56299d265ee2d9301688bc7c635be56b",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1325.png"
+    },
+    {
+      "id": "B03",
+      "source_n": 1326,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B03_v1.txt",
+      "output_sha256": "853e7c69549c8ecc8c12d068d3d5d08245b07677d8ff4b1f19cbfb56660236ba",
+      "output_git_blob_sha1": "a0cd2e74cb725b7cbee3c6b2fcbb960076aac7aa",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1326.png"
+    },
+    {
+      "id": "B04",
+      "source_n": 1327,
+      "version": 1,
+      "status": "rejected",
+      "prompt": "prompts/B04_v1.txt",
+      "output_sha256": "bc18badde90f9cb366f31ae62f8ec03893fb00218f57686e88e556e683200fd0",
+      "output_git_blob_sha1": "8636b67a8cae9fbcb2c60001101608db615e3c29",
+      "reason": "Faint lower-center watermark fragments",
+      "input": "source n1327.png"
+    },
+    {
+      "id": "B04",
+      "source_n": 1327,
+      "version": 2,
+      "status": "selected",
+      "prompt": "prompts/B04_v2.txt",
+      "output_sha256": "2467fa7ba4b579c236a53b2337e45a24b7d3b8b8a095e9805601a52dfa25665a",
+      "output_git_blob_sha1": "f19605dae1289f225fcf58636cf27d9f8ef1780d",
+      "reason": "Selected after visual source comparison",
+      "input": "B04 candidate v1"
+    },
+    {
+      "id": "B05",
+      "source_n": 1328,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B05_v1.txt",
+      "output_sha256": "fb875d5c4ec0fb5c94b53353ccea8aa9529461e8fdc206fdc7e857c5da6baf4f",
+      "output_git_blob_sha1": "ac43dbb8bfeca58d52de98a2af371330253f6192",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1328.png"
+    },
+    {
+      "id": "B06",
+      "source_n": 1329,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B06_v1.txt",
+      "output_sha256": "bd5a760fae4d7df53781f9b91032588728e73beaf93928e51fe1e005b3aa65c6",
+      "output_git_blob_sha1": "02d4e65e769f231d1de6e8506c10326088ff08af",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1329.png"
+    },
+    {
+      "id": "B07",
+      "source_n": 1330,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B07_v1.txt",
+      "output_sha256": "d6422d56b60d6306e2f59de9c495f2fa5db1220e054619bc91dd1f34fc281ae5",
+      "output_git_blob_sha1": "8790bcf33289ebac3c71cbf783057eb278abe8fa",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1330.png"
+    },
+    {
+      "id": "B08",
+      "source_n": 1331,
+      "version": 1,
+      "status": "selected",
+      "prompt": "prompts/B08_v1.txt",
+      "output_sha256": "3476bb0bd7ad6b01af6be4a91c529122785a4d4e9a7f638a4b6535d4474ce7d0",
+      "output_git_blob_sha1": "06ad4c556b1530fb56904cba9785281ac5e4c363",
+      "reason": "Selected after visual source comparison",
+      "input": "source n1331.png"
+    }
+  ],
+  "central_status": "Selected package delivered for B45 compositing. Independent45-state static QA passed; final64-frame video and frozen-prefix checks remain pending."
+}

@@ -1,0 +1,777 @@
+{
+  "package": "B_P3",
+  "window_half_open": [
+    1332,
+    1357
+  ],
+  "fps": 24,
+  "exposure_count": 25,
+  "selected_artwork_count": 15,
+  "image_generation_calls": 17,
+  "first_pass_calls": 15,
+  "targeted_retry_calls": 2,
+  "rejected_candidate_count": 2,
+  "source_video": {
+    "sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+    "width": 2560,
+    "height": 1440,
+    "fps": 24,
+    "frame_numbering": "zero-based",
+    "decoding": "decoded from video beginning with integer n selection; no floating time seek"
+  },
+  "provenance": "AI-generated/edited production cels from exact original source-frame references, with a restrained dark-ink/cool-cel style prompt. No claim of manual drawing or proven non-tracing.",
+  "native_artwork": {
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "format": "PNG"
+  },
+  "compositing_global": [
+    "Default discrete holds for listed half-open exposures; no exact continuous original-camera claim.",
+    "Keep abrupt cut from n1333 to n1334; do not crossfade.",
+    "Video raster may replicate only the bottom row to 1672x942.",
+    "Do not histogram-fit away deliberate readable red/cyan energy enhancements.",
+    "No new image n1357 or beyond."
+  ],
+  "states": [
+    {
+      "id": "B09",
+      "source_n": 1332,
+      "source_pts_seconds": 55.5,
+      "exposure_half_open": [
+        1332,
+        1333
+      ],
+      "exposure_frames": [
+        1332
+      ],
+      "state_class": "independent punch phase / smear",
+      "essential_action": "Double horizontal extension and crop differ from n1324/n1328.",
+      "file": "B09_n1332.png",
+      "public_path": "collab/from_limo/051/batchB_P3/B09_n1332.png",
+      "source_frame": {
+        "file": "n1332.png",
+        "sha256": "7b4f29f58fdf6ddacbe55afab85138e2931765ae6848bb567a5df5d32d1c9cc7",
+        "locally_decoded_png_git_blob_sha1": "378d02dc261a1086fbc65f42387e5c8e31811716",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "1035c0f6b87545697b10b7e3364c6984ef5fd3913860f51187a5aeaacc55d588",
+        "git_blob_sha1": "e2fbafd10f85676f568dccc70f7a362e7c2eb1f6",
+        "bytes": 1758825,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "e2fbafd10f85676f568dccc70f7a362e7c2eb1f6",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Distinct double horizontal-extension geometry, diagonal foreground intersection and guard occlusion compared with n1332."
+      },
+      "enhancement": "Cyan-white luminous core and saturated cyan spark edges were separated for readable contact/action contours without changing attack placement.",
+      "residual": "Ink contours and cyan spark edges are firmer than the soft source; original double horizontal and crossing diagonal smears remain.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/B09_prompt.txt"
+    },
+    {
+      "id": "B10",
+      "source_n": 1333,
+      "source_pts_seconds": 55.541666666666664,
+      "exposure_half_open": [
+        1333,
+        1334
+      ],
+      "exposure_frames": [
+        1333
+      ],
+      "state_class": "independent punch phase / smear",
+      "essential_action": "Closer final barrage frame with larger horizontal fist and foreground crop.",
+      "file": "B10_n1333.png",
+      "public_path": "collab/from_limo/051/batchB_P3/B10_n1333.png",
+      "source_frame": {
+        "file": "n1333.png",
+        "sha256": "a78c89978ca14a92e2c8279ccff2b516ceb9aa0aeb9a5d3aee467c0c11df4cd0",
+        "locally_decoded_png_git_blob_sha1": "604ba3a575b731ab81d27975ea691d2e397b8b07",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "fbd6ead855bb60754a9667ba3f70d0f0343424a5f406da508aa6fbd974e99dcf",
+        "git_blob_sha1": "793bbdc72a264d83adfa40869a57d237e8a449d5",
+        "bytes": 1849995,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "793bbdc72a264d83adfa40869a57d237e8a449d5",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 2,
+      "imagegen_calls": 2,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Closer/larger horizontal final punch phase and foreground crop compared with n1333, independent of B09."
+      },
+      "enhancement": "Cyan-white luminous core and saturated cyan spark edges were separated for readable contact/action contours without changing attack placement.",
+      "residual": "Ink contours and cyan spark edges are firmer than source. The single native-size retry changed minor line texture; selected image is 1672x941.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. No loop reuse; preserve anatomical arm count while representing source motion streaks. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/B10_retry_prompt.txt"
+    },
+    {
+      "id": "E26",
+      "source_n": 1334,
+      "source_pts_seconds": 55.583333333333336,
+      "exposure_half_open": [
+        1334,
+        1335
+      ],
+      "exposure_frames": [
+        1334
+      ],
+      "state_class": "hard-cut close-up",
+      "essential_action": "Sukuna red-eye extreme close-up behind guard and cyan sparks.",
+      "file": "E26_n1334.png",
+      "public_path": "collab/from_limo/051/batchB_P3/E26_n1334.png",
+      "source_frame": {
+        "file": "n1334.png",
+        "sha256": "409520fba58160c715cf0ad59f702a1444521554f5a6d8da25d325f970ce5963",
+        "locally_decoded_png_git_blob_sha1": "3f8d1dd5b8374bca2eec58416f1f485484299fff",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "0f6577ace4b039154970a562a25e35871ad24e5482a22849c0c49e66befe631a",
+        "git_blob_sha1": "78969a67d5c2e2c087b2ee51d3d2c91b48021ca6",
+        "bytes": 2194506,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "78969a67d5c2e2c087b2ee51d3d2c91b48021ca6",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Extreme red-eye/guard crop compared with n1334; abrupt source cut retained."
+      },
+      "enhancement": "Cyan-white luminous core and saturated cyan spark edges were separated for readable contact/action contours without changing attack placement.",
+      "residual": "Added sparse hatching and firmer edges inside the extreme close-up; original eye/guard crop and cyan glare remain.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve abrupt source cut; no interpolation/crossfade. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/E26_prompt.txt"
+    },
+    {
+      "id": "E27",
+      "source_n": 1335,
+      "source_pts_seconds": 55.625,
+      "exposure_half_open": [
+        1335,
+        1336
+      ],
+      "exposure_frames": [
+        1335
+      ],
+      "state_class": "new extreme framing / red smear",
+      "essential_action": "Extreme skin/markings and red foreground streak.",
+      "file": "E27_n1335.png",
+      "public_path": "collab/from_limo/051/batchB_P3/E27_n1335.png",
+      "source_frame": {
+        "file": "n1335.png",
+        "sha256": "5d8fc57c6a3275e1edcc3b90b9e3a4953bb2ecd23e46e8dacdc892fbd96d6397",
+        "locally_decoded_png_git_blob_sha1": "2522290f9cadd18537e956693ea07bee1698838f",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "7a58cf6e453e09dda994554f0cf20eb8a01be1d2c609be9717b6a8fdd50f88c1",
+        "git_blob_sha1": "7cc65bdabd204b468fa55c4a6438f27d1be79e9a",
+        "bytes": 1696044,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "7cc65bdabd204b468fa55c4a6438f27d1be79e9a",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Extreme pale skin/black-marking crop and red lower-edge sweep compared with n1335; no invented full face."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Broad close-range red transition and geometry remain, but black marking edges use scratchy hatching and are firmer than the source defocus. Review at its one-frame exposure.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/E27_prompt.txt"
+    },
+    {
+      "id": "E28",
+      "source_n": 1336,
+      "source_pts_seconds": 55.666666666666664,
+      "exposure_half_open": [
+        1336,
+        1337
+      ],
+      "exposure_frames": [
+        1336
+      ],
+      "state_class": "new framing + counterattack",
+      "essential_action": "Sukuna red-flame forearm sweep; medium view.",
+      "file": "E28_n1336.png",
+      "public_path": "collab/from_limo/051/batchB_P3/E28_n1336.png",
+      "source_frame": {
+        "file": "n1336.png",
+        "sha256": "d95546e40c8f476324460fe8d0f6fb9a796b865affe029805ed048c5b85959d2",
+        "locally_decoded_png_git_blob_sha1": "661ae1495042cadae78e94e97f264170f30a1087",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "7d6e4a6fb72267d7959bfdb384c85fd84e30f9918c0e6d351e2757f00fc1cda0",
+        "git_blob_sha1": "787b350420ddb67e6b860a8c1d636bf502b3db5a",
+        "bytes": 1631053,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "787b350420ddb67e6b860a8c1d636bf502b3db5a",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Medium red forearm sweep and right-edge moving figure occlusion compared with n1336."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Red rim is intentionally brighter and more structured than source; right-side moving figure remains strongly blurred.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/E28_prompt.txt"
+    },
+    {
+      "id": "E29",
+      "source_n": 1337,
+      "source_pts_seconds": 55.708333333333336,
+      "exposure_half_open": [
+        1337,
+        1338
+      ],
+      "exposure_frames": [
+        1337
+      ],
+      "state_class": "new action + pullback",
+      "essential_action": "Red sweep pulls wider; Gojo blurred moving down/right.",
+      "file": "E29_n1337.png",
+      "public_path": "collab/from_limo/051/batchB_P3/E29_n1337.png",
+      "source_frame": {
+        "file": "n1337.png",
+        "sha256": "68e7037575ead050101f2de8943d96ee0e9dfd2e3482acbecd21670493527760",
+        "locally_decoded_png_git_blob_sha1": "7429d3c3d1efc114c45d3300e5f61ab4e8647f32",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "76168b6ee5e463d7b119d43eabce8f72c0e171bc5affd162c61857ec9af5c786",
+        "git_blob_sha1": "17c96ec28578d48b22620f17539ac3de87565f8b",
+        "bytes": 1641044,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "17c96ec28578d48b22620f17539ac3de87565f8b",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Wider counter-sweep and down-right blurred Gojo compared with n1337."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Red core/rim is intentionally brighter; falling Gojo remains blurred, with slight generative variations in smear grain.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/E29_prompt.txt"
+    },
+    {
+      "id": "E30",
+      "source_n": 1338,
+      "source_pts_seconds": 55.75,
+      "exposure_half_open": [
+        1338,
+        1339
+      ],
+      "exposure_frames": [
+        1338
+      ],
+      "state_class": "new action + pullback",
+      "essential_action": "Gojo low/falling, Sukuna extended red arm; landing not finished.",
+      "file": "E30_n1338.png",
+      "public_path": "collab/from_limo/051/batchB_P3/E30_n1338.png",
+      "source_frame": {
+        "file": "n1338.png",
+        "sha256": "442c50421cbf7c02263f98ee602527ab62890f99bdf95a72e837e2b5574a4b40",
+        "locally_decoded_png_git_blob_sha1": "6c5e0377576552af27cc13779d2b3747bb7fa939",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "0d370b4507ed42ea02f03f30e6a7c2943f58de45eb0ba3f0c7a17dda90458cb7",
+        "git_blob_sha1": "d679210717bc126eae8e93e645cc7f1b9bce24b7",
+        "bytes": 1756160,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "d679210717bc126eae8e93e645cc7f1b9bce24b7",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Unfinished fall, elevated head, diagonal pointing finger and legs compared with n1338."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor contour/cloth-fold variation; own unfinished fall and diagonally raised finger remain. Red core is intentionally brighter.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/E30_prompt.txt"
+    },
+    {
+      "id": "H1a",
+      "source_n": 1339,
+      "source_pts_seconds": 55.791666666666664,
+      "exposure_half_open": [
+        1339,
+        1340
+      ],
+      "exposure_frames": [
+        1339
+      ],
+      "state_class": "new landing pose + framing",
+      "essential_action": "Gojo still higher on side, index finger nearly upright; red sweep long.",
+      "file": "H1a_n1339.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H1a_n1339.png",
+      "source_frame": {
+        "file": "n1339.png",
+        "sha256": "908740f5408aae1d5acd49941404d76a6d595a6e4a95ab61364ae6d0ab2d808e",
+        "locally_decoded_png_git_blob_sha1": "e3a94ba2f6aa134e863258a4b41f906b60b80124",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "7be6002ff86fbe9bfefece4a953b75706c9ecb46674106b9043b66c6e20db676",
+        "git_blob_sha1": "fab55c3d51d2fb152d3e302826ae294eeea04456",
+        "bytes": 1633384,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "fab55c3d51d2fb152d3e302826ae294eeea04456",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Higher side-landing head/body, nearly upright index and long red sweep compared with n1339."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor contour and window-softness variations; higher landing head and nearly upright index preserved.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H1a_prompt.txt"
+    },
+    {
+      "id": "H1b",
+      "source_n": 1340,
+      "source_pts_seconds": 55.833333333333336,
+      "exposure_half_open": [
+        1340,
+        1341
+      ],
+      "exposure_frames": [
+        1340
+      ],
+      "state_class": "new landing pose + framing",
+      "essential_action": "Gojo drops/rolls lower; head, forearm, finger angle and legs shift.",
+      "file": "H1b_n1340.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H1b_n1340.png",
+      "source_frame": {
+        "file": "n1340.png",
+        "sha256": "77f041d238ce93f57210cc481ede864869a40d5afed25cd8f1891bbbb10d98d3",
+        "locally_decoded_png_git_blob_sha1": "1deca895b9c74fb114e75d92151d13461f7d3dcb",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "8ec9314b493783d30f4a4be8419d10209acd57d9acc551415558026279593b68",
+        "git_blob_sha1": "8d3c0aac60aa78c34e96b7c1c43e1f386d29151d",
+        "bytes": 1631233,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "8d3c0aac60aa78c34e96b7c1c43e1f386d29151d",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Lower rolled landing body, shifted legs and tilted finger compared with n1340."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor contour/cloth-fold variations; lower landing head, leg shift and diagonally tilted index preserved.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Do not merge with n1339. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H1b_prompt.txt"
+    },
+    {
+      "id": "H2",
+      "source_n": 1342,
+      "source_pts_seconds": 55.916666666666664,
+      "exposure_half_open": [
+        1341,
+        1343
+      ],
+      "exposure_frames": [
+        1341,
+        1342
+      ],
+      "state_class": "new gesture + framing",
+      "essential_action": "Gojo wrist rotates toward sideways; source pullback continues.",
+      "file": "H2_n1342.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H2_n1342.png",
+      "source_frame": {
+        "file": "n1342.png",
+        "sha256": "6d067429760160685cfbcfb8d8af05e1061f5622cafbeb2d2996d22c5eb9fb24",
+        "locally_decoded_png_git_blob_sha1": "e225e15f455d8591f7c88cdca92632b6f8687c86",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "5871a97ae85cd03711a0d1d93db3d2490a2b0cb40eb1f856cd911bcb1dcebecd",
+        "git_blob_sha1": "86950f1f6451e97550119c0e832a5144004b1efa",
+        "bytes": 1757535,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "86950f1f6451e97550119c0e832a5144004b1efa",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Own wider view, both feet and rotated wrist compared with n1342."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor contour and cel-shadow differences; own wider source framing and partially turned wrist preserved.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Full composition from n1342, not H1 locked-body edit. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H2_prompt.txt"
+    },
+    {
+      "id": "H3a",
+      "source_n": 1344,
+      "source_pts_seconds": 56.0,
+      "exposure_half_open": [
+        1343,
+        1347
+      ],
+      "exposure_frames": [
+        1343,
+        1344,
+        1345,
+        1346
+      ],
+      "state_class": "same broad pose / new camera state",
+      "essential_action": "Gojo sideways-pointing hand; source settles toward wider view.",
+      "file": "H3a_n1344.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H3a_n1344.png",
+      "source_frame": {
+        "file": "n1344.png",
+        "sha256": "dc380015a04befbb8779de083ef0233ec895d7e3edf4892c4127828fcd9e6b1c",
+        "locally_decoded_png_git_blob_sha1": "a3becae408c9335f8b4d62de087524c1a5cfcff3",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "26748e4f2d5b2730dca70ddba96472edafff00bbf78129a744eaa5fbec4081bf",
+        "git_blob_sha1": "d4a0c1ee41719778db74b87f2b64620538579181",
+        "bytes": 1642980,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "d4a0c1ee41719778db74b87f2b64620538579181",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Own full source frame, both characters and backdrop/window crop compared with n1344."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor line-weight and soft-background texture changes. Held broad pose uses its own full-source camera state, not a claimed exact continuous camera match.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Preserve whole-source pullback across state changes; no locked H1 group. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H3a_prompt.txt"
+    },
+    {
+      "id": "H3b",
+      "source_n": 1348,
+      "source_pts_seconds": 56.166666666666664,
+      "exposure_half_open": [
+        1347,
+        1351
+      ],
+      "exposure_frames": [
+        1347,
+        1348,
+        1349,
+        1350
+      ],
+      "state_class": "same broad pose / changed framing + FX",
+      "essential_action": "Late held pose, slightly wider camera, changed red flame.",
+      "file": "H3b_n1348.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H3b_n1348.png",
+      "source_frame": {
+        "file": "n1348.png",
+        "sha256": "bf5b0a7440dcc12b6fe4fd88353a6aa4ee19e2df4c4f04626de7b044eae1367b",
+        "locally_decoded_png_git_blob_sha1": "ff10d2cce92b7d88956b52fb4ca8f5c4553cff41",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "9cdc3810833cf8c8f5871a42e55c0d5710ce24283c9b51671c4ca2129e6f9a8f",
+        "git_blob_sha1": "55dda5129c2abfb19ad9ac67b1eb93649b7c1651",
+        "bytes": 1733221,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "55dda5129c2abfb19ad9ac67b1eb93649b7c1651",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Own full source frame and wider character/background composition compared with n1348."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor line-weight and soft-background texture changes. Own slightly wider source composition retained; flame luminance differs intentionally.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Similarity fit supports about 1.8% scale decrease from n1344, so not a pixel-locked FX-only edit. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H3b_prompt.txt"
+    },
+    {
+      "id": "H3c",
+      "source_n": 1352,
+      "source_pts_seconds": 56.333333333333336,
+      "exposure_half_open": [
+        1351,
+        1355
+      ],
+      "exposure_frames": [
+        1351,
+        1352,
+        1353,
+        1354
+      ],
+      "state_class": "same broad pose / changed framing + FX",
+      "essential_action": "Near-settled widest hold; red flame shortens/changes.",
+      "file": "H3c_n1352.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H3c_n1352.png",
+      "source_frame": {
+        "file": "n1352.png",
+        "sha256": "23ca3145ddfdd8f0daa7120649014183ade37d2a3536040db52c50783253e013",
+        "locally_decoded_png_git_blob_sha1": "f7f1d6180b782bea5ec9288e3028ce568fc2ee11",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "a68ba7c71238fba4226596575d033a1bab1b09dcf593cc3d8c58ebed7f303fa4",
+        "git_blob_sha1": "6d705e4f3e6fc34794c24d64c8f0f3064a9db934",
+        "bytes": 1722360,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "6d705e4f3e6fc34794c24d64c8f0f3064a9db934",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Own near-settled widest source composition and shortened flame compared with n1352."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Minor contour and soft-background texture changes. Own near-settled widest source composition retained; flame luminance differs intentionally.",
+      "compositing": "Own source geometry/crop. Default discrete hold; do not impose a foreground-derived whole-frame camera transform. Similarity fit supports about 1.1% scale decrease from n1348, so retain own reference framing. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H3c_prompt.txt"
+    },
+    {
+      "id": "H4a",
+      "source_n": 1355,
+      "source_pts_seconds": 56.458333333333336,
+      "exposure_half_open": [
+        1355,
+        1356
+      ],
+      "exposure_frames": [
+        1355
+      ],
+      "state_class": "new wrist action / source smear",
+      "essential_action": "Gojo wrist/hand snaps sideways; short horizontal smear.",
+      "file": "H4a_n1355.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H4a_n1355.png",
+      "source_frame": {
+        "file": "n1355.png",
+        "sha256": "7a5213a490a2a15aa93a98121526410e5297c01ea4f114bdcdea2f6c66a8ee99",
+        "locally_decoded_png_git_blob_sha1": "b1a2e3c85b0619847f7286a4fc4975a38213ea68",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "0c47ce85c22d52a0a667d4af56b38527b3797f0a847c501b68b2e2810ab5f430",
+        "git_blob_sha1": "853d90a0ce4dcbbbbeec958426330df2f70a695f",
+        "bytes": 1658748,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "853d90a0ce4dcbbbbeec958426330df2f70a695f",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 1,
+      "imagegen_calls": 1,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Short horizontal wrist/hand smear compared with n1355."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Horizontal hand smear is a little crisper at its upper boundary; direction and compact source region preserved.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H4a_prompt.txt"
+    },
+    {
+      "id": "H4b",
+      "source_n": 1356,
+      "source_pts_seconds": 56.5,
+      "exposure_half_open": [
+        1356,
+        1357
+      ],
+      "exposure_frames": [
+        1356
+      ],
+      "state_class": "new wrist action / source smear",
+      "essential_action": "Gojo hand travels sharply downward; tall vertical smear.",
+      "file": "H4b_n1356.png",
+      "public_path": "collab/from_limo/051/batchB_P3/H4b_n1356.png",
+      "source_frame": {
+        "file": "n1356.png",
+        "sha256": "b554cffc47a2171f58bcdea8a3a0f7655056b659530713b8b021fb5491e897d9",
+        "locally_decoded_png_git_blob_sha1": "8acd98b56d5a292a1b608868d0516c5c4ec75310",
+        "git_object_upload_claim": false
+      },
+      "output": {
+        "sha256": "e0f320ad108cfe5003ff4aeeb295d3e311b031a545758f9499540b2fd75960e7",
+        "git_blob_sha1": "669bfb9b0c75a9b3c8657265e04da1b0e5500c0c",
+        "bytes": 1655466,
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "format": "PNG",
+        "github_blob_sha": "669bfb9b0c75a9b3c8657265e04da1b0e5500c0c",
+        "github_blob_hash_verified": true,
+        "pixels_resaved_or_transformed": false
+      },
+      "selected_call": 2,
+      "imagegen_calls": 2,
+      "source_inspected_before_edit": true,
+      "source_to_output_visual_check": {
+        "performed": true,
+        "reviewer": "producer",
+        "independent_other_reviewer": false,
+        "finding": "Compact downward wrist/hand smear compared with n1356; rejected overlong upward blur corrected."
+      },
+      "enhancement": "Source red/magenta sweep or sheath has a controlled brighter pink core and luminous saturated rim, keeping its original placement, dark outline and internal arm. Preserve this expressive enhancement rather than histogram-fitting it back to flat source red.",
+      "residual": "Corrected compact downward hand smear matches source region; individual trail thickness and blur grain differ slightly. No upward mid-frame extension in selected result.",
+      "compositing": "Own full-source composition; no fabricated smear or extra same-direction blur. End B here; no n1357 artwork. Preserve intentional enhancement. No added directional blur or local body warp.",
+      "prompt_file": "prompts/H4b_retry_prompt.txt"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "B10",
+      "call": 1,
+      "reason": "Returned native width 1671, requested 1672.",
+      "width": 1671,
+      "height": 941,
+      "output_sha256": "907605562324c6768b3234963476cd071ae0b82185363b35f7e46c21ff211e9f",
+      "output_git_blob_sha1": "0d0d25a228953984cf6f3d2d55c5ab37e49da939",
+      "uploaded": false
+    },
+    {
+      "id": "H4b",
+      "call": 1,
+      "reason": "Downward hand smear overextended upward beyond source.",
+      "width": 1672,
+      "height": 941,
+      "output_sha256": "eda6f99bd68ae2f5e3aef70fbd3cfdd0a86e0c0ad327608046daab9d9e753a41",
+      "output_git_blob_sha1": "3db9ee6343551f900e69add1d5ba90ddf60609de",
+      "uploaded": false
+    }
+  ],
+  "review_status": "Producer source-to-output checks complete; combined full-batch compositor review remains separate.",
+  "central_status": "Selected package delivered for B45 compositing. Independent45-state static QA passed; final64-frame video and frozen-prefix checks remain pending."
+}

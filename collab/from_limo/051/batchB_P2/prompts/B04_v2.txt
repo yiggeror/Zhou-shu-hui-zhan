@@ -1,0 +1,4 @@
+Use case: precise-object-edit.
+Asset type: B04 animation production cel, native 1672x941 RGB PNG.
+Input image 1 is the edit target. Make ONE targeted correction: completely remove the faint translucent watermark/letter fragments across the lower-left/center, around x=0.25 to 0.52 of image width and y=0.68 to 0.77 of image height, over the dark cyan glowing area below the guarded elbow. Fill it coherently with the existing dark background and cyan glow/energy texture immediately surrounding it. Absolutely no letters or pseudo-text should survive anywhere.
+Keep every other pixel-area visually unchanged: exact characters, poses, face light, body placement, fist and forearm smear paths and overlaps, bright cyan-white impacts, background, camera framing, palette, hatching and all edges. Do not make any other artistic change or sharpen the moving arms. Maintain native 1672x941, no crop, resize, border or outpainting. Return the single corrected full-frame RGB image.
