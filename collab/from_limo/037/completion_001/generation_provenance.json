@@ -1,0 +1,160 @@
+{
+  "author": "Limo → Claude",
+  "date": "2026-10-05",
+  "tool": "image_gen.imagegen",
+  "method": "Source-reference generation and same-image editing; no local body deformation in post",
+  "source_commit": "94d61b24f3e0f936337d55cb860ee3738ca03325",
+  "source_files_git_blob_verified": true,
+  "images": [
+    {
+      "file": "E01_n1284.png",
+      "size_bytes": 1609500,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "12a3bd70d88006be68feec482dab0f60eee666b4190528cd9785f8da7730eff7",
+      "git_blob": "9ce4ad8a3b2f61ebe3aeea69d1d8d5f2e1f586f1",
+      "state": "E01",
+      "source_n": 1284,
+      "source_pts": 53.5,
+      "exposures": [
+        1284,
+        1285
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/039_ref/n1284.png",
+          "role": "sole pose, framing, source geometry authority",
+          "git_blob": "f36d6365965f3f4dcddcd0d51f03884f4c3b4342"
+        },
+        {
+          "path": "collab/from_limo/037/anchors_001/E04_n1287.png",
+          "role": "ink, palette, identity only",
+          "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+        }
+      ],
+      "prompts": [
+        "Use case: style-transfer. Asset E01 n1284: ONE landscape 16:9 full-frame cel-animation drawing.\nImage 1 is the exact source n1284 and is the ONLY authority for composition, body pose, camera/crop, scale, every visible contour, source occlusion and background. Image 2 is approved E04 artwork only for ink/palette/character identity, never framing or pose.\nFully redraw Image 1. This is the CLOSEST framing at the start of a rapid pull-back: preserve the top crop that cuts off almost ALL Gojo's hair/forehead and part of his eye region; do NOT fit his whole head into the image. Gojo in a black fitted short-sleeved shirt fills the right half, grinning cyan-eyed pale face clipped along the TOP edge, black torso extends off right/bottom, source exact chest/arm silhouette. Foreground Sukuna’s pale-gray robe and black wrist/arm bands dominate the LEFT. His face is outside frame; keep it out. Large left guard elbow at approximately x=.36 y=.55, cropped sleeve/hand shapes at upper left, partial circular shoulder mark clipped at extreme left. Lower-central forearm/sleeve is deliberately indistinct diagonal motion smear: preserve the source ghosted/simple directional shapes, not a detailed new hand or invented anatomy. Both characters have only the visible limbs the source shows. Do not substitute the E04 raised sleeve layout or its wider shot.\nRedraw the same dark blue city window-grid background and source road glimpses at correct positions. No cyan flame yet. Cyan eyes only. Cool gray-blue cel palette, pale cold cream-gray highlights, deep almost-black shirt/shadow masses, tapered dark ink contours and sparse source-derived hatching coherent with E04. Keep ambiguous motion regions soft/connected rather than sharpening everything. This is a new source-reference drawing, no local deformation of another image, no 3D, no bright standalone illustration, no warm tan skin, no camera reframing, no added hands or visible faces. No text, logo, signature, labels or watermark.",
+        "Use case: precise-object-edit. This is a surgical cleanup of supplied E01 cel-animation artwork. Keep the entire 1672x941 landscape frame, exact camera/crop, all character positions and expressions, outlines, clothes, background, motion smear, colors and lighting UNCHANGED. Remove only the faint stray gray letter N near normalized x=0.255,y=0.71 on the pale foreground sleeve/motion shape (roughly x=424,y=667 in this 1672x941 image). Reconstruct just the small underlying cool gray-blue painted area so there is no text remnant. Do not add any other text or markings. No redraw of faces, clothing folds, anatomy or background. Return one image same framing, no borders."
+      ],
+      "calls": 2
+    },
+    {
+      "file": "E02_n1285.png",
+      "size_bytes": 1803114,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "8adbc2c4a438cdc25d48a4c52d8eb6def8e0284124cd65eb11d5a46654dab8df",
+      "git_blob": "c0088199ff5ac7ef581b24d2d3f2882e508bd032",
+      "state": "E02",
+      "source_n": 1285,
+      "source_pts": 53.541666666666664,
+      "exposures": [
+        1285,
+        1286
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/039_ref/n1285.png",
+          "role": "sole pose, framing, source geometry authority",
+          "git_blob": "973670e5337618ad8e6ce8b1c531da86c391fff6"
+        },
+        {
+          "path": "collab/from_limo/037/anchors_001/E04_n1287.png",
+          "role": "ink, palette, identity only",
+          "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+        }
+      ],
+      "prompts": [
+        "Asset E02 n1285. Preserve this intermediate pull-back framing: Sukuna fills the left foreground, black hair and upper fist cropped at the TOP, circular black shoulder marking and crossed bent pale robe guard arm. His forearm lies much lower than the large upright sleeve in E04: KEEP the n1285 guard at its actual angle, not E04's later lifted pose. Gojo is on right, source white hair partly clipped at top, cyan eyes and grin, black fitted shirt; his forward upper arm extends toward left behind the guard with only its short pale section visible near center, other hand low/right and cropped. The middle-lower foreground sleeve is sweeping upwards and must preserve source directional soft smear and occlusion. Keep source center elbow near x=.46,y=.51; right face near x=.77,y=.19. Let source exact shapes override these rough guide coordinates. Do not shift the camera to fit whole heads. A full new drawing of this unique pose. Use case: style-transfer. ONE landscape 16:9 full-frame 2D cel animation drawing. Image 1 alone is the exact source authority for pose, crop, camera, scale, all head/hand/limb centers, overlap and background. Image 2 is approved E04, ONLY for coherent ink/palette/identity, not geometry. Redraw the whole source, not a local warp of another drawing. Cool gray-blue shadows, pale cool cream-gray skin/robe highlights, deep black shirt masses, tapered dark manga ink, selective source-derived hatching, cyan eyes, same dark blue urban window grid/street perspective. No cyan flame yet. Preserve all source occlusion, exactly the visible limbs and source fingers. No 3D, no bright illustration lighting, no warm tan skin, no invented hidden anatomy. Remove all lettering completely: no faint remnant letters anywhere, no text, logo, labels, signature or watermark."
+      ],
+      "calls": 1
+    },
+    {
+      "file": "E03_n1286_v2.png",
+      "size_bytes": 1735831,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "c9abcafc77f6e34f4455088f0ae9b8552577132abe46da4eb6b1cdcc58b4cd8b",
+      "git_blob": "4f35c085426cf82fc856432963f2680fb45c015b",
+      "state": "E03",
+      "source_n": 1286,
+      "source_pts": 53.583333333333336,
+      "exposures": [
+        1286,
+        1287
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/039_ref/n1286.png",
+          "role": "sole image reference for selected v2; pose, framing and geometry",
+          "git_blob": "b80a5787268378ff713169674d53bf834cfb0834"
+        }
+      ],
+      "prompts": [
+        "Asset E03 n1286. Preserve exact intermediate pose: Sukuna foreground left with black spiky hair partly cut at top, profile face and shoulder round marking, a bent guard arm and clenched fist at upper center-left. The OTHER foreground forearm is rising as a diagonal pale gray directional SMEAR across lower center; draw the source-specific motion shape, not the later opaque upright E04 sleeve. Crucially Gojo's curled fingers and palm are briefly EXPOSED near center x=.49,y=.25, connected to his horizontally extended short pale forearm back to the black sleeve on right. Preserve exactly this revealed hand, source finger bend and occlusion; do not hide it behind E04's later guard or invent extra fingers. Gojo on right has white spiky hair close to top edge, cyan eyes and grin, black shirt and source forward lean. Keep the background windows and both heads at precise source framing. Face/torso clear, lower foreground sleeve transitional and softer. A true new in-between pose, not E04 re-used. Use case: style-transfer. ONE landscape 16:9 full-frame 2D cel animation drawing. Image 1 alone is the exact source authority for pose, crop, camera, scale, all head/hand/limb centers, overlap and background. Image 2 is approved E04, ONLY for coherent ink/palette/identity, not geometry. Redraw the whole source, not a local warp of another drawing. Cool gray-blue shadows, pale cool cream-gray skin/robe highlights, deep black shirt masses, tapered dark manga ink, selective source-derived hatching, cyan eyes, same dark blue urban window grid/street perspective. No cyan flame yet. Preserve all source occlusion, exactly the visible limbs and source fingers. No 3D, no bright illustration lighting, no warm tan skin, no invented hidden anatomy. Remove all lettering completely: no faint remnant letters anywhere, no text, logo, labels, signature or watermark.",
+        "Use case: style-transfer. E03 n1286 revision: exactly ONE landscape 16:9 full-frame cel-animation drawing.\nThe single input image is exact source n1286. It is the exclusive and absolute authority for ALL geometry: camera/crop, scale, head/eye centers, guard fist, elbow, exposed hand, shoulders, background and smear. Redraw directly from THIS frame, not a neighboring pose. Keep every major contour at its exact normalized source position. In particular do NOT shift all heads/hands/arms downward by 3% of the frame; keep their actual source heights, and do not change the camera to create extra headroom.\nForeground left Sukuna wears cool pale-gray robe with black borders, dark arm bands and round black shoulder mark. His black hair is partly cropped by top/left; visible profile and raised guard clenched fist lie at precisely source locations. His OTHER foreground sleeve is in the act of rising as a broad diagonal pale-gray directional smear across the lower center; maintain the source distorted/soft movement form rather than replacing it with a crisp later upright sleeve. Only the source-visible anatomy, no invented hidden forearms or extra fists.\nGojo is on the right with spiky white hair, cyan eyes, pale cool face and black fitted shirt. His curled fingers/palm are clearly exposed in the central gap, connected to the pale horizontally extended forearm leading to his black short sleeve. Keep exact finger silhouette, wrist connection and guard overlap of source. Preserve Gojo’s head, eye, shoulder, shirt and other lower-right arm positions EXACTLY. Do not add flame; this is pre-ignition. Background: redraw identical dark blue urban window grids and street perspective, keeping source line placement and depth.\nCoherent dark tapered manga/cel ink, selective fine hatching and flat cool gray-blue shadows, pale cold cream highlights, deep almost-black shirt. Same strong cinematic dark-light mass design as source; no warm skin, no glossy 3D, no poster restaging or extra detail in motion-ambiguous areas. This is separately generated source-reference art, no local body deformation in compositing. No text anywhere, including faint remnant letters; no logo, labels, signature or watermark."
+      ],
+      "calls": 2,
+      "selected_attempt": 2,
+      "rejected_attempt_reason": "First attempt mixed in E04 style reference and shifted major character anchors downward about 24–28 px. Second attempt used exact source only."
+    },
+    {
+      "file": "E05_n1290.png",
+      "size_bytes": 1842739,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "1798a8b845083c497f4923f8676cbffb762b163f1ed9da97087f26b9d218544d",
+      "git_blob": "23b5ffdc3ffd211f8573e23ef34e08a05d9f5f4c",
+      "state": "E05",
+      "source_n": 1290,
+      "source_pts": 53.75,
+      "exposures": [
+        1289,
+        1292
+      ],
+      "input_images": [
+        {
+          "path": "collab/from_limo/037/anchors_001/E04_n1287.png",
+          "role": "same-image edit target, body/camera anchor n1287",
+          "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+        },
+        {
+          "path": "collab/to_limo/039_ref/n1290.png",
+          "role": "cyan flame only",
+          "git_blob": "10bd94184f4dd5e65380b2ff84a245896aae4ad4"
+        }
+      ],
+      "prompts": [
+        "Use case: precise-object-edit. Asset E05: cyan-flame variant of the approved E04 animation drawing.\nImage 1 is the EXACT EDIT TARGET E04_n1287. Keep its entire camera/crop, every character pixel-layout, head/hand positions, expressions, clothing folds/black bands, source occlusion, linework and background geometry unchanged. Image 2 (source n1290) is reference ONLY for the added cyan flame shape and placement relative to Gojo's hidden raised attack fist, never for changing camera or body. Do not redraw/repose the characters to Image 2's camera.\nThe sole change is adding the cyan flame igniting behind Sukuna's central raised guard sleeve, around Gojo's rearward raised fist in the upper-center background. Match Image 2's irregular upright cyan flame silhouette, its top cropped by the top edge, and approximate footprint x=.48-.65, y=0-.28, adjusted only to align with Image 1's existing hidden fist. Its lower front edge must be occluded by the existing guard sleeve, not painted onto or across that sleeve. Keep the visible pale short forearm at right of the guard, no new hand or extra arm. Restrained turquoise filled interior and soft cyan edge glow, minimal adjacent cool spill. Do NOT add a white explosive core, projectile across the image, a new pose, full-frame color wash or extra flying sparks. Retain E04’s no-flame regions unchanged so E04 to E05 holds the body completely stable. One 16:9 landscape frame. No text, logo, signature or watermark."
+      ],
+      "calls": 1
+    }
+  ],
+  "E04_E05_not_pixel_locked": {
+    "excluded_fx_region_normalized": {
+      "x": [
+        0.4,
+        0.72
+      ],
+      "y": [
+        0,
+        0.4
+      ]
+    },
+    "outside_mean_absolute_rgb": 5.1928724260161845,
+    "outside_p95_absolute_rgb": 17,
+    "interpretation": "Color/fine-line changes remain. This is not a new body pose and not an assertion of pixel-identity."
+  }
+}
