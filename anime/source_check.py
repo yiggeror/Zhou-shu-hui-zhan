@@ -28,7 +28,11 @@ def main():
     info = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-count_packets', '-show_entries',
                            'stream=codec_name,width,height,pix_fmt,r_frame_rate,nb_read_packets', '-of', 'compact=p=0',
                            FR.SRC], capture_output=True, text=True, check=True).stdout.strip()
-    print(f'  {info}  (expected av1 2560x1440 yuv420p 24/1, 3499 frames)')
+    want = {'codec_name': 'av1', 'width': '2560', 'height': '1440', 'pix_fmt': 'yuv420p', 'r_frame_rate': '24/1',
+            'nb_read_packets': '3499'}
+    got = dict(kv.split('=', 1) for kv in info.split('|'))
+    stream_ok = all(got.get(k) == v for k, v in want.items())
+    print(f'  {info}  ' + ('OK' if stream_ok else f'MISMATCH (expected {want})'))
     refs = {int(re.findall(r'n(\d+)\.png', p)[0]): p for p in glob.glob(os.path.join(REPO, 'collab/to_limo/*_ref/n*.png'))}
     ns = [int(x) for x in sys.argv[1:]] or sorted(refs)[::40]
     bad = 0
@@ -39,8 +43,9 @@ def main():
         near = {k: float(np.abs(FR.frame(k).astype(int) - b).mean()) for k in (n - 1, n + 1) if k >= 0} if d else {}
         bad += d > 0
         print(f'  n{n}: decoded vs {os.path.relpath(refs[n], REPO)}: max diff {d}' + (f'  neighbours {near}' if d else ''))
-    print('RESULT: ' + ('PASS' if sha == EXPECT_SHA and not bad else 'FAIL'))
-    sys.exit(0 if sha == EXPECT_SHA and not bad else 1)
+    ok = sha == EXPECT_SHA and stream_ok and not bad
+    print('RESULT: ' + ('PASS' if ok else 'FAIL'))
+    sys.exit(0 if ok else 1)
 
 
 if __name__ == '__main__':

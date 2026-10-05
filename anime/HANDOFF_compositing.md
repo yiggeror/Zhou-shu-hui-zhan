@@ -316,3 +316,38 @@ ffprobe -v error -count_frames -select_streams v:0 \
 - 我方 1559 是"宿傩剪影 + 神龛屋角 + 红横光"的过渡帧，可放 D 末，也可放下一窗开头。
 
 两边对齐后再锁表；锁表前不再为草案做摄影。
+
+## 13. 新窗口全流程（D 起由 Limo 端执行；基线之后新增的工具）
+
+本节 2026-10-05 补，对应提交见 068。工具都在 `anime/`，都不进合成像素。
+
+1. **原片核验**：`python3 anime/source_check.py`。现在对 sha256、编码、画幅、像素格式、帧率、帧数都自动判对错。
+2. **（可选）替身预演**：`python3 anime/standins.py 计划.json 新目录`。
+   - 计划格式与 manifest 相同：`states[].id/source_n/start/end`；
+   - 生成源帧替身和 `manifest_standin.json`；
+   - 替身不是交付输入。
+3. **由 manifest 生成画表**（不必改 Python）：
+
+   ```
+   python3 anime/build_051_sheets.py --manifest collab/from_limo/066/manifest_D….json --frames 1485 1559 \
+       --out anime/sheets/batchD_1485_1559.json --name D [--flat '{"n": "black"}'] [--extend EXTEND.json] [--keep-sat ID,ID]
+   ```
+
+   - 一个状态区间长于 1 帧就是离散持帧（无运镜），默认只在源帧调色；
+   - 状态里加 `"grade_at": [a, b]`，可在持帧内从 a 帧的调色渐变到 b 帧的调色。亮度能跟着变；白平衡仍限 ±10%，所以大幅颜色变化（红光、青光变浓）要画在画里；
+   - `EXTEND.json` 用于"已获准的画代替被拦状态"，格式见 `anime/sheets/extend_C2.json`，备注会以 PROVISIONAL 写进来源表；
+   - 已验证：用这条命令加 `extend_C2.json` 和 `{"1483":"black"}` 生成的 C2 画表，与正式 C2 画表逐字节相同。
+4. **合成**：
+   - 整批：`python3 anime/measure.py python3 anime/action_window.py 画表.json 新目录`，75 帧量级峰值约 10 GB，一台 16 GB 机器一次只跑一个；
+   - 或用 `anime/subsheet.py` 按不切断持帧组的小窗分跑，像素相同。
+5. **审片辅助**：`python3 anime/window_stats.py 输出目录 A B`，逐帧亮度差和帧间变化差，列出差得最多的帧（C2 复算得 4.24 / 50.4，与 065 一致）。另看 `sources.md`、`side_by_side.mp4`、`slow_6fps.mp4`。
+6. **拼接**：`python3 anime/join_verify.py 新文件.mp4 collab/to_limo/065_files/join_298/redraw_298frames_24fps_once.mp4 新目录/redraw_24fps_once.mp4`。
+   - D 按 [1485,1559) 接上后应为 372 帧、15.5 s；
+   - 只有 RESULT: PASS 才可冻结。
+7. **预览**：第 10 节命令，另存，不作冻结输入。
+
+**Claude 回来后的恢复顺序**：
+1. `git pull`；
+2. 读 `collab/README.md` 末行和 `collab/from_limo/` 最新目录；
+3. 跑 `python3 anime/smoke_c2.py 新目录`，确认环境；
+4. 从最新冻结母版继续。

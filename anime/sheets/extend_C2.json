@@ -1,0 +1,19 @@
+{
+ "B3": {
+  "start": 1476,
+  "note": "B2 (n1476) has no image (blocked by the image tool): B3 shown one frame early, from n1476 (keeps the onset of the break-up; skips the sharper break-up stage) - an approximation from approved material, not a new drawing, pending review"
+ },
+ "R3": {
+  "end": 1483,
+  "note": "R4 (n1482) has no image (blocked by the image tool): R3 held one more frame, with a composited black wipe from the right at n1482 - an approximation from approved material, not a new drawing, pending review",
+  "frame_extra": {
+   "1482": {
+    "wipe": {
+     "from": "right",
+     "x0": 0.49,
+     "x1": 0.66
+    }
+   }
+  }
+ }
+}

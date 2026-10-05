@@ -210,7 +210,10 @@ def from_manifest(path, extend):
             else:                                     # {'start', 'end', 'note', 'frame_extra'}
                 a, b, note, extra = e.get('start', a), e.get('end', b), e['note'], e.get('frame_extra', {})
         ns = list(range(a, b))
-        ex = {} if len(ns) == 1 else {'grade_at': [st['source_n'], st['source_n']]}
+        # a hold is graded at its source frame; a state may carry 'grade_at': [a, b] to blend the grades fitted at a
+        # and b across the hold (brightness can evolve; the white balance stays within +-10 %, so a strong colour
+        # change, e.g. a red light rising, has to be in the drawing itself)
+        ex = {} if len(ns) == 1 else {'grade_at': st.get('grade_at', [st['source_n'], st['source_n']])}
         if note:
             ex['provisional'] = note
         if extra:
@@ -367,7 +370,41 @@ def build(name, table, flat, frames, out, d=None, msg='051', paths=None):
     print(f'{out}: {len(fs)} frames, {len(ids)} drawings')
 
 
+def from_cli(argv):
+    """any new window straight from Limo's manifest, without editing this file:
+    python3 anime/build_051_sheets.py --manifest M.json --frames A B --out SHEET.json [--name NAME]
+        [--flat '{"1483": "black"}'] [--extend EXTEND.json] [--keep-sat ID,ID]
+    EXTEND.json: {"<id>": {"start": a, "end": b, "note": "...", "frame_extra": {"<n>": {...}}}} for an approved
+    drawing that covers a blocked state (the note goes into the sources table as PROVISIONAL)"""
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--manifest', required=True)
+    ap.add_argument('--frames', nargs=2, type=int, required=True)
+    ap.add_argument('--out', required=True)
+    ap.add_argument('--name')
+    ap.add_argument('--flat', default='{}')
+    ap.add_argument('--extend')
+    ap.add_argument('--keep-sat', default='')
+    a = ap.parse_args(argv)
+    name = a.name or os.path.splitext(os.path.basename(a.out))[0]
+    ext = {}
+    if a.extend:
+        for k, e in json.load(open(a.extend)).items():
+            e = dict(e)
+            if 'frame_extra' in e:
+                e['frame_extra'] = {int(n): v for n, v in e['frame_extra'].items()}
+            ext[k] = e
+    if a.keep_sat:
+        KEEP_SAT_ONLY[name] = a.keep_sat.split(',')
+    table, paths = from_manifest(os.path.relpath(os.path.abspath(a.manifest), ROOT), ext)
+    flat = {int(k): v for k, v in json.loads(a.flat).items()}
+    build(name, table, flat, list(a.frames), a.out, None, '-', paths)
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == '--manifest':
+        from_cli(sys.argv[1:])
+        sys.exit(0)
     which = sys.argv[1] if len(sys.argv) > 1 else 'A'
     d, out = (sys.argv[2], sys.argv[3]) if len(sys.argv) > 3 else (None, None)     # a test directory / sheet path
     table, flat, frames, msg, default_out = BATCHES[which]
