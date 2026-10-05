@@ -1,0 +1,141 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 038 pilot_001 measurements",
+  "method": {
+    "analysis_size": [
+      1672,
+      941
+    ],
+    "source_resize": "Pillow LANCZOS only for measurement; delivered files unchanged",
+    "white_mask": "all RGB channels >=240",
+    "component": "scipy.ndimage.label default 4-connectivity; largest connected component. Lightning can join this mask; it is not an independently segmented sphere.",
+    "mean": "Arithmetic mean of RGB channel values, not perceptual luminance",
+    "geometry_review": "Actual-pixel visual comparison of character pose/occlusion and dominant city silhouettes; no formal camera fit or proof of temporal geometry."
+  },
+  "files": {
+    "K1_n1188_v1.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1862205,
+      "sha256": "c0def1ffc2acba01e98a2b9f36fbd017ecd38fdf1f1a43ff992af1fcd74a76ef",
+      "git_blob": "d0c9b526e4a317a3acecb9ac733762534155ab17",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        138.68358320325012,
+        94.66366521922622,
+        178.2937607096187
+      ],
+      "mean_rgb_average": 137.21366971069835,
+      "white_mask_all_percent": 6.353123776497567,
+      "largest_white_component_percent": 4.698122225668509,
+      "largest_white_component_centroid": [
+        815.8364674368895,
+        594.2929462377228
+      ]
+    },
+    "K2_n1197_v1.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1876517,
+      "sha256": "6a844484852877c696ddc73c99b779ea326b58aef37be9494bca530c436e2efe",
+      "git_blob": "440a64a0ce324105ddc3d078fd4b8a86190f0350",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        183.55306886189487,
+        122.36437427861026,
+        215.11528316613192
+      ],
+      "mean_rgb_average": 173.6775754355457,
+      "white_mask_all_percent": 17.520618399442718,
+      "largest_white_component_percent": 16.955773406078233,
+      "largest_white_component_centroid": [
+        961.2824862992645,
+        635.1460224759534
+      ]
+    },
+    "K2_n1197_v2.png": {
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1486776,
+      "sha256": "9a42e803fea9f84d527d83a8cce0802147d74733390212d401e4d0f734e9bb37",
+      "git_blob": "8e7002f51ff13f78da5911b058edaf423e41806d",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        206.03423455145446,
+        131.18762362141467,
+        233.1264840925616
+      ],
+      "mean_rgb_average": 190.1161140884769,
+      "white_mask_all_percent": 18.460776736547192,
+      "largest_white_component_percent": 17.93762616375738,
+      "largest_white_component_centroid": [
+        959.9067967770053,
+        628.7066600052441
+      ]
+    },
+    "source_n1188.png": {
+      "native_size": [
+        2560,
+        1440
+      ],
+      "bytes": 2962728,
+      "sha256": "1cb67984705ba1ce37373d87b6debf02d3c138ddce97bc95e77fa150bf456769",
+      "git_blob": "caad168146862b07e396af8f06d921ac28210354",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        142.39638364460083,
+        95.87823703786566,
+        188.05231315052194
+      ],
+      "mean_rgb_average": 142.10897794432947,
+      "white_mask_all_percent": 3.2283939004113513,
+      "largest_white_component_percent": 2.8104963161454015,
+      "largest_white_component_centroid": [
+        913.7041317080893,
+        660.1669870417694
+      ]
+    },
+    "source_n1197.png": {
+      "native_size": [
+        2560,
+        1440
+      ],
+      "bytes": 2723165,
+      "sha256": "43c1e891a7df087ab0bb2187834626608a99c665ba301e53a535a6054000c19e",
+      "git_blob": "6ef3c38e7d7edf8295a5cfd9bd650fa6f5c660e7",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        206.06044801163375,
+        132.31707462792815,
+        229.44786608463968
+      ],
+      "mean_rgb_average": 189.27512957473385,
+      "white_mask_all_percent": 17.080411757826603,
+      "largest_white_component_percent": 17.036302111669862,
+      "largest_white_component_centroid": [
+        958.4820419264217,
+        635.5217522692424
+      ]
+    }
+  }
+}

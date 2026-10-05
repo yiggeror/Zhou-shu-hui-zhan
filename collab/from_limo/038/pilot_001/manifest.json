@@ -1,0 +1,194 @@
+{
+  "identity": "【Limo → Claude】2026-10-05 038 pilot_001 provenance and exposure record",
+  "status": "two-anchor candidates awaiting Claude reciprocal review; not a completed animation",
+  "source_indexing": "zero-based decoded n; PTS=n/24; half-open [start,end)",
+  "source_snapshot": "ea55e1b7d933cdbd08e4b55ea5123454d6b0f651",
+  "window": {
+    "start": 1187,
+    "end": 1202,
+    "frames": 15,
+    "fps": 24
+  },
+  "source_frames": [
+    {
+      "path": "collab/to_limo/038_ref/n1188.png",
+      "git_blob": "caad168146862b07e396af8f06d921ac28210354",
+      "sha256": "1cb67984705ba1ce37373d87b6debf02d3c138ddce97bc95e77fa150bf456769",
+      "native_size": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "path": "collab/to_limo/038_ref/n1197.png",
+      "git_blob": "6ef3c38e7d7edf8295a5cfd9bd650fa6f5c660e7",
+      "sha256": "43c1e891a7df087ab0bb2187834626608a99c665ba301e53a535a6054000c19e",
+      "native_size": [
+        2560,
+        1440
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "asset": "K1_n1188_v1.png",
+      "source_n": 1188,
+      "source_pts_seconds": 49.5,
+      "candidate_exposure": [
+        1188,
+        1189
+      ],
+      "state_type": "full-frame new push pose with integrated effects",
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1862205,
+      "sha256": "c0def1ffc2acba01e98a2b9f36fbd017ecd38fdf1f1a43ff992af1fcd74a76ef",
+      "git_blob": "d0c9b526e4a317a3acecb9ac733762534155ab17",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        138.68358320325012,
+        94.66366521922622,
+        178.2937607096187
+      ],
+      "mean_rgb_average": 137.21366971069835,
+      "white_mask_all_percent": 6.353123776497567,
+      "largest_white_component_percent": 4.698122225668509,
+      "largest_white_component_centroid": [
+        815.8364674368895,
+        594.2929462377228
+      ]
+    },
+    {
+      "asset": "K2_n1197_v2.png",
+      "source_n": 1197,
+      "source_pts_seconds": 49.875,
+      "candidate_exposure": [
+        1196,
+        1199
+      ],
+      "state_type": "full-frame city/projectile view; temporal hold/camera not approved",
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1486776,
+      "sha256": "9a42e803fea9f84d527d83a8cce0802147d74733390212d401e4d0f734e9bb37",
+      "git_blob": "8e7002f51ff13f78da5911b058edaf423e41806d",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        206.03423455145446,
+        131.18762362141467,
+        233.1264840925616
+      ],
+      "mean_rgb_average": 190.1161140884769,
+      "white_mask_all_percent": 18.460776736547192,
+      "largest_white_component_percent": 17.93762616375738,
+      "largest_white_component_centroid": [
+        959.9067967770053,
+        628.7066600052441
+      ]
+    }
+  ],
+  "not_selected": [
+    {
+      "asset": "audit/K2_n1197_v1_not_selected.png",
+      "reason": "city geometry retained but newly sharpened architecture and insufficient source motion softness",
+      "native_size": [
+        1672,
+        941
+      ],
+      "bytes": 1876517,
+      "sha256": "6a844484852877c696ddc73c99b779ea326b58aef37be9494bca530c436e2efe",
+      "git_blob": "440a64a0ce324105ddc3d078fd4b8a86190f0350",
+      "analysis_size": [
+        1672,
+        941
+      ],
+      "mean_rgb": [
+        183.55306886189487,
+        122.36437427861026,
+        215.11528316613192
+      ],
+      "mean_rgb_average": 173.6775754355457,
+      "white_mask_all_percent": 17.520618399442718,
+      "largest_white_component_percent": 16.955773406078233,
+      "largest_white_component_centroid": [
+        961.2824862992645,
+        635.1460224759534
+      ]
+    }
+  ],
+  "generation": {
+    "tool": "built-in image_gen.imagegen",
+    "call_count": 3,
+    "failed_calls": 0,
+    "selected_assets": 2,
+    "revision_calls": 1,
+    "transparent_background": false,
+    "calls": [
+      {
+        "call": 1,
+        "output": "K1_n1188_v1.png",
+        "reference_paths": [
+          "collab/to_limo/038_ref/n1188.png"
+        ],
+        "prompt_file": "prompts.md",
+        "prompt_section": "Call 1"
+      },
+      {
+        "call": 2,
+        "output": "audit/K2_n1197_v1_not_selected.png",
+        "reference_paths": [
+          "collab/to_limo/038_ref/n1197.png"
+        ],
+        "prompt_file": "prompts.md",
+        "prompt_section": "Call 2"
+      },
+      {
+        "call": 3,
+        "output": "K2_n1197_v2.png",
+        "reference_paths": [
+          "audit/K2_n1197_v1_not_selected.png",
+          "collab/to_limo/038_ref/n1197.png"
+        ],
+        "prompt_file": "prompts.md",
+        "prompt_section": "Call 3"
+      }
+    ]
+  },
+  "file_handling": {
+    "post_generation_pixel_edits": false,
+    "crop": false,
+    "upsample": false,
+    "output_padding": false,
+    "whole_native_viewport": [
+      0,
+      0,
+      1672,
+      941
+    ]
+  },
+  "blur": {
+    "selected_K2": "Baked-in imagegen source-guided strong diagonal city softness and luminous pink wash, qualitatively lower-left/upper-right streak axis; varying across perspective/lighting regions. No deterministic kernel, shutter or radius is known. Do not blindly double the blur in compositing.",
+    "K1": "Foreground fingers have baked-in vertical smear; face/ink/background still sharper than source."
+  },
+  "analysis": {
+    "analysis_size": [
+      1672,
+      941
+    ],
+    "source_resize": "Pillow LANCZOS only for measurement; delivered files unchanged",
+    "white_mask": "all RGB channels >=240",
+    "component": "scipy.ndimage.label default 4-connectivity; largest connected component. Lightning can join this mask; it is not an independently segmented sphere.",
+    "mean": "Arithmetic mean of RGB channel values, not perceptual luminance",
+    "geometry_review": "Actual-pixel visual comparison of character pose/occlusion and dominant city silhouettes; no formal camera fit or proof of temporal geometry."
+  }
+}
