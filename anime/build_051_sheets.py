@@ -193,16 +193,48 @@ def from_csv(path):
     return out
 
 
+def from_manifest(path, extend):
+    """a batch from Limo's manifest (exact selected paths); states without an image (blocked by the image tool) are
+    covered by holding the previous approved drawing one more frame, as agreed (`extend`: {id: (new_end, note)})"""
+    m = json.load(open(os.path.join(ROOT, path)))
+    out, paths = [], {}
+    for st in m['states']:
+        if not st.get('path'):
+            continue
+        a, b = st['start'], st['end']
+        note = None
+        if st['id'] in extend:
+            b, note = extend[st['id']]
+        ns = list(range(a, b))
+        ex = {} if len(ns) == 1 else {'grade_at': [st['source_n'], st['source_n']]}
+        if note:
+            ex['provisional'] = note
+        out.append((st['id'], st['source_n'], ns, 'single' if len(ns) == 1 else 'still', ex))
+        paths[st['id']] = st['path']
+    return out, paths
+
+
+C1_EXTEND = {
+    'U3': (1381, 'U4 (n1380) has no image (blocked by the image tool): U3 held one more frame - an approximation from '
+                 'approved material, not a new drawing, pending review of the real composite'),
+    'V5': (1389, 'V6 (n1388) has no image (blocked by the image tool): V5 held one more frame - an approximation from '
+                 'approved material, not a new drawing, pending review of the real composite'),
+}
+
+
 BATCHES = {'A': (A, A_FLAT, [1202, 1248], '051', 'anime/sheets/batchA_1202_1248.json'),
            'B': (None, {1319: 'black'}, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
            'C1': (C1, C1_FLAT, [1357, 1411], '057', 'anime/sheets/batchC1_1357_1411.json'),
            'C2': (C2, C2_FLAT, [1411, 1485], '057', 'anime/sheets/batchC2_1411_1485.json')}
 
 
-def build(name, table, flat, frames, out, d=None, msg='051'):
+def build(name, table, flat, frames, out, d=None, msg='051', paths=None):
     d = d or os.path.join('collab', 'from_limo', msg, f'batch{name}')
     path, missing = {}, []
     for did, src, _, _, _ in table:
+        if paths and not d.startswith('/'):
+            path[did] = paths[did]
+            continue
         hits = sorted(glob.glob(os.path.join(ROOT, d + '*', f'{did}_n{src}*.png')))   # batchA, batchA_city, ...
         if hits:
             path[did] = os.path.relpath(hits[-1], ROOT)          # the last version if several (…_v2 sorts after)
@@ -227,6 +259,8 @@ def build(name, table, flat, frames, out, d=None, msg='051'):
                 e = {'hold': did, 'id': did, 'mode': 'full', 'full': path[did], 'ref': src}
                 if kind in ('views', 'still'):
                     e.update(camera_only='none', zoom=1.0, light='fixed')
+            if ex.get('provisional') and 'hold' in e:
+                e['provisional'] = ex['provisional']
             if n in ex.get('wash', []):
                 e['white_wash'] = {'sigma': 40, 'color': 'source', 'lo': 0.45, 'hi': 0.90, 'blend': 'screen', 'veil_max': 0.6}
             fs[str(n)] = e
@@ -263,6 +297,11 @@ if __name__ == '__main__':
     table, flat, frames, msg, default_out = BATCHES[which]
     if which == 'B':
         table = b45()
+    elif which == 'C1' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/manifest_C1_available041.json')):
+        # Limo's 41 delivered states (057/msg_004) + the two agreed one-frame holds for the blocked U4/V6
+        table, cpaths = from_manifest('collab/from_limo/057/manifest_C1_available041.json', C1_EXTEND)
+        build(which, table, flat, frames, out or default_out, d, msg, cpaths)
+        sys.exit(0)
     elif which == 'C1' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/C1_43_exposure_table_001.csv')):
         table = from_csv('collab/from_limo/057/C1_43_exposure_table_001.csv')    # Limo's lock, 057/msg_001
     build(which, table, flat, frames, out or default_out, d, msg)
