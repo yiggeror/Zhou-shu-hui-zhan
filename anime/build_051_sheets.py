@@ -1,5 +1,6 @@
-"""Exposure sheets for batch A [1202,1248) and batch B [1293,1357) (collab/to_limo/051) from the drawings Limo
-delivers as collab/from_limo/051/batch{A,B}/<ID>_n<source>.png.  Usage: python3 anime/build_051_sheets.py A|B"""
+"""Exposure sheets for the batches written up front for Limo: A [1202,1248) and B [1293,1357) (collab/to_limo/051),
+C1 [1357,1411) and C2 [1411,1485) (collab/to_limo/057), from the drawings Limo delivers as
+collab/from_limo/<msg>/batch<name>*/<ID>_n<source>.png.  Usage: python3 anime/build_051_sheets.py A|B|C1|C2"""
 import glob
 import json
 import os
@@ -90,9 +91,84 @@ B = [
 ]
 B_FLAT = {1319: 'black', 1320: 'black'}
 
+# batch C1: shots 50-54 [1357,1411) (collab/to_limo/057)
+C1 = [
+    ('G1', 1357, [1357], 'single', {}),
+    ('G2', 1358, [1358], 'single', {}),
+    ('G3', 1359, [1359], 'single', {}),
+    ('G4', 1360, [1360], 'single', {}),
+    ('G5', 1361, [1361, 1362], 'views', {}),
+    ('G6', 1364, [1363, 1364, 1365, 1366], 'hold', {}),
+    ('Y1', 1368, [1367, 1368, 1369, 1370, 1371], 'hold', {}),
+    ('Y2', 1372, [1372], 'single', {}),
+    ('F1', 1373, [1373], 'single', {}),
+    ('U1', 1374, [1374, 1375], 'views', {}),
+    ('U2', 1376, [1376, 1377], 'views', {}),
+    ('U3', 1378, [1378, 1379], 'views', {}),
+    ('U4', 1380, [1380], 'single', {}),
+    ('V1', 1381, [1381], 'single', {}),
+    ('V2', 1382, [1382], 'single', {}),
+    ('V3', 1383, [1383], 'single', {}),
+    ('V4', 1384, [1384], 'single', {}),
+    ('D1', 1385, [1385, 1386], 'views', {}),
+    ('V5', 1387, [1387], 'single', {}),
+    ('V6', 1388, [1388], 'single', {}),
+    ('U5', 1389, [1389, 1390], 'views', {}),
+    ('U6', 1391, [1391], 'single', {}),
+    ('M1', 1392, [1392], 'single', {}),
+    ('M2', 1393, [1393], 'single', {}),
+    ('M3', 1394, [1394, 1395], 'views', {}),
+    ('M4', 1396, [1396, 1397], 'views', {}),
+    ('M5', 1398, [1398], 'single', {}),
+    ('M6', 1399, [1399], 'single', {}),
+    ('M7', 1400, [1400], 'single', {}),
+    ('N1', 1401, [1401], 'single', {}),
+    ('N2', 1402, [1402], 'single', {}),
+    ('N3', 1403, [1403, 1404], 'views', {}),
+    ('N4', 1405, [1405, 1406], 'views', {}),
+    ('N5', 1407, [1407, 1408], 'views', {}),
+    ('N6', 1409, [1409, 1410], 'views', {}),
+]
+C1_FLAT = {}
 
-def build(name, table, flat, frames, out, d=None):
-    d = d or os.path.join('collab', 'from_limo', '051', f'batch{name}')
+# batch C2: shots 55-57 [1411,1485) (collab/to_limo/057)
+C2 = [
+    ('P1', 1411, [1411], 'single', {}),
+    ('P2', 1412, [1412], 'single', {}),
+] + [(f'P{i}', n, [n, n + 1], 'views', {}) for i, n in zip(range(3, 12), range(1413, 1431, 2))] + [
+    ('Q1', 1431, [1431, 1432], 'views', {}),
+    ('Q2', 1433, [1433, 1434], 'views', {}),
+    ('Q3', 1435, [1435], 'single', {}),
+    ('Q4', 1436, [1436], 'single', {}),
+    ('Q5', 1437, [1437], 'single', {}),
+    ('Q6', 1438, [1438], 'single', {}),
+    ('Q7', 1440, list(range(1439, 1446)), 'chain', {'chain': ('Q', 1440, 'measured')}),
+    ('Q8', 1448, list(range(1446, 1453)), 'chain', {'chain': ('Q', 1440, 'measured'), 'wb_from': 'Q7'}),
+    ('W0', 1453, [1453], 'single', {}),
+    ('T1', 1454, [1454, 1455], 'views', {}),
+    ('T2', 1456, [1456, 1457], 'views', {}),
+] + [(f'L{i}', n, [n, n + 1], 'chain', {'chain': ('L', 1458, 'none')} if i == 1 else
+      {'chain': ('L', 1458, 'none'), 'wb_from': 'L1'}) for i, n in zip(range(1, 8), range(1458, 1472, 2))] + [
+    ('L8', 1472, [1472, 1473, 1474], 'chain', {'chain': ('L', 1458, 'none'), 'wb_from': 'L1'}),
+    ('B1', 1475, [1475], 'single', {}),
+    ('B2', 1476, [1476], 'single', {}),
+    ('B3', 1477, [1477], 'single', {}),
+    ('R1', 1478, [1478], 'single', {}),
+    ('R2', 1479, [1479], 'single', {}),
+    ('R3', 1480, [1480, 1481], 'views', {}),
+    ('R4', 1482, [1482], 'single', {}),
+    ('Z1', 1484, [1484], 'single', {}),
+]
+C2_FLAT = {1483: 'black'}
+
+BATCHES = {'A': (A, A_FLAT, [1202, 1248], '051', 'anime/sheets/batchA_1202_1248.json'),
+           'B': (B, B_FLAT, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
+           'C1': (C1, C1_FLAT, [1357, 1411], '057', 'anime/sheets/batchC1_1357_1411.json'),
+           'C2': (C2, C2_FLAT, [1411, 1485], '057', 'anime/sheets/batchC2_1411_1485.json')}
+
+
+def build(name, table, flat, frames, out, d=None, msg='051'):
+    d = d or os.path.join('collab', 'from_limo', msg, f'batch{name}')
     path, missing = {}, []
     for did, src, _, _, _ in table:
         hits = sorted(glob.glob(os.path.join(ROOT, d + '*', f'{did}_n{src}*.png')))   # batchA, batchA_city, ...
@@ -150,7 +226,5 @@ def build(name, table, flat, frames, out, d=None):
 if __name__ == '__main__':
     which = sys.argv[1] if len(sys.argv) > 1 else 'A'
     d, out = (sys.argv[2], sys.argv[3]) if len(sys.argv) > 3 else (None, None)     # a test directory / sheet path
-    if which == 'A':
-        build('A', A, A_FLAT, [1202, 1248], out or 'anime/sheets/batchA_1202_1248.json', d)
-    else:
-        build('B', B, B_FLAT, [1293, 1357], out or 'anime/sheets/batchB_1293_1357.json', d)
+    table, flat, frames, msg, default_out = BATCHES[which]
+    build(which, table, flat, frames, out or default_out, d, msg)
