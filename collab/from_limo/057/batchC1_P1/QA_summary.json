@@ -1,0 +1,130 @@
+{
+  "package": "C1_P1",
+  "status": "Producer self-check passed; ready for combined static and motion review",
+  "state_count": 15,
+  "exposure_frames": 21,
+  "window_n": [
+    1357,
+    1378
+  ],
+  "gap_count": 0,
+  "duplicate_frame_count": 0,
+  "source_anchors_inside_exposures": true,
+  "png_uploads": 15,
+  "source_or_rejected_image_uploads": 0,
+  "imagegen_calls": 15,
+  "retry_calls": 0,
+  "public_metadata_scan_passed": true,
+  "checks": [
+    {
+      "state_id": "G1",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G2",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G3",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G4",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G5a",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G5b",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G6a",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "G6b",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "Y1a",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "Y1b",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "Y2",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "F1",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "U1a",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "U1b",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    },
+    {
+      "state_id": "U2",
+      "original_bytes_unchanged": true,
+      "native_dimensions_rgb": true,
+      "uploaded_blob_sha1_matches": true
+    }
+  ],
+  "preserved_events": [
+    "G3 and G4 two-finger temple gesture",
+    "G5a upward-left release with long cyan band",
+    "G5b lower-left release with shortened cyan band",
+    "G6a residual upper-left cyan; G6b quiet remnant only",
+    "Y1a and Y1b own source facial states with separate background geometry",
+    "Y2 actual radial red-eye and facial smear",
+    "F1 compact white-hot red star within blue stretched setting",
+    "U1a low cropped body with hands down",
+    "U1b distinct first lift with tucked legs and opening arms",
+    "U2 separate suspended wider-arm pose"
+  ],
+  "review_attention": [
+    "Harder linework and finer road/cloth texture than source",
+    "Reduced optical softness in some G/Y reaction and U city states",
+    "Small per-redraw facial/neck/cloth contour drift",
+    "Y2 and F1 retain smear geometry with more ink-textured edges"
+  ],
+  "no_post_generation_resampling_or_color_edits": true,
+  "no_camera_or_procedural_frames": true
+}

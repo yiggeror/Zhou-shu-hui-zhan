@@ -1,0 +1,37 @@
+{
+  "planned_states": 14,
+  "selected_states": 12,
+  "explicit_gaps": [
+    "U4",
+    "V6"
+  ],
+  "selected_all_native_rgb_png": true,
+  "all_selected_upload_hashes_match": true,
+  "native_generator_bytes_unchanged": true,
+  "exposure_coverage_selected": [
+    1378,
+    1379,
+    1381,
+    1382,
+    1383,
+    1384,
+    1385,
+    1386,
+    1387,
+    1389,
+    1390,
+    1391,
+    1392,
+    1393
+  ],
+  "missing_exposures": [
+    1380,
+    1388
+  ],
+  "no_substitute_frames": true,
+  "total_generation_calls": 18,
+  "quality_or_size_retries": 4,
+  "moderation_retries": 0,
+  "manifest_sha256": "3ff0ab60b6b98bfc2d77e0d230998136153d8cf7c630e03e2320c9f8cc871e14",
+  "prompts_sha256": "8b1d89586c7d37d727f870a8fcd404df355f529f86025a48df42b08948277b9c"
+}

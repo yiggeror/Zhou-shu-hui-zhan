@@ -1,0 +1,1013 @@
+{
+  "schema": "C1-P2-production-manifest-v1",
+  "package": "C1_P2",
+  "status": "partial_12_selected_plus_2_explicit_gaps",
+  "scope_window_half_open": [
+    1378,
+    1394
+  ],
+  "fps": 24,
+  "source_video_sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+  "planned_states": 14,
+  "selected_states": 12,
+  "gap_states": [
+    "U4",
+    "V6"
+  ],
+  "planned_exposure_frames": 16,
+  "selected_exposure_frames": 14,
+  "missing_exposure_frames": [
+    1380,
+    1388
+  ],
+  "generation_call_count": 18,
+  "returned_image_count": 16,
+  "selected_image_count": 12,
+  "rejected_returned_image_count": 4,
+  "blocked_without_returned_image_count": 2,
+  "target_native_image": {
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "format": "PNG"
+  },
+  "provenance": "AI strong-reference redraw/edit of each exact source anchor, not a claimed hand redraw. Output PNG bytes are original native generator output; no resizing, cropping, deformation, interpolation or fake camera.",
+  "source_hash_note": "Source PNG hashes are locally computed over decoded source images; they do not assert an uploaded repository source object.",
+  "exposure_note": "U3/U5 two-frame holds are deliberate limited-animation approximations, not exact source holds or solved camera motion.",
+  "batch_note": "Only this assigned package is described here. C1 remains incomplete while U4 and V6 are missing. No C2 artwork was created.",
+  "publication_note": "Only selected PNG blobs were uploaded; no text, source footage, rejected image, repository tree, commit or ref was published by this package producer.",
+  "states": [
+    {
+      "state_id": "U3",
+      "source_n": 1378,
+      "start_n": 1378,
+      "end_n_exclusive": 1380,
+      "exposure_frames": 2,
+      "group": "U",
+      "method": "source_anchored_redraw_discrete_hold",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Continued suspended rise against shifted building facade.",
+      "reason": "Two-frame stepped float hold; separate source anchor preserves overall parallax progression.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.416666666666664,
+      "source_pts_rational": "1378/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "3fcf0a5fe39998fc51772270cdedd755802313b13db9be45e7f38a044fd604cd",
+        "computed_git_blob_sha1": "4d148f41b6c18e0db535bbc65fadfbb34bb94eff",
+        "bytes": 1293231
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/U3_n1378.png",
+      "output": {
+        "file": "U3_n1378.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1281827,
+        "sha256": "a583b4e0877140bd8a5a291621501e1e956ebf6b3b90de6c27a8377bf863bec3",
+        "git_blob_sha1": "c72f30e60f8ab19c5be6958d843f6d4f4e8fcf41",
+        "uploaded_github_blob_sha1": "c72f30e60f8ab19c5be6958d843f6d4f4e8fcf41",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Restrained ink/cel treatment with legible existing rim highlights; no new effect."
+      ],
+      "residuals": [
+        "Fine cloth contours and background edges are harder than the source.",
+        "Two-frame exposure intentionally samples slight source parallax and pose drift."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 29.11556295250399,
+          "max_0_255": 251.4894,
+          "fraction_above_5": 0.6735822169978708
+        },
+        "output_full_frame": {
+          "mean_0_255": 39.28371924502591,
+          "max_0_255": 254.99999999999997,
+          "fraction_above_5": 0.9698452730221845
+        }
+      }
+    },
+    {
+      "state_id": "U4",
+      "source_n": 1380,
+      "start_n": 1380,
+      "end_n_exclusive": 1381,
+      "exposure_frames": 1,
+      "group": "U",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Figure suspended before dark high windows, nearer bubble onset.",
+      "reason": "Distinct last pre-bubble scale and city position.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.5,
+      "source_pts_rational": "1380/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "42754dea5863019f28ff61252edbfb2a7e1f7374e43d1fe2f233546e3c69bdb1",
+        "computed_git_blob_sha1": "6709a9ebff7d9a7b37d18f556bb7ba1514004981",
+        "bytes": 1084234
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "generation_blocked_missing",
+      "selected_call": null,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 1,
+      "public_path": null,
+      "output": null,
+      "enhancements": [],
+      "residuals": [],
+      "retry_note": null,
+      "gap_note": "Image generation was blocked by content moderation and returned no image. No retry, alternate source, alternate tool, substitute hold or procedural fill was used."
+    },
+    {
+      "state_id": "V1",
+      "source_n": 1381,
+      "start_n": 1381,
+      "end_n_exclusive": 1382,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Thin turbulent ring starts enclosing suspended body.",
+      "reason": "Unique bubble onset.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.541666666666664,
+      "source_pts_rational": "1381/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "caacd38132b797a6b63bc49ea58f7dc476bc1d9735af4b158151d4dfbcbe5e2b",
+        "computed_git_blob_sha1": "da7809758d84e35c21a4818cd636490a03c21c8c",
+        "bytes": 927983
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "rejected_returned_images": 1,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/V1_n1381.png",
+      "output": {
+        "file": "V1_n1381.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1331368,
+        "sha256": "a57ce4dbb556cb93637e3ac5bc4967183d1f767032a30e9debcbefebc7ed12f7",
+        "git_blob_sha1": "829937aeecebe0937edfc6ea7647958525319712",
+        "uploaded_github_blob_sha1": "829937aeecebe0937edfc6ea7647958525319712",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Controlled muted-blue ring detail around original footprint; purposeful softness retained."
+      ],
+      "residuals": [
+        "Ring texture and blue highlights have slightly stronger contrast than source.",
+        "Broad optical defocus is preserved; some internal robe folds remain more legible."
+      ],
+      "retry_note": "First output materially sharpened the intended defocus; second output preserves broad softened edges.",
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 17.413732118191096,
+          "max_0_255": 231.004,
+          "fraction_above_5": 0.5697222653477644
+        },
+        "output_full_frame": {
+          "mean_0_255": 27.13916752576664,
+          "max_0_255": 247.7834,
+          "fraction_above_5": 0.7055452308192953
+        }
+      }
+    },
+    {
+      "state_id": "V2",
+      "source_n": 1382,
+      "start_n": 1382,
+      "end_n_exclusive": 1383,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Expanded rotating/turbulent globe with changed refracted background.",
+      "reason": "Not a reusable rotated copy of V1.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.583333333333336,
+      "source_pts_rational": "1382/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "ebefac98dff3305f2b6db21043a2436b455fcd24dd0dc69d5424ef3707a8c7ca",
+        "computed_git_blob_sha1": "92ce1116bd4496ff5e1036fd41e31bb92f15bab4",
+        "bytes": 1310807
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/V2_n1382.png",
+      "output": {
+        "file": "V2_n1382.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1431727,
+        "sha256": "9978a709385f9c581d1baf80cdf092097f171e2df9052788ea379b45bf15952f",
+        "git_blob_sha1": "81aa034c678e957ea0d75206a92caa9da6afe62d",
+        "uploaded_github_blob_sha1": "81aa034c678e957ea0d75206a92caa9da6afe62d",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "More readable turbulent rim and refraction while retaining original globe scale and diffuse focus."
+      ],
+      "residuals": [
+        "Globe turbulence and soft blue highlight contrast are stronger; exact microscopic refraction is approximate."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 28.43065057753726,
+          "max_0_255": 177.58279999999996,
+          "fraction_above_5": 0.782912582061746
+        },
+        "output_full_frame": {
+          "mean_0_255": 42.98091323963105,
+          "max_0_255": 228.2362,
+          "fraction_above_5": 0.9123915055245108
+        }
+      }
+    },
+    {
+      "state_id": "V3",
+      "source_n": 1383,
+      "start_n": 1383,
+      "end_n_exclusive": 1384,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Large swirling globe fills frame; figure and bright debris.",
+      "reason": "Fast expansion and different body/occlusion need own source state.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.625,
+      "source_pts_rational": "1383/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "ffbe17f18bf67a3ad2c82f8d41dc55e9d9f9d471a704ea04e8955787ad22d207",
+        "computed_git_blob_sha1": "ca70b36e3dabfb3db60effda534b7fc50eb71b83",
+        "bytes": 2108025
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/V3_n1383.png",
+      "output": {
+        "file": "V3_n1383.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1558338,
+        "sha256": "98ca3ef0ffcedb3120e55318e158e78fb8815b741fd0dd3f6220d18ba0648fa0",
+        "git_blob_sha1": "a21b7275035b067127a4c9fd1b0f3646362782f7",
+        "uploaded_github_blob_sha1": "a21b7275035b067127a4c9fd1b0f3646362782f7",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "More readable source-limited swirl and luminous debris boundaries; no new blast."
+      ],
+      "residuals": [
+        "Swirl/debris microtexture and soft highlight shapes differ slightly; large body/debris layout remains anchored."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 48.096845971544525,
+          "max_0_255": 231.0498,
+          "fraction_above_5": 0.9742389882008516
+        },
+        "output_full_frame": {
+          "mean_0_255": 53.76088628634915,
+          "max_0_255": 240.84120000000001,
+          "fraction_above_5": 0.9682080043118132
+        }
+      }
+    },
+    {
+      "state_id": "V4",
+      "source_n": 1384,
+      "start_n": 1384,
+      "end_n_exclusive": 1385,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Darker large figure amid distinct debris and ring fragments.",
+      "reason": "Preserve darkening and silhouette.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.666666666666664,
+      "source_pts_rational": "1384/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "b484f83189a1fa1290cbd9b7ff78dca6e5b3b1b6c3e9de14428670da56e23363",
+        "computed_git_blob_sha1": "2442ab955223a75211d4313616ba32ab4de45149",
+        "bytes": 1401494
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "rejected_returned_images": 1,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/V4_n1384.png",
+      "output": {
+        "file": "V4_n1384.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1464163,
+        "sha256": "2dbdd28d345a20a8769e33b3e30641a46807378adec18ff78f53c3be9fea97ed",
+        "git_blob_sha1": "e9bae144ac2d682c25ce21d33eed8aa9ceb14401",
+        "uploaded_github_blob_sha1": "e9bae144ac2d682c25ce21d33eed8aa9ceb14401",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Source-limited blue refractive structure and soft debris separation against dark body."
+      ],
+      "residuals": [
+        "Hair and some dark cloth edges are firmer than source, although the glow/background retains defocus.",
+        "Bright debris microtexture differs slightly."
+      ],
+      "retry_note": "First output native width was 1671; second output natively 1672. No resampling was used.",
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 30.461464272977288,
+          "max_0_255": 235.0498,
+          "fraction_above_5": 0.9658781161284599
+        },
+        "output_full_frame": {
+          "mean_0_255": 50.69224151467694,
+          "max_0_255": 254.21259999999998,
+          "fraction_above_5": 0.9866457092881948
+        }
+      }
+    },
+    {
+      "state_id": "D1a",
+      "source_n": 1385,
+      "start_n": 1385,
+      "end_n_exclusive": 1386,
+      "exposure_frames": 1,
+      "group": "D",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Very dark close torso, belt and sleeves with faint streaking debris.",
+      "reason": "Not black: large body remains; different framing from n1386.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.708333333333336,
+      "source_pts_rational": "1385/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "3ce6fd1c0d7e81fccf293227f2deb144e38e96a9b93da4cd2ce901f9d83d5e62",
+        "computed_git_blob_sha1": "14ddff445d7100609be55dbb1cd712e730d2d437",
+        "bytes": 567317
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "rejected_returned_images": 1,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/D1a_n1385.png",
+      "output": {
+        "file": "D1a_n1385.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1063269,
+        "sha256": "32ee85748b9bcc63fabc5c0b11866c08471af63fcfa2c1e853780cb65275dd64",
+        "git_blob_sha1": "6af974834dad2e409112a02016ea9f5be440b6f8",
+        "uploaded_github_blob_sha1": "6af974834dad2e409112a02016ea9f5be440b6f8",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Only supported low-amplitude robe/belt/debris structure retained; extreme dark occlusion remains."
+      ],
+      "residuals": [
+        "Near-black torso folds are a little more defined, with a localized soft debris peak; no face has been revealed."
+      ],
+      "retry_note": "First output lifted near-black exposure too far; second output restores faint close torso/debris.",
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 6.454611577304382,
+          "max_0_255": 123.991,
+          "fraction_above_5": 0.49650322702271116
+        },
+        "output_full_frame": {
+          "mean_0_255": 6.583678197631553,
+          "max_0_255": 136.7114,
+          "fraction_above_5": 0.45032516563362807
+        }
+      }
+    },
+    {
+      "state_id": "D1b",
+      "source_n": 1386,
+      "start_n": 1386,
+      "end_n_exclusive": 1387,
+      "exposure_frames": 1,
+      "group": "D",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Near-black, smaller central body and faint dispersed debris.",
+      "reason": "Do not replace with black or duplicate n1385. Preserve low-amplitude source information.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.75,
+      "source_pts_rational": "1386/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "f067e3367f483525ba3f2956cc29ad5c504ca362109ac2c32acb0c4422cab766",
+        "computed_git_blob_sha1": "054d913fd87a4fadcb8288ac9ab613a93786c536",
+        "bytes": 231438
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 2,
+      "generation_calls": 2,
+      "rejected_returned_images": 1,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/D1b_n1386.png",
+      "output": {
+        "file": "D1b_n1386.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 921529,
+        "sha256": "77eec74f1292a46adfc56f6d4deff19a081d681a73bd01f00efaedad0120fbb9",
+        "git_blob_sha1": "d42a8b458dfc7435819f351833534ee214eeb1d3",
+        "uploaded_github_blob_sha1": "d42a8b458dfc7435819f351833534ee214eeb1d3",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Only supported low-amplitude central body/debris retained; near-black event remains."
+      ],
+      "residuals": [
+        "Maximum faint blue value is slightly above source; near-black mean exposure and smaller body remain distinct from D1a."
+      ],
+      "retry_note": "First output lifted near-black exposure too far; second output restores faint smaller body/debris.",
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 1.7893082516966818,
+          "max_0_255": 22.5736,
+          "fraction_above_5": 0.05656798926543648
+        },
+        "output_full_frame": {
+          "mean_0_255": 1.9761452001840656,
+          "max_0_255": 29.4138,
+          "fraction_above_5": 0.10445087939634615
+        }
+      }
+    },
+    {
+      "state_id": "V5",
+      "source_n": 1387,
+      "start_n": 1387,
+      "end_n_exclusive": 1388,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Irregular opening through black occlusion reveals body/city.",
+      "reason": "Opening contour and body placement must follow source, not a generic circular bubble.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.791666666666664,
+      "source_pts_rational": "1387/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "2bc16d2de9f56dd455fd41b2ed222eeffcc5ad2bc1cf101295ab5259368d5f69",
+        "computed_git_blob_sha1": "49855e466ebeb88a059d614e996d21a89be31cb5",
+        "bytes": 546786
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/V5_n1387.png",
+      "output": {
+        "file": "V5_n1387.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 831122,
+        "sha256": "2e1389fa20b3605fcd9a6a5055760c82bec99336c8b50e4b67b92e2eaa45de45",
+        "git_blob_sha1": "48a1d5e4a41b283fb51d8537130b3532b88ed256",
+        "uploaded_github_blob_sha1": "48a1d5e4a41b283fb51d8537130b3532b88ed256",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Subtle blue separation inside the source irregular aperture, with black occlusion untouched in purpose."
+      ],
+      "residuals": [
+        "Aperture edge is more crisply polygonal than source; irregular source contour and inward notches are retained."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 7.910055804149662,
+          "max_0_255": 178.4958,
+          "fraction_above_5": 0.29240346655429383
+        },
+        "output_full_frame": {
+          "mean_0_255": 13.775101053419704,
+          "max_0_255": 247.564,
+          "fraction_above_5": 0.34165463291113496
+        }
+      }
+    },
+    {
+      "state_id": "V6",
+      "source_n": 1388,
+      "start_n": 1388,
+      "end_n_exclusive": 1389,
+      "exposure_frames": 1,
+      "group": "V",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Opening widens, revealing bright-windowed city and suspended body.",
+      "reason": "Distinct expanding occlusion state; retain soft focus.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.833333333333336,
+      "source_pts_rational": "1388/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "3f2ae2cca88bffb546922254615f0086942506fd09b75d9284aa96d47d0b3ea8",
+        "computed_git_blob_sha1": "1ebedb3f7ea30e77f9ff1af9e1d107bf583003a5",
+        "bytes": 1807751
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "generation_blocked_missing",
+      "selected_call": null,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 1,
+      "public_path": null,
+      "output": null,
+      "enhancements": [],
+      "residuals": [],
+      "retry_note": null,
+      "gap_note": "Image generation was blocked by content moderation and returned no image. No retry, alternate source, alternate tool, substitute hold or procedural fill was used."
+    },
+    {
+      "state_id": "U5",
+      "source_n": 1389,
+      "start_n": 1389,
+      "end_n_exclusive": 1391,
+      "exposure_frames": 2,
+      "group": "U",
+      "method": "source_anchored_redraw_discrete_hold",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Full city revealed with suspended figure and airborne debris.",
+      "reason": "Two-frame stepped hold; source n1390 has changing parallax, intentionally sampled on twos, not identical locked camera.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.875,
+      "source_pts_rational": "1389/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "c924c2883f59dbd2bf2fc14f7b1f185c6e85d67ba822f76e4f7df9739836200e",
+        "computed_git_blob_sha1": "1b3ab6d701cdac817cd99a6638a5af385da7283e",
+        "bytes": 2477680
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/U5_n1389.png",
+      "output": {
+        "file": "U5_n1389.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1617882,
+        "sha256": "f629de24cace6e5fe0abd9a8e22fad0ed97440da8c834a9391bd7890d0cc050d",
+        "git_blob_sha1": "41b1819c4008abf8bd110e6d429bde7db2f695c7",
+        "uploaded_github_blob_sha1": "41b1819c4008abf8bd110e6d429bde7db2f695c7",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Existing upper-left sky glow and window lights get controlled cyan/white structure."
+      ],
+      "residuals": [
+        "Sky glow has more cyan tonal structure and skyline texture is more legible.",
+        "Two-frame exposure intentionally samples continuing source parallax."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 62.81911179665321,
+          "max_0_255": 229.00000000000003,
+          "fraction_above_5": 0.9883902036018453
+        },
+        "output_full_frame": {
+          "mean_0_255": 62.54924583742227,
+          "max_0_255": 254.92779999999996,
+          "fraction_above_5": 0.9903187589299788
+        }
+      }
+    },
+    {
+      "state_id": "U6",
+      "source_n": 1391,
+      "start_n": 1391,
+      "end_n_exclusive": 1392,
+      "exposure_frames": 1,
+      "group": "U",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Same floating sequence with shifted skyline and figure placement.",
+      "reason": "Continuation/reframe, not an added hard cut.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 57.958333333333336,
+      "source_pts_rational": "1391/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "c02ea679df8afc591844e43362ed0842e3ebdb26e0f91d0b1432a4b72e0d575a",
+        "computed_git_blob_sha1": "2dabd6fd333f61e8f8980031635e6f7012f98422",
+        "bytes": 2997779
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/U6_n1391.png",
+      "output": {
+        "file": "U6_n1391.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1651401,
+        "sha256": "789e493666e3d63b14b687feadd619df1188655c612b9c0d25b7819553305fcd",
+        "git_blob_sha1": "3856b733561a2e5b2c4747cfe5dbcb5ba1e10303",
+        "uploaded_github_blob_sha1": "3856b733561a2e5b2c4747cfe5dbcb5ba1e10303",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Source nighttime rim-light and city-light readability enhanced without adding effects."
+      ],
+      "residuals": [
+        "Harder fine ink and background window detail than source; continuous framing progression remains."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 56.145846368545946,
+          "max_0_255": 254.2138,
+          "fraction_above_5": 0.998659288502484
+        },
+        "output_full_frame": {
+          "mean_0_255": 53.25475271344238,
+          "max_0_255": 254.99999999999997,
+          "fraction_above_5": 0.9986258637609384
+        }
+      }
+    },
+    {
+      "state_id": "M1",
+      "source_n": 1392,
+      "start_n": 1392,
+      "end_n_exclusive": 1393,
+      "exposure_frames": 1,
+      "group": "M",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "High-angle Gojo foreground, long cyan blade and rising building section.",
+      "reason": "New composition cut at n1392.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 58.0,
+      "source_pts_rational": "1392/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "ccfe3cadb0ed22e7e6ed1ed8d1d682096a229edec349aefe76e3acd2642f03e6",
+        "computed_git_blob_sha1": "8501848c1e4463bf1405533c9068ff608ddd52c0",
+        "bytes": 1460596
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/M1_n1392.png",
+      "output": {
+        "file": "M1_n1392.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1519841,
+        "sha256": "539d51b33a8a7d4a4a7627083078c416cc3bb2c2c956530f2db420c08b9b71e9",
+        "git_blob_sha1": "8c24340fdb8e382329c59ab8c62505a4da8ffdd0",
+        "uploaded_github_blob_sha1": "8c24340fdb8e382329c59ab8c62505a4da8ffdd0",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Existing slim cyan blade and building outline given luminous colored core/edge definition without enlargement."
+      ],
+      "residuals": [
+        "Thin cyan emission is more saturated and roof/front texture more legible; exact grain differs."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 37.96691024219304,
+          "max_0_255": 228.58280000000002,
+          "fraction_above_5": 0.9206948079311569
+        },
+        "output_full_frame": {
+          "mean_0_255": 47.59335631594201,
+          "max_0_255": 254.99999999999997,
+          "fraction_above_5": 0.9615267276489939
+        }
+      }
+    },
+    {
+      "state_id": "M2",
+      "source_n": 1393,
+      "start_n": 1393,
+      "end_n_exclusive": 1394,
+      "exposure_frames": 1,
+      "group": "M",
+      "method": "source_anchored_redraw_single",
+      "camera": "none",
+      "procedural": "none",
+      "content": "Gojo lifts arm while building roof and cyan edge emerge.",
+      "reason": "Distinct arm/roof state.",
+      "source_frame_index_basis": "zero_based",
+      "source_pts_seconds": 58.041666666666664,
+      "source_pts_rational": "1393/24",
+      "source_png_local_computed_hashes": {
+        "sha256": "24f5120b2779d4ba0ee5588d79437fa4f644bc5a20619998eaffec0cd73decc0",
+        "computed_git_blob_sha1": "014366795660bd414549cb6b421cbfe94ac2eea2",
+        "bytes": 1715150
+      },
+      "source_png_uploaded_to_repository": false,
+      "status": "selected_pending_combined_static_review",
+      "selected_call": 1,
+      "generation_calls": 1,
+      "rejected_returned_images": 0,
+      "blocked_calls_without_returned_image": 0,
+      "public_path": "collab/from_limo/057/batchC1_P2/M2_n1393.png",
+      "output": {
+        "file": "M2_n1393.png",
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1559304,
+        "sha256": "6f7efb5f11573553dd3c1f665cc5701069574a65a9dad067700404c8d3d0e010",
+        "git_blob_sha1": "f91c87ab6588f3710b01a4e2ea18ad0fe22e4164",
+        "uploaded_github_blob_sha1": "f91c87ab6588f3710b01a4e2ea18ad0fe22e4164",
+        "upload_hash_matches_unchanged_local_bytes": true,
+        "native_output_bytes_preserved": true,
+        "post_generation_image_transform": "none"
+      },
+      "enhancements": [
+        "Existing slim cyan blade and changing building outline given luminous colored core/edge definition without enlargement."
+      ],
+      "residuals": [
+        "Cyan roof-edge glow and slim blade have stronger readable cores; roof microdetail differs."
+      ],
+      "retry_note": null,
+      "diagnostic_luma": {
+        "source_watermark_excluded": {
+          "mean_0_255": 38.17154012708481,
+          "max_0_255": 254.99999999999997,
+          "fraction_above_5": 0.9000693089070263
+        },
+        "output_full_frame": {
+          "mean_0_255": 47.371605928743215,
+          "max_0_255": 254.99999999999997,
+          "fraction_above_5": 0.9443690922311091
+        }
+      }
+    }
+  ],
+  "calls": [
+    {
+      "state_id": "U3",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/U3_n1378_call1.txt",
+      "prompt_sha256": "3c89bffdb6792150c3250d848340c003aef9c24a812c55b26707a3bed73e86ac",
+      "source_anchor": "n1378.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "U4",
+      "call": 1,
+      "result": "blocked_without_image",
+      "prompt_file": "prompts/U4_n1380_call1.txt",
+      "prompt_sha256": "6cb19441a40a41b544b531f37ff05d57b1a08f6567a5c785bca5cf79ad07459e",
+      "source_anchor": "n1380.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V1",
+      "call": 1,
+      "result": "rejected",
+      "prompt_file": "prompts/V1_n1381_call1.txt",
+      "prompt_sha256": "2604a2a5df02e54d4baaec7ea50e4d66eb1dbd5f32bb48c98110b89f7a91e5ff",
+      "source_anchor": "n1381.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V1",
+      "call": 2,
+      "result": "selected",
+      "prompt_file": "prompts/V1_n1381_call2.txt",
+      "prompt_sha256": "6170695894131ece72baeff7c8400d1f6da27e224fb22cbdf9807e160fdc5e1a",
+      "source_anchor": "n1381.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V2",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/V2_n1382_call1.txt",
+      "prompt_sha256": "d4851c75f85008a6a07a697ae0be6df3a6be6ddfa89a31a6334e0f2778726752",
+      "source_anchor": "n1382.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V3",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/V3_n1383_call1.txt",
+      "prompt_sha256": "44c0462dd5d25aff1c53cec174691c8c66b87b9f8d1f72875e83302b25db1deb",
+      "source_anchor": "n1383.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V4",
+      "call": 1,
+      "result": "rejected",
+      "prompt_file": "prompts/V4_n1384_call1.txt",
+      "prompt_sha256": "d545d524f5fc0020a767097d9e6784da68895daca39402e800a922bf2430f556",
+      "source_anchor": "n1384.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V4",
+      "call": 2,
+      "result": "selected",
+      "prompt_file": "prompts/V4_n1384_call2.txt",
+      "prompt_sha256": "35c484f6c9e1226e3591a54bfb073fbdc70cd1657f8055505675bf40a6058bf7",
+      "source_anchor": "n1384.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "D1a",
+      "call": 1,
+      "result": "rejected",
+      "prompt_file": "prompts/D1a_n1385_call1.txt",
+      "prompt_sha256": "9e4918d88a430a7bde7e1447273130739ba1021d501dfc1223846b2186af27a4",
+      "source_anchor": "n1385.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "D1a",
+      "call": 2,
+      "result": "selected",
+      "prompt_file": "prompts/D1a_n1385_call2.txt",
+      "prompt_sha256": "3d297db362322a9db634b89172985770c11dba17d0afd6ccf80ad6544762b565",
+      "source_anchor": "n1385.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "D1b",
+      "call": 1,
+      "result": "rejected",
+      "prompt_file": "prompts/D1b_n1386_call1.txt",
+      "prompt_sha256": "e15386478555958e1647ea6545c0a86619457416702df1ca98ec7338b175969e",
+      "source_anchor": "n1386.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "D1b",
+      "call": 2,
+      "result": "selected",
+      "prompt_file": "prompts/D1b_n1386_call2.txt",
+      "prompt_sha256": "0a0fb950014b5626a375009603054ebbc0d60df436345ec396d9da51c0bfb922",
+      "source_anchor": "n1386.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V5",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/V5_n1387_call1.txt",
+      "prompt_sha256": "2bc1bba00a18468ad31661afc36912b3e0ef55f0c467d391ab8d3a3f16da26ce",
+      "source_anchor": "n1387.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "V6",
+      "call": 1,
+      "result": "blocked_without_image",
+      "prompt_file": "prompts/V6_n1388_call1.txt",
+      "prompt_sha256": "3551397487df3f15c5a85eef18ab97a6f8b908de19c1b14fab8f58dea07961c1",
+      "source_anchor": "n1388.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "U5",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/U5_n1389_call1.txt",
+      "prompt_sha256": "32d73c94d7b8e8308c5a543b3fb2e1049409cd28961f74a29586db5b727fd8c0",
+      "source_anchor": "n1389.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "U6",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/U6_n1391_call1.txt",
+      "prompt_sha256": "4c5a1fc304e6b5336bb36239ee77a176335dc673231a4ef2dfb139e9b642d720",
+      "source_anchor": "n1391.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "M1",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/M1_n1392_call1.txt",
+      "prompt_sha256": "4f6b5f4d63accc6d723df64e76dab2189dfbcd93853fccb047b2c5dde4dacac2",
+      "source_anchor": "n1392.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    },
+    {
+      "state_id": "M2",
+      "call": 1,
+      "result": "selected",
+      "prompt_file": "prompts/M2_n1393_call1.txt",
+      "prompt_sha256": "8af3ef473f3c2ebd5c4ed705c8ec78473c733a647ade82919bffc848a8bf882b",
+      "source_anchor": "n1393.png",
+      "tool": "built_in_image_gen",
+      "transparent_background": false
+    }
+  ]
+}
