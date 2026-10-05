@@ -1074,6 +1074,14 @@ def apply_grade_luma(img, cv, strength=1.0):
         sh = np.clip((lu - x0) / (x1 - x0), 0, 1)
         sh = sh * sh * (3 - 2 * sh)
         l2 = (1 - sh) * l2 + sh * _luma_curve(lu, ref)
+    if cv.get('keep_highlights'):
+        # the drawing's own highlights are kept as drawn: above input luminance x0 the curve eases (smoothstep to x1)
+        # to the identity, so a deliberately enhanced glow is not fitted back into the original's blown-out white
+        # (Limo, 051 msg_008: the original's statistics are a reference, not a target to wash enhancements out)
+        h0, h1 = cv['keep_highlights']
+        sk = np.clip((lu - h0) / (h1 - h0), 0, 1)
+        sk = sk * sk * (3 - 2 * sk)
+        l2 = (1 - sk) * l2 + sk * lu
     out = img * (l2 / lu)[..., None]
     wb = cv['wb']
     if cv.get('protect'):
@@ -1093,6 +1101,8 @@ def apply_grade_luma(img, cv, strength=1.0):
 def describe_luma(cv):
     return (f'0.1/0.3/0.5/0.7/0.9 -> {np.round(np.interp([0.1, 0.3, 0.5, 0.7, 0.9], cv["x"], cv["y"]), 3).tolist()}, '
             f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}'
+            + (f', the drawing\'s own highlights kept (curve eases to identity from {cv["keep_highlights"][0]} to '
+               f'{cv["keep_highlights"][1]})' if cv.get('keep_highlights') else '')
             + (f', faded out towards pure white (smallest channel {cv["protect"][0]}-{cv["protect"][1]})'
                if cv.get('protect') else ''))
 
@@ -1223,6 +1233,8 @@ def main():
             c0, n0 = fit(R[fa], O[fa], sigma=grade.get('sigma', 4.0))
             if mode == 'luma' and grade.get('white_protect'):
                 c0 = dict(c0, protect=tuple(grade['white_protect']))
+            if mode == 'luma' and grade.get('keep_highlights'):
+                c0 = dict(c0, keep_highlights=tuple(grade['keep_highlights']))
             # first_only: one grade for the whole hold, fitted at its first exposure.  For a hold whose last original
             # frame differs from the drawing in content (n1291's larger source flame), not only in light, a second fit
             # there would carry that content difference into the colour (Limo, 043: keep the colour continuous; the
@@ -1232,6 +1244,8 @@ def main():
             c1, n1 = fit(R[fb], O[fb], sigma=grade.get('sigma', 4.0)) if fb != fa else (c0, n0)
             if mode == 'luma' and grade.get('white_protect'):
                 c1 = dict(c1, protect=tuple(grade['white_protect']))
+            if mode == 'luma' and grade.get('keep_highlights'):
+                c1 = dict(c1, keep_highlights=tuple(grade['keep_highlights']))
             if did in grade.get('glow_hold', {}):
                 # the later exposure keeps the reference exposure's protection mask and, above x0, its curve
                 c1 = dict(c1, ref=c0, hold_hi=tuple(grade['glow_hold'][did]))

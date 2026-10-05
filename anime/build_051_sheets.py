@@ -164,8 +164,23 @@ C2 = [
 ]
 C2_FLAT = {1483: 'black'}
 
+def b45():
+    """batch B as locked by Limo (from_limo/051/msg_008, B45_exposure_table_001.csv): 45 states, each in its own
+    source geometry; holds are discrete (no camera: Limo found the earlier 5 deg fit to be figure motion, not camera)"""
+    import csv
+    rows = list(csv.DictReader(open(os.path.join(ROOT, 'collab/from_limo/051/B45_exposure_table_001.csv'),
+                                    encoding='utf-8-sig')))
+    out = []
+    for r in rows:
+        src, a, b = int(r['source_n']), int(r['start']), int(r['end'])
+        ns = list(range(a, b))
+        out.append((r['id'], src, ns, 'single' if len(ns) == 1 else 'still', {} if len(ns) == 1 else
+                    {'grade_at': [src, src]}))
+    return out
+
+
 BATCHES = {'A': (A, A_FLAT, [1202, 1248], '051', 'anime/sheets/batchA_1202_1248.json'),
-           'B': (B, B_FLAT, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
+           'B': (None, {1319: 'black'}, [1293, 1357], '051', 'anime/sheets/batchB_1293_1357.json'),
            'C1': (C1, C1_FLAT, [1357, 1411], '057', 'anime/sheets/batchC1_1357_1411.json'),
            'C2': (C2, C2_FLAT, [1411, 1485], '057', 'anime/sheets/batchC2_1411_1485.json')}
 
@@ -216,8 +231,10 @@ def build(name, table, flat, frames, out, d=None, msg='051'):
     sheet = {'name': f'batch {name} {frames}: 051 drawing table', 'frames': frames,
              'state_label': 'generated/edited picture states (character, effect and background views)',
              'grade': {'strength': 1.0, 'sigma': 4.0, 'modes': {i: 'luma' for i in ids}, 'white_protect': [0.85, 0.97],
-                       'grade_at': grade_at, 'wb_same': wb_same, 'wb_from': wb_from, 'glow_hold': glow},
+                       'grade_at': grade_at, 'wb_same': wb_same, 'wb_from': wb_from, 'glow_hold': glow,
+                       **({} if name == 'A' else {'keep_highlights': [0.7, 0.9]})},
              'encode': {'sws_flags': 'accurate_rnd+full_chroma_int'},
+             **({} if name == 'A' else {'keep_highlights_note': 'msg_008: enhanced glows kept as drawn'}),
              'frames_sheet': {k: fs[k] for k in sorted(fs, key=int)}}
     missing_frames = [n for n in range(*frames) if str(n) not in fs]
     if missing_frames:
@@ -230,4 +247,6 @@ if __name__ == '__main__':
     which = sys.argv[1] if len(sys.argv) > 1 else 'A'
     d, out = (sys.argv[2], sys.argv[3]) if len(sys.argv) > 3 else (None, None)     # a test directory / sheet path
     table, flat, frames, msg, default_out = BATCHES[which]
+    if which == 'B':
+        table = b45()
     build(which, table, flat, frames, out or default_out, d, msg)
