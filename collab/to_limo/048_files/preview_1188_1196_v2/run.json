@@ -1,0 +1,116 @@
+{
+ "sheet": {
+  "name": "first Hollow Purple, preview [1188,1196): K1, K3, white flash, K4 (on twos; 1192-1193 emerging from white)",
+  "frames": [
+   1188,
+   1196
+  ],
+  "grade": {
+   "strength": 1.0,
+   "sigma": 4.0,
+   "modes": {
+    "K1": "luma",
+    "K3": "luma",
+    "K4": "luma"
+   },
+   "white_protect": [
+    0.85,
+    0.97
+   ],
+   "grade_at": {
+    "K4": [
+     1194,
+     1194
+    ]
+   }
+  },
+  "frames_sheet": {
+   "1188": {
+    "drawing": "collab/from_limo/038/pilot_001/K1_n1188_v1.png",
+    "id": "K1"
+   },
+   "1189": {
+    "drawing": "collab/from_limo/038/batch_002/K3_n1189_v1.png",
+    "id": "K3"
+   },
+   "1190": {
+    "white": true,
+    "id": "white"
+   },
+   "1191": {
+    "white": true,
+    "id": "white"
+   },
+   "1192": {
+    "hold": "K4",
+    "id": "K4",
+    "mode": "full",
+    "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+    "ref": 1194,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "white_wash": {
+     "sigma": 40
+    }
+   },
+   "1193": {
+    "hold": "K4",
+    "id": "K4",
+    "mode": "full",
+    "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+    "ref": 1194,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "white_wash": {
+     "sigma": 40
+    }
+   },
+   "1194": {
+    "hold": "K4",
+    "id": "K4",
+    "mode": "full",
+    "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+    "ref": 1194,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1195": {
+    "hold": "K4",
+    "id": "K4",
+    "mode": "full",
+    "full": "collab/from_limo/038/batch_002/K4_n1194_v1.png",
+    "ref": 1194,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   }
+  },
+  "encode": {
+   "sws_flags": "accurate_rnd+full_chroma_int"
+  }
+ },
+ "code_sha256_16": {
+  "action_window.py": "8d7b6f68eec18df2",
+  "layered.py": "ae9bdeb2e7b7d42b",
+  "frames.py": "07a025a47fe894dc",
+  "review_window.py": "b58cf92d7bc71e6c"
+ },
+ "git_head": "e4a915ced089324e5523e553151b059bbeae6787",
+ "shutters": [
+  0.0,
+  0.05,
+  0.1,
+  0.15,
+  0.25,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  5.0
+ ]
+}
