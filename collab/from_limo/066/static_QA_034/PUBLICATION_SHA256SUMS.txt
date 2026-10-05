@@ -1,0 +1,8 @@
+# Published UTF-8 bytes at commit36cbbdc868a35bcf5908dfb3792023f1c8c553fb. CSV files use LF.
+# This supersedes the three CRLF-local CSV hashes in the historical SHA256SUMS; CSV rows/data are unchanged.
+cb6e6f733975b0a63b843cdc63417d196815fb591c359fb29144d2a26f261973  exposure_audit_74.csv
+d764ab3d6c9beeb47db3a6d2f01ad13855ca4cb998746cc14cf6a166c3697761  prompt_integrity_41.csv
+1455c52f23b676dc5c940fbac45c13799eb9bacefac5ed0019294332b9455de4  state_findings.json
+501d1e03cef55c6a85b81ff477d2568b3dc57cf6797fe4de2ac4d2e87a7e9879  state_integrity.csv
+4702a34e1b448dc3de100cc0f1f907144f238e62da28ec59eedf1d6bf98f6def  static_QA_report.md
+e6fea6a0eb36260a07817b71f0ac0876204016696db5d786ae2dbf0aa0d40ec7  static_summary.json
