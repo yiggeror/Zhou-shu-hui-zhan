@@ -1,0 +1,107 @@
+{
+ "sheet": {
+  "name": "shot 45 [1284,1293) with the frozen v6 frame n1283 in front for the seam",
+  "frames": [
+   1283,
+   1293
+  ],
+  "grade": {
+   "strength": 1.0,
+   "sigma": 4.0,
+   "modes": {
+    "E04": "luma",
+    "E05small": "luma",
+    "E05b": "luma"
+   }
+  },
+  "frames_sheet": {
+   "1283": {
+    "drawing": "anime/frozen/v6_R_n1283.png",
+    "id": "D16 (v6, frozen)",
+    "frozen": true
+   },
+   "1284": {
+    "drawing": "collab/from_limo/037/completion_001/E01_n1284.png",
+    "id": "E01"
+   },
+   "1285": {
+    "drawing": "collab/from_limo/037/completion_001/E02_n1285.png",
+    "id": "E02"
+   },
+   "1286": {
+    "drawing": "collab/from_limo/037/completion_001/E03_n1286_v2.png",
+    "id": "E03"
+   },
+   "1287": {
+    "hold": "E04",
+    "id": "E04",
+    "mode": "full",
+    "full": "collab/from_limo/037/anchors_001/E04_n1287.png",
+    "ref": 1287,
+    "camera_only": "none",
+    "zoom": 1.0
+   },
+   "1288": {
+    "hold": "E04",
+    "id": "E04",
+    "mode": "full",
+    "full": "collab/from_limo/037/anchors_001/E04_n1287.png",
+    "ref": 1287,
+    "camera_only": "none",
+    "zoom": 1.0
+   },
+   "1289": {
+    "hold": "E05small",
+    "id": "E05small",
+    "mode": "full",
+    "full": "collab/from_limo/042/corrections_001/E05small_n1289.png",
+    "ref": 1287,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "variant_of": "E04",
+    "register_with": "collab/from_limo/037/anchors_001/E04_n1287.png"
+   },
+   "1290": {
+    "hold": "E05b",
+    "id": "E05b",
+    "mode": "full",
+    "full": "collab/from_limo/042/corrections_001/E05b_n1290.png",
+    "ref": 1290,
+    "zoom": 1.0
+   },
+   "1291": {
+    "hold": "E05b",
+    "id": "E05b",
+    "mode": "full",
+    "full": "collab/from_limo/042/corrections_001/E05b_n1290.png",
+    "ref": 1290,
+    "zoom": 1.0
+   },
+   "1292": {
+    "drawing": "collab/from_limo/037/anchors_001/E06_n1292.png",
+    "id": "E06"
+   }
+  }
+ },
+ "code_sha256_16": {
+  "action_window.py": "6ced2fc02ecf2107",
+  "layered.py": "ae9bdeb2e7b7d42b",
+  "frames.py": "07a025a47fe894dc",
+  "review_window.py": "b58cf92d7bc71e6c"
+ },
+ "git_head": "a21de4a53b5626916cbfe8621d7652bcddb3475c",
+ "shutters": [
+  0.0,
+  0.05,
+  0.1,
+  0.15,
+  0.25,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  5.0
+ ]
+}
