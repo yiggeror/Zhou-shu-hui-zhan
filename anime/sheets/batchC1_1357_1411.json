@@ -103,7 +103,21 @@
   "keep_highlights": [
    0.7,
    0.9
-  ]
+  ],
+  "keep_sat": {
+   "N2": [
+    0.35,
+    0.6
+   ],
+   "N3a": [
+    0.35,
+    0.6
+   ],
+   "N3b": [
+    0.35,
+    0.6
+   ]
+  }
  },
  "encode": {
   "sws_flags": "accurate_rnd+full_chroma_int"

@@ -214,6 +214,10 @@ def from_manifest(path, extend):
     return out, paths
 
 
+# drawings whose bright areas are lit surfaces (white hair, skin), not light: only coloured light is kept as drawn
+KEEP_SAT_ONLY = {'C1': ['N2', 'N3a', 'N3b']}     # Limo, 057 msg_004 (P3 enhancement notes)
+
+
 C1_EXTEND = {
     'U3': (1381, 'U4 (n1380) has no image (blocked by the image tool): U3 held one more frame - an approximation from '
                  'approved material, not a new drawing, pending review of the real composite'),
@@ -280,7 +284,9 @@ def build(name, table, flat, frames, out, d=None, msg='051', paths=None):
              'state_label': 'generated/edited picture states (character, effect and background views)',
              'grade': {'strength': 1.0, 'sigma': 4.0, 'modes': {i: 'luma' for i in ids}, 'white_protect': [0.85, 0.97],
                        'grade_at': grade_at, 'wb_same': wb_same, 'wb_from': wb_from, 'glow_hold': glow,
-                       **({} if name == 'A' else {'keep_highlights': [0.7, 0.9]})},
+                       **({} if name == 'A' else {'keep_highlights': [0.7, 0.9]}),
+                       **({'keep_sat': {i: [0.35, 0.6] for i in KEEP_SAT_ONLY.get(name, [])}}
+                          if KEEP_SAT_ONLY.get(name) else {})},
              'encode': {'sws_flags': 'accurate_rnd+full_chroma_int'},
              **({} if name == 'A' else {'keep_highlights_note': 'msg_008: enhanced glows kept as drawn'}),
              'frames_sheet': {k: fs[k] for k in sorted(fs, key=int)}}

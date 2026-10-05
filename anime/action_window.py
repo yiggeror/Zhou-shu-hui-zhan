@@ -1084,6 +1084,14 @@ def apply_grade_luma(img, cv, strength=1.0):
         h0, h1 = cv['keep_highlights']
         sk = np.clip((img.max(2) - h0) / (h1 - h0), 0, 1)
         sk = sk * sk * (3 - 2 * sk)
+        if cv.get('keep_sat'):
+            # only coloured light is kept (saturation s0 -> s1): white hair, pale skin and other lit surfaces of this
+            # drawing are graded like the rest (Limo, 057 msg_004: N2/N3 faces and hair are lit surfaces, not light)
+            q0, q1 = cv['keep_sat']
+            mx = np.maximum(img.max(2), 1e-4)
+            sat = (mx - img.min(2)) / mx
+            ss = np.clip((sat - q0) / (q1 - q0), 0, 1)
+            sk = sk * ss * ss * (3 - 2 * ss)
         l2 = (1 - sk) * l2 + sk * lu
     out = img * (l2 / lu)[..., None]
     wb = cv['wb']
@@ -1110,7 +1118,8 @@ def describe_luma(cv):
             f'white balance B,G,R {np.round(cv["wb"], 3).tolist()}'
             + (f', the drawing\'s own highlights and coloured glows kept (where its brightest channel is above '
                f'{cv["keep_highlights"][0]}, easing to {cv["keep_highlights"][1]}: curve to identity, white balance off)'
-               if cv.get('keep_highlights') else '')
+               + (f' - coloured light only (saturation {cv["keep_sat"][0]} -> {cv["keep_sat"][1]}); white/pale lit '
+                  f'surfaces graded' if cv.get('keep_sat') else '') if cv.get('keep_highlights') else '')
             + (f', faded out towards pure white (smallest channel {cv["protect"][0]}-{cv["protect"][1]})'
                if cv.get('protect') else ''))
 
@@ -1248,6 +1257,8 @@ def main():
                 c0 = dict(c0, protect=tuple(grade['white_protect']))
             if mode == 'luma' and grade.get('keep_highlights'):
                 c0 = dict(c0, keep_highlights=tuple(grade['keep_highlights']))
+                if did in grade.get('keep_sat', {}):
+                    c0 = dict(c0, keep_sat=tuple(grade['keep_sat'][did]))
             # first_only: one grade for the whole hold, fitted at its first exposure.  For a hold whose last original
             # frame differs from the drawing in content (n1291's larger source flame), not only in light, a second fit
             # there would carry that content difference into the colour (Limo, 043: keep the colour continuous; the
@@ -1259,6 +1270,8 @@ def main():
                 c1 = dict(c1, protect=tuple(grade['white_protect']))
             if mode == 'luma' and grade.get('keep_highlights'):
                 c1 = dict(c1, keep_highlights=tuple(grade['keep_highlights']))
+                if did in grade.get('keep_sat', {}):
+                    c1 = dict(c1, keep_sat=tuple(grade['keep_sat'][did]))
             if did in grade.get('glow_hold', {}):
                 # the later exposure keeps the reference exposure's protection mask and, above x0, its curve
                 c1 = dict(c1, ref=c0, hold_hi=tuple(grade['glow_hold'][did]))
