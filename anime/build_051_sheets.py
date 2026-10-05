@@ -308,6 +308,8 @@ if __name__ == '__main__':
         table, cpaths = from_manifest('collab/from_limo/057/manifest_C1_available041.json', C1_EXTEND)
         build(which, table, flat, frames, out or default_out, d, msg, cpaths)
         sys.exit(0)
+    elif which == 'C2' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/C2_50_exposure_table_001.csv')):
+        table = from_csv('collab/from_limo/057/C2_50_exposure_table_001.csv')    # Limo's 50-state lock
     elif which == 'C1' and os.path.exists(os.path.join(ROOT, 'collab/from_limo/057/C1_43_exposure_table_001.csv')):
         table = from_csv('collab/from_limo/057/C1_43_exposure_table_001.csv')    # Limo's lock, 057/msg_001
     build(which, table, flat, frames, out or default_out, d, msg)
