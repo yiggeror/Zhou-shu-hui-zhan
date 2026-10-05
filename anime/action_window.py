@@ -558,6 +558,25 @@ def load_sprite(sp):
     return rgba, np.array([[1, 0, -vx * f], [0, 1, -vy * f], [0, 0, 1]], np.float64), rep
 
 
+def _exposure_counts(fs, ns):
+    """how many frames are single exposures and how many belong to holds (the same image on consecutive frames)"""
+    runs, prev = [], None
+    for n in ns:
+        key = fs[n].get('id', fs[n].get('drawing', fs[n].get('hold')))
+        if runs and key == prev:
+            runs[-1][1] += 1
+        else:
+            runs.append([key, 1])
+        prev = key
+    held = [r for r in runs if r[1] > 1]
+    out = [f'{sum(1 for r in runs if r[1] == 1)} frames are single exposures']
+    if held:
+        out.append(f'{sum(r[1] for r in held)} frames are {len(held)} hold(s) of one image each '
+                   f'({", ".join(f"{k} x{c}" for k, c in held)}; the {sum(r[1] - 1 for r in held)} repeat exposures are '
+                   f'not new drawings)')
+    return out
+
+
 def render_holds(name, hn, fs, O, A, raw):
     """the frames hn of one hold.  mode "fx" (default): the effect-free plate moved by the camera, the original's
     flames rebuilt on top (temporary).  mode "full": a short hold of the full drawing itself, its own drawn flames
@@ -571,7 +590,15 @@ def render_holds(name, hn, fs, O, A, raw):
     else:
         plate_c, Vp = load_canvas(spec['plate'], spec.get('viewport'))
     view = cv2.warpPerspective(plate_c, Vp, (W, H), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
-    Hp, preg = register_plate(view, O[ref])
+    if spec.get('register_with'):
+        # a same-canvas edit of another drawing (e.g. only its effect changed): it takes that drawing's registration,
+        # so the unchanged body stays exactly where it was on the previous exposure
+        other_c, Vo = load_canvas(spec['register_with'], spec.get('full_viewport'))
+        Hp, preg = register_plate(cv2.warpPerspective(other_c, Vo, (W, H), flags=cv2.INTER_CUBIC,
+                                                      borderMode=cv2.BORDER_REFLECT), O[ref])
+        preg = f'the registration of `{spec["register_with"]}` (same canvas; this image is an edit of it): {preg}'
+    else:
+        Hp, preg = register_plate(view, O[ref])
     P = Hp @ Vp                                          # plate pixels -> the reference frame
     if mode == 'full':
         light0 = np.ones((H, W, 3), np.float32)
@@ -615,7 +642,12 @@ def render_holds(name, hn, fs, O, A, raw):
             drawn[fn], drawn_spec[fn] = loaded, sp
     ns = sorted(set(hn) | {ref})
     Hs, cinfo = hold_camera(O, A, ref, ns, raw, spec.get('region'), spec.get('camera'))
-    if spec.get('camera_only') == 'scale':
+    if spec.get('camera_only') == 'none':
+        # held still: the drawing is shown in its own framing on every exposure, no camera move at all
+        for n in ns:
+            Hs[n] = np.eye(3)
+            cinfo[n] += '; NOT USED: held still, no camera move (the drawing shown in its own framing)'
+    elif spec.get('camera_only') == 'scale':
         # the characters move differently from each other inside this hold (no single whole-frame move fits both):
         # keep only the shared push/pull, a uniform scale about the frame centre, and drop rotation and slide
         for n in ns:
@@ -717,7 +749,9 @@ def render_holds(name, hn, fs, O, A, raw):
         out[n] = dict(R=zoomed(res), base=zoomed(base), fx=zoomed(fx_only), cover=zoomed(cover), fill=fill_m[n],
                       base_label=labels[0], fx_label=labels[1],
                       exposed=(int(exposed.sum()), int(zone.sum())), src=(
-            f'{name} repeat exposure (hold, ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
+            f'{name} ' + ('single exposure (1 frame; placed through the hold path for registration and light)' if len(hn) == 1 else
+                          f'exposure {hn.index(n) + 1} of {len(hn)} (hold' + ('' if hn.index(n) == 0 else '; a repeat, not a new drawing') + ')') +
+            f' (ref n{ref}){" PROVISIONAL: " + spec["provisional"] if spec.get("provisional") else ""}; '
             f'{what}, registered to n{ref}: {preg}; {light_s}; '
             f'camera (one {spec.get("camera", CAMERA)} transform of the whole drawing; measured {cinfo[n]}; whole hold zoomed {zoom:.3f} about the centre to '
             f'keep the drawing\'s edges out of frame (at most {MAX_ZOOM}; beyond that its edge colours are smeared in: '
@@ -1152,8 +1186,7 @@ def main():
                 f'{len(bodies)} body/smear states ({", ".join(bodies)})'
                 + (f', {len(variants)} effect variant(s) of an existing body ({", ".join(variants)})' if variants else '')
                 + (f', {len(frozen)} frozen' if frozen else '') +
-                f'; {sum(1 for n in ns if "hold" in fs[n])} frames are exposures of a held image (repeat exposures are not '
-                f'new drawings).\n\n')
+                f'; ' + '; '.join(_exposure_counts(fs, ns)) + '.\n\n')
         for n in ns:
             f.write(f'- n{n}: {src[n]}\n')
     code = {p: sha(os.path.join(os.path.dirname(os.path.abspath(__file__)), p))
