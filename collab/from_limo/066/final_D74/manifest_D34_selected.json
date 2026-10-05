@@ -1,0 +1,773 @@
+{
+  "schema": "D34-photography-inputs-v1",
+  "scope": [
+    1485,
+    1559
+  ],
+  "fps": "24/1",
+  "exposures": 74,
+  "unique_drawings": 34,
+  "repeated_exposures": 40,
+  "states": [
+    {
+      "id": "D_C01",
+      "source_n": 1485,
+      "start": 1485,
+      "end": 1486,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C01_n1485.png",
+      "grade_at": [
+        1485,
+        1485
+      ],
+      "source_sha256": "67bfd91e0cae37a586bc11a64df049f6b23274437c500a3c03622cce90c2c1d4",
+      "output_sha256": "c9a023da81074bb1f73ad6bc132f31c4eecf65711c5a0e098524b99c92a440b5",
+      "git_blob_sha1": "c465197168aa384ae8b9dbcd5d8706bad9f5ebf0",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "One exposure; join directly to frozen n1484. Small debris already exists. Do not call1486 the first debris of the entire shot.",
+      "producer_residual": "Fine source details are simplified as ink/cel linework; twilight saturation slightly increased."
+    },
+    {
+      "id": "D_C02",
+      "source_n": 1486,
+      "start": 1486,
+      "end": 1489,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C02_n1486.png",
+      "grade_at": [
+        1486,
+        1486
+      ],
+      "source_sha256": "ae92b3b72ecbf3080cff5f566f3e6babd0eab607e8c26fc7f0c5c9c106b4536e",
+      "output_sha256": "2dc626cba9eb2c7cf2bcd01240b1be7c690462c827cfb485eece8c33b32a2444",
+      "git_blob_sha1": "05f5d20e73f204e35a7182227d68fafef63bf0f6",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Three-frame sample of debris passage;1497-style pose loops prohibited. Omit intermediate block trajectories, not the1486 cluster onset.",
+      "producer_residual": "Fine source details are simplified as ink/cel linework; twilight saturation slightly increased."
+    },
+    {
+      "id": "D_C03",
+      "source_n": 1489,
+      "start": 1489,
+      "end": 1493,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C03_n1489.png",
+      "grade_at": [
+        1489,
+        1489
+      ],
+      "source_sha256": "4355242c53e99b029e73387b22ea5a27a2eaef3156d1a5450b5f1f81e3359129",
+      "output_sha256": "d5c3373a4743db640b242fe7d9b4b192b461d5c0f14bfe8efc42de076ba23442",
+      "git_blob_sha1": "a7f705466cb2c886755585e28dc86a5e1b2b6337",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Four-frame discrete composition hold. Background tower motion and minor debris motion are sampled, not reproduced by whole-frame movement.",
+      "producer_residual": "Fine source details are simplified as ink/cel linework; twilight saturation slightly increased."
+    },
+    {
+      "id": "D_C04",
+      "source_n": 1493,
+      "start": 1493,
+      "end": 1497,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C04_n1493.png",
+      "grade_at": [
+        1493,
+        1493
+      ],
+      "source_sha256": "581da99c776631b9e157040aa810bda1d3c86b7ac395139f41aaa65f6e8cc0f3",
+      "output_sha256": "a84916e56b748ec3e76260b887cde4492a3046a996f0f7bf111cd9fe05c39a4d",
+      "git_blob_sha1": "366726a223d0176e78548bb24ced6324b8acedca",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Four-frame sample of the passing-tower phase; same flight action, not a claimed new body action.",
+      "producer_residual": "Fine source details are simplified as ink/cel linework; twilight saturation slightly increased."
+    },
+    {
+      "id": "D_C05",
+      "source_n": 1497,
+      "start": 1497,
+      "end": 1501,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C05_n1497.png",
+      "grade_at": [
+        1497,
+        1497
+      ],
+      "source_sha256": "6c4db8a2bdbce4b05a84ac97fbd64ee500eb03b57d5555673b5ea538ea5de73e",
+      "output_sha256": "9f58598f3e07d2a5a64ee0299c286aecb381802cdd9a3f74ef123d028b68ec5e",
+      "git_blob_sha1": "4a68fb2cfd00bf2fc5a330eadfcd9aff15196d82",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Four-frame hold omits the last intermediate building drift. No manufactured global pan, zoom, body warp, or repeated pose cycle.",
+      "producer_residual": "Fine source details are simplified as ink/cel linework; twilight saturation slightly increased."
+    },
+    {
+      "id": "D_C06",
+      "source_n": 1501,
+      "start": 1501,
+      "end": 1502,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C06_n1501.png",
+      "grade_at": [
+        1501,
+        1501
+      ],
+      "source_sha256": "802cd5767b9b14c8c7c36e903db79347c1690a66c70c3b21cc3f95f62327c1db",
+      "output_sha256": "7db6e8da9aaaa1d50a4cc222c57d244c3049c1954421f003478bdbb4950c1bea",
+      "git_blob_sha1": "814a41f3daf9cc94473876e919388d2974a1341a",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Single exposure; preserve source softness. Not a clean enlarged copy of the city hold.",
+      "producer_residual": "Framing corrected on call2. Some trouser and forearm contours remain cleaner than the intentionally soft source; independent static/focus QA should assess the one-exposure transition."
+    },
+    {
+      "id": "D_C07",
+      "source_n": 1502,
+      "start": 1502,
+      "end": 1503,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C07_n1502.png",
+      "grade_at": [
+        1502,
+        1502
+      ],
+      "source_sha256": "fdb0f52605a5e7115743c05d95408b3b323a65af623ba418d53aee324b2265a9",
+      "output_sha256": "03fb48bf1d36c7db5a516d4b3abde4bcbae49bd69b30dcb32f67925d3588cbd9",
+      "git_blob_sha1": "8f622fc09347379cd1ebe974a8114103b6440262",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Single exposure; cooling begins by this source frame and must not wait until1503.",
+      "producer_residual": "Framing corrected on call2. Some trouser and forearm contours remain cleaner than the intentionally soft source; independent static/focus QA should assess the one-exposure transition."
+    },
+    {
+      "id": "D_C08",
+      "source_n": 1503,
+      "start": 1503,
+      "end": 1504,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_C08_n1503.png",
+      "grade_at": [
+        1503,
+        1503
+      ],
+      "source_sha256": "37b889b9cf533ed34d41778c023b0cede7e720a12e969dcec9e0166adeb9cbf3",
+      "output_sha256": "738d935fd748bceaf997e579a4bb2f2b90d46f3efaa4c78b46db2da2b128b992",
+      "git_blob_sha1": "516bf50a29498b88487d9301948da9d750e84dd2",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Single exposure; retain actual directional blur, not decorative speed lines around crisp anatomy.",
+      "producer_residual": "Directional smear retained throughout face/body/background; no crisp reconstructed facial anatomy."
+    },
+    {
+      "id": "D_G01",
+      "source_n": 1504,
+      "start": 1504,
+      "end": 1506,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G01_n1504.png",
+      "grade_at": [
+        1504,
+        1504
+      ],
+      "source_sha256": "34e38cd927dfaf70722bc757769ad32e35c41b6cd4b8361be4040899aff56865",
+      "output_sha256": "8b1625f24155411f4fd9edc44a7a1b42e1947a734203fcd7b9d4a600b8ad01f4",
+      "git_blob_sha1": "ce246380b9c1998c1de4708c6aef2938f36a166e",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Two-frame hold simplifies eyelid opening from1504 to1505. This is not a newly ignited eye at1506.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_G02",
+      "source_n": 1506,
+      "start": 1506,
+      "end": 1507,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G02_n1506.png",
+      "grade_at": [
+        1506,
+        1506
+      ],
+      "source_sha256": "1b1eaccbe117a14e05cf8e706e898897491b2f085c67b834e013210ede0fefdb",
+      "output_sha256": "41446c566ddd6e58eed944073b68adba0de99eb39506c8bf66bc63dcf67d0cbc",
+      "git_blob_sha1": "d8ec5952831e193e426245b494ec88f6812204b8",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Single exposure preserves the eye-opening step.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_G03",
+      "source_n": 1507,
+      "start": 1507,
+      "end": 1508,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G03_n1507.png",
+      "grade_at": [
+        1507,
+        1507
+      ],
+      "source_sha256": "e88b065dad2bb9c6b9c7abcc37e170312807d44091ecc6a249c3b6fa9a37d15e",
+      "output_sha256": "b50cf03f3e76b7deee3e49c6e13c415a28b5b73e90539f7ae77ab86caf362715",
+      "git_blob_sha1": "e02a26210ef22c4ba3bf283f1cbe5c5510f0e9eb",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Single exposure. Keep hand absent at this frame; do not delay the ring reveal to1508.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_G04",
+      "source_n": 1508,
+      "start": 1508,
+      "end": 1510,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G04_n1508.png",
+      "grade_at": [
+        1508,
+        1508
+      ],
+      "source_sha256": "77d93689acbb071f9e94ac5edfe57addeb3a2ac7dfc40c93a92378e7669b79aa",
+      "output_sha256": "77ac376d48c6362403be0b04fe23e0834f837dcdf11add583ff64671fcbcdfd8",
+      "git_blob_sha1": "74db4aefa31514680a401bf2b9502d6df7a9bf2a",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Two-frame sample of the rising hand. Maintain white-cyan eye core; small iris shape differences alone do not require another drawing.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_G05",
+      "source_n": 1510,
+      "start": 1510,
+      "end": 1512,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G05_n1510.png",
+      "grade_at": [
+        1510,
+        1510
+      ],
+      "source_sha256": "850d0b2591f96df5b3785b401d3f11c1c6fe058f19a53f775e5dbfef2f2722cb",
+      "output_sha256": "3b770cd580c86428702e996837d2e74843258651ddfdc79b2c5aabeadfb9dbf5",
+      "git_blob_sha1": "067e34fa47b87846daf45fdd8836025de73e7d3a",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Two-frame sample of this real hand-key transition; do not warp G04 fingers into it.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_G06",
+      "source_n": 1512,
+      "start": 1512,
+      "end": 1521,
+      "path": "collab/from_limo/066/batchD_P1/selected/D_G06_n1512.png",
+      "grade_at": [
+        1512,
+        1512
+      ],
+      "source_sha256": "f3db5dc323fc3690b8a791c04d18d614d73c117a86e67e54f589d8f87cc44cbe",
+      "output_sha256": "e23882fa1049f7993e52dc58b37a7930740179b9b69d6cc7f597b6329c084923",
+      "git_blob_sha1": "eaad756c31ee73c44f7659a48043edfe9d8d0c1d",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "be1d24bf10fe441e3e1ba5772c80fc3b4529f032d0834367b8340bb21079a6b0",
+      "hold_approximation": "Nine-frame limited-animation hold (0.375s) intentionally omits small head/hand drift and city parallax. Source-led light grading may evolve without geometry changes. Optional n1516 composition anchor is separate.",
+      "producer_residual": "Ordinary skin and hair values are moderately lifted relative to dark source; source-specific photography may grade ordinary surfaces without suppressing cyan-white iris cores."
+    },
+    {
+      "id": "D_S01",
+      "source_n": 1521,
+      "start": 1521,
+      "end": 1522,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S01_n1521.png",
+      "grade_at": [
+        1521,
+        1521
+      ],
+      "source_sha256": "e9ed8208846c0664f888d5aea9a6c7f9e1ed933092acb683fea57199226e41ac",
+      "output_sha256": "4405e0024fa0cd6d53cf3fc2c716d8db24334f695d7af1754c4c2215947f886c",
+      "git_blob_sha1": "aecd26b50f58f4aa7b8a776a5e58de6a3b4d60ad",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure; do not prematurely center the face or show a red eye.",
+      "producer_residual": "None material observed locally."
+    },
+    {
+      "id": "D_S02",
+      "source_n": 1522,
+      "start": 1522,
+      "end": 1523,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S02_n1522.png",
+      "grade_at": [
+        1522,
+        1522
+      ],
+      "source_sha256": "01aeec06ce7aa02927b5b630ab6b3954fed0118c39c34bf2d1d5e2d49e261221",
+      "output_sha256": "f74a34b5c038853961302720af1fb9b4b97852f3f4054b1b6df0f47c4f45f0a9",
+      "git_blob_sha1": "9bc7218f40e78099489bbd54debb0d40de4e4cd8",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure before the lower red-eye reveal.",
+      "producer_residual": "None material observed locally; visible lids closed and no red reveal."
+    },
+    {
+      "id": "D_S03",
+      "source_n": 1523,
+      "start": 1523,
+      "end": 1525,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S03_n1523.png",
+      "grade_at": [
+        1523,
+        1523
+      ],
+      "source_sha256": "b6cf48f88c3c3f3d93727f77464e132d9272225f602e528983cbf7cc5a3f780c",
+      "output_sha256": "821b927da0328b5c6492e94b69400369791e1163631f7ae484210574772354db",
+      "git_blob_sha1": "bc542f50f7e6932de1f31cb4d10f2a40c5cc32ca",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Two-frame hold samples side travel and warm-up. Preserve this reveal at1523.",
+      "producer_residual": "Ordinary surfaces slightly brighter than source; main lid remains closed."
+    },
+    {
+      "id": "D_S04",
+      "source_n": 1525,
+      "start": 1525,
+      "end": 1526,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S04_n1525.png",
+      "grade_at": [
+        1525,
+        1525
+      ],
+      "source_sha256": "a8d9228270ef5c65af0da7230545987e8e820025079075417d1e5f11508169c6",
+      "output_sha256": "1886356e0459e38d97ae397cddf6462c0388024a1c533c08198bea2ab4b21fe0",
+      "git_blob_sha1": "9e27eff09066a024da9892428d0a62a38f28d6e8",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure; avoid importing the fully open1526/1528 eye.",
+      "producer_residual": "Ordinary skin/clothing brighter than source; main eye narrow dark opening with no clear iris. Assess bounded surface grading, not blanket emissive protection."
+    },
+    {
+      "id": "D_S05",
+      "source_n": 1526,
+      "start": 1526,
+      "end": 1528,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S05_n1526.png",
+      "grade_at": [
+        1526,
+        1526
+      ],
+      "source_sha256": "9037c454803d78d3bc4a934d9af1d413eece7e94f386c4c8bb946830b7cae2e7",
+      "output_sha256": "1323595db1bb8c6610465d67831f26d1228903708812e3e573b06201dd5ae7ec",
+      "git_blob_sha1": "45b57d95f73dd2c7a6225153b5bff888a761201d",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Two-frame eye-opening hold; slight camera motion is a declared approximation.",
+      "producer_residual": "Ordinary skin/clothing brighter than source. Assess source-led surface grading without dulling actual red effects."
+    },
+    {
+      "id": "D_S06",
+      "source_n": 1528,
+      "start": 1528,
+      "end": 1532,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S06_n1528.png",
+      "grade_at": [
+        1528,
+        1531
+      ],
+      "source_sha256": "4cb64dfc271ea4cd8fb384b304bb6193a1c1d0e7dc683f13be9eee9c676ebd9f",
+      "output_sha256": "bfc8546132c7510e0346001d91648dbe1188691f5733de22a1c14f3d61494ac8",
+      "git_blob_sha1": "375a066fcafe7c102d20f071abbddb529ebf4281",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Four-frame settled side-sign hold. n1532 introduces a separately drawn later light/viewpoint sample; no whole-frame camera or body warp.",
+      "producer_residual": "Ordinary skin/clothing brighter than source. Its four-frame hold must stop before1532; do not stretch to1537."
+    },
+    {
+      "id": "D_S06b",
+      "source_n": 1532,
+      "start": 1532,
+      "end": 1537,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S06b_n1532.png",
+      "grade_at": [
+        1532,
+        1536
+      ],
+      "source_sha256": "a44cd7276af14c79df50e338fa75ed45e2a229141f4701b039c0bb4c38671ae8",
+      "output_sha256": "b2fa3927a9167511d2d434ac22c3e0d44d15b91febad3f5b3cd243c2bd4097ef",
+      "git_blob_sha1": "647e9b3d89247d861ee9792493c90a052bbcccb6",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Five-frame late light/viewpoint hold; body action remains settled. Minor remaining drift and light progression may be approximated by source-led endpoint grading, never a manufactured camera or an early future pose.",
+      "producer_residual": "Ordinary surfaces brighter and red/green balance warmer than own source. Conditioned static pass reported by coordinator; assess actual-speed grade/seam before final composite."
+    },
+    {
+      "id": "D_S07",
+      "source_n": 1537,
+      "start": 1537,
+      "end": 1538,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S07_n1537.png",
+      "grade_at": [
+        1537,
+        1537
+      ],
+      "source_sha256": "e996f94257707f17b63a6d525d0054d9f624a46b0822c55769beb48b14ad92bc",
+      "output_sha256": "07b9ee2e83f9430ff2e281fcd51a5cdc82edec9982d0e96c15963e308d5d4cdf",
+      "git_blob_sha1": "15cf0db97b0004afef88e890bed777e95e094214",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure; preserve the onset instead of carrying the sharp settled pose across1537.",
+      "producer_residual": "Hand blur deliberately retained. Ordinary surfaces moderately brighter; preserve source red streak and narrow edge-light core in grading."
+    },
+    {
+      "id": "D_S08",
+      "source_n": 1538,
+      "start": 1538,
+      "end": 1539,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S08_n1538.png",
+      "grade_at": [
+        1538,
+        1538
+      ],
+      "source_sha256": "d57a6b420651133b9c74e9c7c715320f74904c3b7c8c160857bbed4a3436da23",
+      "output_sha256": "ca5bbf963b5ae0ecd82751550a2f879b35d4b0c1795087dce73afee013163a8a",
+      "git_blob_sha1": "f6497e604d63fe8545e82ee52a2fcefc450947a0",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure; preserve source crop and smear.",
+      "producer_residual": "Horizontal face/hand blur deliberately retained; selected second call restores source-motion softness."
+    },
+    {
+      "id": "D_S09",
+      "source_n": 1539,
+      "start": 1539,
+      "end": 1540,
+      "path": "collab/from_limo/066/batchD_P2/selected/D_S09_n1539.png",
+      "grade_at": [
+        1539,
+        1539
+      ],
+      "source_sha256": "828535384817100295f572b8507a550cf6b9ce7db351157abbd5f076923eaee1",
+      "output_sha256": "069d2f3d52ad91eba273df5a06d029abb8668ad188acf1835467a94e171942f3",
+      "git_blob_sha1": "da67c1b4731e2740449e25b831c1d47ccdbea7be",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "07d8fffb77dcd265a2c81f87fdc87f526544ffeaa62a86c20e85a76566bea73b",
+      "hold_approximation": "Single exposure; this is not yet the frontal view and not a white/red flat flash.",
+      "producer_residual": "Extreme side-eye crop retained with broad horizontal smear, no frontal reconstruction. Selected retry is smoother than rejected first call; some black edges remain firmer than source and need independent actual-speed seam review."
+    },
+    {
+      "id": "D_F01",
+      "source_n": 1540,
+      "start": 1540,
+      "end": 1542,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_F01_n1540.png",
+      "grade_at": [
+        1540,
+        1540
+      ],
+      "source_sha256": "1dc7aa64cc4d7c3d313ae018ac8cd989fe7dcca6b55f01f348073d10be8b8cd1",
+      "output_sha256": "023027d580fbaca887a24b265fa76070cf77a51fbacfdde4599bdeeb23a1fbbc",
+      "git_blob_sha1": "2dd1a5859fd48dfe85a9d1ad2f93098deb2d01d5",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Two-frame blur-family hold; optional n1541 is a camera/blur intermediate, not a new body pose. Do not brighten to a clear illustration.",
+      "producer_residual": "Source blur is interpreted as directional ink smear; no clean anatomy reconstructed."
+    },
+    {
+      "id": "D_F02",
+      "source_n": 1542,
+      "start": 1542,
+      "end": 1543,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_F02_n1542.png",
+      "grade_at": [
+        1542,
+        1542
+      ],
+      "source_sha256": "777165c8acf61d0967c5fb5d2edced993d2484514bee42b9ccb8ad14857f5107",
+      "output_sha256": "e04a9b92e401eaa45bbf1a521c7c8ad007ec10b2885cdc19dc713a5eaf0cbcb5",
+      "git_blob_sha1": "f69e49a8b1898061fae3882b73f0745795159141",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Single exposure; it bridges the occluded smear to sharp fingertips.",
+      "producer_residual": "Mild local palette/linework variation from the source; no material pose or framing error found."
+    },
+    {
+      "id": "D_F03",
+      "source_n": 1543,
+      "start": 1543,
+      "end": 1544,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_F03_n1543.png",
+      "grade_at": [
+        1543,
+        1543
+      ],
+      "source_sha256": "c10c3850cca0581a4275485bfc67a6f144a91bfb011c947ef793b3416c31d4a9",
+      "output_sha256": "6a4dcb73b26f38eb1ac8ac3e5dfd61af36a822c39fceb329f11ca2fd6cbe16d2",
+      "git_blob_sha1": "054e6390514bf31332710520572b7116e88eff25",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Single exposure before the smile becomes fully readable.",
+      "producer_residual": "Mild local palette/linework variation from the source; no material pose or framing error found."
+    },
+    {
+      "id": "D_F04",
+      "source_n": 1544,
+      "start": 1544,
+      "end": 1548,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_F04_n1544.png",
+      "grade_at": [
+        1544,
+        1544
+      ],
+      "source_sha256": "a2e7714bf9938a08120215833a91c631b6afdc1a337eb462d7356cdb9da7f0c4",
+      "output_sha256": "94bd3ef7e59f643adc1c3eeb049e1056e85c5aad23a23b16a8a339ef13a5244b",
+      "git_blob_sha1": "4d72af1acc06838ce4ef46f58e5beca1cec38e97",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Four-frame hold of quiet expression; minor pullback is omitted. No black halo before1548.",
+      "producer_residual": "Mild local palette/linework variation from the source; no material pose or framing error found."
+    },
+    {
+      "id": "D_D01",
+      "source_n": 1548,
+      "start": 1548,
+      "end": 1550,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D01_n1548.png",
+      "grade_at": [
+        1548,
+        1548
+      ],
+      "source_sha256": "0cb724aa714f017bac5b0f25de5c2745871244326840ec16fff063eeeb124511",
+      "output_sha256": "16ea15d2a97c07922284d58151ebc7af6b1956ea89f4c3be59a2bdcf17dcf0b5",
+      "git_blob_sha1": "e36db36026316b9fef8968793dabe7a2addc504b",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Two-frame sample;1549 has greater expansion, intentionally omitted. The black effect onset remains exactly1548.",
+      "producer_residual": null
+    },
+    {
+      "id": "D_D02",
+      "source_n": 1550,
+      "start": 1550,
+      "end": 1552,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D02_n1550.png",
+      "grade_at": [
+        1550,
+        1550
+      ],
+      "source_sha256": "ed8459e887306a0fc4b78a48f57e49a2c9c340e53e5c3eabac2f448f9085d4ed",
+      "output_sha256": "aad6b08f0e017a2796839155621e0f58ec3f023816554788cc201b006d86cbcb",
+      "git_blob_sha1": "ebb93636b62627bb289a2554a5a8c9afc26a0cfc",
+      "native_dimensions": [
+        1671,
+        941
+      ],
+      "selected_call": 2,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Two-frame FX/composition hold, not a new body action. n1551 matte/rim progression is sampled.",
+      "producer_residual": "Native output is 1671x941, one column narrower than target. Original bytes retained. Compositor may extend one smooth edge column after review; no artwork resize/crop/stretch performed."
+    },
+    {
+      "id": "D_D03",
+      "source_n": 1552,
+      "start": 1552,
+      "end": 1553,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D03_n1552.png",
+      "grade_at": [
+        1552,
+        1552
+      ],
+      "source_sha256": "15484468b3e06a56043ca36d9ac04b8f4c3ed2186facf418763c6370296e08cf",
+      "output_sha256": "59bcc00ea9318875dd56639e1fb2caaa4ce21738b298c8ab83797bf28944dfdf",
+      "git_blob_sha1": "7e9e81e066975b2f172bf75e0f9373949a6fe06a",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Single exposure; do not erase the last small highlights prematurely or call this full black.",
+      "producer_residual": "Minor hand-drawn contour, hatching and local underlight variation; exact source crop and event remain governing."
+    },
+    {
+      "id": "D_D04",
+      "source_n": 1553,
+      "start": 1553,
+      "end": 1554,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D04_n1553.png",
+      "grade_at": [
+        1553,
+        1553
+      ],
+      "source_sha256": "d1af4016d51dfa0487dfa4053b4fef54ca948a1b4411329144b41d4c0cb9059e",
+      "output_sha256": "08eaefe539fa542e22166033afdf686f66e51e2fd2bcae4fc5b0e2484dcecc82",
+      "git_blob_sha1": "3703ec11b3fb31daaa00b6b6f87dbe0430e880f9",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Single exposure; this is a light-state transition, not a new body pose.",
+      "producer_residual": "Minor hand-drawn contour, hatching and local underlight variation; exact source crop and event remain governing."
+    },
+    {
+      "id": "D_D05",
+      "source_n": 1554,
+      "start": 1554,
+      "end": 1557,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D05_n1554.png",
+      "grade_at": [
+        1554,
+        1554
+      ],
+      "source_sha256": "f1bd7c25c063aebf70999c4b27549591eee60cd25d486689bea5c815e3642f37",
+      "output_sha256": "bd33ba1500256b4e460d988ae31a7b9c5a59b02859ebadfc115a5a947ca3690d",
+      "git_blob_sha1": "7daff2f0a6871705d2965ba097ca78654a20a0f1",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Three-frame hold. Never replace the whole frame with black: the character remains visible.",
+      "producer_residual": "Ordinary lower-face/neck/forearm warm underlight surfaces are slightly brighter than source; preserve red eyes and dark upper face while compositor may make a restrained surface-only adjustment. Source-specific crop and light-state event retained."
+    },
+    {
+      "id": "D_D06",
+      "source_n": 1557,
+      "start": 1557,
+      "end": 1559,
+      "path": "collab/from_limo/066/batchD_P3/selected/D_D06_n1557.png",
+      "grade_at": [
+        1557,
+        1557
+      ],
+      "source_sha256": "62b29a514cee8d42e1f4e6c4cb76908a5a7c2e29f69ba16c8f06fb4a092fb932",
+      "output_sha256": "14217cac67215a7d20ec037d0f806d4fabf7acd96758d545f1261d63382f856f",
+      "git_blob_sha1": "fff27303d72588542285b9e8b25357bd25962009",
+      "native_dimensions": [
+        1672,
+        941
+      ],
+      "selected_call": 1,
+      "producer_manifest_sha256": "b1fdf0cdaa0300a9c6aed3893da4559e8514b2ac403eca9949cd19f8257b981c",
+      "hold_approximation": "Two-frame hold before the cut. n1558 is farther out; that final viewpoint difference is accepted, with an optional anchor listed separately.",
+      "producer_residual": "Ordinary lower-face/neck/forearm warm underlight surfaces are slightly brighter than source; preserve red eyes and dark upper face while compositor may make a restrained surface-only adjustment. Source-specific crop and light-state event retained."
+    }
+  ],
+  "plan_sha256": "956d9655d31c46b90204cef56ef0199436d3d362ff84044b84cc8811607a1229",
+  "upstream_commit": "08562d6df304c2cdc57accb3613d1d67b201e040",
+  "source_video_sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+  "no_standins": true,
+  "no_flat_fields": true,
+  "selected_grading": "G baseline retained after rejected endpoint comparison; S06/S06b source-led endpoint grading; saturation-limited highlight protection on S04/S05/S06/S06b only",
+  "keep_sat_ids": [
+    "D_S04",
+    "D_S05",
+    "D_S06",
+    "D_S06b"
+  ]
+}

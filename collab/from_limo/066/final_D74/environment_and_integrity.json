@@ -1,0 +1,26 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "numpy": "2.4.6",
+  "opencv_python_headless": "5.0.0.93",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+  "source_full_decode": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "av1",
+        "width": 2560,
+        "height": 1440,
+        "pix_fmt": "yuv420p",
+        "color_range": "tv",
+        "color_space": "bt709",
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "3499"
+      }
+    ]
+  },
+  "upstream_commit": "08562d6df304c2cdc57accb3613d1d67b201e040",
+  "core_baseline": "73ff857dbb69945a36aa6eb0e751907b5358d48d",
+  "code_and_assets_unchanged": true
+}

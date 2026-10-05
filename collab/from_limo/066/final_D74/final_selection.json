@@ -1,0 +1,141 @@
+{
+  "scope": [
+    1485,
+    1559
+  ],
+  "drawings": 34,
+  "exposures": 74,
+  "repeated_drawing_exposures": 40,
+  "selected_unique_native_pixel_frames": 41,
+  "photo_runs": [
+    {
+      "name": "shot58_baseline",
+      "frames": [
+        1485,
+        1504
+      ],
+      "return_code": 0,
+      "wall_seconds": 108,
+      "peak_child_rss_GiB": 3.54,
+      "video_sha256": "1503cb9e544f0bf4a104c8e86255768ed18c182e58324d6cc969074dd1f383de",
+      "sheet_sha256": "78a54b426988485380744ee814c446cb25f61d3441c44b9f6a6e47922354a42a",
+      "run_json_sha256": "ef3fdd5a860bc3e4f7c6cfc681d572c47b3012f6929b7d3d88769e1487b2b827",
+      "sources_sha256": "adb42f2967c1f09bda9b21035943d054ebc39d6b2c0b47d7a07b6396cfb0ce72",
+      "selected": true,
+      "recovery_output": "$OUT/shot58"
+    },
+    {
+      "name": "shot59_baseline",
+      "frames": [
+        1504,
+        1521
+      ],
+      "return_code": 0,
+      "wall_seconds": 138,
+      "peak_child_rss_GiB": 3.52,
+      "video_sha256": "ccbafd7ca4199b73592d11e6048fa54157c60151c7d33c83085126db39764143",
+      "sheet_sha256": "39df0db48b681b27fac3472d3685a2625f70024b67be96b17f83e793d2d8da63",
+      "run_json_sha256": "b8d4a31b96e06666c7796e6247ee8c5b8f52ea03b5582cbe862bc6101830c107",
+      "sources_sha256": "8630ad0610a1b73a530e94f4f4753f2651c8966966fcd3fef0811cf59e36ddba",
+      "selected": true,
+      "recovery_output": "$OUT/shot59"
+    },
+    {
+      "name": "shot60_baseline",
+      "frames": [
+        1521,
+        1540
+      ],
+      "return_code": 0,
+      "wall_seconds": 91,
+      "peak_child_rss_GiB": 3.36,
+      "video_sha256": "83709d3e99cab3df284d54e986881a245b9aba9213af8f8d75227e5da800d789",
+      "sheet_sha256": "8a68a63a45ba146268f46e8bee24385f049d642adb3a6fd58287571afcfa2bc5",
+      "run_json_sha256": "1c039b7af322eb43bcb6daad20e8635ba2e1882c88095dd66941f5edccd32e8c",
+      "sources_sha256": "c122c7aa1ff99d250799e9752569eb13a45ed82dccf6a7c7b6d00ff36bdb1a59",
+      "selected": false,
+      "recovery_output": "unselected comparison run; not recreated by the selected recovery helper"
+    },
+    {
+      "name": "shot61_baseline",
+      "frames": [
+        1540,
+        1559
+      ],
+      "return_code": 0,
+      "wall_seconds": 116,
+      "peak_child_rss_GiB": 3.4,
+      "video_sha256": "7d8a403e52e711dac8d8c01e2d1ab92b81794bc83e3bcbb25614abcf8c2f9fe5",
+      "sheet_sha256": "dad652230b2e5878ab335f2427cd018fff4785a7fc52fffd3d6b6cc44c9fe484",
+      "run_json_sha256": "1945b853cc8b0eb0554b5abf958436b77cc00a881bbbbc2e167c1392c71e7ce7",
+      "sources_sha256": "199ea7c12b6629dfbbefc58d91139c03540b49387b1c06dae422657a6d6b0ac4",
+      "selected": true,
+      "recovery_output": "$OUT/shot61"
+    },
+    {
+      "name": "G06_endpoint",
+      "frames": [
+        1512,
+        1521
+      ],
+      "return_code": 0,
+      "wall_seconds": 95,
+      "peak_child_rss_GiB": 2.43,
+      "video_sha256": "8ca8d18c766cdb2812508af00631b5d0eb56588b20ebf6d25202d7ff144c248b",
+      "sheet_sha256": "d62b137434c20a353203e877ccf1e68308588cd20d4424c8271d760540815505",
+      "run_json_sha256": "f37cd76f5f2eb071858d4999633b1d573b8011b9a7a42c855497956c7d418e9a",
+      "sources_sha256": "f712ec49e270fc52b4d325719cacec77fa02e8619b450274bcd3e742360e9874",
+      "selected": false,
+      "recovery_output": "unselected comparison run; not recreated by the selected recovery helper"
+    },
+    {
+      "name": "shot60_endpoint_satsurf",
+      "frames": [
+        1521,
+        1540
+      ],
+      "return_code": 0,
+      "wall_seconds": 107,
+      "peak_child_rss_GiB": 3.35,
+      "video_sha256": "b8a968246aee8d5c88df7cfdbffb7d04d956e2c3c5a4768aff73eee42ca513a6",
+      "sheet_sha256": "3b00b88acc52b23d2815596172e8fafe7f654c2a118e24303797be5edcc2cf0c",
+      "run_json_sha256": "8d89fa5b7b90450f0b3121f7913543e50e5af067e591d9c73593892d4763fb3d",
+      "sources_sha256": "c268c7cd8edd54f4370a00a344429c8d5032ebdfc2da2e1482e1307fbf02063f",
+      "selected": true,
+      "recovery_output": "$OUT/shot60"
+    }
+  ],
+  "sequential_photography_only": true,
+  "full74_simultaneous_render_performed": false,
+  "largest_measured_photo_child_rss_GiB": 3.54,
+  "rss_note": "Linux ru_maxrss is max child resident set, not concurrent aggregate RSS.",
+  "final_sheet": "D34_selected.json",
+  "final_manifest": "manifest_D34_selected.json",
+  "upstream_commit": "08562d6df304c2cdc57accb3613d1d67b201e040",
+  "pixel_core_baseline": "73ff857dbb69945a36aa6eb0e751907b5358d48d",
+  "native_canvas": [
+    1672,
+    941
+  ],
+  "video_canvas": [
+    1672,
+    942
+  ],
+  "selected_art_one_pixel_exception": {
+    "id": "D_D02",
+    "native": [
+      1671,
+      941
+    ],
+    "pad": "right1 replicated column before fixed registration",
+    "edge_steps_255": {
+      "left": 0.85,
+      "right": 0.49
+    }
+  },
+  "source_sha256": "9dae3a6eb8e1d420188d81a143a21b37400d2a5b37e768249eb26e37fdf62447",
+  "frozen298_sha256": "d0b0f07cbc6f52451be496d09d7865557b573dbcc36f1c5c265da1247b2da853",
+  "final_D74_sha256": "a3a00cc922125efc203bc03c60a7f895c2932eea8b878f431518b22f20a884e1",
+  "joined372_sha256": "5d81b3a4a60d36a9be29a6293c5b8848d4a15aa0bc7eb600c6dd482bd287ac9a",
+  "public_copy_note": "Hashes refer to original executed slice artifacts; recovery paths are normalized labels. A regenerated run JSON may differ in metadata paths/unused grade keys while native pixel hash checks remain exact."
+}

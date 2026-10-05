@@ -1,0 +1,71 @@
+{
+  "purpose": "Public-safe artifact-location normalization only. Original files are unchanged. No original source images/video, rejected drawings or native output PNGs included.",
+  "variables": {
+    "$REPO": "repository checkout root",
+    "$PKG": "this published final_D74 directory",
+    "$OUT": "a fresh user-selected local recovery output"
+  },
+  "art_paths": "Exact repository-relative paths preserved.",
+  "original_artifact_checksums": {
+    "D34_selected.json": {
+      "original_local_artifact": "sheets/D34_selected.json",
+      "original_sha256": "61fe9c26fe6a1174fbda11946e647fa3add3fcc28604dc30611f3ad71413a755"
+    },
+    "manifest_D34_selected.json": {
+      "original_local_artifact": "manifests/D34_selected.json",
+      "original_sha256": "badaa64348418e1e921dccb95e6496a449bd8e7a593031952a4121100dee7243"
+    },
+    "verified_code_manifest.json": {
+      "original_local_artifact": "verified_code_manifest.json",
+      "original_sha256": "d150bc6cc8da18799edceb81f363d1ed72f77365188b22a95bd960d6f0b7f6cf"
+    },
+    "reproduce_D34.py": {
+      "original_local_artifact": "reproduce_D34.py",
+      "original_sha256": "0ae398e32253fd4e200ef039c98cfa66f3f9341d69d652e8eb0634e9bf54efca"
+    },
+    "sources.md": {
+      "original_local_artifact": "candidates/D74_selected/sources.md",
+      "original_sha256": "4666cb3676b19a152a89326355dbfbe2f45792b96ce65d1aad296bbf9ab2f9fe"
+    },
+    "native_BGR_PIXEL_MD5SUMS": {
+      "original_local_artifact": "candidates/D74_selected/native_BGR_PIXEL_MD5SUMS",
+      "original_sha256": "21e2a32cff0704e78c9dd62d43899ec3a21fb8b515fd536d19836921d14664eb"
+    },
+    "native_SHA256SUMS": {
+      "original_local_artifact": "candidates/D74_selected/native_SHA256SUMS",
+      "original_sha256": "ecca62cf94f66e740d5437d12896d78ac936e0548a394186963bdf03ea00f050"
+    },
+    "verify_D74_selected.json": {
+      "original_local_artifact": "logs/verify_D74_selected.json",
+      "original_sha256": "72cd4a67aa9d7797e3bf2e20b0d9d5ec6f70e282d4301e675a7c2619cbac11aa"
+    },
+    "verify_join372_selected.json": {
+      "original_local_artifact": "logs/verify_join372_selected.json",
+      "original_sha256": "ef94a6e73d091065dc1f78200e8357fc5c31097be61498a23df3d48884dd50d9"
+    },
+    "environment_and_integrity.json": {
+      "original_local_artifact": "logs/final_environment_and_integrity.json",
+      "original_sha256": "d9ea7a02d42d0bba9563286f908b299a98d8b8a46abbc22926904fcde8d15377"
+    },
+    "GRADING_SELECTION.md": {
+      "original_local_artifact": "GRADING_SELECTION.md",
+      "original_sha256": "ae6473f4c3464306e1b2a7f2bc056bc5a8b241644e06e98b3dcf4d8b876772ee"
+    },
+    "run.json": {
+      "original_local_artifact": "candidates/D74_selected/run.json",
+      "original_sha256": "8fd37a63f04717e6a0f19a75e8ebec3235b22a9171a319206acb590b25934d12"
+    },
+    "final_selection.json": {
+      "original_local_artifact": "final_selection.json",
+      "original_sha256": "a0051976665c6264b4cea13892ce7810a1109b7ffd1e7ebbe96b48a7d2d14362"
+    },
+    "join_D74_check.md": {
+      "original_local_artifact": "candidates/D74_selected/join_check.md",
+      "original_sha256": "1df658e114de2d288383f945a80ce52236ae1962ec181514f376c9bef51612be"
+    },
+    "join372_check.md": {
+      "original_local_artifact": "candidates/join372_selected/join_check.md",
+      "original_sha256": "d3d9a87ef0b0e416d3598235e847a3fdf434b550e2899f00775292a3727dd9c8"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "video_sha256": "5d81b3a4a60d36a9be29a6293c5b8848d4a15aa0bc7eb600c6dd482bd287ac9a",
+  "video_bytes": 26218507,
+  "dimensions": [
+    1672,
+    942
+  ],
+  "fps": "24/1",
+  "frame_count": 372,
+  "duration": "31/2",
+  "full_decode": "PASS",
+  "exact_integer_rational_pts": "PASS",
+  "time_base": "1/12288",
+  "first_pts": 0,
+  "last_pts": 189952,
+  "old_prefix_298_rgb_hashes_identical": true,
+  "new_suffix_74_rgb_hashes_identical": true,
+  "frozen298_file_sha256_unchanged": true,
+  "SPS_PPS_identical": true,
+  "parameter_set_evidence": "join_check.md"
+}

@@ -1,0 +1,108 @@
+{
+  "upstream_commit": "08562d6df304c2cdc57accb3613d1d67b201e040",
+  "all_git_blobs_match": true,
+  "files": [
+    {
+      "path": "anime/HANDOFF_compositing.md",
+      "size": 20349,
+      "git_blob_sha1": "b24da38e640f0b0fd2b1f9eba1b305c10f6055b2",
+      "sha256": "88da153769039c73d4cdde7043ce27ea685b5beab8b4116fae549038b448fcb7"
+    },
+    {
+      "path": "anime/action_window.py",
+      "size": 94234,
+      "git_blob_sha1": "b8b632a98eaf89a7f6b33e5d21a110fe060fe1a4",
+      "sha256": "cb5943624fe1b08cbbede791c367269f9549d0af1b9d618f85c66a3335bde474"
+    },
+    {
+      "path": "anime/build_051_sheets.py",
+      "size": 22984,
+      "git_blob_sha1": "47eb2ac1392c3eca731d4c46ef81ba57a5b43869",
+      "sha256": "dda9db35b3c73b06f384b9487cc1f4e70cf6618ebce55c58cd4f7f1c9fd503a0"
+    },
+    {
+      "path": "anime/flowcam.py",
+      "size": 6792,
+      "git_blob_sha1": "97f329ba8eb3829315ad5877cb867263af2429e8",
+      "sha256": "e1e9f7abaf7add97eccba40f3ff90167f9ebcc1e1f20ef1479d6d066fe5fa40d"
+    },
+    {
+      "path": "anime/frames.py",
+      "size": 1633,
+      "git_blob_sha1": "b31e3cc231b2778ae0e5cb64ed518e622d9af16f",
+      "sha256": "309a5abe3bd25183fdbad3c053b1298f2ad18674e33c7767f305d9119d7ff5e7"
+    },
+    {
+      "path": "anime/gap_compare.py",
+      "size": 2935,
+      "git_blob_sha1": "b9f202b51f43aa678c4f6f01e13269b48a4ad6df",
+      "sha256": "12a3d39ae41513687e9e12d5626863b1954a2e372b4605afd379e08280a4dca8"
+    },
+    {
+      "path": "anime/join_verify.py",
+      "size": 4891,
+      "git_blob_sha1": "1551a8b25ed8eb259c55bb9135b8167d75bd0c08",
+      "sha256": "250c1886e9e2baa46b6e411ab6a2e99170b425b4b4d91fca664c994b0f59d8fb"
+    },
+    {
+      "path": "anime/layered.py",
+      "size": 25623,
+      "git_blob_sha1": "96d6aa37bee59770d9533e7210043aac8ab6ccab",
+      "sha256": "ae9bdeb2e7b7d42bb3c2edbc1f7794814f2134e77612a00ee36759f161bd2c19"
+    },
+    {
+      "path": "anime/matte_key.py",
+      "size": 10588,
+      "git_blob_sha1": "136b96cb83c6424ba6da6195d82a2fe1bf073b50",
+      "sha256": "85ec2c1ba59d42d29ddbf9a834f7ce09228aa2c39c9d7d83390ce8ab775536c8"
+    },
+    {
+      "path": "anime/measure.py",
+      "size": 482,
+      "git_blob_sha1": "7439963d30b4ebf540db5255ad716e02edc7fde9",
+      "sha256": "96e5d9e8d89477160b526373bb475203d747c1d42910138b7ba210c7c5b1c27e"
+    },
+    {
+      "path": "anime/pixmd5.py",
+      "size": 628,
+      "git_blob_sha1": "d45a13ed6be114c55105387bc16733b51d4ade22",
+      "sha256": "56a7ffc1c18fab679fb05b012aa8331bec92121836217e1ba1cc22fef818aaf8"
+    },
+    {
+      "path": "anime/requirements.txt",
+      "size": 530,
+      "git_blob_sha1": "3ef53d0d4667f990c780e8c364ea0701e288ad01",
+      "sha256": "efa9c27fa0c0f790443aae54aa585ec2d6b01e0a20715c9f8ce0ef378699512b"
+    },
+    {
+      "path": "anime/review_window.py",
+      "size": 6950,
+      "git_blob_sha1": "eb4629f6d94650725fbbe3414c67288e77fa0e79",
+      "sha256": "b58cf92d7bc71e6cbf2070a3c864df368a248e4b8e28598c2d60c52b872e401a"
+    },
+    {
+      "path": "anime/smoke_c2.py",
+      "size": 3075,
+      "git_blob_sha1": "6bcba0a7a134b64289dda47839807885b8fc1391",
+      "sha256": "09c5a43c3581ff7efd8d00ecbe35255a2f6dbbd3511474d40dc1f6ca5f21773d"
+    },
+    {
+      "path": "anime/source_check.py",
+      "size": 2436,
+      "git_blob_sha1": "27b9c9fe48387a91af21d9221d7421ffc0739edb",
+      "sha256": "70098a1be5bacbd29ddea78dd6664383d3e00c7653dda75fef7d8982666580d1"
+    },
+    {
+      "path": "anime/subsheet.py",
+      "size": 1412,
+      "git_blob_sha1": "b286ef1e0e226a247d08b4df5e638cec1156adeb",
+      "sha256": "04e9ceafc979bc9eacfed305eb019047415408e23cb2095440ae575fa4026b88"
+    },
+    {
+      "path": "anime/window_stats.py",
+      "size": 1196,
+      "git_blob_sha1": "613adef714855ca541bd4d56d6a26d4a22c1c079",
+      "sha256": "920ab44ba60d6acca1cf18124be6c74beda60bee9fede0e85a10e51cce1cc43a"
+    }
+  ]
+}

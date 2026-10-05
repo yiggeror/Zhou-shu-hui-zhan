@@ -1,0 +1,39 @@
+{
+  "status": "FROZEN_AFTER_INDEPENDENT_QA",
+  "window": [
+    1187,
+    1559
+  ],
+  "frames": 372,
+  "fps": "24/1",
+  "duration_seconds": 15.5,
+  "coded_dimensions": [
+    1672,
+    942
+  ],
+  "canonical_full_master_sha256": "5d81b3a4a60d36a9be29a6293c5b8848d4a15aa0bc7eb600c6dd482bd287ac9a",
+  "full_master_bytes": 26218507,
+  "repository_storage": "Lossless component videos below plus verified stream-copy reconstruction recipe; no claim that a separate372MP4 is stored at a nonexistent repository path. Canonical full master also retained separately for delivery.",
+  "segments": [
+    {
+      "window": [
+        1187,
+        1485
+      ],
+      "path": "collab/to_limo/065_files/join_298/redraw_298frames_24fps_once.mp4",
+      "sha256": "d0b0f07cbc6f52451be496d09d7865557b573dbcc36f1c5c265da1247b2da853"
+    },
+    {
+      "window": [
+        1485,
+        1559
+      ],
+      "path": "collab/from_limo/066/final_D74/redraw_74frames_24fps_once.mp4",
+      "sha256": "a3a00cc922125efc203bc03c60a7f895c2932eea8b878f431518b22f20a884e1"
+    }
+  ],
+  "restore_instructions": "final_D74/README.md; use verifiedffmpeg7.1.5 for canonical containerbytes. Different muxer versions may change containerbytes, never waive decodedRGB/slice/PTS invariants.",
+  "immutable_prefix_RGB_and_H264_slices": true,
+  "chat_preview": "Separate lossyfull372 copy delivered by main conversation; never frozen or used forconcat",
+  "preview_sha256": "b0c700f61e0d4aa7d5daef6a6df0d0cb633bccd3199b37f02df5d12bc4081e61"
+}
