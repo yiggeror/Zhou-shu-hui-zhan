@@ -895,7 +895,8 @@ def fit_grade(r, o, ar=None, ao=None, sigma=4.0):
     smoothed (sigma px) so lines and small misfits do not count; the watermark and a 20 px border left out (and,
     if their masks are given, the flames of either with a 15 px band; by default the flames count: they are part
     of the picture's look, and leaving them out darkened the flame-filled close-ups).  The curve matches the quantiles (2 % ... 98 %) of the two on those
-    pixels, monotone; outside them it continues with the end slopes (0.3-1.5).  Not a frame mean: the share of
+    pixels, monotone; outside them it continues from its end points with the end slopes (0.3-1.5), so it is
+    continuous there (a slope limit no longer opens a step at the low end).  Not a frame mean: the share of
     background or a push-in does not move it.  Returns (curves [(x_q, y_q, lo_slope, hi_slope)] per channel, n px)"""
     m = np.ones(r.shape[:2], bool) if ar is None else \
         (cv2.dilate(((ar > 0.05) | (ao > 0.05)).astype(np.uint8), np.ones((31, 31), np.uint8)) == 0)
@@ -943,7 +944,7 @@ def fit_grade_luma(r, o, sigma=4.0):
 def apply_grade_luma(img, cv, strength=1.0):
     lu = np.maximum(L.lum(img), 1e-4)
     l2 = np.interp(lu, cv['x'], cv['y'])
-    l2 = np.where(lu < cv['x'][0], lu * cv['lo'], l2)
+    l2 = np.where(lu < cv['x'][0], np.maximum(cv['y'][0] + (lu - cv['x'][0]) * cv['lo'], 0), l2)   # joins at (x0, y0)
     l2 = np.where(lu > cv['x'][-1], cv['y'][-1] + (lu - cv['x'][-1]) * cv['hi'], l2)
     out = img * (l2 / lu)[..., None] * cv['wb']
     return np.clip(img + strength * (out - img), 0, 1)
@@ -959,7 +960,7 @@ def apply_grade(img, curves, strength=1.0):
     for c, (x, y, lo_s, hi_s) in enumerate(curves):
         v = img[..., c]
         g = np.interp(v, x, y)
-        g = np.where(v < x[0], v * lo_s, g)
+        g = np.where(v < x[0], np.maximum(y[0] + (v - x[0]) * lo_s, 0), g)        # joins the curve at (x0, y0)
         g = np.where(v > x[-1], y[-1] + (v - x[-1]) * hi_s, g)
         out[..., c] = v + strength * (g - v)
     return np.clip(out, 0, 1)
