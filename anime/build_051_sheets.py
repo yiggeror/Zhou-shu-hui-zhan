@@ -142,8 +142,11 @@ C2 = [
     ('Q4', 1436, [1436], 'single', {}),
     ('Q5', 1437, [1437], 'single', {}),
     ('Q6', 1438, [1438], 'single', {}),
-    ('Q7', 1440, list(range(1439, 1446)), 'chain', {'chain': ('Q', 1440, 'measured')}),
-    ('Q8', 1448, list(range(1446, 1453)), 'chain', {'chain': ('Q', 1440, 'measured'), 'wb_from': 'Q7'}),
+    # 1439-1452 the original pushes in ~25 %: three drawings of the same pose, each framed on the WIDEST frame of its
+    # exposures, so the measured push only enlarges (no edge fill) and by at most ~10 %
+    ('Q7a', 1439, [1439, 1440, 1441], 'hold', {}),
+    ('Q7b', 1442, [1442, 1443, 1444, 1445], 'hold', {}),
+    ('Q8', 1446, list(range(1446, 1453)), 'hold', {}),
     ('W0', 1453, [1453], 'single', {}),
     ('T1', 1454, [1454, 1455], 'views', {}),
     ('T2', 1456, [1456, 1457], 'views', {}),
