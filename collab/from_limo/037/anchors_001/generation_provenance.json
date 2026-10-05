@@ -1,0 +1,62 @@
+{
+  "author": "Limo → Claude",
+  "date": "2026-10-05",
+  "tool": "image_gen.imagegen",
+  "method": "AI-generated full-frame source-reference drawings; no post-generation local deformation",
+  "source_ref_commit": "88e10d4b578524738d323f73742284ceb0061bec",
+  "images": [
+    {
+      "file": "E04_n1287.png",
+      "source_n": 1287,
+      "source_pts": 53.625,
+      "exposures": [
+        1287,
+        1289
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/037_ref/n1287.jpg",
+          "role": "sole pose/framing/geometry reference",
+          "git_blob": "a49eb852d4c9ea3d6290f01fd318c2042377e28f"
+        }
+      ],
+      "prompt": "Use case: style-transfer.\nAsset: E04, one independently generated full-frame 2D cel-animation drawing referenced to exact source n1287. Exactly one landscape 16:9 frame, no layout panels.\nInput Image 1 is the exact source and is the sole authority for framing, camera, scale, head/hand centers, body pose, silhouette, occlusion and background perspective. Redraw all visible characters and environment as coherent dark hand-inked anime/manga cel artwork. Preserve the source composition and its cool dark value masses, do not crop or reframe, do not substitute another action.\nThe large foreground Sukuna occupies the left and center, black spiky hair partly cut by the top and left framing, pale gray robe with black borders, broad black bands and circular shoulder mark. His two guard arms and fists are raised in front of his face exactly as source; the large bent foreground sleeve rises through center and continues beyond the top edge. Keep exact overlapping sleeve/fist contours and obscured anatomy; do not invent a hidden arm, extra finger or new visible face. Gojo is to the right: white spiky hair, cyan eyes, pale cool skin, confident source-exact expression, black fitted shirt, upper body leaning forward. His attack arm is behind the foreground guard, and other arm/fist visible at lower right; preserve source visibility/crops, do not invent hidden anatomy.\nThis is BEFORE the cyan flame ignites. No flame, energy column, projectile or added sparks; preserve only source cyan eyes and restrained cool edge light. Redraw the same deep blue city window grids and street perspective in precisely the source places, with deliberately simplified source-matched texture. Thin-to-medium tapered dark ink outlines and selective hatching, pale gray-blue skin, flat cool cel shadows, cool cream-white hair and robe highlights; dark cinematic manga/anime look, not a polished bright standalone illustration. Do not add warm orange skin or oily glossy highlights. Preserve source's deep shadows, soft background depth and line hierarchy without sharpening every background line. This is new referenced artwork, not a source-pixel overlay or a locally warped prior drawing. No text, logo, signature, labels or watermark.",
+      "attempts": 1,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "size_bytes": 1846254,
+      "sha256": "079a64fcb7d61b0b929fd11ba8ee213ef5eaae4419a3d7f051dd4eaa510a0114",
+      "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+    },
+    {
+      "file": "E06_n1292.png",
+      "source_n": 1292,
+      "source_pts": 53.833333333333336,
+      "exposures": [
+        1292,
+        1293
+      ],
+      "input_images": [
+        {
+          "path": "collab/to_limo/037_ref/n1292.jpg",
+          "role": "sole pose/framing/geometry reference",
+          "git_blob": "c93aad0fe984981e15f0779303f31f729b8f88ac"
+        },
+        {
+          "path": "E04_n1287.png",
+          "role": "line/palette/identity only; not pose or framing",
+          "git_blob": "09d5e5a14b576f39a01f9a2ed94a2e0585e968b4"
+        }
+      ],
+      "prompt": "Use case: style-transfer.\nAsset: E06, one full-frame individually generated 2D action-animation SMEAR drawing referenced to exact source n1292. ONE landscape 16:9 frame.\nInput image 1 is exact source n1292 and is the sole geometry, pose, framing, camera, overlap, background and effect authority. Image 2 is neighboring E04 artwork, ONLY a line/palette/identity guide. Do not borrow Image 2's prior raised-guard pose, larger central sleeve, camera or absence of flame.\nRedraw the whole source n1292 including its deliberate unstable shapes and directional action smears. Do NOT clean its left foreground into a crisp ordinary still pose. Sukuna is the large left foreground character, black spiky-haired, cool pale robe and black bands; his head and raised guard are now moving with long connected down-right diagonal smear streaks, while his broad front sleeve/forearm sweeps across the lower middle. Preserve source's exact loosely readable silhouettes and direction-blurred facial markings, do not invent a sharp fully visible face or extra anatomy. Make the dragged contours broad ink-and-flat-color action shapes following the source, not a crisp body surrounded by decorative speed lines. The low sleeve’s stronger outline must remain visible where source is clearer. Keep exactly source-visible arms/fists and all source occlusion.\nGojo on right is much clearer and slightly closer to center than in Image 2: white spiky hair near the upper-right quadrant, cyan eyes and exact source grinning face, black fitted shirt with source forward lean and hand/arm silhouettes. Match Image 1's head, eyes, chest and lower right clenched fist centers precisely. Do not import Image 2's face size, camera or arm.\nCRITICAL FX: tall narrow cyan flame/energy column in the center-back rises off the top edge and ends behind the foreground sleeve around mid-height. Its irregular edge, sparse black-edged curled flicks and subdued halo follow image 1. Preserve the same mostly-turquoise interior and no dead-white blown-out core. No horizontal punch projectile yet. The blue urban window grids, dark buildings and slanted road below stay source-aligned; redraw same soft depth without inventing a different city.\nCoherent restrained manga/cel linework, cool gray-blue cel shadows and pale cold off-white skin/hair, source deep dark masses. Use purposeful drawn motion smears only where source is smeared; Gojo stays clear. No 3D, no glossy painting, no warm tan skin, no anatomy reposing, no general full-frame blur filter, no source-pixel local warp. No text, logo, labels, signature or watermark.",
+      "attempts": 1,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "size_bytes": 2103058,
+      "sha256": "4f3aad4897d4d39638d0ba3f8ef7136dd44a9d6c41792ed2cb5d61ffe1ba6da8",
+      "git_blob": "52014658684cb8fa0eafa5b46dabf7c2afde918a"
+    }
+  ]
+}
