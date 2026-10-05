@@ -1,0 +1,740 @@
+{
+ "sheet": {
+  "name": "batch C2 [1411, 1485]: 051 drawing table",
+  "frames": [
+   1411,
+   1485
+  ],
+  "state_label": "generated/edited picture states (character, effect and background views)",
+  "grade": {
+   "strength": 1.0,
+   "sigma": 4.0,
+   "modes": {
+    "P1": "luma",
+    "P2": "luma",
+    "P3": "luma",
+    "P4": "luma",
+    "P4b": "luma",
+    "P5": "luma",
+    "P6": "luma",
+    "P7": "luma",
+    "P8": "luma",
+    "P9": "luma",
+    "P9b": "luma",
+    "P10": "luma",
+    "P10b": "luma",
+    "P11": "luma",
+    "P11b": "luma",
+    "Q1": "luma",
+    "Q2": "luma",
+    "Q3": "luma",
+    "Q4": "luma",
+    "Q5": "luma",
+    "Q6": "luma",
+    "Q7a": "luma",
+    "Q7a1": "luma",
+    "Q7a2": "luma",
+    "Q7b": "luma",
+    "Q7b2": "luma",
+    "Q8": "luma",
+    "W0": "luma",
+    "T1": "luma",
+    "T1b": "luma",
+    "T2": "luma",
+    "T2b": "luma",
+    "L1": "luma",
+    "L2": "luma",
+    "L3": "luma",
+    "L3b": "luma",
+    "L4": "luma",
+    "L5": "luma",
+    "L6": "luma",
+    "L7": "luma",
+    "L8": "luma",
+    "L9": "luma",
+    "B1": "luma",
+    "B3": "luma",
+    "R1": "luma",
+    "R2": "luma",
+    "R3": "luma",
+    "Z1": "luma"
+   },
+   "white_protect": [
+    0.85,
+    0.97
+   ],
+   "grade_at": {
+    "P3": [
+     1413,
+     1413
+    ],
+    "P5": [
+     1417,
+     1417
+    ],
+    "P6": [
+     1419,
+     1419
+    ],
+    "P7": [
+     1421,
+     1421
+    ],
+    "P8": [
+     1423,
+     1423
+    ],
+    "Q1": [
+     1431,
+     1431
+    ],
+    "Q3": [
+     1434,
+     1434
+    ],
+    "Q7b": [
+     1442,
+     1442
+    ],
+    "Q7b2": [
+     1444,
+     1444
+    ],
+    "Q8": [
+     1446,
+     1446
+    ],
+    "L1": [
+     1458,
+     1458
+    ],
+    "L2": [
+     1460,
+     1460
+    ],
+    "L4": [
+     1464,
+     1464
+    ],
+    "L6": [
+     1467,
+     1467
+    ],
+    "L7": [
+     1469,
+     1469
+    ],
+    "L8": [
+     1471,
+     1471
+    ],
+    "B3": [
+     1477,
+     1477
+    ],
+    "R3": [
+     1480,
+     1480
+    ]
+   },
+   "wb_same": [],
+   "wb_from": {},
+   "glow_hold": {},
+   "keep_highlights": [
+    0.7,
+    0.9
+   ]
+  },
+  "encode": {
+   "sws_flags": "accurate_rnd+full_chroma_int"
+  },
+  "keep_highlights_note": "msg_008: enhanced glows kept as drawn",
+  "frames_sheet": {
+   "1411": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P1_n1411.png",
+    "id": "P1"
+   },
+   "1412": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P2_n1412.png",
+    "id": "P2"
+   },
+   "1413": {
+    "hold": "P3",
+    "id": "P3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P3_n1413.png",
+    "ref": 1413,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1414": {
+    "hold": "P3",
+    "id": "P3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P3_n1413.png",
+    "ref": 1413,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1415": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P4_n1415.png",
+    "id": "P4"
+   },
+   "1416": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P4b_n1416.png",
+    "id": "P4b"
+   },
+   "1417": {
+    "hold": "P5",
+    "id": "P5",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P5_n1417.png",
+    "ref": 1417,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1418": {
+    "hold": "P5",
+    "id": "P5",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P5_n1417.png",
+    "ref": 1417,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1419": {
+    "hold": "P6",
+    "id": "P6",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P6_n1419.png",
+    "ref": 1419,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1420": {
+    "hold": "P6",
+    "id": "P6",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P6_n1419.png",
+    "ref": 1419,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1421": {
+    "hold": "P7",
+    "id": "P7",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P7_n1421.png",
+    "ref": 1421,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1422": {
+    "hold": "P7",
+    "id": "P7",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P7_n1421.png",
+    "ref": 1421,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1423": {
+    "hold": "P8",
+    "id": "P8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P8_n1423.png",
+    "ref": 1423,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1424": {
+    "hold": "P8",
+    "id": "P8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/P8_n1423.png",
+    "ref": 1423,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1425": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P9_n1425.png",
+    "id": "P9"
+   },
+   "1426": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P9b_n1426.png",
+    "id": "P9b"
+   },
+   "1427": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P10_n1427.png",
+    "id": "P10"
+   },
+   "1428": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P10b_n1428.png",
+    "id": "P10b"
+   },
+   "1429": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P11_n1429.png",
+    "id": "P11"
+   },
+   "1430": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/P11b_n1430.png",
+    "id": "P11b"
+   },
+   "1431": {
+    "hold": "Q1",
+    "id": "Q1",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/Q1_n1431.png",
+    "ref": 1431,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1432": {
+    "hold": "Q1",
+    "id": "Q1",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/Q1_n1431.png",
+    "ref": 1431,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1433": {
+    "drawing": "collab/from_limo/057/batchC2_P1/selected/Q2_n1433.png",
+    "id": "Q2"
+   },
+   "1434": {
+    "hold": "Q3",
+    "id": "Q3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/Q3_n1434.png",
+    "ref": 1434,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1435": {
+    "hold": "Q3",
+    "id": "Q3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P1/selected/Q3_n1434.png",
+    "ref": 1434,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1436": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q4_n1436.png",
+    "id": "Q4"
+   },
+   "1437": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q5_n1437.png",
+    "id": "Q5"
+   },
+   "1438": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q6_n1438.png",
+    "id": "Q6"
+   },
+   "1439": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q7a_n1439.png",
+    "id": "Q7a"
+   },
+   "1440": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q7a1_n1440.png",
+    "id": "Q7a1"
+   },
+   "1441": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/Q7a2_n1441.png",
+    "id": "Q7a2"
+   },
+   "1442": {
+    "hold": "Q7b",
+    "id": "Q7b",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q7b_n1442.png",
+    "ref": 1442,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1443": {
+    "hold": "Q7b",
+    "id": "Q7b",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q7b_n1442.png",
+    "ref": 1442,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1444": {
+    "hold": "Q7b2",
+    "id": "Q7b2",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q7b2_n1444.png",
+    "ref": 1444,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1445": {
+    "hold": "Q7b2",
+    "id": "Q7b2",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q7b2_n1444.png",
+    "ref": 1444,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1446": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1447": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1448": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1449": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1450": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1451": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1452": {
+    "hold": "Q8",
+    "id": "Q8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/Q8_n1446.png",
+    "ref": 1446,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1453": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/W0_n1453.png",
+    "id": "W0"
+   },
+   "1454": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/T1_n1454.png",
+    "id": "T1"
+   },
+   "1455": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/T1b_n1455.png",
+    "id": "T1b"
+   },
+   "1456": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/T2_n1456.png",
+    "id": "T2"
+   },
+   "1457": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/T2b_n1457.png",
+    "id": "T2b"
+   },
+   "1458": {
+    "hold": "L1",
+    "id": "L1",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/L1_n1458.png",
+    "ref": 1458,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1459": {
+    "hold": "L1",
+    "id": "L1",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/L1_n1458.png",
+    "ref": 1458,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1460": {
+    "hold": "L2",
+    "id": "L2",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/L2_n1460.png",
+    "ref": 1460,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1461": {
+    "hold": "L2",
+    "id": "L2",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P2/selected/L2_n1460.png",
+    "ref": 1460,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1462": {
+    "drawing": "collab/from_limo/057/batchC2_P2/selected/L3_n1462.png",
+    "id": "L3"
+   },
+   "1463": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/L3b_n1463.png",
+    "id": "L3b"
+   },
+   "1464": {
+    "hold": "L4",
+    "id": "L4",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L4_n1464.png",
+    "ref": 1464,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1465": {
+    "hold": "L4",
+    "id": "L4",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L4_n1464.png",
+    "ref": 1464,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1466": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/L5_n1466.png",
+    "id": "L5"
+   },
+   "1467": {
+    "hold": "L6",
+    "id": "L6",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L6_n1467.png",
+    "ref": 1467,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1468": {
+    "hold": "L6",
+    "id": "L6",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L6_n1467.png",
+    "ref": 1467,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1469": {
+    "hold": "L7",
+    "id": "L7",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L7_n1469.png",
+    "ref": 1469,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1470": {
+    "hold": "L7",
+    "id": "L7",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L7_n1469.png",
+    "ref": 1469,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1471": {
+    "hold": "L8",
+    "id": "L8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L8_n1471.png",
+    "ref": 1471,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1472": {
+    "hold": "L8",
+    "id": "L8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L8_n1471.png",
+    "ref": 1471,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1473": {
+    "hold": "L8",
+    "id": "L8",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/L8_n1471.png",
+    "ref": 1471,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed"
+   },
+   "1474": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/L9_n1474.png",
+    "id": "L9"
+   },
+   "1475": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/B1_n1475.png",
+    "id": "B1"
+   },
+   "1476": {
+    "hold": "B3",
+    "id": "B3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/B3_n1477.png",
+    "ref": 1477,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "provisional": "B2 (n1476) has no image (blocked by the image tool): B3 shown one frame early, from n1476 (keeps the onset of the break-up; skips the sharper break-up stage) - an approximation from approved material, not a new drawing, pending review"
+   },
+   "1477": {
+    "hold": "B3",
+    "id": "B3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/B3_n1477.png",
+    "ref": 1477,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "provisional": "B2 (n1476) has no image (blocked by the image tool): B3 shown one frame early, from n1476 (keeps the onset of the break-up; skips the sharper break-up stage) - an approximation from approved material, not a new drawing, pending review"
+   },
+   "1478": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/R1_n1478.png",
+    "id": "R1"
+   },
+   "1479": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/R2_n1479.png",
+    "id": "R2"
+   },
+   "1480": {
+    "hold": "R3",
+    "id": "R3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/R3_n1480.png",
+    "ref": 1480,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "provisional": "R4 (n1482) has no image (blocked by the image tool): R3 held one more frame, with a composited black wipe from the right at n1482 - an approximation from approved material, not a new drawing, pending review"
+   },
+   "1481": {
+    "hold": "R3",
+    "id": "R3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/R3_n1480.png",
+    "ref": 1480,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "provisional": "R4 (n1482) has no image (blocked by the image tool): R3 held one more frame, with a composited black wipe from the right at n1482 - an approximation from approved material, not a new drawing, pending review"
+   },
+   "1482": {
+    "hold": "R3",
+    "id": "R3",
+    "mode": "full",
+    "full": "collab/from_limo/057/batchC2_P3/selected/R3_n1480.png",
+    "ref": 1480,
+    "camera_only": "none",
+    "zoom": 1.0,
+    "light": "fixed",
+    "provisional": "R4 (n1482) has no image (blocked by the image tool): R3 held one more frame, with a composited black wipe from the right at n1482 - an approximation from approved material, not a new drawing, pending review",
+    "wipe": {
+     "from": "right",
+     "x0": 0.49,
+     "x1": 0.66
+    }
+   },
+   "1483": {
+    "black": true,
+    "id": "black"
+   },
+   "1484": {
+    "drawing": "collab/from_limo/057/batchC2_P3/selected/Z1_n1484.png",
+    "id": "Z1"
+   }
+  }
+ },
+ "code_sha256_16": {
+  "action_window.py": "cb5943624fe1b08c",
+  "layered.py": "ae9bdeb2e7b7d42b",
+  "frames.py": "07a025a47fe894dc",
+  "review_window.py": "b58cf92d7bc71e6c"
+ },
+ "git_head": "9a0bee044ca71b5379a7bb9beb761673e2fdaa12",
+ "shutters": [
+  0.0,
+  0.05,
+  0.1,
+  0.15,
+  0.25,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  5.0
+ ]
+}
