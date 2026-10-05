@@ -1,0 +1,35 @@
+{
+  "requested_states": 15,
+  "selected_states": 13,
+  "selected_exposures": 19,
+  "generation_held_states": [
+    {
+      "id": "B2",
+      "source_n": 1476,
+      "window": [
+        1476,
+        1477
+      ],
+      "output": null
+    },
+    {
+      "id": "R4",
+      "source_n": 1482,
+      "window": [
+        1482,
+        1483
+      ],
+      "output": null
+    }
+  ],
+  "generated_image_candidates": 17,
+  "generation_calls": 19,
+  "quality_rejected_candidates": 4,
+  "quality_retries": 4,
+  "procedural_only_n1483": true,
+  "omitted_n1481_not_generated": true,
+  "selected_input_and_output_visually_inspected": true,
+  "all_13_original_bytes_preserved_and_native_1672x941_RGB": true,
+  "all_13_uploaded_blob_hashes_verified": true,
+  "repository_tree_commit_ref_writes": 0
+}
