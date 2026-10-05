@@ -590,9 +590,9 @@ def load_sprite(sp):
 def _exposure_counts(fs, ns):
     """how many frames are single exposures and how many belong to holds (the same image on consecutive frames)"""
     runs, prev = [], None
-    whites = [n for n in ns if fs[n].get('white')]
+    whites = [n for n in ns if fs[n].get('white') or fs[n].get('black')]
     for n in ns:
-        if fs[n].get('white'):
+        if fs[n].get('white') or fs[n].get('black'):
             prev = None
             continue
         key = fs[n].get('id', fs[n].get('drawing', fs[n].get('hold')))
@@ -601,10 +601,21 @@ def _exposure_counts(fs, ns):
         else:
             runs.append([key, 1])
         prev = key
-    held = [r for r in runs if r[1] > 1]
-    out = [f'{sum(1 for r in runs if r[1] == 1)} frames are single exposures']
+    seen, loop, singles, held = set(), {}, 0, []
+    for k, c in runs:
+        if k in seen:                                  # a drawing shown again after others (a cycle, e.g. a barrage)
+            loop[k] = loop.get(k, 0) + c
+        elif c == 1:
+            singles += 1
+        else:
+            held.append([k, c])
+        seen.add(k)
+    out = [f'{singles} frames are single exposures']
+    if loop:
+        out.append(f'{sum(loop.values())} frames re-show a drawing already used earlier in a cycle '
+                   f'({", ".join(f"{k} +{c}" for k, c in loop.items())}; not new drawings)')
     if whites:
-        out.append(f'{len(whites)} frame(s) are composited white flashes (no drawing)')
+        out.append(f'{len(whites)} frame(s) are composited white/black frames (no drawing)')
     if held:
         out.append(f'{sum(r[1] for r in held)} frames are {len(held)} hold(s) of one image each '
                    f'({", ".join(f"{k} x{c}" for k, c in held)}; the {sum(r[1] - 1 for r in held)} repeat exposures are '
@@ -697,6 +708,7 @@ def render_holds(name, hn, fs, O, A, raw):
     edge_px = {n: 100 * float(fill_m[n].mean()) for n in hn}
     out = {}
     prev = None
+    chain_c = {}
     for n in ns:
         if n not in hn:
             prev = n
@@ -717,7 +729,16 @@ def render_holds(name, hn, fs, O, A, raw):
             light, w, bgain = light0_moved, 1.0, 1.0
         else:
             light, w, bgain = frame_light(light0_moved, O[n], O[ref], A[n], A[ref], Hn)
-        base = path_blur(plate_c, Hprev @ P, Hn @ P, shutter) * light
+        canvas = plate_c
+        if mode == 'full' and fs[n]['full'] != spec['full']:
+            # a chain of same-canvas edits held as one group (e.g. E09a -> E09b): this frame shows its own image of
+            # the chain, placed by the group's registration and moved along the group's one camera path
+            if fs[n]['full'] not in chain_c:
+                chain_c[fs[n]['full']] = load_canvas(fs[n]['full'], spec.get('full_viewport'))[0]
+            canvas = chain_c[fs[n]['full']]
+            if canvas.shape != plate_c.shape:
+                sys.exit(f'{fs[n]["full"]}: a chain image must have the size of `{spec["full"]}`')
+        base = path_blur(canvas, Hprev @ P, Hn @ P, shutter) * light
         zone = cv2.warpPerspective(drawn_fx, Hn, (W, H), flags=cv2.INTER_NEAREST) > 0.5
         if mode == 'full':
             res, fx_only, fxs = base, np.zeros_like(base), 'no source effect: the drawing\'s own flames move with it'
@@ -785,7 +806,9 @@ def render_holds(name, hn, fs, O, A, raw):
                                                              borderMode=cv2.BORDER_REFLECT)
         s, r, c = describe(C @ Hn)
         nu = non_uniform(Hn)
-        what = (f'full drawing `{spec["full"]}` held (short hold, its own effects)' if mode == 'full' else
+        what = ((f'full drawing `{fs[n]["full"]}` (a same-canvas edit of `{spec["full"]}`, held in one group with it)'
+                 if fs[n]['full'] != spec['full'] else
+                 f'full drawing `{spec["full"]}` held (short hold, its own effects)') if mode == 'full' else
                 f'plate `{spec["plate"]}`' + (f' (viewport {spec["viewport"]})' if spec.get('viewport') else ''))
         light_s = (f'exposure scalar {bgain:.3f} = the original\'s mean luminance n{n} / n{ref} (light: mean_ratio; a '
                    f'different, darker or lighter view, approximated by the drawing of n{ref})'
@@ -1165,12 +1188,18 @@ def main():
             src[n] = (f'WHITE FLASH (composited, no drawing): pure white; the original has '
                       f'{100 * float((O[n].min(2) >= 250 / 255).mean()):.1f}% of its pixels >= 250/255 in all channels')
             tag[n] = 'white flash'
+        elif fs[n].get('black'):
+            # a black frame: composited, no drawing
+            R[n] = np.zeros((H, W, 3), np.float32)
+            src[n] = (f'BLACK FRAME (composited, no drawing): pure black; the original has '
+                      f'{100 * float((O[n].max(2) <= 5 / 255).mean()):.1f}% of its pixels <= 5/255 in all channels')
+            tag[n] = 'black frame'
     grade = sheet.get('grade')
     if grade:
         # one tone curve per drawing (all its exposures), fitted at its reference frame on the same content
         ids = {}
         for n in ns:
-            if fs[n].get('frozen') or fs[n].get('white'):  # a frozen output frame / a white flash: not graded
+            if fs[n].get('frozen') or fs[n].get('white') or fs[n].get('black'):  # frozen / flat frames: not graded
                 continue
             ids.setdefault(fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))), []).append(n)
         st = grade.get('strength', 1.0)
@@ -1370,7 +1399,8 @@ def main():
     tiles += [np.zeros_like(tiles[0])] * (-len(tiles) % 6)         # pad the last row
     rows = [np.hstack(tiles[i:i + 6]) for i in range(0, len(tiles), 6)]
     cv2.imwrite(os.path.join(out, 'contact_sheet.jpg'), np.vstack(rows), [cv2.IMWRITE_JPEG_QUALITY, 85])
-    drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns if not fs[n].get('white')})
+    drawings = sorted({fs[n].get('id', fs[n].get('drawing', fs[n].get('hold'))) for n in ns
+                       if not fs[n].get('white') and not fs[n].get('black')})
     with open(os.path.join(out, 'sources.md'), 'w') as f:
         f.write(f'# {sheet.get("name", "window")} [{f0}, {f1}): where every frame comes from\n\n')
         frozen = sorted({fs[n].get('id') for n in ns if fs[n].get('frozen')})
