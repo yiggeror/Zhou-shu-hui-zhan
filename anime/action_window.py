@@ -1061,12 +1061,18 @@ def apply_grade(img, curves, strength=1.0):
     return np.clip(out, 0, 1)
 
 
+SWS_FLAGS = None      # set per sheet ("encode": {"sws_flags": ...}); None keeps the frozen windows' encoding
+
+
 def write_mp4(path, imgs, fps=24, loops=1):
     h, w = imgs[0].shape[:2]
     h2, w2 = h + h % 2, w + w % 2
+    # accurate_rnd+full_chroma_int: the RGB -> YUV 4:2:0 conversion rounds exactly, so a pure white frame decodes as
+    # pure white (the default conversion turned it into Y234 / RGB 251,253,250; Limo, 038 review_002)
+    sws = ['-sws_flags', SWS_FLAGS] if SWS_FLAGS else []
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{w2}x{h2}',
-                          '-r', str(fps), '-i', '-', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow',
-                          '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
+                          '-r', str(fps), '-i', '-'] + sws + ['-c:v', 'libx264', '-crf', '16', '-preset', 'slow',
+                                                              '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
     for k in range(loops):
         for im in imgs:
             im = cv2.copyMakeBorder(im, 0, h2 - h, 0, w2 - w, cv2.BORDER_REPLICATE)
@@ -1080,8 +1086,10 @@ def write_mp4(path, imgs, fps=24, loops=1):
 
 
 def main():
+    global SWS_FLAGS
     sheet = json.load(open(sys.argv[1]))
     out = sys.argv[2]
+    SWS_FLAGS = sheet.get('encode', {}).get('sws_flags')
     os.makedirs(out, exist_ok=True)
     f0, f1 = sheet['frames']
     ns = list(range(f0, f1))

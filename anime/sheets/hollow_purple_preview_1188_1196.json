@@ -86,5 +86,8 @@
    "zoom": 1.0,
    "light": "fixed"
   }
+ },
+ "encode": {
+  "sws_flags": "accurate_rnd+full_chroma_int"
  }
 }
