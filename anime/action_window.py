@@ -1363,6 +1363,20 @@ def main():
                       f'{mx[1]["id"]} `{mx[1]["drawing"]}` x {t:.2f}, each graded with its own curve; approximates the '
                       f'original\'s in-between state')
     for n in ns:
+        wp = fs[n].get('wipe')
+        if wp:
+            # a black wipe closing in from one side (composited transition, not a drawing): a soft ramp between the
+            # fractions x0 and x1 of the width, measured on the original's column brightness
+            xs = (np.arange(W, dtype=np.float32) + 0.5) / W
+            if wp.get('from', 'right') == 'left':
+                xs = 1 - xs
+            k = np.clip((xs - wp['x0']) / (wp['x1'] - wp['x0']), 0, 1)
+            R[n] = R[n] * (1 - k * k * (3 - 2 * k))[None, :, None]
+            src[n] += (f'; BLACK WIPE (composited transition, not a drawing): from the {wp.get("from", "right")}, soft '
+                       f'ramp between {wp["x0"]:.2f} and {wp["x1"]:.2f} of the width (measured on the original\'s column '
+                       f'brightness)')
+            tag[n] += ' + black wipe'
+    for n in ns:
         ww = fs[n].get('white_wash')
         if ww:
             # the white flash fading out over the drawing: where the original is (near) white, a smooth white field,

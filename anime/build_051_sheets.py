@@ -202,21 +202,35 @@ def from_manifest(path, extend):
         if not st.get('path'):
             continue
         a, b = st['start'], st['end']
-        note = None
+        note, extra = None, {}
         if st['id'] in extend:
-            b, note = extend[st['id']]
+            e = extend[st['id']]
+            if isinstance(e, tuple):                  # (new_end, note)
+                b, note = e
+            else:                                     # {'start', 'end', 'note', 'frame_extra'}
+                a, b, note, extra = e.get('start', a), e.get('end', b), e['note'], e.get('frame_extra', {})
         ns = list(range(a, b))
         ex = {} if len(ns) == 1 else {'grade_at': [st['source_n'], st['source_n']]}
         if note:
             ex['provisional'] = note
+        if extra:
+            ex['frame_extra'] = extra
         out.append((st['id'], st['source_n'], ns, 'single' if len(ns) == 1 else 'still', ex))
         paths[st['id']] = st['path']
     return out, paths
 
 
 C2_EXTEND = {
-    'B1': (1477, 'B2 (n1476) has no image (blocked by the image tool): B1 held one more frame - an approximation from '
-                 'approved material, not a new drawing, pending review of the real composite'),
+    # B2 (n1476) blocked: plan B of 063 / 057 msg_009 - B3 brought one frame earlier so the break-up starts on time
+    'B3': {'start': 1476, 'note': 'B2 (n1476) has no image (blocked by the image tool): B3 shown one frame early, from '
+                                  'n1476 (keeps the onset of the break-up; skips the sharper break-up stage) - an '
+                                  'approximation from approved material, not a new drawing, pending review'},
+    # R4 (n1482) blocked: R3 held one more frame; n1482 is the n1481 picture with a black wipe closing from the right,
+    # so that wipe is composited (ramp measured on the original's column brightness 1482/1481: 0.49 -> 0.66)
+    'R3': {'end': 1483, 'note': 'R4 (n1482) has no image (blocked by the image tool): R3 held one more frame, with a '
+                                'composited black wipe from the right at n1482 - an approximation from approved material, '
+                                'not a new drawing, pending review',
+           'frame_extra': {1482: {'wipe': {'from': 'right', 'x0': 0.49, 'x1': 0.66}}}},
 }
 
 
@@ -271,6 +285,7 @@ def build(name, table, flat, frames, out, d=None, msg='051', paths=None):
                     e.update(camera_only='none', zoom=1.0, light='fixed')
             if ex.get('provisional') and 'hold' in e:
                 e['provisional'] = ex['provisional']
+            e.update(ex.get('frame_extra', {}).get(n, {}))
             if n in ex.get('wash', []):
                 e['white_wash'] = {'sigma': 40, 'color': 'source', 'lo': 0.45, 'hi': 0.90, 'blend': 'screen', 'veil_max': 0.6}
             fs[str(n)] = e
