@@ -95,7 +95,7 @@ def build(name, table, flat, frames, out, d=None):
     d = d or os.path.join('collab', 'from_limo', '051', f'batch{name}')
     path, missing = {}, []
     for did, src, _, _, _ in table:
-        hits = sorted(glob.glob(os.path.join(ROOT, d, f'{did}_n{src}*.png')))
+        hits = sorted(glob.glob(os.path.join(ROOT, d + '*', f'{did}_n{src}*.png')))   # batchA, batchA_city, ...
         if hits:
             path[did] = os.path.relpath(hits[-1], ROOT)          # the last version if several (…_v2 sorts after)
         else:
